@@ -64,9 +64,7 @@ export const Mutation = mutationType({
         const post = await ctx.photon.posts.findOne({
           where: { id },
         });
-        ctx.pubsub.publish("PUBLISHED_POST", {
-          publishedPost: post
-        });
+        ctx.pubsub.publish("PUBLISHED_POSTS", post);
         return post
       },
     })
