@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/faker": "^4.1.5",
-    "@types/ws": "^6.0.3",
+    "@types/ws": "^7.2.0",
     "faker": "^4.1.0",
     "prettier": "^1.18.2",
     "prisma2": "2.0.0-preview019",
