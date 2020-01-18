@@ -54,6 +54,23 @@ export const Mutation = mutationType({
       },
     })
 
+    t.field('publish', {
+      type: 'Post',
+      nullable: true,
+      args: {
+        id: idArg(),
+      },
+      resolve: async (parent, { id }, ctx) => {
+        const post = await ctx.photon.posts.findOne({
+          where: { id },
+        });
+        ctx.pubsub.publish("PUBLISHED_POST", {
+          publishedPost: post
+        });
+        return post
+      },
+    })
+
     t.crud.createOneBlog()
     t.crud.updateManyBlog()
   },

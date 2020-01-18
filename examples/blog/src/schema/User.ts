@@ -1,4 +1,5 @@
-import { objectType, enumType } from 'nexus'
+import { objectType, enumType, subscriptionField } from 'nexus'
+import { withFilter } from 'graphql-yoga';
 
 export const UserRole = enumType({
   name: "UserRole",
