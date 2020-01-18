@@ -1,11 +1,11 @@
 import { objectType } from 'nexus'
 
 export const Post = objectType({
-  name: 'CustomPost',
+  name: 'Post',
   definition(t) {
-    t.model('Post').id()
-    t.model('Post').title()
-    t.model('Post').tags()
-    t.model('Post').status()
+    t.model.id()
+    t.model.title()
+    t.model.tags()
+    t.model.status()
   },
 })

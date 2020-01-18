@@ -8,7 +8,7 @@ export const Blog = objectType({
     t.model.createdAt()
     t.model.updatedAt()
     t.model.posts({
-      type: 'CustomPost',
+      type: 'Post',
       pagination: false,
       ordering: true,
       filtering: { title: true },

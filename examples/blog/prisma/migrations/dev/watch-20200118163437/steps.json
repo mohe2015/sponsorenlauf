@@ -47,19 +47,8 @@
       "tag": "CreateField",
       "model": "Blog",
       "field": "id",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Blog",
-          "field": "id"
-        },
-        "directive": "id"
-      }
     },
     {
       "tag": "CreateDirective",
@@ -84,7 +73,18 @@
         "directive": "default"
       },
       "argument": "",
-      "value": "autoincrement()"
+      "value": "cuid()"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Blog",
+          "field": "id"
+        },
+        "directive": "id"
+      }
     },
     {
       "tag": "CreateField",
@@ -142,6 +142,17 @@
       "field": "name",
       "type": "String",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Blog",
+          "field": "name"
+        },
+        "directive": "unique"
+      }
     },
     {
       "tag": "CreateField",
@@ -197,19 +208,8 @@
       "tag": "CreateField",
       "model": "User",
       "field": "id",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "User",
-          "field": "id"
-        },
-        "directive": "id"
-      }
     },
     {
       "tag": "CreateDirective",
@@ -234,7 +234,18 @@
         "directive": "default"
       },
       "argument": "",
-      "value": "autoincrement()"
+      "value": "cuid()"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "id"
+        },
+        "directive": "id"
+      }
     },
     {
       "tag": "CreateField",
@@ -291,14 +302,25 @@
       "model": "User",
       "field": "name",
       "type": "String",
-      "arity": "Optional"
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "name"
+        },
+        "directive": "unique"
+      }
     },
     {
       "tag": "CreateField",
       "model": "User",
       "field": "password",
       "type": "String",
-      "arity": "Optional"
+      "arity": "Required"
     },
     {
       "tag": "CreateField",
@@ -312,7 +334,7 @@
       "model": "User",
       "field": "blog",
       "type": "Blog",
-      "arity": "Required"
+      "arity": "Optional"
     },
     {
       "tag": "CreateField",
@@ -336,19 +358,8 @@
       "tag": "CreateField",
       "model": "Post",
       "field": "id",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "id"
-        },
-        "directive": "id"
-      }
     },
     {
       "tag": "CreateDirective",
@@ -373,7 +384,18 @@
         "directive": "default"
       },
       "argument": "",
-      "value": "autoincrement()"
+      "value": "cuid()"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Post",
+          "field": "id"
+        },
+        "directive": "id"
+      }
     },
     {
       "tag": "CreateField",
@@ -411,19 +433,8 @@
       "tag": "CreateField",
       "model": "Tag",
       "field": "id",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Tag",
-          "field": "id"
-        },
-        "directive": "id"
-      }
     },
     {
       "tag": "CreateDirective",
@@ -448,7 +459,18 @@
         "directive": "default"
       },
       "argument": "",
-      "value": "autoincrement()"
+      "value": "cuid()"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Tag",
+          "field": "id"
+        },
+        "directive": "id"
+      }
     },
     {
       "tag": "CreateField",

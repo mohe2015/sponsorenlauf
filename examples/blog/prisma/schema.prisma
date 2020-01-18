@@ -8,20 +8,20 @@ generator photon {
 }
 
 model Blog {
-  id        Int      @id @default(autoincrement())
+  id        String   @default(cuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name      String
+  name      String   @unique
   viewCount Int      @default(0)
   posts     Post[]
   authors   User[]
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @default(cuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name      String
+  name      String   @unique
   password  String
   posts     Post[]
   blog      Blog?
@@ -35,7 +35,7 @@ enum UserRole {
 }
 
 model Post {
-  id     Int        @id @default(autoincrement())
+  id     String    @default(cuid()) @id
   title  String
   tags   Tag[]
   blog   Blog
@@ -48,6 +48,6 @@ enum PostStatus {
 }
 
 model Tag {
-  id    Int    @id @default(autoincrement())
+  id    String   @default(cuid()) @id
   value String
 }
