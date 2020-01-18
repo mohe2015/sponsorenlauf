@@ -6,6 +6,7 @@ export const Query = queryType({
     t.field('me', {
       type: 'User',
       nullable: true,
+      authorize: () => { return false },
       resolve: (parent, args, ctx) => {
         const userId = getUserId(ctx)
         return ctx.photon.users.findOne({

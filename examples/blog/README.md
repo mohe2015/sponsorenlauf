@@ -18,6 +18,6 @@ mutation Signup {
 }
 
 {
-  "Authentication": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU3OTM2MDkxMX0.3q_HvoSPBpfz3K7FZdJXE8SaduUFZfKmttYAbvPd9Cs"
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjazVqc2dtMnMwMDAwMWZqemthaXlmeTE5IiwiaWF0IjoxNTc5MzYzODU1fQ.WghL7cxbUgnqdWb4lfwQmbc0q0LYrwBwNrYxpRootgA"
 }
 ```
