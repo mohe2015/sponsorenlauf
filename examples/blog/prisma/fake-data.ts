@@ -8,6 +8,7 @@ async function main() {
   const author = await photon.users.create({
     data: {
       name: name.firstName(),
+      password: "supersecret",
       blog: {},
       rating: 0.5,
       role: 'AUTHOR',
