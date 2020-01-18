@@ -20,7 +20,7 @@ export const Query = queryType({
       type: 'Post',
       nullable: true,
       args: { id: stringArg() },
-      authorize: (root, args, ctx) => ctx.auth.canViewPost(args.id),
+      authorize: () => { return false },
       resolve(root, args, ctx) {
         return ctx.photon.posts.findOne({
           where: {

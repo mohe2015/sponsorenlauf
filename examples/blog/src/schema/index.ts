@@ -8,10 +8,11 @@ import * as Tag from './Tag'
 import * as User from './User'
 import * as AuthPayload from './AuthPayload'
 import * as path from 'path'
+import { fieldAuthorizePlugin } from 'nexus'
 
 export default Nexus.makeSchema({
   types: [Query, Mutation, Blog, Post, User, Tag, AuthPayload],
-  plugins: [nexusPrismaPlugin()],
+  plugins: [nexusPrismaPlugin(), fieldAuthorizePlugin()],
   outputs: {
     typegen: path.join(
       __dirname,
