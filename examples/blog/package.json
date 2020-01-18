@@ -14,20 +14,20 @@
     "data:inject": "ts-node prisma/fake-data.ts"
   },
   "dependencies": {
-    "@prisma/photon": "^2.0.0-alpha.351",
-    "graphql": "^14.3.1",
-    "graphql-yoga": "^1.18.2",
-    "nexus": "^0.12.0-beta.14",
+    "@prisma/photon": "^2.0.0-preview019",
+    "graphql": "^14.5.8",
+    "graphql-yoga": "^1.18.3",
+    "nexus": "^0.12.0-rc.5",
     "nexus-prisma": "^0.7.0-next.1"
   },
   "devDependencies": {
-    "@types/faker": "^4.1.5",
+    "@types/faker": "^4.1.9",
     "@types/ws": "^7.2.0",
     "faker": "^4.1.0",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "prisma2": "2.0.0-preview019",
-    "ts-node": "^8.3.0",
-    "ts-node-dev": "^1.0.0-pre.41",
+    "ts-node": "^8.6.2",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.7"
   },
   "prettier": {
