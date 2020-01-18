@@ -6,10 +6,11 @@ import * as Blog from './Blog'
 import * as Post from './Post'
 import * as Tag from './Tag'
 import * as User from './User'
+import * as AuthPayload from './AuthPayload'
 import * as path from 'path'
 
 export default Nexus.makeSchema({
-  types: [Query, Mutation, Blog, Post, User, Tag],
+  types: [Query, Mutation, Blog, Post, User, Tag, AuthPayload],
   plugins: [nexusPrismaPlugin()],
   outputs: {
     typegen: path.join(

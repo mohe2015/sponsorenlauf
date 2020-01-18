@@ -1,4 +1,10 @@
-import { objectType } from 'nexus'
+import { objectType, enumType } from 'nexus'
+
+export const UserRole = enumType({
+  name: "UserRole",
+  members: ["ADMIN", "AUTHOR"],
+  description: "The users role",
+});
 
 export const User = objectType({
   name: 'User',

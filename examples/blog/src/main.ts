@@ -4,7 +4,7 @@ import { createContext } from './context'
 
 const server = new GraphQLServer({
   schema,
-  context: createContext(),
+  context: createContext,
 })
 
 server.start(() => console.log(`🚀 Server ready at http://localhost:4000`))
