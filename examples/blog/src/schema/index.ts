@@ -2,16 +2,15 @@ import * as Nexus from 'nexus'
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import * as Query from './Query'
 import * as Mutation from './Mutation'
-import * as Blog from './Blog'
-import * as Post from './Post'
-import * as Tag from './Tag'
+import * as Student from './Student'
+import * as Round from './Round'
 import * as User from './User'
 import * as AuthPayload from './AuthPayload'
 import * as path from 'path'
 import { fieldAuthorizePlugin } from 'nexus'
 
 export default Nexus.makeSchema({
-  types: [Query, Mutation, Blog, Post, User, Tag, AuthPayload],
+  types: [Query, Mutation, Student, User, Round, AuthPayload],
   plugins: [nexusPrismaPlugin(), fieldAuthorizePlugin()],
   outputs: {
     typegen: path.join(

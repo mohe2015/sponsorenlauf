@@ -53,9 +53,9 @@ export const Mutation = mutationType({
         }
       },
     })
-
+/*
     t.field('publish', {
-      type: 'Post',
+      type: 'Round',
       nullable: true,
       args: {
         id: idArg(),
@@ -64,12 +64,11 @@ export const Mutation = mutationType({
         const post = await ctx.photon.posts.findOne({
           where: { id },
         });
-        ctx.pubsub.publish("PUBLISHED_POSTS", post);
+        ctx.pubsub.publish("STUDENTS", post);
         return post
       },
-    })
+    })*/
 
-    t.crud.createOneBlog()
-    t.crud.updateManyBlog()
+    t.crud.createOneStudent({type: 'Student'})
   },
 })

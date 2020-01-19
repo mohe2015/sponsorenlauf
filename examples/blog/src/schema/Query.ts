@@ -16,7 +16,7 @@ export const Query = queryType({
         })
       },
     })
-
+/*
     t.field('postById', {
       type: 'Post',
       nullable: true,
@@ -30,17 +30,18 @@ export const Query = queryType({
         });
       },
     })
-
-    t.crud.blogs({
+*/
+    t.crud.students({
+      type: 'Student',
       pagination: false,
     })
-    t.crud.users({ filtering: true, alias: 'people' })
-    t.crud.posts({ type: 'Post', ordering: true, filtering: true })
+    t.crud.users({ filtering: true})
+    t.crud.rounds({ type: 'Round', ordering: true, filtering: true })
 
     //
     // Examples showing custom resolvers
     //
-
+/*
     t.field('blog', {
       type: 'Blog',
       args: {
@@ -77,6 +78,6 @@ export const Query = queryType({
           },
         })
       },
-    })
+    })*/
   },
 })

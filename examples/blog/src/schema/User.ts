@@ -12,8 +12,7 @@ export const User = objectType({
   definition(t) {
     t.model.id()
     t.model.name()
-    t.model.blog()
-    t.model.posts({ type: 'Post' })
     t.model.role()
+    t.model.createdRounds({type: 'Round'})
   },
 })
