@@ -9,4 +9,9 @@ const server = new GraphQLServer({
   middlewares: [permissions],
 })
 
-server.start(() => console.log(`🚀 Server ready at http://localhost:4000`))
+server.start({
+  cors: {
+    credentials: true,
+    origin: ["http://localhost:3000"],
+  }
+}, () => console.log(`🚀 Server ready at http://localhost:4000`))
