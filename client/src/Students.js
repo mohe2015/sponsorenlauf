@@ -1,6 +1,7 @@
 import React from 'react';
-import {graphql, QueryRenderer} from 'react-relay';
+import {QueryRenderer} from 'react-relay';
 import environment from './environment'
+import graphql from 'babel-plugin-relay/macro';
 
 export default class Students extends React.Component {
   render() {
