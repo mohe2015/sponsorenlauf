@@ -7,6 +7,16 @@ const rules = {
     console.log(Boolean(userId))
     return Boolean(userId)
   }),
+  isUserWithRole: rule()(async (parent, roles, context) => {
+    const id = getUserId(context)
+    const user = await context.photon.users
+      .findOne({
+        where: {
+          id,
+        },
+      })
+    return roles.contains(user.role)
+  }),
   isPostOwner: rule()(async (parent, { id }, context) => {
     const userId = getUserId(context)
     const author = await context.photon.posts
