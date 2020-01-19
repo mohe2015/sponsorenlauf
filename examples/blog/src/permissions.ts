@@ -1,38 +1,37 @@
 import { rule, shield, deny, allow } from 'graphql-shield'
 import { getUserId } from './utils'
+import { UserRole } from '@prisma/photon'
 
 const rules = {
-  isAuthenticatedUser: rule()((parent, args, context) => {
-    const userId = getUserId(context)
-    console.log(Boolean(userId))
-    return Boolean(userId)
-  }),
-  isUserWithRole: rule()(async (parent, roles, context) => {
-    const id = getUserId(context)
-    const user = await context.photon.users
-      .findOne({
-        where: {
-          id,
-        },
-      })
-    return roles.contains(user.role)
-  }),
-  isPostOwner: rule()(async (parent, { id }, context) => {
-    const userId = getUserId(context)
-    const author = await context.photon.posts
-      .findOne({
-        where: {
-          id,
-        },
-      })
-      .author()
-    return userId === author.id
-  }),
+  isUserWithRole: (roles: UserRole[]) =>
+    rule({ cache: 'contextual' })(
+      async (parent, args, context, info) => {
+        const id = getUserId(context)
+        const user = await context.photon.users
+          .findOne({
+            where: {
+              id,
+            },
+          })
+        return roles.some(r => r === user.role)
+      },
+    ),
 }
 
 export const permissions = shield({
   Query: {
-    me: rules.isAuthenticatedUser,
+    me: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
+    students: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
+    rounds: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
   },
-  User: allow,
+  Mutation: {
+    createOneUser: rules.isUserWithRole(['ADMIN']),
+    login: allow,
+    createOneRound: rules.isUserWithRole(['ADMIN', 'TEACHER']),
+    createOneStudent: rules.isUserWithRole(['ADMIN']),
+  },
+  User: {
+    password: deny,
+    "*": allow,
+  },
 }, { fallbackRule: deny, allowExternalErrors: true })
