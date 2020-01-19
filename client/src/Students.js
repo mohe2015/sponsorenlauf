@@ -1,14 +1,14 @@
 import React from 'react';
 import {graphql, QueryRenderer} from 'react-relay';
-import {environment} from './environment'
+import environment from './environment'
 
-export default class App extends React.Component {
+export default class Students extends React.Component {
   render() {
     return (
       <QueryRenderer
         environment={environment}
         query={graphql`
-          query appStudentsQuery {
+          query StudentsQuery {
             students {
               id
             }

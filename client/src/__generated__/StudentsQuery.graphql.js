@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash f5f424f93b81136ce8a21c17a8b04d67
+ * @relayHash 97f07d8f1b3089350d702e967708cbfb
  */
 
 /* eslint-disable */
@@ -9,21 +9,21 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type appStudentsQueryVariables = {||};
-export type appStudentsQueryResponse = {|
+export type StudentsQueryVariables = {||};
+export type StudentsQueryResponse = {|
   +students: $ReadOnlyArray<{|
     +id: string
   |}>
 |};
-export type appStudentsQuery = {|
-  variables: appStudentsQueryVariables,
-  response: appStudentsQueryResponse,
+export type StudentsQuery = {|
+  variables: StudentsQueryVariables,
+  response: StudentsQueryResponse,
 |};
 */
 
 
 /*
-query appStudentsQuery {
+query StudentsQuery {
   students {
     id
   }
@@ -55,7 +55,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "appStudentsQuery",
+    "name": "StudentsQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": [],
@@ -63,19 +63,19 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "appStudentsQuery",
+    "name": "StudentsQuery",
     "argumentDefinitions": [],
     "selections": (v0/*: any*/)
   },
   "params": {
     "operationKind": "query",
-    "name": "appStudentsQuery",
+    "name": "StudentsQuery",
     "id": null,
-    "text": "query appStudentsQuery {\n  students {\n    id\n  }\n}\n",
+    "text": "query StudentsQuery {\n  students {\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e042300c83a1edc46dd3d8b01f69065d';
+(node/*: any*/).hash = '416f0644787657eaf19150e8e0fc7396';
 module.exports = node;
