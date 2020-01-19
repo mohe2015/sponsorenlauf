@@ -22,11 +22,12 @@ enum UserRole {
 }
 
 model Student {
-  id      Int     @default(autoincrement()) @id
-  name    String  @unique
-  class   String
-  grade   Int
-  rounds  Round[]
+  id        String    @default(cuid()) @id
+  startNumber Int     @default(autoincrement())
+  name        String  @unique
+  class       String
+  grade       Int
+  rounds      Round[]
 }
 
 model Round {

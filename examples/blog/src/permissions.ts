@@ -25,7 +25,4 @@ export const permissions = shield({
     me: rules.isAuthenticatedUser,
   },
   User: allow,
-  Mutation: {
-    publish: rules.isPostOwner,
-  },
 }, { fallbackRule: deny, allowExternalErrors: true })
