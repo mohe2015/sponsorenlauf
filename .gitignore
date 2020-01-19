@@ -1,11 +1,3 @@
-dist
 node_modules
-example/db
-example/migrations
-example/generated
-.DS_Store
-yarn-error.log
-failed-*.md
-.idea
-.yalc
-yalc.lock
+generated
+__generated__
