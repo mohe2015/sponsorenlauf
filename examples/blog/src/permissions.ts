@@ -1,9 +1,10 @@
-import { rule, shield, deny } from 'graphql-shield'
+import { rule, shield, deny, allow } from 'graphql-shield'
 import { getUserId } from './utils'
 
 const rules = {
   isAuthenticatedUser: rule()((parent, args, context) => {
     const userId = getUserId(context)
+    console.log(Boolean(userId))
     return Boolean(userId)
   }),
   isPostOwner: rule()(async (parent, { id }, context) => {
@@ -23,7 +24,8 @@ export const permissions = shield({
   Query: {
     me: rules.isAuthenticatedUser,
   },
+  User: allow,
   Mutation: {
     publish: rules.isPostOwner,
   },
-}, { fallbackRule: deny })
+}, { fallbackRule: deny, allowExternalErrors: true })
