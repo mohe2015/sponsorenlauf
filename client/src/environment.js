@@ -9,7 +9,7 @@ function fetchQuery(
   operation,
   variables,
 ) {
-  return fetch('https://localhost:4000', {
+  return fetch('http://localhost:4000', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
