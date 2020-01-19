@@ -1,11 +1,22 @@
-import { objectType } from 'nexus'
+import { objectType, subscriptionField } from 'nexus'
 
 export const Post = objectType({
-  name: 'CustomPost',
+  name: 'Post',
   definition(t) {
-    t.model('Post').id()
-    t.model('Post').title()
-    t.model('Post').tags()
-    t.model('Post').status()
+    t.model.id()
+    t.model.title()
+    t.model.tags()
+    t.model.status()
+  },
+})
+
+
+export const PostSubscription = subscriptionField('SubscribePosts', {
+  type: 'Post',
+  subscribe(root, args, ctx) {
+    return ctx.pubsub.asyncIterator("PUBLISHED_POSTS")
+  },
+  resolve(payload) {
+    return payload
   },
 })
