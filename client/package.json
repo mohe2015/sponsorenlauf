@@ -1,0 +1,20 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "relay": "relay-compiler --src ./src --schema ./../examples/blog/generated/schema.graphql"
+  },
+  "devDependencies": {
+    "babel-plugin-relay": "^8.0.0",
+    "graphql": "^14.5.8",
+    "relay-compiler": "^8.0.0",
+    "relay-config": "^8.0.0"
+  },
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-relay": "^8.0.0"
+  }
+}
