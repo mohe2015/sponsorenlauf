@@ -3,7 +3,7 @@ import { withFilter } from 'graphql-yoga';
 
 export const UserRole = enumType({
   name: "UserRole",
-  members: ["ADMIN", "AUTHOR"],
+  members: ["ADMIN", "TEACHER", "VIEWER"],
   description: "The users role",
 });
 
@@ -12,8 +12,8 @@ export const User = objectType({
   definition(t) {
     t.model.id()
     t.model.name()
-    t.model.blog()
-    t.model.posts({ type: 'Post' })
+    t.model.password()
     t.model.role()
+    t.model.createdRounds({type: 'Round'})
   },
 })

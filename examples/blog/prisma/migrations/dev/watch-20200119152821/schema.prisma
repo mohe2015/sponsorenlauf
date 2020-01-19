@@ -1,6 +1,6 @@
 datasource db {
   provider = "sqlite"
-  url      = "file:dev.db"
+  url = "***"
 }
 
 generator photon {
@@ -22,7 +22,7 @@ enum UserRole {
 }
 
 model Student {
-  id          String  @default(cuid()) @id
+  id        String    @default(cuid()) @id
   startNumber Int     @default(autoincrement())
   name        String  @unique
   class       String

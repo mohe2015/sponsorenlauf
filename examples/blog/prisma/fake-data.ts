@@ -1,30 +1,18 @@
 import { Photon } from '@prisma/photon'
-import { name } from 'faker'
+import { hash } from 'bcrypt'
 
 main()
 
 async function main() {
   const photon = new Photon()
-  const author = await photon.users.create({
+  const hashedPassword = await hash('admin', 10)
+  const admin = await photon.users.create({
     data: {
-      name: name.firstName(),
-      password: "supersecret",
-      blog: {},
-      rating: 0.5,
-      role: 'AUTHOR',
+      name: "admin",
+      password: hashedPassword,
+      role: 'ADMIN',
     },
   })
-  const blog = await photon.blogs.create({
-    data: {
-      name: name.title(),
-      authors: {
-        connect: {
-          id: author.id,
-        },
-      },
-    },
-  })
-  console.log('added author:\n', author)
-  console.log('added blog:\n', blog)
+  console.log('added admin account:\n', admin)
   await photon.disconnect()
 }
