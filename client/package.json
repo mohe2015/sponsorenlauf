@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "relay": "relay-compiler --src ./src --schema ./../examples/blog/generated/schema.graphql"
+    "relay": "relay-compiler --src ./src --schema ../server/generated/schema.graphql"
   },
   "eslintConfig": {
     "extends": "react-app"

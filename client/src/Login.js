@@ -1,68 +1,55 @@
 import React, { Component } from 'react'
 import { GC_USER_ID, GC_AUTH_TOKEN } from './constants'
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button'
+import LoginMutation from './LoginMutation'
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link as RouterLink,
-  Redirect,
-  useHistory,
-  useLocation
-} from "react-router-dom";
-import { Paper } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
+  withRouter
+} from 'react-router-dom'
 
 class Login extends Component {
 
   state = {
-    email: '',
+    name: '',
     password: '',
-    name: ''
   }
 
   render() {
+
     return (
-        <Grid container justify = "center">
-          <Paper>
-
-          <h4>Login</h4>
-
-          <form>
-            <div>
-              <TextField
-                value={this.state.name}
-                onChange={(e) => this.setState({ name: e.target.value })}
-                required id="username" label="Nutzername" type="text" autoComplete="current-username" />
-            </div>
-            <div>
-              <TextField
-                value={this.state.password}
-                onChange={(e) => this.setState({ password: e.target.value })}
-                required id="password" label="Passwort" type="password" autoComplete="current-password" />
-            </div>
-            <div>
-              <Button onClick={() => this._confirm()} variant="contained" color="primary" component={RouterLink} to="/">
-                Anmelden
-              </Button>
-            </div>
-          </form>
-
-        </Paper>
-      </Grid>
+      <form>
+        <h4>Login</h4>
+        <input
+          value={this.state.name}
+          onChange={(e) => this.setState({ name: e.target.value })}
+          type='text'
+          placeholder='Your name'
+        />
+        <input
+          value={this.state.password}
+          onChange={(e) => this.setState({ password: e.target.value })}
+          type='password'
+          placeholder='Choose a safe password'
+        />
+        <div
+          onClick={() => this._confirm()}
+        >
+          Login
+        </div>
+      </form>
     )
   }
 
-  _confirm = async () => {
-    // ... you'll implement this in a bit
+  _confirm = () => {
+    const { name, password } = this.state
+    LoginMutation(name, password, (id, token) => {
+      this._saveUserData(id, token)
+      this.props.history.push(`/`) // TODO useHistory
+    })
   }
-
+  
   _saveUserData = (id, token) => {
     localStorage.setItem(GC_USER_ID, id)
     localStorage.setItem(GC_AUTH_TOKEN, token)
   }
-
 }
 
-export default Login
+export default withRouter(Login)

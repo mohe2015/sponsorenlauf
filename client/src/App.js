@@ -9,12 +9,14 @@ import {
   useLocation
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
+import Login from './Login'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Nav from 'react-bootstrap/Nav'
+import { GC_USER_ID, GC_AUTH_TOKEN } from './constants'
 
 function App() {
+  const userId = localStorage.getItem(GC_USER_ID)
   return (
     <BrowserRouter>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -49,14 +51,22 @@ function App() {
           <Link to="/protected">Protected Page</Link>
         </li>
         <li>
-        <Link to="/login">Login</Link>
-        </li>
+        {userId ?
+          <div className='ml1 pointer black' onClick={(e) => {
+            localStorage.removeItem(GC_USER_ID)
+            localStorage.removeItem(GC_AUTH_TOKEN)
+            this.props.history.push(`/`)
+          }}>logout</div>
+          :
+          <Link to='/login' className='ml1 no-underline black'>login</Link>}
+          </li>
       </ul>
 
       <Switch>
         <Route exact path="/">
         </Route>
         <Route exact path='/login'>
+          <Login></Login>
         </Route>
       </Switch>
     </BrowserRouter>
