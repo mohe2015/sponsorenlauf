@@ -3,15 +3,16 @@ import {QueryRenderer} from 'react-relay';
 import environment from './environment'
 import graphql from 'babel-plugin-relay/macro';
 
-export default class Students extends React.Component {
+export default class Me extends React.Component {
   render() {
     return (
       <QueryRenderer
         environment={environment}
         query={graphql`
-          query StudentsQuery {
-            students {
+          query MeQuery {
+            me {
               id
+              name
             }
           }
         `}
@@ -23,7 +24,7 @@ export default class Students extends React.Component {
           if (!props) {
             return <div>Loading...</div>;
           }
-          return <div>User ID: {props.viewer.id}</div>;
+          return <div>Hallo {props.me.name}!</div>;
         }}
       />
     );

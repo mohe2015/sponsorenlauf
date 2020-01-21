@@ -11,6 +11,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Nav from 'react-bootstrap/Nav'
 import { GC_USER_ID, GC_AUTH_TOKEN } from './constants'
+import Me from './Me';
 
 class App extends Component {
 
@@ -63,7 +64,7 @@ class App extends Component {
 
         <ul>
           <li>
-            <Link to="/public">Public Page</Link>
+            <Link to="/me">Me</Link>
           </li>
           <li>
             <Link to="/protected">Protected Page</Link>
@@ -81,6 +82,9 @@ class App extends Component {
           </Route>
           <Route exact path='/login'>
             <Login handler={this.handler}></Login>
+          </Route>
+          <Route exact path='/me'>
+            <Me></Me>
           </Route>
         </Switch>
       </BrowserRouter>
