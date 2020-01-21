@@ -20,8 +20,12 @@ function fetchQuery(
       query: operation.text,
       variables,
     }),
-  }).then(response => {
-    return response.json();
+  }).then(response => response.json())
+  .then(result => {
+    if (result && result.errors) {
+      return {data: null, errors: result.errors};
+    }
+    return result
   });
 }
 

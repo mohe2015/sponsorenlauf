@@ -19,7 +19,7 @@ export default class Me extends React.Component {
         variables={{}}
         render={({error, props}) => {
           if (error) {
-            return <div>Error!</div>;
+            return <div>{error.message}</div>;
           }
           if (!props) {
             return <div>Loading...</div>;
