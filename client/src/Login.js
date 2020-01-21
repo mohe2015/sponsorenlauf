@@ -4,6 +4,7 @@ import LoginMutation from './LoginMutation'
 import {
   withRouter
 } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 class Login extends Component {
 
@@ -16,7 +17,7 @@ class Login extends Component {
 
     return (
       <form>
-        <h4>Login</h4>
+        <h1>Login</h1>
         <input
           value={this.state.name}
           onChange={(e) => this.setState({ name: e.target.value })}
@@ -29,11 +30,11 @@ class Login extends Component {
           type='password'
           placeholder='Choose a safe password'
         />
-        <div
+        <Button
           onClick={() => this._confirm()}
         >
           Login
-        </div>
+        </Button>
       </form>
     )
   }
@@ -42,13 +43,14 @@ class Login extends Component {
     const { name, password } = this.state
     LoginMutation(name, password, (id, token) => {
       this._saveUserData(id, token)
-      this.props.history.push(`/`) // TODO useHistory
+      this.props.history.push('/');
     })
   }
   
   _saveUserData = (id, token) => {
     localStorage.setItem(GC_USER_ID, id)
     localStorage.setItem(GC_AUTH_TOKEN, token)
+    this.props.handler(id);
   }
 }
 
