@@ -13,6 +13,7 @@ import Nav from 'react-bootstrap/Nav'
 import { GC_USER_ID, GC_AUTH_TOKEN } from './constants'
 import Me from './Me';
 import Dropdown from 'react-bootstrap/Dropdown';
+import StudentListPage from './StudentListPage';
 
 class App extends Component {
 
@@ -47,8 +48,6 @@ class App extends Component {
         >
           <Navbar.Brand className="order-md-1" href="#home">Sponsorenlauf</Navbar.Brand>
           
- 
-
           {this.state.userId &&
             <Dropdown className="order-md-4" alignRight>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -58,6 +57,7 @@ class App extends Component {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
+                <Dropdown.Header><Me /></Dropdown.Header>
                 <Dropdown.Item href='/' onClick={this.logout}>Abmelden</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -84,8 +84,8 @@ class App extends Component {
           <Route exact path='/login'>
             <Login handler={this.handler}></Login>
           </Route>
-          <Route exact path='/account'>
-            <Me></Me>
+          <Route exact path='/students'>
+            <StudentListPage />
           </Route>
         </Switch>
       </BrowserRouter>

@@ -24,7 +24,7 @@ export default class Me extends React.Component {
           if (!props) {
             return <div>Loading...</div>;
           }
-          return <div>Hallo {props.me.name}!</div>;
+          return props.me.name;
         }}
       />
     );
