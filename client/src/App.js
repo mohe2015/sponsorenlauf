@@ -12,6 +12,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import Nav from 'react-bootstrap/Nav'
 import { GC_USER_ID, GC_AUTH_TOKEN } from './constants'
 import Me from './Me';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 class App extends Component {
 
@@ -38,44 +39,36 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+          <Navbar.Brand href="#home">Sponsorenlauf</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#features">Features</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
-              <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link href="/students">Schüler</Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">More deets</Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
-                Dank memes
-              </Nav.Link>
+              <Dropdown alignRight>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  <svg class="bi bi-person" width="2em" height="2em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M15 16s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002zM5.022 15h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C13.516 12.68 12.289 12 10 12c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002zM10 9a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"/>
+                  </svg>   
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
 
-        <ul>
-          <li>
-            <Link to="/me">Me</Link>
-          </li>
-          <li>
-            <Link to="/protected">Protected Page</Link>
-          </li>
-          <li>
-          {this.state.userId ?
-            <Link to='/' onClick={this.logout}>Logout</Link>
-            :
-            <Link to='/login'>Login</Link>}
-            </li>
-        </ul>
+        
+        {this.state.userId ?
+          <Link to='/' onClick={this.logout}>Logout</Link>
+          :
+          <Link to='/login'>Login</Link>}
 
         <Switch>
           <Route exact path="/">
@@ -83,7 +76,7 @@ class App extends Component {
           <Route exact path='/login'>
             <Login handler={this.handler}></Login>
           </Route>
-          <Route exact path='/me'>
+          <Route exact path='/account'>
             <Me></Me>
           </Route>
         </Switch>
