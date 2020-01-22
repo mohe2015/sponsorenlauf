@@ -8,7 +8,7 @@ export default class StudentList extends React.Component {
   render() {
     return (
       <div>
-        {this.props.viewer.map(({student}) =>
+        {this.props.viewer.map((student) =>
             <Student key={student.__id} student={student} />
         )}
       </div>

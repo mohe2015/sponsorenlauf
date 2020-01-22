@@ -34,5 +34,6 @@ export const permissions = shield({
     password: rules.isUserWithRole(['ADMIN']),
     "*": allow,
   },
+  Student: rules.isUserWithRole(['ADMIN']),
   AuthPayload: allow,
 }, { fallbackRule: deny, allowExternalErrors: true })
