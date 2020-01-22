@@ -1,14 +1,19 @@
 import { Photon } from '@prisma/photon'
 import { hash } from 'bcrypt'
-const csv = require('csv-parser');
+const parse = require('csv-parse/lib/sync');
 const fs = require('fs');
 
 main()
 
+async function asyncForEach(array:any, callback:any) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}
+
 async function main() {
   const photon = new Photon()
   
-  /*
   const hashedPassword = await hash('admin', 10)
   const admin = await photon.users.create({
     data: {
@@ -18,25 +23,23 @@ async function main() {
     },
   })
   console.log('added admin account:\n', admin)
-  */
 
- fs
- .createReadStream('prisma/test-data.csv')
- .pipe(csv())
- .on('data', (data:any) => { 
-   console.log(data)  
-   photon.students.create({
-    // @ts-ignore
-     data: {
-       name: data['Name'],
-       class: data['Klasse'],
-       grade: data['Jahrgang'],
-     }
-   })
+  var content = fs.readFileSync('prisma/test-data.csv', 'utf8');
+
+  const records = parse(content, {
+    columns: true
   })
- .on('end', () => {
-   console.log("end");
- });
+  
+  await asyncForEach(records, async (data:any) => {
+    console.log(data);
+    await photon.students.create({
+      data: {
+        name: data['Name'],
+        class: data['Klasse'],
+        grade: Number(data['Jahrgang']),
+      }
+    })
+  })
 
   await photon.disconnect()
 }
