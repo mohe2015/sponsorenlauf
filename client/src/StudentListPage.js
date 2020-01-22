@@ -11,9 +11,8 @@ class StudentListPage extends Component {
         <QueryRenderer
             environment={environment}
             query={graphql`
-            query StudentsQuery {
+            query StudentListPageQuery {
                 students {
-                    id
                     startNumber
                     name
                     class
