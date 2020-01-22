@@ -7,7 +7,6 @@ class Student extends Component {
       <tr>
         <td>{this.props.student.startNumber}</td>
         <td>{this.props.student.name}</td>
-        <td>{this.props.student.class}</td>
         <td>{this.props.student.grade}</td>
       </tr>
     )

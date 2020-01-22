@@ -21,20 +21,21 @@ export default class StudentList extends React.Component {
   }
 
   render() {
+    let dict = this.groupBy(this.props.viewer, 'class')
     return (
       <div>
-      {this.values(this.groupBy(this.props.viewer, 'class')).map(clazz =>
+      {
+      Object.keys(dict).map(clazzName =>
         <Table striped bordered hover style={{pageBreakInside: 'avoid'}}>
           <thead>
             <tr>
-              <th>Startnummer</th>
+              <th>Startnummer ({clazzName})</th>
               <th>Name</th>
-              <th>Klasse</th>
               <th>Jahrgang</th>
             </tr>
           </thead>
           <tbody>
-            {clazz.map((student) =>
+            {dict[clazzName].map((student) =>
                 <Student key={student.__id} student={student} />
             )}
           </tbody>
