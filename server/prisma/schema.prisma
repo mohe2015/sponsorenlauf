@@ -22,8 +22,7 @@ enum UserRole {
 }
 
 model Student {
-  id          String  @default(cuid()) @id
-  startNumber Int     @default(autoincrement())
+  startNumber Int @id @default(autoincrement())
   name        String  @unique
   class       String
   grade       Int
