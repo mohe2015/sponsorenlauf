@@ -14,6 +14,7 @@ import { GC_USER_ID, GC_AUTH_TOKEN } from './constants'
 import Me from './Me';
 import Dropdown from 'react-bootstrap/Dropdown';
 import StudentListPage from './StudentListPage';
+import { Container } from 'react-bootstrap';
 
 class App extends Component {
 
@@ -85,7 +86,10 @@ class App extends Component {
             <Login handler={this.handler}></Login>
           </Route>
           <Route exact path='/students'>
-            <StudentListPage />
+            <Container fluid>
+              <h1 className="text-center">Schüler</h1>
+              <StudentListPage />
+            </Container>
           </Route>
         </Switch>
       </BrowserRouter>
