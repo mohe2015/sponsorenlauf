@@ -5,44 +5,42 @@ import {
   withRouter
 } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import Container from 'react-bootstrap/Container'
+import { Jumbotron } from 'react-bootstrap'
 
 class Login extends Component {
 
-  state = {
-    name: '',
-    password: '',
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      name: '',
+      password: '',
+      validated: false,
+    }
+
   }
 
-  render() {
+  handleSubmit = event => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      this._confirm(event)
+    }
 
-    return (
-      <form>
-        <h1>Login</h1>
-        <input
-          value={this.state.name}
-          onChange={(e) => this.setState({ name: e.target.value })}
-          type='text'
-          placeholder='Your name'
-        />
-        <input
-          value={this.state.password}
-          onChange={(e) => this.setState({ password: e.target.value })}
-          type='password'
-          placeholder='Choose a safe password'
-        />
-        <Button
-          onClick={() => this._confirm()}
-        >
-          Login
-        </Button>
-      </form>
-    )
-  }
+    this.setState({validated: true});
+  };
 
-  _confirm = () => {
+  _confirm = (e) => {
+    e.preventDefault();
+    this.setState({ disabled: true })
     const { name, password } = this.state
     LoginMutation(name, password, (id, token) => {
       this._saveUserData(id, token)
+      this.setState({ disabled: false }) // TODO failure
       this.props.history.push('/');
     })
   }
@@ -51,6 +49,52 @@ class Login extends Component {
     localStorage.setItem(GC_USER_ID, id)
     localStorage.setItem(GC_AUTH_TOKEN, token)
     this.props.handler(id);
+  }
+
+  render() {
+
+    return (
+      <Container style={{maxWidth: 540 + 'px'}}>
+        <Jumbotron>
+          <h1>Login</h1>
+          <Form noValidate validated={this.state.validated} onSubmit={(e) => this.handleSubmit(e)}>
+            <Form.Group>
+              <Form.Label>Nutzername:</Form.Label>
+              <Form.Control
+                value={this.state.name}
+                onChange={(e) => this.setState({ name: e.target.value })}
+                type='text'
+                placeholder='Nutzername'
+                autoComplete='username'
+                required
+                />
+                <Form.Control.Feedback type="valid">Gültiger Nutzername!</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">Bitte gebe einen Nutzernamen ein.</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Passwort:</Form.Label>
+              <Form.Control
+                value={this.state.password}
+                onChange={(e) => this.setState({ password: e.target.value })}
+                type='password'
+                placeholder='Passwort'
+                autoComplete='current-password'
+                required
+              />
+              <Form.Control.Feedback type="valid">Sieht gut aus!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">Bitte gebe ein Passwort ein.</Form.Control.Feedback>
+            </Form.Group>
+            <Button
+              variant="primary"
+              type="submit"
+              disabled={this.state.disabled}
+            >
+              Login
+            </Button>
+          </Form>
+        </Jumbotron>
+      </Container>
+    )
   }
 }
 
