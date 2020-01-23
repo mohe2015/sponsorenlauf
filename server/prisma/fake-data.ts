@@ -14,17 +14,21 @@ async function asyncForEach(array:any, callback:any) {
 async function main() {
   const photon = new Photon()
   
-  const hashedPassword = await hash('admin', 10)
-  const admin = await photon.users.create({
-    data: {
-      name: "admin",
-      password: hashedPassword,
-      role: 'ADMIN',
-    },
-  })
-  console.log('added admin account:\n', admin)
+  if (!(await photon.users.findOne({where: {
+    name: "admin"
+  }}))) {
+    const hashedPassword = await hash('admin', 10)
+    const admin = await photon.users.create({
+      data: {
+        name: "admin",
+        password: hashedPassword,
+        role: 'ADMIN',
+      },
+    })
+    console.log('added admin account:\n', admin)
+  }
 
-  var content = fs.readFileSync('prisma/test-data.csv', 'utf8');
+  var content = fs.readFileSync('prisma/test.csv', 'utf8');
 
   const records = parse(content, {
     columns: true
