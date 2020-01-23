@@ -5,7 +5,8 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import './App.css'
 import Login from './Login'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -87,7 +88,7 @@ class App extends Component {
           </Route>
           <Route exact path='/students'>
             <Container fluid>
-              <h1 className="text-center">Schüler</h1>
+              <h1 className="text-center dont-print">Schüler</h1>
               <StudentListPage />
             </Container>
           </Route>

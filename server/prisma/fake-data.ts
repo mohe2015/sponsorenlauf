@@ -30,9 +30,11 @@ async function main() {
 
   var content = fs.readFileSync('prisma/test.csv', 'utf8');
 
-  const records = parse(content, {
+  let records = parse(content, {
     columns: true
   })
+
+  records = records.sort((a:any, b:any) => a['Klasse'].localeCompare(b['Klasse']))
   
   await asyncForEach(records, async (data:any) => {
     console.log(data);

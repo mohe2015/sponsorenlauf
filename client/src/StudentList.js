@@ -26,7 +26,7 @@ export default class StudentList extends React.Component {
       <div>
       {
       Object.keys(dict).map(clazzName =>
-        <Table striped bordered hover style={{pageBreakInside: 'avoid'}}>
+        <Table bordered hover variant="sm" style={{pageBreakInside: 'avoid'}}>
           <thead>
             <tr>
               <th>Startnummer ({clazzName})</th>
