@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "https://github.com/twbs/bootstrap",
     "bootstrap-icons": "^1.0.0-alpha2",
     "browser-update": "^3.3.9",
     "react": "^16.12.0",

@@ -47,7 +47,9 @@ class App extends Component {
         expand="md"
         bg="dark"
         variant="dark"
+        className="dont-print"
         >
+          <Container fluid>
           <Navbar.Brand className="order-md-1" href="#home">Sponsorenlauf</Navbar.Brand>
           
           {this.state.userId &&
@@ -71,13 +73,19 @@ class App extends Component {
 
           <Navbar.Collapse className="order-md-3" id="responsive-navbar-nav">
             <Nav className="mr-auto">
+
+      
+            <Nav.Item>
               <Nav.Link href="/students">Schüler</Nav.Link>
+           </Nav.Item>
+           
             </Nav>
             <Nav>
               {(!this.state.userId) && <Nav.Link href="/login">Anmelden</Nav.Link>}
             </Nav>
           </Navbar.Collapse>
 
+          </Container>
         </Navbar>
 
         <Switch>

@@ -55,10 +55,10 @@ class Login extends Component {
 
     return (
       <Container style={{maxWidth: 540 + 'px'}}>
-        <Jumbotron>
+        <Container className="bg-light">
           <h1>Login</h1>
           <Form noValidate validated={this.state.validated} onSubmit={(e) => this.handleSubmit(e)}>
-            <Form.Group>
+            <div className="pb-3">
               <Form.Label>Nutzername:</Form.Label>
               <Form.Control
                 value={this.state.name}
@@ -70,8 +70,8 @@ class Login extends Component {
                 />
                 <Form.Control.Feedback type="valid">Gültiger Nutzername!</Form.Control.Feedback>
                 <Form.Control.Feedback type="invalid">Bitte gebe einen Nutzernamen ein.</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
+            </div>
+            <div className="pb-3">
               <Form.Label>Passwort:</Form.Label>
               <Form.Control
                 value={this.state.password}
@@ -83,7 +83,8 @@ class Login extends Component {
               />
               <Form.Control.Feedback type="valid">Sieht gut aus!</Form.Control.Feedback>
               <Form.Control.Feedback type="invalid">Bitte gebe ein Passwort ein.</Form.Control.Feedback>
-            </Form.Group>
+            </div>
+            <div className="pb-3">
             <Button
               variant="primary"
               type="submit"
@@ -91,8 +92,9 @@ class Login extends Component {
             >
               Login
             </Button>
+            </div>
           </Form>
-        </Jumbotron>
+        </Container>
       </Container>
     )
   }

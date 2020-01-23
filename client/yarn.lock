@@ -3040,10 +3040,9 @@ bootstrap-icons@^1.0.0-alpha2:
   resolved "https://registry.yarnpkg.com/bootstrap-icons/-/bootstrap-icons-1.0.0-alpha2.tgz#ed65dc5f25eb41448db1b46f53c34fceb7456976"
   integrity sha512-7Tsip8n6GX0zoMm3l5eHWFYynq9CX8QlnWEJ1O42GwtwKOcc4bNZTW1tdhGGS+Q6oSgpTvvi08fZkdyfrqPp2w==
 
-bootstrap@^4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.4.1.tgz#8582960eea0c5cd2bede84d8b0baf3789c3e8b01"
-  integrity sha512-tbx5cHubwE6e2ZG7nqM3g/FZ5PQEDMWmMGNrCUBVRPHXTJaH7CBDdsLeu3eCh3B1tzAxTnAbtmrzvWEvT2NNEA==
+"bootstrap@https://github.com/twbs/bootstrap":
+  version "4.3.1"
+  resolved "https://github.com/twbs/bootstrap#ada2011dfa3e2954528e344a77f5412cc41dbd66"
 
 brace-expansion@^1.1.7:
   version "1.1.11"

@@ -7,3 +7,7 @@
         display: none;
     }
 }
+
+body {
+    overflow-y: scroll;
+}
