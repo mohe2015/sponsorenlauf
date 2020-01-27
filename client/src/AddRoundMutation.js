@@ -1,8 +1,6 @@
-import {
-    commitMutation,
-  } from 'react-relay'
-  import environment from './environment'
-  import graphql from 'babel-plugin-relay/macro';
+import { commitMutation } from "react-relay";
+import environment from "./environment";
+import graphql from "babel-plugin-relay/macro";
 
 const mutation = graphql`
   mutation AddRoundMutation($startNumber: Int!) {
@@ -11,24 +9,21 @@ const mutation = graphql`
       time
     }
   }
-`
+`;
 
 export default (startNumber, callback) => {
-    const variables = {
-      startNumber,
-    }
-  
-    commitMutation(
-      environment,
-      {
-        mutation,
-        variables,
-        onCompleted: (response) => {
-          const id = response.createOneRound.id
-          const time = response.createOneRound.time
-          callback(id, time)
-        },
-        onError: err => console.error(err),
-      },
-    )
-  }
+  const variables = {
+    startNumber
+  };
+
+  commitMutation(environment, {
+    mutation,
+    variables,
+    onCompleted: response => {
+      const id = response.createOneRound.id;
+      const time = response.createOneRound.time;
+      callback(id, time);
+    },
+    onError: err => console.error(err)
+  });
+};

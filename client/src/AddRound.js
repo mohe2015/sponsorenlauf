@@ -1,25 +1,22 @@
-import React, { Component } from 'react'
-import {
-  withRouter
-} from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import Container from 'react-bootstrap/Container'
-import AddRoundMutation from './AddRoundMutation'
-import { QueryRenderer } from 'react-relay';
-import environment from './environment'
-import graphql from 'babel-plugin-relay/macro';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import AddRoundMutation from "./AddRoundMutation";
+import { QueryRenderer } from "react-relay";
+import environment from "./environment";
+import graphql from "babel-plugin-relay/macro";
 
 class AddRound extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       disabled: false,
       validated: false,
-      startNumber: '',
-    }
+      startNumber: ""
+    };
   }
 
   handleSubmit = event => {
@@ -28,79 +25,88 @@ class AddRound extends Component {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      this._confirm(event)
+      this._confirm(event);
     }
 
-    this.setState({validated: true});
+    this.setState({ validated: true });
   };
 
-  _confirm = (e) => {
+  _confirm = e => {
     e.preventDefault();
-    this.setState({ disabled: true })
-    const { startNumber } = this.state
+    this.setState({ disabled: true });
+    const { startNumber } = this.state;
     AddRoundMutation(Number(startNumber), (id, token) => {
       //this._saveUserData(id, token)
-      this.setState({ disabled: false, startNumber: '' }) // TODO failure
-    })
-  }
+      this.setState({ disabled: false, startNumber: "" }); // TODO failure
+    });
+  };
 
   render() {
-
     return (
-      <Container style={{maxWidth: 540 + 'px'}}>
+      <Container style={{ maxWidth: 540 + "px" }}>
         <Container className="bg-light">
           <h1 className="text-center">Runde hinzufügen</h1>
-          <Form noValidate validated={this.state.validated} onSubmit={(e) => this.handleSubmit(e)}>
+          <Form
+            noValidate
+            validated={this.state.validated}
+            onSubmit={e => this.handleSubmit(e)}
+          >
             <div className="pb-3">
               <Form.Control
                 value={this.state.startNumber}
-                onChange={(e) => this.setState({ startNumber: e.target.value })}
-                type='number'
-                placeholder='Startnummer'
+                onChange={e => this.setState({ startNumber: e.target.value })}
+                type="number"
+                placeholder="Startnummer"
                 required
-                className='form-control-lg'
-                />
-                <Form.Control.Feedback type="valid">Gültige Startnummer!</Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid">Bitte gebe eine gültige Startnummer ein.</Form.Control.Feedback>
+                className="form-control-lg"
+              />
+              <Form.Control.Feedback type="valid">
+                Gültige Startnummer!
+              </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Bitte gebe eine gültige Startnummer ein.
+              </Form.Control.Feedback>
             </div>
             <QueryRenderer
               environment={environment}
               query={graphql`
-              query AddRoundStudentQuery($startNumber: Int!) {
-                student(where: {startNumber: $startNumber}) {
-                  name
-                  class
+                query AddRoundStudentQuery($startNumber: Int!) {
+                  student(where: { startNumber: $startNumber }) {
+                    name
+                    class
+                  }
                 }
-              }
               `}
-              variables={{startNumber: Number(this.state.startNumber)}}
-              render={({error, props}) => {
+              variables={{ startNumber: Number(this.state.startNumber) }}
+              render={({ error, props }) => {
                 if (error) {
-                    return <div className="pb-3">{error.message}</div>;
+                  return <div className="pb-3">{error.message}</div>;
                 }
                 if (!props) {
-                    return <div className="pb-3">Loading...</div>;
+                  return <div className="pb-3">Loading...</div>;
                 }
                 return (
-                    <div className="pb-3">{props.student ? props.student.name : "-"}</div>
+                  <div className="pb-3">
+                    {props.student ? props.student.name : "-"}
+                  </div>
                 );
               }}
-          />
+            />
 
             <div className="pb-3">
-            <Button
-              variant="primary"
-              type="submit"
-              disabled={this.state.disabled}
-            >
-              Runde hinzufügen
-            </Button>
+              <Button
+                variant="primary"
+                type="submit"
+                disabled={this.state.disabled}
+              >
+                Runde hinzufügen
+              </Button>
             </div>
           </Form>
         </Container>
       </Container>
-    )
+    );
   }
 }
 
-export default withRouter(AddRound)
+export default withRouter(AddRound);

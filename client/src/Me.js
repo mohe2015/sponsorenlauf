@@ -1,7 +1,7 @@
-import React from 'react';
-import {QueryRenderer} from 'react-relay';
-import environment from './environment'
-import graphql from 'babel-plugin-relay/macro';
+import React from "react";
+import { QueryRenderer } from "react-relay";
+import environment from "./environment";
+import graphql from "babel-plugin-relay/macro";
 
 export default class Me extends React.Component {
   render() {
@@ -17,7 +17,7 @@ export default class Me extends React.Component {
           }
         `}
         variables={{}}
-        render={({error, props}) => {
+        render={({ error, props }) => {
           if (error) {
             return <div>{error.message}</div>;
           }
