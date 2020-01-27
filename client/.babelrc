@@ -1,7 +1,4 @@
 {
   "presets": ["react-app"],
-  "plugins": [
-    "react-native-web", "relay"
-  ]
+  "plugins": ["react-native-web", "relay"]
 }
-

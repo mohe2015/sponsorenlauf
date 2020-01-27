@@ -1,13 +1,13 @@
 @page {
-    size: 105mm 297mm;
+  size: 105mm 297mm;
 }
 
 @media print {
-    .dont-print {
-        display: none;
-    }
+  .dont-print {
+    display: none;
+  }
 }
 
 body {
-    overflow-y: scroll;
+  overflow-y: scroll;
 }
