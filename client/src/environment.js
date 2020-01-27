@@ -4,6 +4,7 @@ import {
   RecordSource,
   Store,
 } from 'relay-runtime';
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { GC_AUTH_TOKEN } from './constants';
 
 function fetchQuery(
@@ -29,8 +30,34 @@ function fetchQuery(
   });
 }
 
+const setupSubscription = (config, variables, cacheConfig, observer) => {
+  const query = config.text
+
+/*
+// https://theindustrialresolution.com/passion/graphql-relay-subscriptions
+const subscriptionClient = new SubscriptionClient('ws://localhost:4001/graphql', {
+  reconnect: true
+})
+
+const subscriptionLink = new WebSocketLink(subscriptionClient)
+
+// Prepare network layer from apollo-link for graphql subscriptions
+const networkSubscriptions = (operation, variables) =>
+  execute(subscriptionLink, {
+    query: operation.text,
+    variables
+  })
+
+*/
+
+  const subscriptionClient = new SubscriptionClient('ws://localhost:4000', {reconnect: true})
+  subscriptionClient.subscribe({query, variables}, (error, result) => {
+    observer.onNext({data: result})
+  })
+}
+
 const environment = new Environment({
-  network: Network.create(fetchQuery),
+  network: Network.create(fetchQuery, setupSubscription),
   store: new Store(new RecordSource()),  
 });
 

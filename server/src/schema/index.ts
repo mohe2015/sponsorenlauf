@@ -7,10 +7,11 @@ import * as Round from './Round'
 import * as User from './User'
 import * as AuthPayload from './AuthPayload'
 import * as path from 'path'
+import * as Subscription from './Subscription'
 import { fieldAuthorizePlugin } from 'nexus'
 
 export default Nexus.makeSchema({
-  types: [Query, Mutation, Student, User, Round, AuthPayload],
+  types: [Query, Mutation, Student, User, Round, AuthPayload, Subscription],
   plugins: [nexusPrismaPlugin(), fieldAuthorizePlugin()],
   outputs: {
     typegen: path.join(

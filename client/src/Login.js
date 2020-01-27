@@ -7,7 +7,6 @@ import {
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
-import { Jumbotron } from 'react-bootstrap'
 
 class Login extends Component {
 
