@@ -16,6 +16,7 @@ import Me from './Me';
 import Dropdown from 'react-bootstrap/Dropdown';
 import StudentListPage from './StudentListPage';
 import { Container } from 'react-bootstrap';
+import AddRound from './AddRound';
 
 class App extends Component {
 
@@ -74,11 +75,16 @@ class App extends Component {
           <Navbar.Collapse className="order-md-3" id="responsive-navbar-nav">
             <Nav className="mr-auto">
 
-      
-            <Nav.Item>
-              <Nav.Link href="/students">Schüler</Nav.Link>
-           </Nav.Item>
-           
+              <Nav.Item>
+                <Nav.Link href="/students">Schüler</Nav.Link>
+              </Nav.Item>
+
+              {this.state.userId &&
+              <Nav.Item>
+                <Nav.Link href="/add_round">Runde hinzufügen</Nav.Link>
+              </Nav.Item>
+              }
+            
             </Nav>
             <Nav>
               {(!this.state.userId) && <Nav.Link href="/login">Anmelden</Nav.Link>}
@@ -99,6 +105,9 @@ class App extends Component {
               <h1 className="text-center dont-print">Schüler</h1>
               <StudentListPage />
             </Container>
+          </Route>
+          <Route exact path='/add_round'>
+            <AddRound />
           </Route>
         </Switch>
       </BrowserRouter>

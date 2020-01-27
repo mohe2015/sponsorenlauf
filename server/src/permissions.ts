@@ -22,6 +22,7 @@ export const permissions = shield({
   Query: {
     me: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
     students: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
+    student: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
     rounds: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
   },
   Mutation: {
@@ -32,7 +33,11 @@ export const permissions = shield({
   },
   User: {
     password: rules.isUserWithRole(['ADMIN']),
-    "*": allow,
+    id: allow,
+    "*": rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
+  },
+  Round: {
+    "*": rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
   },
   Student: rules.isUserWithRole(['ADMIN']),
   AuthPayload: allow,

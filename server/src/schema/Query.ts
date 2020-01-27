@@ -16,7 +16,12 @@ export const Query = queryType({
       },
     })
 
+    t.crud.student({
+      
+    });
+
     t.crud.students({
+      filtering: true,
       pagination: false,
     })
 

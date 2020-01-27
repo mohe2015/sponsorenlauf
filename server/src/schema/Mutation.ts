@@ -1,6 +1,6 @@
 import { compare, hash } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
-import { idArg, mutationType, stringArg } from 'nexus'
+import { idArg, mutationType, stringArg, intArg } from 'nexus'
 import { APP_SECRET, getUserId } from '../utils'
 import { Round } from './Round'
 
@@ -41,15 +41,15 @@ export const Mutation = mutationType({
     t.field('createOneRound', {
       type: Round,
       args: { 
-        studentId: idArg({ nullable: false })
+        startNumber: intArg({ nullable: false })
       },
-      resolve: async (parent, { studentId }, ctx) => {
+      resolve: async (parent, { startNumber }, ctx) => {
         const round = await ctx.photon.rounds.create({
           data: {
             time: 1337, // TODO
             student: { 
               connect: { 
-                id: studentId
+                startNumber: startNumber
               } 
             },
             createdBy: {
