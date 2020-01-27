@@ -60,7 +60,7 @@ class AddRound extends Component {
                 required
                 className='form-control-lg'
                 />
-                <Form.Control.Feedback type="valid">Gültiger Startnummer!</Form.Control.Feedback>
+                <Form.Control.Feedback type="valid">Gültige Startnummer!</Form.Control.Feedback>
                 <Form.Control.Feedback type="invalid">Bitte gebe eine gültige Startnummer ein.</Form.Control.Feedback>
             </div>
             <QueryRenderer
