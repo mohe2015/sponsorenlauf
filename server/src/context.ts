@@ -2,12 +2,7 @@ import { Photon } from '@prisma/photon'
 import { ContextParameters } from 'graphql-yoga/dist/types'
 import { PubSub } from 'graphql-yoga'
 import { verify } from 'jsonwebtoken'
-
-export const APP_SECRET = 'appsecret321' // TODO FIXME TODO CODE DUPLICATION
-
-interface Token {
-  userId: string
-}
+import { APP_SECRET } from './utils'
 
 const photon = new Photon()
 const pubsub = new PubSub()
@@ -16,13 +11,15 @@ export interface Context {
   photon: Photon
   request: any
   pubsub: PubSub
-  userId: String | null
+  userId: string | null
 }
 
 export function createContext(context: ContextParameters): Context {
   if (context.connection) {
+    console.log('IMPORTANT', context.connection.context.userId)
     return {
-      ...context.connection.context,
+      request: context.connection.context.request,
+      userId: context.connection.context.userId,
       photon,
       pubsub,
     }
@@ -32,14 +29,14 @@ export function createContext(context: ContextParameters): Context {
 
     if (Authorization) {
       const token = Authorization.replace('Bearer ', '')
-      console.log('token', token)
+      // console.log('token', token)
       const verifiedToken = verify(token, APP_SECRET) as Token
-      console.log('tokenverified', verifiedToken && verifiedToken.userId)
+      //console.log('tokenverified', verifiedToken && verifiedToken.userId)
       userId = verifiedToken && verifiedToken.userId
     }
 
     return {
-      ...context,
+      request: context.request,
       photon,
       pubsub,
       userId,

@@ -1,5 +1,4 @@
 import { queryType, intArg, stringArg, idArg } from 'nexus'
-import { getUserId } from '../utils'
 
 export const Query = queryType({
   definition(t) {
@@ -7,18 +6,15 @@ export const Query = queryType({
       type: 'User',
       nullable: true,
       resolve: (parent, args, ctx) => {
-        const userId = getUserId(ctx)
         return ctx.photon.users.findOne({
           where: {
-            id: userId,
+            id: ctx.userId,
           },
         })
       },
     })
 
-    t.crud.student({
-      
-    });
+    t.crud.student({})
 
     t.crud.students({
       filtering: true,
