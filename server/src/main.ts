@@ -3,7 +3,7 @@ import schema from './schema'
 import { createContext, Context } from './context'
 import { permissions } from './permissions'
 import { verify } from 'jsonwebtoken'
-import { APP_SECRET } from './utils'
+import { Token, APP_SECRET } from './utils'
 
 const server = new GraphQLServer({
   schema,

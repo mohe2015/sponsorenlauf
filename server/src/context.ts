@@ -2,7 +2,7 @@ import { Photon } from '@prisma/photon'
 import { ContextParameters } from 'graphql-yoga/dist/types'
 import { PubSub } from 'graphql-yoga'
 import { verify } from 'jsonwebtoken'
-import { APP_SECRET } from './utils'
+import { Token, APP_SECRET } from './utils'
 
 const photon = new Photon()
 const pubsub = new PubSub()
