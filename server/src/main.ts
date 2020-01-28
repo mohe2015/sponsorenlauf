@@ -1,7 +1,14 @@
 import { GraphQLServer } from 'graphql-yoga'
 import schema from './schema'
-import { createContext } from './context'
+import { createContext, Context } from './context'
 import { permissions } from './permissions'
+import { verify } from 'jsonwebtoken'
+
+export const APP_SECRET = 'appsecret321' // TODO FIXME
+
+interface Token {
+  userId: string
+}
 
 const server = new GraphQLServer({
   schema,
@@ -9,9 +16,30 @@ const server = new GraphQLServer({
   middlewares: [permissions],
 })
 
-server.start({
-  cors: {
-    credentials: true,
-    origin: ["http://localhost:3000"],
-  }
-}, () => console.log(`🚀 Server ready at http://localhost:4000`))
+server.start(
+  {
+    subscriptions: {
+      onConnect: (connectionParams: any, request: any, context: Context) => {
+        console.log('onConnect')
+        let Authorization
+        if (connectionParams.Authorization) {
+          console.log('websocket', connectionParams.Authorization)
+          Authorization = connectionParams.Authorization
+        }
+        if (Authorization) {
+          const token = Authorization.replace('Bearer ', '')
+          console.log('token', token)
+          const verifiedToken = verify(token, APP_SECRET) as Token
+          console.log('tokenverified', verifiedToken && verifiedToken.userId)
+          context.userId = verifiedToken && verifiedToken.userId
+        }
+        return context
+      },
+    },
+    cors: {
+      credentials: true,
+      origin: ['http://localhost:3000'],
+    },
+  },
+  () => console.log(`🚀 Server ready at http://localhost:4000`),
+)

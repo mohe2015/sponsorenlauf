@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^6.11.0",
-    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/jest-dom": "^5.0.2",
     "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@testing-library/user-event": "^8.0.4",
+    "apollo-link": "^1.2.13",
+    "apollo-link-ws": "^1.0.19",
     "bootstrap": "https://github.com/twbs/bootstrap",
     "bootstrap-icons": "^1.0.0-alpha2",
     "browser-update": "^3.3.9",
@@ -18,7 +20,7 @@
     "react-relay": "^8.0.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "subscriptions-transport-ws": "0.8.3",
+    "subscriptions-transport-ws": "^0.9.16",
     "typescript": "^3.7.5",
     "webpack": "^4.41.5"
   },
