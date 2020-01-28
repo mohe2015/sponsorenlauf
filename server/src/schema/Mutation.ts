@@ -19,7 +19,7 @@ export const Mutation = mutationType({
         password: stringArg({ nullable: false }),
       },
       resolve: async (_parent, { name, password }, context) => {
-        const user = await context.photon.users.findOne({
+        const user = await context.prismaClient.users.findOne({
           where: {
             name,
           },
@@ -44,7 +44,7 @@ export const Mutation = mutationType({
         startNumber: intArg({ nullable: false }),
       },
       resolve: async (parent, { startNumber }, ctx) => {
-        const round = await ctx.photon.rounds.create({
+        const round = await ctx.prismaClient.rounds.create({
           data: {
             time: 1337, // TODO
             student: {

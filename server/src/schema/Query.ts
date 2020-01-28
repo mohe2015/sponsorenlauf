@@ -6,7 +6,7 @@ export const Query = queryType({
       type: 'User',
       nullable: true,
       resolve: (parent, args, ctx) => {
-        return ctx.photon.users.findOne({
+        return ctx.prismaClient.users.findOne({
           where: {
             id: ctx.userId,
           },

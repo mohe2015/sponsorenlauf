@@ -27,8 +27,8 @@ export default Nexus.makeSchema({
     contextType: 'Context.Context',
     sources: [
       {
-        source: '@prisma/photon',
-        alias: 'photon',
+        source: '@prisma/client',
+        alias: 'client',
       },
       {
         source: require.resolve('../context'),
