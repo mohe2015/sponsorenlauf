@@ -4,11 +4,11 @@ import { PubSub } from 'graphql-yoga'
 import { verify } from 'jsonwebtoken'
 import { Token, APP_SECRET } from './utils'
 
-const prismaClient = new PrismaClient()
+const prisma = new PrismaClient()
 const pubsub = new PubSub()
 
 export interface Context {
-  prismaClient: PrismaClient
+  prisma: PrismaClient
   request: any
   pubsub: PubSub
   userId: string | null
@@ -20,7 +20,7 @@ export function createContext(context: ContextParameters): Context {
     return {
       request: context.connection.context.request,
       userId: context.connection.context.userId,
-      prismaClient,
+      prisma,
       pubsub,
     }
   } else {
@@ -37,7 +37,7 @@ export function createContext(context: ContextParameters): Context {
 
     return {
       request: context.request,
-      prismaClient,
+      prisma,
       pubsub,
       userId,
     }

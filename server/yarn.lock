@@ -62,6 +62,11 @@
   resolved "https://registry.yarnpkg.com/@types/bcrypt/-/bcrypt-10.0.28-alpha.tgz#a735265642c6ae3b0e62765ea8822d7c758aff11"
   integrity sha1-pzUmVkLGrjsOYnZeqIItfHWK/xE=
 
+"@types/bcryptjs@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@types/bcryptjs/-/bcryptjs-2.4.2.tgz#e3530eac9dd136bfdfb0e43df2c4c5ce1f77dfae"
+  integrity sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==
+
 "@types/body-parser@*":
   version "1.17.1"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.17.1.tgz#18fcf61768fb5c30ccc508c21d6fd2e8b3bf7897"
@@ -329,6 +334,11 @@ bcrypt@^3.0.7:
   dependencies:
     nan "2.14.0"
     node-pre-gyp "0.13.0"
+
+bcryptjs@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
+  integrity sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=
 
 body-parser-graphql@1.1.0:
   version "1.1.0"

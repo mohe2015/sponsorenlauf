@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { hash } from 'bcrypt'
+import { hash } from 'bcryptjs'
 const parse = require('csv-parse/lib/sync');
 const fs = require('fs');
 
@@ -12,13 +12,13 @@ async function asyncForEach(array:any, callback:any) {
 }
 
 async function main() {
-  const prismaClient = new PrismaClient()
+  const prisma = new PrismaClient()
   
-  if (!(await prismaClient.users.findOne({where: {
+  if (!(await prisma.users.findOne({where: {
     name: "admin"
   }}))) {
     const hashedPassword = await hash('admin', 10)
-    const admin = await prismaClient.users.create({
+    const admin = await prisma.users.create({
       data: {
         name: "admin",
         password: hashedPassword,
@@ -38,7 +38,7 @@ async function main() {
   
   await asyncForEach(records, async (data:any) => {
     console.log(data);
-    await prismaClient.students.create({
+    await prisma.students.create({
       data: {
         name: data['Name'],
         class: data['Klasse'],
@@ -47,5 +47,5 @@ async function main() {
     })
   })
 
-  await prismaClient.disconnect()
+  await prisma.disconnect()
 }
