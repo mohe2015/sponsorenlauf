@@ -1,6 +1,0 @@
-#lang racket
-
-(require uuid)
-
-(with-output-to-file some-file
-  (lambda () (printf "hello")))
