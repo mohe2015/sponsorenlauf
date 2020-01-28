@@ -1,17 +1,18 @@
 import { rule, shield, deny, allow } from 'graphql-shield'
-import { UserRole } from '@prisma/photon'
+import { UserRole } from '@prisma/client'
+import { Context } from './context'
 
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
-    rule({ cache: 'contextual' })(async (parent, args, context, info) => {
+    rule({ cache: 'contextual' })(async (parent, args, context: Context, info) => {
       const id = context.userId
       console.log('UserId', id)
-      const user = await context.photon.users.findOne({
+      const user = await context.prisma.users.findOne({
         where: {
           id,
         },
       })
-      return roles.some(r => r === user.role)
+      return roles.some(r => user && r === user.role)
     }),
 }
 

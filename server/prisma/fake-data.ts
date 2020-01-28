@@ -1,5 +1,5 @@
-import { Photon } from '@prisma/photon'
-import { hash } from 'bcrypt'
+import { PrismaClient } from '@prisma/client'
+import { hash } from 'bcryptjs'
 const parse = require('csv-parse/lib/sync');
 const fs = require('fs');
 
@@ -12,13 +12,13 @@ async function asyncForEach(array:any, callback:any) {
 }
 
 async function main() {
-  const photon = new Photon()
+  const prisma = new PrismaClient()
   
-  if (!(await photon.users.findOne({where: {
+  if (!(await prisma.users.findOne({where: {
     name: "admin"
   }}))) {
     const hashedPassword = await hash('admin', 10)
-    const admin = await photon.users.create({
+    const admin = await prisma.users.create({
       data: {
         name: "admin",
         password: hashedPassword,
@@ -38,7 +38,7 @@ async function main() {
   
   await asyncForEach(records, async (data:any) => {
     console.log(data);
-    await photon.students.create({
+    await prisma.students.create({
       data: {
         name: data['Name'],
         class: data['Klasse'],
@@ -47,5 +47,5 @@ async function main() {
     })
   })
 
-  await photon.disconnect()
+  await prisma.disconnect()
 }

@@ -1,14 +1,15 @@
-import { compare, hash } from 'bcrypt'
+import { compare, hash } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import { idArg, mutationType, stringArg, intArg } from 'nexus'
 import { APP_SECRET } from '../utils'
 import { Round } from './Round'
+import { Context } from '../context'
 
 export const Mutation = mutationType({
   definition(t) {
     t.crud.createOneUser({
       computedInputs: {
-        password: ({ args, ctx, info }) => hash(args.data.password, 10),
+        password: ({ args, ctx: Context, info }) => hash(args.data.password, 10),
       },
     })
 
@@ -18,8 +19,8 @@ export const Mutation = mutationType({
         name: stringArg({ nullable: false }),
         password: stringArg({ nullable: false }),
       },
-      resolve: async (_parent, { name, password }, context) => {
-        const user = await context.photon.users.findOne({
+      resolve: async (_parent, { name, password }, context: Context) => {
+        const user = await context.prisma.users.findOne({
           where: {
             name,
           },
@@ -43,8 +44,8 @@ export const Mutation = mutationType({
       args: {
         startNumber: intArg({ nullable: false }),
       },
-      resolve: async (parent, { startNumber }, ctx) => {
-        const round = await ctx.photon.rounds.create({
+      resolve: async (parent, { startNumber }, ctx: Context) => {
+        const round = await ctx.prisma.rounds.create({
           data: {
             time: 1337, // TODO
             student: {

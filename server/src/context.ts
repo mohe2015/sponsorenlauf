@@ -1,14 +1,14 @@
-import { Photon } from '@prisma/photon'
+import { PrismaClient } from '@prisma/client'
 import { ContextParameters } from 'graphql-yoga/dist/types'
 import { PubSub } from 'graphql-yoga'
 import { verify } from 'jsonwebtoken'
 import { Token, APP_SECRET } from './utils'
 
-const photon = new Photon()
+const prisma = new PrismaClient()
 const pubsub = new PubSub()
 
 export interface Context {
-  photon: Photon
+  prisma: PrismaClient
   request: any
   pubsub: PubSub
   userId: string | null
@@ -20,7 +20,7 @@ export function createContext(context: ContextParameters): Context {
     return {
       request: context.connection.context.request,
       userId: context.connection.context.userId,
-      photon,
+      prisma,
       pubsub,
     }
   } else {
@@ -37,7 +37,7 @@ export function createContext(context: ContextParameters): Context {
 
     return {
       request: context.request,
-      photon,
+      prisma,
       pubsub,
       userId,
     }

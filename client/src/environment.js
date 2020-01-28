@@ -5,12 +5,15 @@ import { execute } from "apollo-link";
 import { WebSocketLink } from "apollo-link-ws";
 
 function fetchQuery(operation, variables) {
+  let headers = {
+    "Content-Type": "application/json"
+  };
+  if (localStorage.getItem(GC_AUTH_TOKEN)) {
+    headers.Authorization = `Bearer ${localStorage.getItem(GC_AUTH_TOKEN)}`;
+  }
   return fetch("http://localhost:4000", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem(GC_AUTH_TOKEN)}`
-    },
+    headers,
     body: JSON.stringify({
       query: operation.text,
       variables
