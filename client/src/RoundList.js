@@ -14,8 +14,8 @@ export default class RoundList extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.viewer.map(round => (
-            <Round key={round.id} round={round} />
+          {this.props.viewer.map(roundEdge => (
+            <Round key={roundEdge.node.id} round={roundEdge.node} />
           ))}
         </tbody>
       </Table>

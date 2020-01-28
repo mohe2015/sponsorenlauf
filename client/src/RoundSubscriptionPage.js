@@ -59,12 +59,16 @@ class RoundSubscriptionPage extends Component {
         query={graphql`
           query RoundSubscriptionPageQuery {
             rounds {
-              id
-              student {
-                startNumber
-                name
+              edges {
+                node {
+                  id
+                  student {
+                    startNumber
+                    name
+                  }
+                  time
+                }
               }
-              time
             }
           }
         `}
@@ -76,7 +80,7 @@ class RoundSubscriptionPage extends Component {
           if (!props) {
             return <div>Loading...</div>;
           }
-          return <RoundList viewer={props.rounds} />;
+          return <RoundList viewer={props.rounds.edges} />;
         }}
       />
     );
