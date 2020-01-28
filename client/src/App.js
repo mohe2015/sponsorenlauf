@@ -45,7 +45,7 @@ class App extends Component {
           className="dont-print"
         >
           <Container fluid>
-            <Navbar.Brand className="order-md-1" href="#home">
+            <Navbar.Brand className="order-md-1" href="/">
               Sponsorenlauf
             </Navbar.Brand>
 

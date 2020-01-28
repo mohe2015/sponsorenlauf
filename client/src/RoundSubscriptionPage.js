@@ -48,7 +48,7 @@ class RoundSubscriptionPage extends Component {
           "newRoundEdge"
         );
         console.log("edge", edge);
-        ConnectionHandler.insertEdgeAfter(conn, edge);
+        ConnectionHandler.insertEdgeBefore(conn, edge);
       },
       onError: error => console.log(`An error occured:`, error)
     });
