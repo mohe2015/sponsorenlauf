@@ -122,7 +122,9 @@ class App extends Component {
             <AddRound />
           </Route>
           <Route exact path="/rounds">
-            <RoundSubscriptionPage />
+            <Container fluid>
+              <RoundSubscriptionPage />
+            </Container>
           </Route>
         </Switch>
       </BrowserRouter>
