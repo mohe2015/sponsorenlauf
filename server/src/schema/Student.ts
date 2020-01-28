@@ -7,6 +7,11 @@ export const Student = objectType({
     t.model.name()
     t.model.class()
     t.model.grade()
-    t.model.rounds({type: 'Round'});
+    t.model.rounds({
+      pagination: true,
+      filtering: true,
+      ordering: true,
+      type: 'Round',
+    })
   },
 })

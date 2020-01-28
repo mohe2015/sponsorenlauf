@@ -22,6 +22,7 @@ export default class StudentList extends React.Component {
       <div>
         {Object.keys(dict).map(clazzName => (
           <Table
+            key={clazzName}
             bordered
             hover
             variant="sm"
@@ -36,7 +37,7 @@ export default class StudentList extends React.Component {
             </thead>
             <tbody>
               {dict[clazzName].map(student => (
-                <Student key={student.__id} student={student} />
+                <Student key={student.startNumber} student={student} />
               ))}
             </tbody>
           </Table>
