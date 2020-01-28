@@ -58,7 +58,8 @@ class RoundSubscriptionPage extends Component {
         environment={environment}
         query={graphql`
           query RoundSubscriptionPageQuery {
-            rounds {
+            rounds(first: 0, last: 100000000)
+              @connection(key: "RoundSubscriptionPageQuery_rounds") {
               edges {
                 node {
                   id
