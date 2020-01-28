@@ -4,16 +4,18 @@ import { Context } from './context'
 
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
-    rule({ cache: 'contextual' })(async (parent, args, context: Context, info) => {
-      const id = context.userId
-      console.log('UserId', id)
-      const user = await context.prisma.users.findOne({
-        where: {
-          id,
-        },
-      })
-      return roles.some(r => user && r === user.role)
-    }),
+    rule({ cache: 'contextual' })(
+      async (parent, args, context: Context, info) => {
+        const id = context.userId
+        console.log('UserId', id)
+        const user = await context.prisma.users.findOne({
+          where: {
+            id,
+          },
+        })
+        return roles.some(r => user && r === user.role)
+      },
+    ),
 }
 
 export const permissions = shield(
@@ -41,6 +43,11 @@ export const permissions = shield(
     Round: {
       '*': rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
     },
+    Rounds: {
+      '*': rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
+    },
+    PageInfo: allow,
+    RoundEdge: allow,
     Student: rules.isUserWithRole(['ADMIN']),
     AuthPayload: allow,
   },

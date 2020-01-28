@@ -1,4 +1,6 @@
 import { queryType, intArg, stringArg, idArg } from 'nexus'
+import { Context } from '../context'
+import { findManyCursor } from './findManyCursor'
 
 export const Query = queryType({
   definition(t) {
@@ -21,6 +23,36 @@ export const Query = queryType({
       pagination: false,
     })
 
-    t.crud.rounds({ type: 'Round', ordering: true, filtering: true })
+    t.field('rounds', {
+      type: 'Rounds',
+      args: {
+        first: intArg({
+          required: false,
+        }),
+        last: intArg({
+          required: false,
+        }),
+        after: stringArg({
+          required: false,
+        }),
+        before: stringArg({
+          required: false,
+        }),
+      },
+      nullable: false,
+      resolve: async (parent, args, ctx: Context) => {
+        return findManyCursor(
+          _args =>
+            ctx.prisma.rounds.findMany({
+              ...args,
+              select: {
+                id: true,
+                time: true, // WTF???
+              },
+            }),
+          args,
+        )
+      },
+    })
   },
 })
