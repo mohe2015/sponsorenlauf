@@ -10,6 +10,7 @@ export const Mutation = mutationType({
     t.crud.createOneUser({
       computedInputs: {
         password: ({ args, ctx: Context, info }) =>
+          // @ts-ignore
           hash(args.data.password, 10),
       },
     })
