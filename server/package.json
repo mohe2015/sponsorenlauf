@@ -14,30 +14,30 @@
     "data:inject": "ts-node prisma/fake-data.ts"
   },
   "dependencies": {
-    "@prisma/client": "^2.0.0-preview020.3",
+    "@prisma/client": "^2.0.0-preview022",
     "@types/bcrypt": "10.0.28-alpha",
     "@types/bcryptjs": "^2.4.2",
-    "@types/jsonwebtoken": "^8.3.7",
-    "bcrypt": "^3.0.7",
+    "@types/jsonwebtoken": "^8.3.8",
+    "bcrypt": "^4.0.0",
     "bcryptjs": "^2.4.3",
-    "csv-parse": "^4.8.5",
+    "csv-parse": "^4.8.6",
     "csv-parser": "^2.3.2",
     "graphql": "^14.6.0",
-    "graphql-shield": "^7.0.8",
+    "graphql-shield": "^7.0.14",
     "graphql-yoga": "^1.18.3",
     "jsonwebtoken": "^8.5.1",
-    "nexus": "^0.12.0-rc.9",
-    "nexus-prisma": "^0.8.0"
+    "nexus": "^0.12.0-rc.13",
+    "nexus-prisma": "^0.10.0"
   },
   "devDependencies": {
-    "@types/faker": "^4.1.9",
-    "@types/ws": "^7.2.0",
+    "@types/faker": "^4.1.10",
+    "@types/ws": "^7.2.2",
     "faker": "^4.1.0",
     "prettier": "^1.19.1",
-    "prisma2": "2.0.0-preview020.3",
+    "prisma2": "2.0.0-preview022",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.7"
+    "typescript": "^3.8"
   },
   "prettier": {
     "semi": false,

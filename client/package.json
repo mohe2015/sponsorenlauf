@@ -3,34 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/dom": "^6.11.0",
-    "@testing-library/jest-dom": "^5.0.2",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^8.0.5",
+    "@testing-library/dom": "^6.12.2",
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.1",
+    "@testing-library/user-event": "^10.0.0",
     "apollo-link": "^1.2.13",
     "apollo-link-ws": "^2.0.0-beta.0",
-    "bootstrap": "https://github.com/twbs/bootstrap",
+    "bootstrap": "git+https://github.com/twbs/bootstrap.git",
     "bootstrap-icons": "^1.0.0-alpha2",
-    "browser-update": "^3.3.9",
-    "eslint": "^7.0.0-alpha.0",
+    "browser-update": "^3.3.13",
+    "eslint": "^6.8.0",
     "graphql": "^14.6.0",
-    "popper.js": "^2.0.0-next.4",
-    "react": "^16.12.0",
-    "react-bootstrap": "^1.0.0-beta.16",
-    "react-dom": "^16.12.0",
-    "react-relay": "^8.0.0",
+    "popper.js": "^1.16.1",
+    "react": "^16.13.0",
+    "react-bootstrap": "^1.0.0-beta.17",
+    "react-dom": "^16.13.0",
+    "react-relay": "^9.0.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0",
+    "react-scripts": "^3.4.0",
     "subscriptions-transport-ws": "^0.9.16",
-    "typescript": "^3.8.0-dev.20200128",
-    "webpack": "^5.0.0-beta.12"
+    "typescript": "^3.8.3",
+    "webpack": "^4.41.6"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "relay": "relay-compiler --src ./src --schema ../server/generated/schema.graphql"
+    "relay": "relay-compiler --src ./src --schema ../server/generated/schema.graphql --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,18 +48,18 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
+    "@babel/core": "^7.8.6",
+    "@babel/preset-env": "^7.8.6",
     "@babel/preset-react": "^7.8.3",
     "babel-loader": "^8.0.6",
-    "babel-plugin-relay": "^8.0.0",
+    "babel-plugin-relay": "^9.0.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^4.2.1",
+    "husky": "^4.2.3",
     "prettier": "1.19.1",
     "pretty-quick": "^2.0.1",
-    "relay-compiler": "^8.0.0",
-    "relay-config": "^8.0.0"
+    "relay-compiler": "^9.0.0",
+    "relay-config": "^9.0.0"
   },
   "babel": {
     "presets": [

@@ -1,11 +1,16 @@
-// https://gist.github.com/ctrlplusb/17b5a1bd1736b5ba547bb15b3dd5be29
-/**
- * Credits go to @queicherius who provided the original example:
- * https://github.com/prisma/photonjs/issues/321#issuecomment-568290134
- * The code below is a direct copy/paste and then adapation of it.
- */
+// https://github.com/prisma/prisma-client-js/issues/321#issuecomment-590865029
+export type SpecifiedCursor = {
+  id?: string | null
+}
 
 export type ConnectionCursor = string
+
+export interface SpecifiedArguments {
+  before?: SpecifiedCursor | null
+  after?: SpecifiedCursor | null
+  first?: number | null
+  last?: number | null
+}
 
 export interface ConnectionArguments {
   before?: ConnectionCursor | null
@@ -28,7 +33,9 @@ export interface Edge<T> {
 
 export interface Connection<T> {
   edges: Array<Edge<T>>
+  nodes: Array<T>
   pageInfo: PageInfo
+  // totalCount: number;
 }
 
 /**
@@ -37,9 +44,14 @@ export interface Connection<T> {
  * @see https://facebook.github.io/relay/graphql/connections.htm
  */
 export async function findManyCursor<Model extends { id: string }>(
-  findMany: (args: ConnectionArguments) => Promise<Model[]>,
+  findMany: (args: SpecifiedArguments) => Promise<Model[]>,
   args: ConnectionArguments = {} as ConnectionArguments,
 ): Promise<Connection<Model>> {
+  if (args.first === undefined && args.last === undefined) {
+    throw new Error(
+      'You must provide a `first` or `last` value to properly paginate the connection.',
+    )
+  }
   if (args.first != null && args.first < 0) {
     throw new Error('first is less than 0')
   }
@@ -55,8 +67,14 @@ export async function findManyCursor<Model extends { id: string }>(
   const first = args.first != null ? args.first + 1 : undefined
   const last = args.last != null ? args.last + 1 : undefined
 
+  const after = args.after ? { id: args.after } : undefined
+  const before = args.after ? { id: args.before } : undefined
+
   // Execute the underlying findMany operation
-  const nodes = await findMany({ ...args, first, last })
+  const nodes = await findMany({ after, before, first, last })
+
+  // totalCounts
+  // const totalCounts = nodes.length;
 
   // Check if we actually got an additional node. This would indicate we have
   // a prev/next page
@@ -87,12 +105,14 @@ export async function findManyCursor<Model extends { id: string }>(
   const hasPreviousPage = first != null ? args.after != null : hasExtraNode
 
   return {
+    edges: nodes.map(node => ({ cursor: node.id, node })),
+    nodes: nodes,
     pageInfo: {
       startCursor,
       endCursor,
       hasNextPage,
       hasPreviousPage,
     },
-    edges: nodes.map(node => ({ cursor: node.id, node })),
+    // totalCount: totalCounts
   }
 }
