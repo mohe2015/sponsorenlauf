@@ -8,7 +8,7 @@ export const Query = queryType({
       type: 'User',
       nullable: true,
       resolve: (parent, args, ctx) => {
-        return ctx.prisma.users.findOne({
+        return ctx.prisma.user.findOne({
           where: {
             id: ctx.userId,
           },
@@ -43,7 +43,7 @@ export const Query = queryType({
       resolve: async (parent, args, ctx: Context) => {
         return findManyCursor(
           _args =>
-            ctx.prisma.rounds.findMany({
+            ctx.prisma.round.findMany({
               ...args,
               select: {
                 id: true,

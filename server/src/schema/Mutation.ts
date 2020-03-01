@@ -9,7 +9,8 @@ export const Mutation = mutationType({
   definition(t) {
     t.crud.createOneUser({
       computedInputs: {
-        password: ({ args, ctx: Context, info }) => hash(args.data.password, 10),
+        password: ({ args, ctx: Context, info }) =>
+          hash(args.data.password, 10),
       },
     })
 
@@ -20,7 +21,7 @@ export const Mutation = mutationType({
         password: stringArg({ nullable: false }),
       },
       resolve: async (_parent, { name, password }, context: Context) => {
-        const user = await context.prisma.users.findOne({
+        const user = await context.prisma.user.findOne({
           where: {
             name,
           },
@@ -45,7 +46,7 @@ export const Mutation = mutationType({
         startNumber: intArg({ nullable: false }),
       },
       resolve: async (parent, { startNumber }, ctx: Context) => {
-        const round = await ctx.prisma.rounds.create({
+        const round = await ctx.prisma.round.create({
           data: {
             time: 1337, // TODO
             student: {

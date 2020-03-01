@@ -8,7 +8,7 @@ const rules = {
       async (parent, args, context: Context, info) => {
         const id = context.userId
         console.log('UserId', id)
-        const user = await context.prisma.users.findOne({
+        const user = await context.prisma.user.findOne({
           where: {
             id,
           },
