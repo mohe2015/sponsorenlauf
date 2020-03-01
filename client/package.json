@@ -9,12 +9,12 @@
     "@testing-library/user-event": "^8.0.5",
     "apollo-link": "^1.2.13",
     "apollo-link-ws": "^2.0.0-beta.0",
-    "bootstrap": "https://github.com/twbs/bootstrap",
+    "bootstrap": "git+https://github.com/twbs/bootstrap.git",
     "bootstrap-icons": "^1.0.0-alpha2",
     "browser-update": "^3.3.9",
-    "eslint": "^7.0.0-alpha.0",
+    "eslint": "^6.8.0",
     "graphql": "^14.6.0",
-    "popper.js": "^2.0.0-next.4",
+    "popper.js": "^1.16.1",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
@@ -23,7 +23,7 @@
     "react-scripts": "3.3.0",
     "subscriptions-transport-ws": "^0.9.16",
     "typescript": "^3.8.0-dev.20200128",
-    "webpack": "^5.0.0-beta.12"
+    "webpack": "^4.41.6"
   },
   "scripts": {
     "start": "react-scripts start",
