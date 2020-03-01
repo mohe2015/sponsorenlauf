@@ -108,7 +108,7 @@ class AddRound extends Component {
         <QueryRenderer
           environment={environment}
           query={graphql`
-            query RoundSubscriptionPageQuery {
+            query AddRoundSubscriptionPageQuery {
               rounds(first: 0, last: 100000000)
                 @connection(key: "RoundSubscriptionPageQuery_rounds") {
                 edges {
