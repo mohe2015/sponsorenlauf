@@ -44,7 +44,7 @@ export const Query = queryType({
         return findManyCursor(
           _args =>
             ctx.prisma.round.findMany({
-              ...args,
+              ..._args,
               select: {
                 id: true,
                 time: true, // WTF???
