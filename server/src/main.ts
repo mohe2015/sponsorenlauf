@@ -3,7 +3,7 @@ import schema from './schema'
 import { createContext, Context } from './context'
 import { verify } from 'jsonwebtoken'
 import { Token, APP_SECRET } from './utils'
-import { WebSocket } from 'ws'
+import WebSocket, { Server } from 'ws'
 import { ConnectionContext } from 'subscriptions-transport-ws'
 
 const server = new ApolloServer({
@@ -41,6 +41,7 @@ server.listen(
       credentials: true,
       origin: ['http://localhost:3000'],
     },
+    port: 4000,
   },
   () => console.log(`🚀 Server ready at http://localhost:4000`),
 )

@@ -1,11 +1,10 @@
 import { objectType, enumType, subscriptionField } from 'nexus'
-import { withFilter } from 'graphql-yoga';
 
 export const UserRole = enumType({
-  name: "UserRole",
-  members: ["ADMIN", "TEACHER", "VIEWER"],
-  description: "The users role",
-});
+  name: 'UserRole',
+  members: ['ADMIN', 'TEACHER', 'VIEWER'],
+  description: 'The users role',
+})
 
 export const User = objectType({
   name: 'User',
@@ -14,6 +13,6 @@ export const User = objectType({
     t.model.name()
     t.model.password()
     t.model.role()
-    t.model.createdRounds({type: 'Round'})
+    t.model.createdRounds({ type: 'Round' })
   },
 })

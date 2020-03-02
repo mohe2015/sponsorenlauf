@@ -1,8 +1,7 @@
 import { PrismaClient } from '@prisma/client'
-import { ContextParameters } from 'graphql-yoga/dist/types'
-import { PubSub } from 'graphql-yoga'
 import { verify } from 'jsonwebtoken'
 import { Token, APP_SECRET } from './utils'
+import { PubSub } from 'apollo-server'
 
 const prisma = new PrismaClient()
 const pubsub = new PubSub()
@@ -14,7 +13,7 @@ export interface Context {
   userId: string | null
 }
 
-export function createContext(context: ContextParameters): Context {
+export function createContext(context: any): Context {
   if (context.connection) {
     console.log('IMPORTANT', context.connection.context.userId)
     return {
