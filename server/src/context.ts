@@ -22,7 +22,6 @@ interface ExpressContext {
 }
 
 export function createContext(expressContext: ExpressContext): Context {
-  console.log(expressContext.req.headers)
   if (expressContext.connection) {
     console.log('IMPORTANT', expressContext.connection.context.userId)
     return {
@@ -38,9 +37,9 @@ export function createContext(expressContext: ExpressContext): Context {
 
     if (Authorization) {
       const token = Authorization.replace('Bearer ', '')
-      console.log('token', token)
+      console.log('atoken', token)
       const verifiedToken = verify(token, APP_SECRET) as Token
-      console.log('tokenverified', verifiedToken && verifiedToken.userId)
+      console.log('atokenverified', verifiedToken && verifiedToken.userId)
       userId = verifiedToken && verifiedToken.userId
     }
 
