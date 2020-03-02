@@ -5,6 +5,7 @@ import { verify } from 'jsonwebtoken'
 import { Token, APP_SECRET } from './utils'
 import * as WebSocket from 'ws'
 import { ConnectionContext } from 'subscriptions-transport-ws'
+
 const server = new ApolloServer({
   schema,
   context: createContext,
@@ -16,7 +17,9 @@ const server = new ApolloServer({
       websocket: WebSocket,
       context: ConnectionContext,
     ) => {
-      console.log('Tset', context.request)
+      // @ts-ignore
+      console.log('jooj', connectionParams.Authorization)
+      console.log('onConnect', context.request)
       let Authorization
       if (context.request.headers.authorization) {
         console.log('websocket', context.request.headers.authorization)
@@ -36,13 +39,15 @@ const server = new ApolloServer({
   },
 })
 
-server.listen(
-  {
+server
+  .listen({
     cors: {
       credentials: true,
       origin: ['http://localhost:3000'],
     },
     port: 4000,
-  },
-  () => console.log(`🚀 Server ready at http://localhost:4000`),
-)
+  })
+  .then(({ url, subscriptionsUrl }) => {
+    console.log(`🚀 Server ready at ${url}`)
+    console.log(`🚀 Subscriptions ready at ${subscriptionsUrl}`)
+  })

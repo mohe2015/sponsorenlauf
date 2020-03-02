@@ -22,6 +22,7 @@ interface ExpressContext {
 }
 
 export function createContext(expressContext: ExpressContext): Context {
+  console.log('createContext')
   if (expressContext.connection) {
     console.log('IMPORTANT', expressContext.connection.context.userId)
     return {
@@ -32,14 +33,14 @@ export function createContext(expressContext: ExpressContext): Context {
     }
   } else {
     // @ts-ignore
-    const Authorization = expressContext.req.headers.authorization || ''
+    const Authorization = expressContext.req.headers.authorization
     let userId = null
 
     if (Authorization) {
       const token = Authorization.replace('Bearer ', '')
-      console.log('atoken', token)
+      //console.log('atoken', token)
       const verifiedToken = verify(token, APP_SECRET) as Token
-      console.log('atokenverified', verifiedToken && verifiedToken.userId)
+      //console.log('atokenverified', verifiedToken && verifiedToken.userId)
       userId = verifiedToken && verifiedToken.userId
     }
 
