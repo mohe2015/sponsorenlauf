@@ -15,21 +15,25 @@ export interface Context {
   userId: string | null
 }
 
-export function createContext(
-  request: Request,
-  response: Response,
-  connection?: ExecutionParams,
-): Context {
-  if (connection) {
-    console.log('IMPORTANT', connection.context.userId)
+interface ExpressContext {
+  req: Request
+  res: Response
+  connection?: ExecutionParams
+}
+
+export function createContext(expressContext: ExpressContext): Context {
+  console.log(expressContext.req.headers)
+  if (expressContext.connection) {
+    console.log('IMPORTANT', expressContext.connection.context.userId)
     return {
-      request: connection.context.request,
-      userId: connection.context.userId,
+      request: expressContext.connection.context.request,
+      userId: expressContext.connection.context.userId,
       prisma,
       pubsub,
     }
   } else {
-    const Authorization = request.headers.get('Authorization') || ''
+    // @ts-ignore
+    const Authorization = expressContext.req.headers.authorization || ''
     let userId = null
 
     if (Authorization) {
@@ -41,7 +45,7 @@ export function createContext(
     }
 
     return {
-      request,
+      request: expressContext.req,
       prisma,
       pubsub,
       userId,
