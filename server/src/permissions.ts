@@ -7,7 +7,7 @@ const rules = {
     rule({ cache: 'contextual' })(
       async (parent, args, context: Context, info) => {
         const id = context.userId
-        console.log('UserId', id)
+        //console.log('UserId', id)
         const user = await context.prisma.user.findOne({
           where: {
             id,

@@ -9,8 +9,10 @@ import * as AuthPayload from './AuthPayload'
 import * as path from 'path'
 import * as Subscription from './Subscription'
 import { fieldAuthorizePlugin } from 'nexus'
+import { permissions } from '../permissions'
+import { applyMiddleware } from 'graphql-middleware'
 
-export default Nexus.makeSchema({
+let schema = Nexus.makeSchema({
   types: [Query, Mutation, Student, User, Round, AuthPayload, Subscription],
   plugins: [nexusPrismaPlugin(), fieldAuthorizePlugin()],
   outputs: {
@@ -18,10 +20,7 @@ export default Nexus.makeSchema({
       __dirname,
       '../../node_modules/@types/nexus-typegen/index.d.ts',
     ),
-    schema: path.join(
-      __dirname,
-      '../../generated/schema.graphql'
-    )
+    schema: path.join(__dirname, '../../generated/schema.graphql'),
   },
   typegenAutoConfig: {
     contextType: 'Context.Context',
@@ -37,3 +36,5 @@ export default Nexus.makeSchema({
     ],
   },
 })
+
+export default applyMiddleware(schema, permissions)

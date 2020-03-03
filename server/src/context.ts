@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client'
-import { ContextParameters } from 'graphql-yoga/dist/types'
-import { PubSub } from 'graphql-yoga'
 import { verify } from 'jsonwebtoken'
 import { Token, APP_SECRET } from './utils'
+import { PubSub } from 'apollo-server'
+import { Request, Response } from 'apollo-server-env'
+import { ExecutionParams } from 'subscriptions-transport-ws'
 
 const prisma = new PrismaClient()
 const pubsub = new PubSub()
@@ -14,29 +15,40 @@ export interface Context {
   userId: string | null
 }
 
-export function createContext(context: ContextParameters): Context {
-  if (context.connection) {
-    console.log('IMPORTANT', context.connection.context.userId)
+interface ExpressContext {
+  req: Request
+  res: Response
+  connection?: ExecutionParams<WebSocketContext>
+}
+
+export function createContext(expressContext: ExpressContext): Context {
+  console.log('createContext')
+  if (expressContext.connection) {
+    console.log(expressContext.req)
+    console.log(expressContext.connection.context)
+
+    console.log('IMPORTANT', expressContext.connection.context.userId)
     return {
-      request: context.connection.context.request,
-      userId: context.connection.context.userId,
+      request: expressContext.connection.context.request,
+      userId: expressContext.connection.context.userId,
       prisma,
       pubsub,
     }
   } else {
-    const Authorization = context.request.headers.authorization || ''
+    // @ts-ignore
+    const Authorization = expressContext.req.headers.authorization
     let userId = null
 
     if (Authorization) {
       const token = Authorization.replace('Bearer ', '')
-      // console.log('token', token)
+      //console.log('atoken', token)
       const verifiedToken = verify(token, APP_SECRET) as Token
-      //console.log('tokenverified', verifiedToken && verifiedToken.userId)
+      //console.log('atokenverified', verifiedToken && verifiedToken.userId)
       userId = verifiedToken && verifiedToken.userId
     }
 
     return {
-      request: context.request,
+      request: expressContext.req,
       prisma,
       pubsub,
       userId,

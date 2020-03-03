@@ -29,12 +29,15 @@ function fetchQuery(operation, variables) {
 }
 
 // https://theindustrialresolution.com/passion/graphql-relay-subscriptions
-const subscriptionClient = new SubscriptionClient("ws://localhost:4000/", {
-  connectionParams: {
-    Authorization: `Bearer ${localStorage.getItem(GC_AUTH_TOKEN)}`
-  },
-  reconnect: true
-});
+const subscriptionClient = new SubscriptionClient(
+  "ws://localhost:4000/graphql",
+  {
+    connectionParams: {
+      Authorization: `Bearer ${localStorage.getItem(GC_AUTH_TOKEN)}`
+    },
+    reconnect: true
+  }
+);
 
 const subscriptionLink = new WebSocketLink(subscriptionClient);
 
