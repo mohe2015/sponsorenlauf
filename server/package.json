@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "main": "src/main.ts",
   "scripts": {
+    "setup": "npm-run-all --sequential build:database build:database-up build:prisma-client",
     "build:database": "prisma2 migrate save --name 'init' --create-db --experimental",
     "build:database-up": "prisma2 migrate up --experimental",
     "build:prisma-client": "prisma2 generate",
