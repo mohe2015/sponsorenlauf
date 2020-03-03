@@ -1,10 +1,61 @@
 import { ApolloServer, makeExecutableSchema } from 'apollo-server'
 import schema from './schema'
-import { createContext, Context } from './context'
 import { verify } from 'jsonwebtoken'
 import { Token, APP_SECRET } from './utils'
-import * as WebSocket from 'ws'
+import WebSocket from 'ws'
 import { ConnectionContext } from 'subscriptions-transport-ws'
+import { PrismaClient } from '@prisma/client'
+import { PubSub } from 'apollo-server'
+import { Request, Response } from 'apollo-server-env'
+import { ExecutionParams } from 'subscriptions-transport-ws'
+
+const prisma = new PrismaClient()
+const pubsub = new PubSub()
+
+export interface Context {
+  prisma: PrismaClient
+  request: any
+  pubsub: PubSub
+  userId: string | null
+}
+
+interface ExpressContext {
+  req: Request
+  res: Response
+  connection?: ExecutionParams<Context>
+}
+
+export function createContext(expressContext: ExpressContext): Context {
+  //console.log('createContext')
+  if (expressContext.connection) {
+    //console.log('IMPORTANT', expressContext.connection.context.userId)
+    return {
+      request: expressContext.connection.context.request,
+      userId: expressContext.connection.context.userId,
+      prisma,
+      pubsub,
+    }
+  } else {
+    // @ts-ignore
+    const Authorization = expressContext.req.headers.authorization
+    let userId = null
+
+    if (Authorization) {
+      const token = Authorization.replace('Bearer ', '')
+      //console.log('atoken', token)
+      const verifiedToken = verify(token, APP_SECRET) as Token
+      //console.log('atokenverified', verifiedToken && verifiedToken.userId)
+      userId = verifiedToken && verifiedToken.userId
+    }
+
+    return {
+      request: expressContext.req,
+      prisma,
+      pubsub,
+      userId,
+    }
+  }
+}
 
 const server = new ApolloServer({
   schema,
@@ -13,24 +64,19 @@ const server = new ApolloServer({
   debug: process.env.NODE_ENV === 'development',
   subscriptions: {
     onConnect: (
-      connectionParams: Object, // TODO use this https://www.apollographql.com/docs/react/data/subscriptions/#authentication-over-websocket
+      connectionParams: Object,
       websocket: WebSocket,
       context: ConnectionContext,
-    ) => {
+    ): Context => {
       // @ts-ignore
-      console.log('jooj', connectionParams.Authorization)
-      console.log('onConnect', context.request)
-      let Authorization
-      if (context.request.headers.authorization) {
-        console.log('websocket', context.request.headers.authorization)
-        Authorization = context.request.headers.authorization
-      }
-      if (Authorization) {
-        const token = Authorization.replace('Bearer ', '')
-        console.log('token', token)
+      if (connectionParams.Authorization) {
+        // @ts-ignore
+        const token = connectionParams.Authorization.replace('Bearer ', '')
         const verifiedToken = verify(token, APP_SECRET) as Token
-        console.log('tokenverified', verifiedToken && verifiedToken.userId)
         return {
+          request: context.request,
+          prisma,
+          pubsub,
           userId: verifiedToken && verifiedToken.userId,
         }
       }

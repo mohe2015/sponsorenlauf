@@ -18,12 +18,15 @@ export interface Context {
 interface ExpressContext {
   req: Request
   res: Response
-  connection?: ExecutionParams
+  connection?: ExecutionParams<WebSocketContext>
 }
 
 export function createContext(expressContext: ExpressContext): Context {
   console.log('createContext')
   if (expressContext.connection) {
+    console.log(expressContext.req)
+    console.log(expressContext.connection.context)
+
     console.log('IMPORTANT', expressContext.connection.context.userId)
     return {
       request: expressContext.connection.context.request,
