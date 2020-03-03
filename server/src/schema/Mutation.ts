@@ -1,4 +1,4 @@
-import { compare, hash } from 'bcryptjs'
+import { compare, hash, hashSync } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
 import { idArg, mutationType, stringArg, intArg } from 'nexus'
 import { APP_SECRET } from '../utils'
@@ -9,9 +9,10 @@ export const Mutation = mutationType({
   definition(t) {
     t.crud.createOneUser({
       computedInputs: {
-        password: ({ args, ctx: Context, info }) =>
+        password: ({ args }) => {
           // @ts-ignore
-          hash(args.data.password, 10),
+          hashSync(args.data.password, 10)
+        },
       },
     })
 
@@ -30,6 +31,7 @@ export const Mutation = mutationType({
         if (!user) {
           throw new Error(`No user found with name: ${name}`)
         }
+        // @ts-ignore
         const passwordValid = await compare(password, user.password)
         if (!passwordValid) {
           throw new Error('Invalid password')

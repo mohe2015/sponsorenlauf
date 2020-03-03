@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { hash } from 'bcryptjs'
+import { hash } from 'bcrypt'
 import parse from 'csv-parse/lib/sync'
 import fs from 'fs'
 
@@ -21,6 +21,7 @@ async function main() {
       },
     }))
   ) {
+    // @ts-ignore
     const hashedPassword = await hash('admin', 10)
     const admin = await prisma.user.create({
       data: {
