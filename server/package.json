@@ -4,18 +4,16 @@
   "version": "0.0.0",
   "main": "src/main.ts",
   "scripts": {
-    "setup:database": "prisma2 migrate save --name 'init' --experimental",
-    "setup:database-up": "prisma2 migrate up --experimental",
-    "setup:prisma-client": "prisma2 generate",
-    "setup:initial-data": "ts-node prisma/fake-data.ts",
-    "clean": "rm -rf dist",
-    "build": "npm-run-all --sequential clean generate && tsc",
-    "style": "prettier --write 'src/**/*'",
-    "dev": "ts-node-dev --tree-kill --no-notify --respawn --transpile-only src/main.ts",
-    "generate": "npm-run-all --sequential setup:prisma-client generate:nexus",
-    "generate:nexus": "ts-node-dev --transpile-only src/schema",
-    "studio": "prisma2 studio --experimental",
-    "start": "npm-run-all --sequential generate"
+    "build:database": "prisma2 migrate save --name 'init' --create-db --experimental",
+    "build:database-up": "prisma2 migrate up --experimental",
+    "build:prisma-client": "prisma2 generate",
+    "watch:prisma-client": "prisma2 generate --watch",
+    "build:initial-data": "ts-node prisma/fake-data.ts",
+    "watch:studio": "prisma2 studio --experimental",
+    "build": "npm-run-all --sequential setup:prisma-client main:build",
+    "watch:main": "ts-node-dev --respawn --transpileOnly src/main",
+    "watch": "npm-run-all --parallel watch:prisma-client watch:main",
+    "style": "prettier --write 'src/**/*'"
   },
   "dependencies": {
     "@prisma/client": "^2.0.0-preview022",
