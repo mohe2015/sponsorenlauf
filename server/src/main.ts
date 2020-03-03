@@ -8,16 +8,10 @@ import { PrismaClient } from '@prisma/client'
 import { PubSub } from 'apollo-server'
 import { Request, Response } from 'apollo-server-env'
 import { ExecutionParams } from 'subscriptions-transport-ws'
+import { Context } from './context'
 
 const prisma = new PrismaClient()
 const pubsub = new PubSub()
-
-export interface Context {
-  prisma: PrismaClient
-  request: any
-  pubsub: PubSub
-  userId: string | null
-}
 
 interface ExpressContext {
   req: Request
