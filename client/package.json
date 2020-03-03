@@ -13,6 +13,7 @@
     "bootstrap-icons": "^1.0.0-alpha2",
     "eslint": "^6.8.0",
     "graphql": "^14.6.0",
+    "npm-run-all": "^4.1.5",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-dom": "^16.13.0",
@@ -24,11 +25,14 @@
     "webpack": "^4.42.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "relay": "relay-compiler --src ./src --schema ../server/generated/schema.graphql --watch"
+    "watch:react": "react-scripts start",
+    "build:react": "react-scripts build",
+    "build": "npm-run-all --sequential build:relay build:react",
+    "watch": "npm-run-all --parallel watch:relay watch:react",
+    "test": "npm-run-all --sequential build:relay test:react",
+    "test:react": "react-scripts test",
+    "build:relay": "relay-compiler --src ./src --schema ../server/generated/schema.graphql",
+    "watch:relay": "relay-compiler --src ./src --schema ../server/generated/schema.graphql --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
