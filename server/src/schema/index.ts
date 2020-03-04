@@ -30,7 +30,7 @@ let schema = Nexus.makeSchema({
         alias: 'client',
       },
       {
-        source: require.resolve('../context'),
+        source: require.resolve('../context.ts'),
         alias: 'Context',
       },
     ],

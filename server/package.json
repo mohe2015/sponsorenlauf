@@ -10,11 +10,13 @@
     "build:database-up": "prisma2 migrate up --experimental",
     "build:prisma-client": "prisma2 generate",
     "watch:prisma-client": "prisma2 generate --watch",
+    "build:nexus": "ts-node-dev --transpile-only src/schema",
+    "watch:nexus": "ts-node-dev --respawn --transpileOnly src/schema",
     "watch:studio": "prisma2 studio --experimental",
-    "build": "npm-run-all --sequential build:prisma-client build:main",
+    "build": "npm-run-all --sequential build:prisma-client build:nexus build:main",
     "watch:main": "ts-node-dev --respawn --transpileOnly src/main",
     "build:main": "tsc --esModuleInterop src/main",
-    "watch": "npm-run-all --parallel watch:prisma-client watch:main",
+    "watch": "npm-run-all --parallel watch:prisma-client watch:nexus watch:main",
     "style": "prettier --write 'src/**/*'"
   },
   "dependencies": {
