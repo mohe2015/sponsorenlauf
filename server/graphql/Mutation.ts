@@ -1,9 +1,4 @@
-import { compare, hash, hashSync } from 'bcrypt'
-import { sign } from 'jsonwebtoken'
 import { schema } from 'nexus-future'
-import { APP_SECRET } from '../src/utils'
-import { Round } from './Round'
-import { Context } from '../src/context'
 
 export const Mutation = schema.mutationType({
   definition(t) {
@@ -22,8 +17,8 @@ export const Mutation = schema.mutationType({
         name: schema.stringArg({ nullable: false }),
         password: schema.stringArg({ nullable: false }),
       },
-      resolve: async (_parent, { name, password }, context: Context) => {
-        const user = await context.prisma.user.findOne({
+      resolve: async (_parent, { name, password }, context) => {
+        const user = await context.db.user.findOne({
           where: {
             name,
           },
@@ -44,12 +39,12 @@ export const Mutation = schema.mutationType({
     })
 
     t.field('createOneRound', {
-      type: Round,
+      type: "Round",
       args: {
         startNumber: schema.intArg({ nullable: false }),
       },
-      resolve: async (parent, { startNumber }, ctx: Context) => {
-        const round = await ctx.prisma.round.create({
+      resolve: async (parent, { startNumber }, ctx) => {
+        const round = await ctx.db.round.create({
           data: {
             time: 1337, // TODO
             student: {
@@ -64,7 +59,7 @@ export const Mutation = schema.mutationType({
             },
           },
         })
-        ctx.pubsub.publish('ROUNDS', round)
+        //ctx.pubsub.publish('ROUNDS', round)
         return round
       },
     })

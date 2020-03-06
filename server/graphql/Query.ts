@@ -1,6 +1,4 @@
 import { schema } from 'nexus-future'
-import { Context } from '../src/context'
-import { findManyCursor } from './findManyCursor'
 
 export const Query = schema.queryType({
   definition(t) {
@@ -8,7 +6,7 @@ export const Query = schema.queryType({
       type: 'User',
       nullable: true,
       resolve: (parent, args, ctx) => {
-        return ctx.prisma.user.findOne({
+        return ctx.db.user.findOne({
           where: {
             id: ctx.userId,
           },
@@ -22,37 +20,9 @@ export const Query = schema.queryType({
       filtering: true,
       pagination: false,
     })
-
-    t.field('rounds', {
-      type: 'Rounds',
-      args: {
-        first: schema.intArg({
-          required: false,
-        }),
-        last: schema.intArg({
-          required: false,
-        }),
-        after: schema.stringArg({
-          required: false,
-        }),
-        before: schema.stringArg({
-          required: false,
-        }),
-      },
-      nullable: false,
-      resolve: async (parent, args, ctx: Context) => {
-        return findManyCursor(
-          _args =>
-            ctx.prisma.round.findMany({
-              ..._args,
-              select: {
-                id: true,
-                time: true, // WTF???
-              },
-            }),
-          args,
-        )
-      },
-    })
+    
+    //t.connection("rounds", {
+    //  type: "Round"
+    //})
   },
 })
