@@ -20,7 +20,7 @@
     "style": "prettier --write 'src/**/*'"
   },
   "dependencies": {
-    "@prisma/client": "^2.0.0-preview023",
+    "@prisma/client": "2.0.0-preview022",
     "@types/bcrypt": "10.0.28-alpha",
     "@types/jsonwebtoken": "^8.3.8",
     "@types/ws": "^7.2.2",
@@ -28,18 +28,16 @@
     "apollo-server-express": "^2.11.0",
     "bcrypt": "^4.0.1",
     "csv-parse": "^4.8.7",
-    "graphql": "^14.6.0",
     "graphql-middleware": "^4.0.2",
     "graphql-shield": "^7.0.14",
     "jsonwebtoken": "^8.5.1",
-    "nexus": "^0.12.0-rc.13",
-    "nexus-prisma": "^0.10.0",
+    "nexus-future": "^0.10.0-next.21",
     "npm-run-all": "^4.1.5",
     "ws": "^7.2.1"
   },
   "devDependencies": {
     "prettier": "^1.19.1",
-    "prisma2": "2.0.0-preview023",
+    "prisma2": "2.0.0-preview022",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8"
   },

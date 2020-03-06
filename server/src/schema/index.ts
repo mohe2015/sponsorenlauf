@@ -8,13 +8,13 @@ import * as User from './User'
 import * as AuthPayload from './AuthPayload'
 import * as path from 'path'
 import * as Subscription from './Subscription'
-import { fieldAuthorizePlugin } from 'nexus'
+import { fieldAuthorizePlugin } from 'nexus-plugin-prisma'
 import { permissions } from '../permissions'
 import { applyMiddleware } from 'graphql-middleware'
 
 let schema = Nexus.makeSchema({
   types: [Query, Mutation, Student, User, Round, AuthPayload, Subscription],
-  plugins: [nexusPrismaPlugin(), fieldAuthorizePlugin()],
+  plugins: [fieldAuthorizePlugin()],
   outputs: {
     typegen: path.join(
       __dirname,
