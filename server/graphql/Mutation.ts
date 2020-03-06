@@ -1,4 +1,6 @@
 import { schema } from 'nexus-future'
+import { hashSync, compare } from 'bcrypt'
+import { sign, Secret } from 'jsonwebtoken'
 
 export const Mutation = schema.mutationType({
   definition(t) {
@@ -32,7 +34,7 @@ export const Mutation = schema.mutationType({
           throw new Error('Invalid password')
         }
         return {
-          token: sign({ userId: user.id }, APP_SECRET),
+          token: sign({ userId: user.id }, process.env.APP_SECRET as Secret),
           user,
         }
       },
