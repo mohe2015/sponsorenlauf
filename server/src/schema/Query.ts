@@ -1,8 +1,8 @@
-import { queryType, intArg, stringArg, idArg } from 'nexus'
+import { schema } from 'nexus-future'
 import { Context } from '../context'
 import { findManyCursor } from './findManyCursor'
 
-export const Query = queryType({
+export const Query = schema.queryType({
   definition(t) {
     t.field('me', {
       type: 'User',
@@ -26,16 +26,16 @@ export const Query = queryType({
     t.field('rounds', {
       type: 'Rounds',
       args: {
-        first: intArg({
+        first: schema.intArg({
           required: false,
         }),
-        last: intArg({
+        last: schema.intArg({
           required: false,
         }),
-        after: stringArg({
+        after: schema.stringArg({
           required: false,
         }),
-        before: stringArg({
+        before: schema.stringArg({
           required: false,
         }),
       },

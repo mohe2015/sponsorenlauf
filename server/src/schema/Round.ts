@@ -1,6 +1,6 @@
-import { objectType } from 'nexus'
+import { schema } from 'nexus-future'
 
-export const Round = objectType({
+export const Round = schema.objectType({
   name: 'Round',
   definition(t) {
     t.model.id()
@@ -10,7 +10,7 @@ export const Round = objectType({
   },
 })
 
-export const Rounds = objectType({
+export const Rounds = schema.objectType({
   name: 'Rounds',
   definition(t) {
     t.field('pageInfo', {
@@ -22,7 +22,7 @@ export const Rounds = objectType({
   },
 })
 
-export const PageInfo = objectType({
+export const PageInfo = schema.objectType({
   name: 'PageInfo',
   definition(t) {
     t.string('startCursor', {
@@ -36,7 +36,7 @@ export const PageInfo = objectType({
   },
 })
 
-export const RoundEdge = objectType({
+export const RoundEdge = schema.objectType({
   name: 'RoundEdge',
   definition(t) {
     t.string('cursor')

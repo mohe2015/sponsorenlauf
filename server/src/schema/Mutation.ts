@@ -1,11 +1,11 @@
 import { compare, hash, hashSync } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
-import { idArg, mutationType, stringArg, intArg } from 'nexus'
+import { schema } from 'nexus-future'
 import { APP_SECRET } from '../utils'
 import { Round } from './Round'
 import { Context } from '../context'
 
-export const Mutation = mutationType({
+export const Mutation = schema.mutationType({
   definition(t) {
     t.crud.createOneUser({
       computedInputs: {
@@ -19,8 +19,8 @@ export const Mutation = mutationType({
     t.field('login', {
       type: 'AuthPayload',
       args: {
-        name: stringArg({ nullable: false }),
-        password: stringArg({ nullable: false }),
+        name: schema.stringArg({ nullable: false }),
+        password: schema.stringArg({ nullable: false }),
       },
       resolve: async (_parent, { name, password }, context: Context) => {
         const user = await context.prisma.user.findOne({
@@ -46,7 +46,7 @@ export const Mutation = mutationType({
     t.field('createOneRound', {
       type: Round,
       args: {
-        startNumber: intArg({ nullable: false }),
+        startNumber: schema.intArg({ nullable: false }),
       },
       resolve: async (parent, { startNumber }, ctx: Context) => {
         const round = await ctx.prisma.round.create({
