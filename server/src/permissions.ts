@@ -1,12 +1,12 @@
 import { rule, shield, deny, allow } from 'graphql-shield'
+import { UserRole } from '@prisma/client'
 
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
     rule({ cache: 'contextual' })(
-      async (parent, args, context, info) => {
+      async (parent, args, context: NexusContext, info) => {
         const id = context.userId
-        //console.log('UserId', id)
-        const user = await context.prisma.user.findOne({
+        const user = await context.db.user.findOne({
           where: {
             id,
           },
@@ -22,7 +22,7 @@ export const permissions = shield(
       me: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
       students: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
       student: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
-      rounds: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
+     // rounds: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
     },
     Mutation: {
       createOneUser: rules.isUserWithRole(['ADMIN']),
@@ -30,9 +30,9 @@ export const permissions = shield(
       createOneRound: rules.isUserWithRole(['ADMIN', 'TEACHER']),
       createOneStudent: rules.isUserWithRole(['ADMIN']),
     },
-    Subscription: {
-      SubscribeRounds: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
-    },
+   // Subscription: {
+   //   SubscribeRounds: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
+   // },
     User: {
       password: rules.isUserWithRole(['ADMIN']),
       id: allow,
@@ -41,11 +41,11 @@ export const permissions = shield(
     Round: {
       '*': rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
     },
-    Rounds: {
-      '*': rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
-    },
-    PageInfo: allow,
-    RoundEdge: allow,
+   // Rounds: {
+  //    '*': rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
+   // },
+  //  PageInfo: allow,
+  //  RoundEdge: allow,
     Student: rules.isUserWithRole(['ADMIN']),
     AuthPayload: allow,
   },
