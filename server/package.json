@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "src/main.ts",
   "scripts": {
-    "setup:initial-data": "ts-node prisma/fake-data.ts",
+    "setup": "nexus db init && ts-node prisma/seed.ts",
     "dev": "nexus dev",
     "build": "nexus build",
     "start": "node node_modules/.build",
