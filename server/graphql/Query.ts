@@ -1,5 +1,5 @@
 import { schema } from 'nexus-future'
-import { Context } from '../context'
+import { Context } from '../src/context'
 import { findManyCursor } from './findManyCursor'
 
 export const Query = schema.queryType({

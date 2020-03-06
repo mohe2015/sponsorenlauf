@@ -1,9 +1,9 @@
 import { compare, hash, hashSync } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
 import { schema } from 'nexus-future'
-import { APP_SECRET } from '../utils'
+import { APP_SECRET } from '../src/utils'
 import { Round } from './Round'
-import { Context } from '../context'
+import { Context } from '../src/context'
 
 export const Mutation = schema.mutationType({
   definition(t) {
