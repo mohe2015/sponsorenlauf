@@ -2,6 +2,7 @@ import app, { schema, server } from 'nexus-future'
 import { verify, Secret } from 'jsonwebtoken'
 import { permissions } from './src/permissions';
 import { applyMiddleware } from 'graphql-middleware'
+import { PubSub } from 'graphql-subscriptions';
 
 function requestToUserID(req: import("http").IncomingMessage) {
   const token = req.headers.authorization?.replace('Bearer ', '')
@@ -13,7 +14,10 @@ function requestToUserID(req: import("http").IncomingMessage) {
 }
 
 schema.addToContext(req => {
-  return { userId: requestToUserID(req) }
+  return {
+    userId: requestToUserID(req),
+    pubsub: new PubSub()
+  }
 })
 
 server.custom(({ express, schema, context }) => {
