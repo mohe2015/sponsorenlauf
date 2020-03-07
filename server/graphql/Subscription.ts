@@ -1,11 +1,11 @@
-import { schema } from 'nexus-future'
-/*
-export const RoundsSubscription = schema.subscriptionField('SubscribeRounds', {
-    type: 'Round',
-    subscribe(root, args, ctx) {
-      return ctx.pubsub.asyncIterator("ROUNDS")
-    },
-    resolve(payload) {
-      return payload
-    },
-  })*/
+import { subscriptionField } from '@nexus/schema'
+
+export const newSubField = subscriptionField('SubscribeRounds', {
+  type: 'Round',
+  subscribe: async (root, args, context, info) => {
+    return context.pubsub.asyncIterator("ROUNDS")
+  },
+  resolve: async (payload) => {
+    return payload
+  }
+})
