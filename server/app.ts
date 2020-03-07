@@ -7,25 +7,35 @@ import { newSubField } from './graphql/Subscription';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt } from 'graphql';
 import { ApolloServer } from 'apollo-server'
 import { schema, server, settings, log } from "nexus-future"
+import { ExecutionParams } from 'subscriptions-transport-ws'
+
+let pubSub = new PubSub()
+
+interface WebSocketContext {
+  Authorization: string
+}
 
 function requestToUserID(param: any) {
   let req: import("http").IncomingMessage = param.req; // WTF?
-  const token = req.headers.authorization?.replace('Bearer ', '')
+  let connection: ExecutionParams<WebSocketContext> = param.connection;
+  let authorization = connection?.context?.Authorization || req.headers.authorization;
+  const token = authorization?.replace('Bearer ', '')
   if (!token) {
     return null;
   }
   const verifiedToken = verify(token as string, process.env.APP_SECRET as Secret) as NexusContext
-  console.log(verifiedToken)
   return verifiedToken.userId
 }
 
 schema.addToContext(req => {
   return {
     userId: requestToUserID(req),
-    pubsub: new PubSub()
+    pubsub: pubSub
   }
 })
 
+
+// https://github.com/apollographql/graphql-subscriptions/blob/master/src/test/asyncIteratorSubscription.ts
 
 server.custom(({ schema, context }) => {
 
@@ -38,9 +48,14 @@ server.custom(({ schema, context }) => {
       fields: {
         subscribeRounds: {
           type: schema.getType("Round") as GraphQLObjectType,
-          resolve: (source, args, context, info) => {
+          // subscribe: withFilter(() => iterator, filterFn),
+          subscribe: (source, args, context, info) => {
             return context.pubsub.asyncIterator("ROUNDS")
-          }
+          },
+          resolve: (source, args, context, info) => {
+            console.log(source)
+            return source
+          },
         }
       }
     })

@@ -61,6 +61,7 @@ export const Mutation = schema.mutationType({
             },
           },
         })
+        console.log("publish rounds", round)
         ctx.pubsub.publish('ROUNDS', round)
         return round
       },
