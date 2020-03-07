@@ -3431,9 +3431,8 @@ negotiator@0.6.2:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
 
-"nexus-future@git+https://github.com/mohe2015/nexus-future.git#generate-graphql-schema":
+"nexus-future@file:../nexus-future":
   version "0.0.0-dripip"
-  resolved "git+https://github.com/mohe2015/nexus-future.git#c7d577d71a4cdb053ebc4b7bc2967729810779dc"
   dependencies:
     "@nexus/schema" "^0.12.0-rc.13"
     "@types/express" "^4.17.2"
