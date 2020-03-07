@@ -51,7 +51,7 @@ export const Mutation = schema.mutationType({
             time: 1337, // TODO
             student: {
               connect: {
-                startNumber: startNumber,
+                startNumber: startNumber, // TODO FIXME doesn't check if it exists
               },
             },
             createdBy: {

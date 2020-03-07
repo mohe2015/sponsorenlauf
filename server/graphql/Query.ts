@@ -25,7 +25,6 @@ export const Query = schema.queryType({
     t.connection("rounds", {
       type: "Round",
       nodes: async (root, args, ctx, info) => {
-        // TODO FIXME honor first and last
         return await ctx.db.round.findMany()
       },
       cursorFromNode: async (node, args, ctx, info, { index, nodes }) => {
