@@ -16,6 +16,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: nexus-future
+        run: |
+          cd nexus-future
+          yarn install
+          yarn run build
+        env:
+          CI: true
       - name: server
         run: |
           cd server
