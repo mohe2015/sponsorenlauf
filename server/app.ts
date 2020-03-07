@@ -33,6 +33,15 @@ schema.addToContext(req => {
   }
 })
 
+settings.change({
+  schema: {
+    connections: {
+      default: {
+        includeNodesField: true
+      }
+    },
+  }
+})
 
 // https://github.com/apollographql/graphql-subscriptions/blob/master/src/test/asyncIteratorSubscription.ts
 

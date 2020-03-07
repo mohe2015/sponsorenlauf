@@ -1,4 +1,5 @@
 import { schema } from 'nexus-future'
+import { connectionPlugin } from "nexus";
 
 export const Query = schema.queryType({
   definition(t) {
@@ -23,9 +24,21 @@ export const Query = schema.queryType({
     
     t.connection("rounds", {
       type: "Round",
-      nodes(root, args, ctx, info) {
-        return ctx.db.user.findMany()
+      nodes: async (root, args, ctx, info) => {
+        // TODO FIXME honor first and last
+        return await ctx.db.round.findMany()
       },
+      cursorFromNode: async (node, args, ctx, info, { index, nodes }) => {
+        if (args.last && !args.before) {
+          const totalCount = await ctx.db.round.count();
+          return `cursor:${totalCount - args.last! + index + 1}`;
+        }
+        // TODO FIXME this uses the connectionPlugin
+        return connectionPlugin.defaultCursorFromNode(node, args, ctx, info, {
+          index,
+          nodes,
+        });
+      }
     })
   },
 })

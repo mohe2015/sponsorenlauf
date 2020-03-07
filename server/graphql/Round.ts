@@ -7,5 +7,6 @@ export const Round = schema.objectType({
     t.model.student()
     t.model.time()
     t.model.createdBy()
+    
   },
 })
