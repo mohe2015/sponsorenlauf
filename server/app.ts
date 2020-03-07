@@ -3,7 +3,6 @@ import { permissions } from './src/permissions';
 import { applyMiddleware } from 'graphql-middleware'
 import { PubSub } from 'graphql-subscriptions';
 import { mergeSchemas } from 'graphql-tools'
-import { newSubField } from './graphql/Subscription';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt } from 'graphql';
 import { ApolloServer } from 'apollo-server'
 import { schema, server, settings, log } from "nexus-future"
@@ -37,7 +36,7 @@ schema.addToContext(req => {
 
 // https://github.com/apollographql/graphql-subscriptions/blob/master/src/test/asyncIteratorSubscription.ts
 
-server.custom(({ schema, context }) => {
+server.custom(({ schema, context, express }) => {
 
   const subscriptionSchema = new GraphQLSchema ({
     // you can ignore this...graphql just wants to me to have a query

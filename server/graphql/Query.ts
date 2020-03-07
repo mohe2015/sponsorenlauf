@@ -21,8 +21,11 @@ export const Query = schema.queryType({
       pagination: false,
     })
     
-    //t.connection("rounds", {
-    //  type: "Round"
-    //})
+    t.connection("rounds", {
+      type: "Round",
+      nodes(root, args, ctx, info) {
+        return ctx.db.user.findMany()
+      },
+    })
   },
 })
