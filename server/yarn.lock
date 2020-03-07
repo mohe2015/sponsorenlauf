@@ -3465,10 +3465,10 @@ nexus-future@^0.10.0-next.21:
     tslib "^1"
     typescript "^3.7.2"
 
-nexus-plugin-prisma@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.4.1.tgz#4077706db3c1d0970ae9fcd1987393fc89aacdb0"
-  integrity sha512-xAiO/eJYjJnzPqt0h01TNq+i/VFQwEvQd7uDjfZLPpuv92z30m2abUE2T9m6Nl43Tsgw+84HC87TLTQha5Sj7Q==
+nexus-plugin-prisma@^0.4.2-next.2:
+  version "0.4.2-next.2"
+  resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.4.2-next.2.tgz#814ccbf70f4ac88be8e3458f06978283be3b0273"
+  integrity sha512-sTG4GUL1sqW5eKAO5dLUPucWkuDGMKEz9eZGUJ+nqHYNSCyB1GqiueNqbnktSjnyyGIWGwBV3JHYqqPk88JQug==
   dependencies:
     "@prisma/client" "^2.0.0-preview022"
     "@prisma/generator-helper" "^0.0.40"
@@ -3479,16 +3479,16 @@ nexus-plugin-prisma@^0.4.1:
     fs-jetpack "^2.2.3"
     get-port "^5.1.1"
     nexus "^0.12.0-rc.13"
-    nexus-prisma "^0.10.0"
+    nexus-prisma "^0.11.0-next.1"
     open "^7.0.0"
     prisma2 "2.0.0-preview022"
     prismjs "^1.19.0"
     stacktrace-parser "^0.1.9"
 
-nexus-prisma@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/nexus-prisma/-/nexus-prisma-0.10.0.tgz#f406308a7dac3b009ad48bc7cdcca20c008b2434"
-  integrity sha512-b2oX0dNt/yOtMChwIYEA8QWTeT7UjbqCtzVJptmkQLWkpum/JBlcCEuncuE7fNbbK81AhL7py6C0vVJGnYdY7Q==
+nexus-prisma@^0.11.0-next.1:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/nexus-prisma/-/nexus-prisma-0.11.0.tgz#39b6f6a70d66629f2c64e66c674e7f368bf351fc"
+  integrity sha512-p2I+uAKVwbJYAXDzeSRqKRy5IghqP1oUxJbwWYSPyhi17E6HpGeMr0MCRGx4mbM2gkTO0YjIjAKJSatFWDYicQ==
   dependencies:
     camelcase "^5.3.1"
     fs-extra "^8.1.0"
