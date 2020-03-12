@@ -121,6 +121,11 @@
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-preview023.tgz#d24515b3f62f1d3730fca7d07a43cff36e308f6c"
   integrity sha512-R3e+CFr5HkDTzMYnNk9iYsjY76C9/3zxdUxmejD3hivJGJ6yEKq5p95gE3skkzWnj5BBa9tE15tNI7/uZZhv5A==
 
+"@prisma/client@2.0.0-preview024":
+  version "2.0.0-preview024"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-preview024.tgz#020f7c2d12e8c56fa7f096a83bc736f10a1d44a5"
+  integrity sha512-HnJxSvEY8cQgGf0xZuMh9fv85QxlKzIbieUZPfG+30WtDKD5CxmPkatZnAj+Z5CciK7WxeQNutTGZk2eEop+ZQ==
+
 "@prisma/engine-core@2.0.41":
   version "2.0.41"
   resolved "https://registry.yarnpkg.com/@prisma/engine-core/-/engine-core-2.0.41.tgz#23c8e388352c0712df70ccc78b65012468be1c56"
@@ -2465,7 +2470,7 @@ graphql-middleware@^4.0.2:
   dependencies:
     graphql-tools "^4.0.5"
 
-graphql-shield@^7.0.14:
+graphql-shield@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/graphql-shield/-/graphql-shield-7.2.0.tgz#81b26794370608ad78dfe3833473789fb471fbd8"
   integrity sha512-eLdD+gUIKYu77XRcuHs5ewZhiBuRFeWFGxPnJa+g9AkxB7Yi5RSEjEJEx0Drg9GuNvDYpHeW7nPff4v35AT2aQ==
@@ -3518,7 +3523,7 @@ nexus-future@^0.11.1:
     tslib "^1"
     typescript "^3.7.2"
 
-nexus-plugin-prisma@^0.4.2-next.2:
+nexus-plugin-prisma@^0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.4.4.tgz#b7fa18c377f0743a38c0b90deb6de71820efc28c"
   integrity sha512-A6n8H6NYkZvPuKU1aUfTRAlq91GlSeoBr43WAhxonbI14vqW+u5zQ7H5HAmtIQzuPPJJSWOYCEZb8XFBrbt6FQ==
@@ -4042,6 +4047,11 @@ prisma2@2.0.0-preview023:
   version "2.0.0-preview023"
   resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview023.tgz#9c692b6fe0f3917b9ad295db6fa15018e5465ca9"
   integrity sha512-rwK1fzVcC9S9eJJBn1qBwO3ccuN0FRii3UkQcwIGg98jyo3nx0QuLSmH0c6xtxDWhzIN1sRMepZf959AaVNxkA==
+
+prisma2@2.0.0-preview024:
+  version "2.0.0-preview024"
+  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview024.tgz#6d2004c5a0d2f58e09c5d9eabe1c5eb8d9b2d7e2"
+  integrity sha512-hQJjD0/Wv7evgH2XzHN1pSJPiVgZd8QI0cDyP+1mECUs4NBCUCrxPao7eNF5g8HGsjs30YR2/ree6i6TuwmfiQ==
 
 prismjs@^1.19.0:
   version "1.19.0"
@@ -5228,7 +5238,7 @@ ws@^6.0.0:
   dependencies:
     async-limiter "~1.0.0"
 
-ws@^7.2.1:
+ws@^7.2.3:
   version "7.2.3"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.2.3.tgz#a5411e1fb04d5ed0efee76d26d5c46d830c39b46"
   integrity sha512-HTDl9G9hbkNDk98naoR/cHDws7+EyYMOdL1BmjsZXRUjf7d+MficC4B7HLUPlSiho0vg+CWKrGIt/VJBd1xunQ==
