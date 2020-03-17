@@ -4,8 +4,8 @@
     "module": "commonjs",
     "lib": ["esnext"],
     "strict": true,
-    "outDir": "dist"
-   /* "esModuleInterop": true*/
+    "outDir": "dist",
+    "esModuleInterop": true
   },
   "exclude": ["prisma/**/*"]
 }
