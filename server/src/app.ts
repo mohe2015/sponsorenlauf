@@ -7,6 +7,8 @@ import { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt } from 'gra
 import { ApolloServer } from 'apollo-server'
 import { schema, server, settings, log } from "nexus-future"
 import { ExecutionParams } from 'subscriptions-transport-ws'
+import { printSchema } from 'graphql'
+import fs from 'fs'
 
 let pubSub = new PubSub()
 
@@ -35,7 +37,6 @@ schema.addToContext(req => {
 
 settings.change({
   schema: {
-    generateGraphQLSDLFile: "generated/schema.graphql",
     connections: {
       default: {
         includeNodesField: true
@@ -46,8 +47,7 @@ settings.change({
 
 // https://github.com/apollographql/graphql-subscriptions/blob/master/src/test/asyncIteratorSubscription.ts
 
-server.custom(({ schema, context, express }) => {
-
+function buildSchema(schema: GraphQLSchema) {
   const subscriptionSchema = new GraphQLSchema ({
     // you can ignore this...graphql just wants to me to have a query
     query: new GraphQLObjectType({ name: 'RootQueryType', fields: { fooQuery: { type: GraphQLInt, resolve: source => source } } }),
@@ -75,7 +75,12 @@ server.custom(({ schema, context, express }) => {
       subscriptionSchema
   ]})
   schema = applyMiddleware(schema, permissions)
+  fs.writeFileSync("generated/schema.graphql", printSchema(schema))
+  return schema
+}
 
+server.custom(({ schema, context, express }) => {
+  schema = buildSchema(schema)
   const server = new ApolloServer({
     schema,
     context
