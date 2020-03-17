@@ -1,0 +1,14 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator prisma_client {
+  provider = "prisma-client-js"
+}
+   
+model World {
+  id         Int    @id @default(autoincrement())
+  name       String @unique
+  population Float
+}
