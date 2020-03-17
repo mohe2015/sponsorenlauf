@@ -4,6 +4,7 @@
     "module": "commonjs",
     "lib": ["esnext"],
     "strict": true,
+    "esModuleInterop": true
     // [1] nexus managed
     // "rootDir": "./src",
     // "outDir": "node_modules/.build",
