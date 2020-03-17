@@ -1,6 +1,6 @@
 import { schema } from 'nexus-future'
 import { hashSync, compare } from 'bcrypt'
-//import { sign, Secret } from 'jsonwebtoken'
+import { sign, Secret } from 'jsonwebtoken'
 
 export const Mutation = schema.mutationType({
   definition(t) {
@@ -29,9 +29,13 @@ export const Mutation = schema.mutationType({
         if (!user) {
           throw new Error(`No user found with name: ${name}`)
         }
+        // TODO FIXME password should be a hash
         // @ts-ignore
-        const passwordValid = await compare(password, user.password)
-        if (!passwordValid) {
+        //const passwordValid = await compare(password, user.password)
+        //if (!passwordValid) {
+        //  throw new Error('Invalid password')
+        //}
+        if (password !== user.password) { // TODO FIXME timing attack
           throw new Error('Invalid password')
         }
         return {
