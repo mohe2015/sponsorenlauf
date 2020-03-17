@@ -2,8 +2,11 @@
   "name": "salty-sheep",
   "license": "UNLICENSED",
   "dependencies": {
+    "bcrypt": "^4.0.1",
+    "graphql": "^14.5.0",
     "nexus-future": "^0.12.0",
-    "nexus-plugin-prisma": "^0.5.1"
+    "nexus-plugin-prisma": "^0.5.1",
+    "typescript": "^3.8.3"
   },
   "scripts": {
     "format": "npx prettier --write './**/*.{ts,md}' '!./prisma/**/*.md'",

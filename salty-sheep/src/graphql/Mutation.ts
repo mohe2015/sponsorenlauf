@@ -1,5 +1,5 @@
 import { schema } from 'nexus-future'
-//import { hashSync, compare } from 'bcrypt'
+import { hashSync, compare } from 'bcrypt'
 //import { sign, Secret } from 'jsonwebtoken'
 
 export const Mutation = schema.mutationType({
