@@ -1,24 +1,59 @@
 import { PrismaClient } from '@prisma/client'
+import { hash } from 'bcrypt'
+import parse from 'csv-parse/lib/sync'
+import fs from 'fs'
 
 const db = new PrismaClient()
 
 main()
 
+async function asyncForEach(array: any, callback: any) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
+}
+
 async function main() {
-  const results = await Promise.all(
-    [
-      {
-        name: 'Earth',
-        population: 6_000_000_000,
+
+  if (
+    !(await db.user.findOne({
+      where: {
+        name: 'admin',
       },
-      {
-        name: 'Mars',
-        population: 0,
+    }))
+  ) {
+    // @ts-ignore
+    const hashedPassword = await hash('admin', 10)
+    const admin = await db.user.create({
+      data: {
+        name: 'admin',
+        password: hashedPassword,
+        role: 'ADMIN',
       },
-    ].map(data => db.world.create({ data })),
+    })
+    console.log('added admin account:\n', admin)
+  }
+
+  var content = fs.readFileSync('prisma/test.csv', 'utf8')
+
+  let records = parse(content, {
+    columns: true,
+  })
+
+  records = records.sort((a: any, b: any) =>
+    a['Klasse'].localeCompare(b['Klasse']),
   )
 
-  console.log('Seeded: %j', results)
+  await asyncForEach(records, async (data: any) => {
+    console.log(data)
+    await db.student.create({
+      data: {
+        name: data['Name'],
+        class: data['Klasse'],
+        grade: Number(data['Jahrgang']),
+      },
+    })
+  })
 
-  db.disconnect()
+  await db.disconnect()
 }
