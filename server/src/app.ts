@@ -35,6 +35,7 @@ schema.addToContext(req => {
 
 settings.change({
   schema: {
+    generateGraphQLSDLFile: "generated/schema.graphql",
     connections: {
       default: {
         includeNodesField: true
