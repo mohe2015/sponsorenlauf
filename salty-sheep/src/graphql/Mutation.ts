@@ -5,12 +5,13 @@ import { hashSync, compare } from 'bcrypt'
 export const Mutation = schema.mutationType({
   definition(t) {
     t.crud.createOneUser({
-      computedInputs: {
+      // TODO FIXME IMPORTANT this stores the password in plaintext!!!!
+      /*computedInputs: {
         password: ({ args }) => {
           // @ts-ignore
           hashSync(args.data.password, 10)
         },
-      },
+      },*/
     })
 
     t.field('login', {
