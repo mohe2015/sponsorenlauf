@@ -7,12 +7,11 @@ schema.extendType({
   definition(t) {
     t.field("subscribeRounds", {
       type: "Round", 
-      resolve: (source, args, context, info) => {
-        console.log(source)
-        return source
+      resolve: async (_parent, { }, context) => {
+        return null
       },
     })
-  })
+  }
 })
 
 export const Mutation = schema.mutationType({

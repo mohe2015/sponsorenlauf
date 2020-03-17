@@ -37,6 +37,7 @@ schema.addToContext(req => {
 
 settings.change({
   schema: {
+    generateGraphQLSDLFile: "generated/graphql.schema",
     connections: {
       default: {
         includeNodesField: true
@@ -75,7 +76,7 @@ function buildSchema(schema: GraphQLSchema) {
       subscriptionSchema
   ]})
   schema = applyMiddleware(schema, permissions)
-  fs.writeFileSync("generated/schema.graphql", printSchema(schema))
+  //fs.writeFileSync("generated/schema.graphql", printSchema(schema))
   return schema
 }
 
