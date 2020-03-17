@@ -2,6 +2,19 @@ import { schema } from 'nexus-future'
 import { hashSync, compare } from 'bcrypt'
 import { sign, Secret } from 'jsonwebtoken'
 
+schema.extendType({
+  type: "Subscription",
+  definition(t) {
+    t.field("subscribeRounds", {
+      type: "Round", 
+      resolve: (source, args, context, info) => {
+        console.log(source)
+        return source
+      },
+    })
+  })
+})
+
 export const Mutation = schema.mutationType({
   definition(t) {
     t.crud.createOneUser({
