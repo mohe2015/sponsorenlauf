@@ -2,18 +2,6 @@ import { schema } from 'nexus-future'
 import { hashSync, compare } from 'bcrypt'
 import { sign, Secret } from 'jsonwebtoken'
 
-schema.extendType({
-  type: "Subscription",
-  definition(t) {
-    t.field("subscribeRounds", {
-      type: "Round", 
-      resolve: async (_parent, { }, context) => {
-        return null
-      },
-    })
-  }
-})
-
 export const Mutation = schema.mutationType({
   definition(t) {
     t.crud.createOneUser({

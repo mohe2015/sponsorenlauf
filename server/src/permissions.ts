@@ -30,9 +30,9 @@ export const permissions = shield(
       createOneRound: rules.isUserWithRole(['ADMIN', 'TEACHER']),
       createOneStudent: rules.isUserWithRole(['ADMIN']),
     },
-    Subscription: {
-      subscribeRounds: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
-    },
+    //Subscription: {
+    //  subscribeRounds: rules.isUserWithRole(['ADMIN', 'TEACHER', 'VIEWER']),
+    //},
     User: {
       password: rules.isUserWithRole(['ADMIN']),
       id: allow,
