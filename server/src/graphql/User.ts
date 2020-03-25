@@ -1,12 +1,12 @@
-import { objectType, enumType, subscriptionField } from 'nexus'
+import { schema } from 'nexus-future'
 
-export const UserRole = enumType({
+export const UserRole = schema.enumType({
   name: 'UserRole',
   members: ['ADMIN', 'TEACHER', 'VIEWER'],
   description: 'The users role',
 })
 
-export const User = objectType({
+export const User = schema.objectType({
   name: 'User',
   definition(t) {
     t.model.id()

@@ -1,51 +1,39 @@
 {
-  "name": "sponsorenlauf-server",
-  "private": true,
-  "version": "0.0.0",
-  "main": "src/main.ts",
-  "scripts": {
-    "setup:initial-data": "ts-node prisma/fake-data.ts",
-    "setup": "npm-run-all --sequential build:database build:database-up build:prisma-client setup:initial-data",
-    "build:database": "prisma2 migrate save --name 'init' --create-db --experimental",
-    "build:database-up": "prisma2 migrate up --experimental",
-    "build:prisma-client": "prisma2 generate",
-    "watch:prisma-client": "prisma2 generate --watch",
-    "build:nexus": "ts-node-dev --transpile-only src/schema",
-    "watch:nexus": "ts-node-dev --respawn --transpileOnly src/schema",
-    "watch:studio": "prisma2 studio --experimental",
-    "build": "npm-run-all --sequential build:prisma-client build:nexus build:main",
-    "watch:main": "ts-node-dev --respawn --transpileOnly src/main",
-    "build:main": "tsc --esModuleInterop src/main",
-    "watch": "npm-run-all --parallel watch:prisma-client watch:nexus watch:main",
-    "style": "prettier --write 'src/**/*'"
-  },
+  "name": "salty-sheep",
+  "license": "UNLICENSED",
   "dependencies": {
-    "@prisma/client": "^2.0.0-preview023",
-    "@types/bcrypt": "10.0.28-alpha",
+    "@types/bcrypt": "^10.0.28-alpha",
     "@types/jsonwebtoken": "^8.3.8",
-    "@types/ws": "^7.2.2",
-    "apollo-server": "^2.11.0",
-    "apollo-server-express": "^2.11.0",
+    "apollo-server": "^2.12.0-alpha.2",
     "bcrypt": "^4.0.1",
-    "csv-parse": "^4.8.7",
     "graphql": "^14.6.0",
     "graphql-middleware": "^4.0.2",
-    "graphql-shield": "^7.0.14",
+    "graphql-shield": "^7.2.1",
     "jsonwebtoken": "^8.5.1",
-    "nexus": "^0.12.0-rc.13",
-    "nexus-prisma": "^0.10.0",
-    "npm-run-all": "^4.1.5",
-    "ws": "^7.2.1"
+    "nexus-future": "^0.12.1-next.1",
+    "nexus-plugin-prisma": "^0.5.2-next.1",
+    "subscriptions-transport-ws": "^0.9.16",
+    "typescript": "^3.9.0-dev.20200325"
   },
-  "devDependencies": {
-    "prettier": "^1.19.1",
-    "prisma2": "2.0.0-preview023",
-    "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.8"
+  "scripts": {
+    "format": "npx prettier --write './**/*.{ts,md}' '!./prisma/**/*.md'",
+    "dev": "nexus dev",
+    "build": "nexus build",
+    "start": "node node_modules/.build"
   },
   "prettier": {
     "semi": false,
     "singleQuote": true,
     "trailingComma": "all"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "devDependencies": {
+    "husky": "^4.2.3",
+    "prettier": "^2.0.2",
+    "pretty-quick": "^2.0.1"
   }
 }

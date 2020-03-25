@@ -1,6 +1,6 @@
-import { objectType } from 'nexus'
+import { schema } from 'nexus-future'
 
-export const Student = objectType({
+export const Student = schema.objectType({
   name: 'Student',
   definition(t) {
     t.model.startNumber()
