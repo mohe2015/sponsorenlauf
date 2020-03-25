@@ -14,6 +14,7 @@ import { schema, server, settings, log } from 'nexus-future'
 import { ExecutionParams } from 'subscriptions-transport-ws'
 import { printSchema } from 'graphql'
 import fs from 'fs'
+import { Round } from './graphql/Round'
 
 let pubSub = new PubSub()
 
@@ -65,11 +66,17 @@ function buildSchema(schema: GraphQLSchema) {
       fields: { fooQuery: { type: GraphQLInt, resolve: (source) => source } },
     }),
 
+    // https://www.prisma.io/blog/the-problems-of-schema-first-graphql-development-x1mn4cb0tyl3
     subscription: new GraphQLObjectType({
       name: 'Subscription',
       fields: {
-        subscribeRounds: {
+        SubscribeRounds: {
           type: schema.getType('Round') as GraphQLObjectType,
+          args: {
+            test: {
+              type: GraphQLString,
+            },
+          },
           // subscribe: withFilter(() => iterator, filterFn),
           subscribe: (source, args, context, info) => {
             return context.pubsub.asyncIterator('ROUNDS')
@@ -85,6 +92,7 @@ function buildSchema(schema: GraphQLSchema) {
   schema = mergeSchemas({
     schemas: [schema, subscriptionSchema],
   })
+
   schema = applyMiddleware(schema, permissions)
   fs.writeFileSync('generated/schema.graphql', printSchema(schema))
   return schema
