@@ -3,8 +3,22 @@ import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import environment from "../environment";
 import Student from "./Student";
+import { Table } from "react-bootstrap";
 
 export default class StudentList extends React.Component {
+  groupBy = function(xs, key) {
+    return xs.reduce(function(rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
+  };
+
+  values = dictionary => {
+    return Object.keys(dictionary).map(function(key) {
+      return dictionary[key];
+    });
+  };
+
   render() {
     return (
       <QueryRenderer
@@ -15,6 +29,7 @@ export default class StudentList extends React.Component {
               #edges {
               #node {
               startNumber
+              class
               ...Student_student
               #},
               #},
@@ -29,12 +44,32 @@ export default class StudentList extends React.Component {
           if (!props) {
             return <div>Loading...</div>;
           }
+          let dict = this.groupBy(props.students, "class");
           return (
-            <ul>
-              {props.students.map(student => (
-                <Student key={student.startNumber} student={student} />
+            <div>
+              {Object.keys(dict).map(clazzName => (
+                <Table
+                  key={clazzName}
+                  bordered
+                  hover
+                  variant="sm"
+                  style={{ pageBreakInside: "avoid" }}
+                >
+                  <thead>
+                    <tr>
+                      <th>Startnummer ({clazzName})</th>
+                      <th>Name</th>
+                      <th>Jahrgang</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dict[clazzName].map(student => (
+                      <Student key={student.startNumber} student={student} />
+                    ))}
+                  </tbody>
+                </Table>
               ))}
-            </ul>
+            </div>
           );
         }}
       />
