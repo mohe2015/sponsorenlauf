@@ -47,12 +47,19 @@ export const Mutation = schema.mutationType({
         startNumber: schema.intArg({ nullable: false }),
       },
       resolve: async (parent, { startNumber }, ctx) => {
+        const student = await ctx.db.student.findOne({
+          where: {
+            startNumber,
+          },
+        })
+        console.log(student)
+
         const round = await ctx.db.round.create({
           data: {
             time: 1337, // TODO
             student: {
               connect: {
-                startNumber: startNumber, // TODO FIXME doesn't check if it exists
+                id: student?.id,
               },
             },
             createdBy: {

@@ -105,36 +105,7 @@ class AddRound extends Component {
             </div>
           </Form>
         </Container>
-        <QueryRenderer
-          environment={environment}
-          query={graphql`
-            query AddRoundSubscriptionPageQuery {
-              rounds(first: 0, last: 100000000)
-                @connection(key: "RoundSubscriptionPageQuery_rounds") {
-                edges {
-                  node {
-                    id
-                    student {
-                      startNumber
-                      name
-                    }
-                    time
-                  }
-                }
-              }
-            }
-          `}
-          variables={{}}
-          render={({ error, props }) => {
-            if (error) {
-              return <div>{error.message}</div>;
-            }
-            if (!props) {
-              return <div>Loading...</div>;
-            }
-            return <RoundList viewer={props.rounds.edges} />;
-          }}
-        />
+        <RoundList />
       </Container>
     );
   }
