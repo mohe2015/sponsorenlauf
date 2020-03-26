@@ -9,7 +9,7 @@ import { GC_USER_ID, GC_AUTH_TOKEN } from "./environment";
 import Me from "./Me";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Container } from "react-bootstrap";
-import AddRound from "./AddRound";
+import AddRound from "./add-round/AddRound";
 import RoundSubscriptionPage from "./RoundSubscriptionPage";
 import StudentList from "./students/StudentList";
 import RoundList from "./rounds/RoundList";
@@ -94,6 +94,10 @@ class App extends Component {
                 <Nav.Item>
                   <Nav.Link href="/rounds">Runden</Nav.Link>
                 </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link href="/add_round">Runde hinzufügen</Nav.Link>
+                </Nav.Item>
               </Nav>
               <Nav>
                 {!this.state.userId && (
@@ -119,6 +123,9 @@ class App extends Component {
             <Container fluid>
               <RoundList />
             </Container>
+          </Route>
+          <Route exact path="/add_round">
+            <AddRound />
           </Route>
         </Switch>
       </BrowserRouter>

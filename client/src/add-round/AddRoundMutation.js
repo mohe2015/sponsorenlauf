@@ -1,7 +1,8 @@
 import { commitMutation } from "react-relay";
-import environment from "./environment";
+import environment from "../environment";
 import graphql from "babel-plugin-relay/macro";
 
+// TODO FIXME RANGE_ADD https://relay.dev/docs/en/mutations
 const mutation = graphql`
   mutation AddRoundMutation($startNumber: Int!) {
     createOneRound(startNumber: $startNumber) {
@@ -12,14 +13,12 @@ const mutation = graphql`
 `;
 
 export default (startNumber, callback) => {
-  const variables = {
-    startNumber
-  };
-
   commitMutation(environment, {
     mutation,
-    variables,
-    onCompleted: response => {
+    variables: {
+      startNumber
+    },
+    onCompleted: (response, errors) => {
       const id = response.createOneRound.id;
       const time = response.createOneRound.time;
       callback(id, time);

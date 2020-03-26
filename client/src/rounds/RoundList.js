@@ -5,6 +5,8 @@ import environment from "../environment";
 import { Table } from "react-bootstrap";
 import Round from "./Round";
 
+// TODO use pagination as this list may get really long over time
+// https://relay.dev/docs/en/pagination-container
 export default class RoundList extends React.Component {
   render() {
     return (
@@ -12,7 +14,7 @@ export default class RoundList extends React.Component {
         environment={environment}
         query={graphql`
           query RoundListQuery {
-            rounds(first: 2147483647) {
+            rounds(first: 2147483647) @connection(key: "Round_rounds") {
               edges {
                 node {
                   id

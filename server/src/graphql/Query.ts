@@ -1,4 +1,5 @@
 import { schema } from 'nexus-future'
+import { Student } from './Student'
 
 export const Query = schema.queryType({
   definition(t) {
@@ -16,16 +17,18 @@ export const Query = schema.queryType({
 
     t.crud.student({})
 
-    t.crud.students({
-      filtering: true,
-      pagination: false,
+    t.connection('students', {
+      type: Student,
+      nodes: async (root, args, ctx, info) => {
+        return await ctx.db.student.findMany()
+      },
     })
-    
-    t.connection("rounds", {
-      type: "Round",
+
+    t.connection('rounds', {
+      type: 'Round',
       nodes: async (root, args, ctx, info) => {
         return await ctx.db.round.findMany()
-      }
+      },
     })
   },
 })

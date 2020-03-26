@@ -8,7 +8,7 @@ import { Table } from "react-bootstrap";
 export default class StudentList extends React.Component {
   groupBy = function(xs, key) {
     return xs.reduce(function(rv, x) {
-      (rv[x[key]] = rv[x[key]] || []).push(x);
+      (rv[x.node.class] = rv[x.node.class] || []).push(x.node);
       return rv;
     }, {});
   };
@@ -25,14 +25,14 @@ export default class StudentList extends React.Component {
         environment={environment}
         query={graphql`
           query StudentListQuery {
-            students {
-              #edges {
-              #node {
-              startNumber
-              class
-              ...Student_student
-              #},
-              #},
+            students(first: 2147483647) @connection(key: "Student_students") {
+              edges {
+                node {
+                  id
+                  class
+                  ...Student_student
+                }
+              }
             }
           }
         `}
@@ -44,7 +44,7 @@ export default class StudentList extends React.Component {
           if (!props) {
             return <div>Loading...</div>;
           }
-          let dict = this.groupBy(props.students, "class");
+          let dict = this.groupBy(props.students.edges);
           return (
             <div>
               {Object.keys(dict).map(clazzName => (
@@ -64,7 +64,7 @@ export default class StudentList extends React.Component {
                   </thead>
                   <tbody>
                     {dict[clazzName].map(student => (
-                      <Student key={student.startNumber} student={student} />
+                      <Student key={student.id} student={student} />
                     ))}
                   </tbody>
                 </Table>

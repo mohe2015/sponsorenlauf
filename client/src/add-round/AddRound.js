@@ -5,9 +5,9 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import AddRoundMutation from "./AddRoundMutation";
 import { QueryRenderer } from "react-relay";
-import environment from "./environment";
+import environment from "../environment";
 import graphql from "babel-plugin-relay/macro";
-import RoundList from "./rounds/RoundList";
+import RoundList from "../rounds/RoundList";
 
 class AddRound extends Component {
   constructor(props) {
