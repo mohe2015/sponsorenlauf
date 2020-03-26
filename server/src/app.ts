@@ -38,7 +38,7 @@ function requestToUserID(param: any) {
   return verifiedToken.userId
 }
 
-schema.addToContext((req) => {
+schema.addToContext(req => {
   return {
     userId: requestToUserID(req),
     pubsub: pubSub,
@@ -59,7 +59,41 @@ settings.change({
 // https://github.com/apollographql/graphql-subscriptions/blob/master/src/test/asyncIteratorSubscription.ts
 
 function buildSchema(schema: GraphQLSchema) {
-  //schema = applyMiddleware(schema, permissions) // FIXME wrong graphql version
+  const subscriptionSchema = new GraphQLSchema({
+    // you can ignore this...graphql just wants to me to have a query
+    query: new GraphQLObjectType({
+      name: 'RootQueryType',
+      fields: { fooQuery: { type: GraphQLInt, resolve: source => source } },
+    }),
+
+    // https://www.prisma.io/blog/the-problems-of-schema-first-graphql-development-x1mn4cb0tyl3
+    subscription: new GraphQLObjectType({
+      name: 'Subscription',
+      fields: {
+        SubscribeRounds: {
+          type: schema.getType('Round') as GraphQLObjectType,
+          args: {
+            test: {
+              type: GraphQLString,
+            },
+          },
+          // subscribe: withFilter(() => iterator, filterFn),
+          subscribe: (source, args, context, info) => {
+            return context.pubsub.asyncIterator('ROUNDS')
+          },
+          resolve: (source, args, context, info) => {
+            console.log(source)
+            return source
+          },
+        },
+      },
+    }),
+  })
+  schema = mergeSchemas({
+    schemas: [schema, subscriptionSchema],
+  })
+
+  schema = applyMiddleware(schema, permissions) // FIXME wrong graphql version
   fs.writeFileSync('generated/schema.graphql', printSchema(schema))
   return schema
 }

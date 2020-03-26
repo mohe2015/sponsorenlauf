@@ -3388,7 +3388,7 @@ negotiator@0.6.2:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
 
-nexus-future@0.12.1-next.1:
+nexus-future@^0.12.1-next.1:
   version "0.12.1-next.1"
   resolved "https://registry.yarnpkg.com/nexus-future/-/nexus-future-0.12.1-next.1.tgz#47cc32d78b8bbb35436de6480a494f5810e69c26"
   integrity sha512-QYBJ/UbWebuQdG7VmQoJSdANq2lZf1UvZSfEqXgfMJq/prMhqtw5hXsXoxGFoLa5gF0v8LsZJ87indEyOOxpAg==
