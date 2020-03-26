@@ -29,13 +29,9 @@ export const Mutation = schema.mutationType({
         if (!user) {
           throw new Error(`No user found with name: ${name}`)
         }
-        // TODO FIXME password should be a hash
         // @ts-ignore
-        //const passwordValid = await compare(password, user.password)
-        //if (!passwordValid) {
-        //  throw new Error('Invalid password')
-        //}
-        if (password !== user.password) { // TODO FIXME timing attack
+        const passwordValid = await compare(password, user.password)
+        if (!passwordValid) {
           throw new Error('Invalid password')
         }
         return {
@@ -46,7 +42,7 @@ export const Mutation = schema.mutationType({
     })
 
     t.field('createOneRound', {
-      type: "Round",
+      type: 'Round',
       args: {
         startNumber: schema.intArg({ nullable: false }),
       },
@@ -66,7 +62,7 @@ export const Mutation = schema.mutationType({
             },
           },
         })
-        console.log("publish rounds", round)
+        console.log('publish rounds', round)
         ctx.pubsub.publish('ROUNDS', round)
         return round
       },

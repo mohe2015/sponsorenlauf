@@ -19,7 +19,7 @@
   "scripts": {
     "format": "npx prettier --write './**/*.{ts,md}' '!./prisma/**/*.md'",
     "seed": "nexus db init && ts-node prisma/seed.ts",
-    "dev": "nexus dev",
+    "dev": "APP_SECRET=test nexus dev",
     "build": "nexus build",
     "db": "nexus db ui",
     "start": "node node_modules/.build"
