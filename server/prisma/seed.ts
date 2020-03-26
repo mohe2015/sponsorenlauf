@@ -14,7 +14,6 @@ async function asyncForEach(array: any, callback: any) {
 }
 
 async function main() {
-
   if (
     !(await db.user.findOne({
       where: {
@@ -27,6 +26,7 @@ async function main() {
     const admin = await db.user.create({
       data: {
         name: 'admin',
+        // @ts-ignore
         password: hashedPassword,
         role: 'ADMIN',
       },
