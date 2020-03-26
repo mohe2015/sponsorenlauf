@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import environment from "./environment";
 import graphql from "babel-plugin-relay/macro";
 import { QueryRenderer } from "react-relay";
-import RoundList from "./RoundList";
+import RoundList from "./rounds/RoundList";
 
 class RoundSubscriptionPage extends Component {
   constructor(props) {

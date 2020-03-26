@@ -12,6 +12,7 @@ import { Container } from "react-bootstrap";
 import AddRound from "./AddRound";
 import RoundSubscriptionPage from "./RoundSubscriptionPage";
 import StudentList from "./students/StudentList";
+import RoundList from "./rounds/RoundList";
 
 class App extends Component {
   constructor(props) {
@@ -89,6 +90,10 @@ class App extends Component {
                 <Nav.Item>
                   <Nav.Link href="/students">Schüler</Nav.Link>
                 </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link href="/rounds">Runden</Nav.Link>
+                </Nav.Item>
               </Nav>
               <Nav>
                 {!this.state.userId && (
@@ -108,6 +113,11 @@ class App extends Component {
             <Container fluid>
               <h1 className="text-center dont-print">Schüler</h1>
               <StudentList />
+            </Container>
+          </Route>
+          <Route exact path="/rounds">
+            <Container fluid>
+              <RoundList />
             </Container>
           </Route>
         </Switch>
