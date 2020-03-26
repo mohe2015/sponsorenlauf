@@ -5,14 +5,13 @@ import "./App.css";
 import Login from "./Login";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { GC_USER_ID, GC_AUTH_TOKEN } from "./constants";
+import { GC_USER_ID, GC_AUTH_TOKEN } from "./environment";
 import Me from "./Me";
 import Dropdown from "react-bootstrap/Dropdown";
-import StudentListPage from "./StudentListPage";
 import { Container } from "react-bootstrap";
 import AddRound from "./AddRound";
 import RoundSubscriptionPage from "./RoundSubscriptionPage";
-import ViewerStudentList from "./students/StudentList";
+import StudentList from "./students/StudentList";
 
 class App extends Component {
   constructor(props) {
@@ -108,7 +107,7 @@ class App extends Component {
           <Route exact path="/students">
             <Container fluid>
               <h1 className="text-center dont-print">Schüler</h1>
-              <ViewerStudentList />
+              <StudentList />
             </Container>
           </Route>
         </Switch>
