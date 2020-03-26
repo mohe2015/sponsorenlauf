@@ -3,6 +3,7 @@ import { schema } from 'nexus-future'
 export const Student = schema.objectType({
   name: 'Student',
   definition(t) {
+    t.model.id()
     t.model.startNumber()
     t.model.name()
     t.model.class()

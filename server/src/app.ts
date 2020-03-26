@@ -93,7 +93,7 @@ function buildSchema(schema: GraphQLSchema) {
     schemas: [schema, subscriptionSchema],
   })
 
-  schema = applyMiddleware(schema, permissions) // FIXME wrong graphql version
+  schema = applyMiddleware(schema, permissions)
   fs.writeFileSync('generated/schema.graphql', printSchema(schema))
   return schema
 }

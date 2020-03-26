@@ -4,11 +4,7 @@
     {
       "tag": "CreateEnum",
       "enum": "UserRole",
-      "values": [
-        "ADMIN",
-        "TEACHER",
-        "VIEWER"
-      ]
+      "values": ["ADMIN", "TEACHER", "VIEWER"]
     },
     {
       "tag": "CreateSource",
@@ -125,8 +121,8 @@
     {
       "tag": "CreateField",
       "model": "Student",
-      "field": "startNumber",
-      "type": "Int",
+      "field": "id",
+      "type": "String",
       "arity": "Required"
     },
     {
@@ -135,10 +131,42 @@
         "path": {
           "tag": "Field",
           "model": "Student",
-          "field": "startNumber"
+          "field": "id"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Student",
+          "field": "id"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Student",
+          "field": "id"
         },
         "directive": "id"
       }
+    },
+    {
+      "tag": "CreateField",
+      "model": "Student",
+      "field": "startNumber",
+      "type": "Int",
+      "arity": "Required"
     },
     {
       "tag": "CreateDirective",
