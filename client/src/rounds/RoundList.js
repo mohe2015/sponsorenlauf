@@ -12,13 +12,13 @@ export default class RoundList extends React.Component {
         environment={environment}
         query={graphql`
           query RoundListQuery {
-            rounds {
-              #edges {
-              #node {
-              id
-              ...Round_round
-              #},
-              #},
+            rounds(first: 2147483647) {
+              edges {
+                node {
+                  id
+                  ...Round_round
+                }
+              }
             }
           }
         `}
@@ -45,8 +45,8 @@ export default class RoundList extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.props.rounds.map(round => (
-                  <Round key={round.id} round={round} />
+                {props.rounds.edges.map(node => (
+                  <Round key={node.id} round={node} />
                 ))}
               </tbody>
             </Table>
