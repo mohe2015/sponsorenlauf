@@ -194,6 +194,17 @@
       "value": "autoincrement()"
     },
     {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Student",
+          "field": "startNumber"
+        },
+        "directive": "unique"
+      }
+    },
+    {
       "tag": "CreateField",
       "model": "Student",
       "field": "name",
