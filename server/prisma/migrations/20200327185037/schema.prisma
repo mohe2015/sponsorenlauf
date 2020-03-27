@@ -23,7 +23,7 @@ enum UserRole {
 
 model Student {
   id          String @default(cuid()) @id
-  startNumber Int    @unique
+  startNumber Int    @default(autoincrement()) // https://github.com/prisma/prisma2/issues/1938 https://github.com/graphql-nexus/nexus-plugin-prisma https://github.com/prisma/prisma2 has a bug autoincrement makes this the primary key
   name        String @unique
   class       String
   grade       Int

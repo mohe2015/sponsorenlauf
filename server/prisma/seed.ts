@@ -48,7 +48,6 @@ async function main() {
     console.log(data)
     await db.student.create({
       data: {
-        startNumber: index + 1,
         name: data['Name'],
         class: data['Klasse'],
         grade: Number(data['Jahrgang']),

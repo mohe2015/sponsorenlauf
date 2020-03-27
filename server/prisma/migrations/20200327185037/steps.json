@@ -176,8 +176,22 @@
           "model": "Student",
           "field": "startNumber"
         },
-        "directive": "unique"
+        "directive": "default"
       }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Student",
+          "field": "startNumber"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "autoincrement()"
     },
     {
       "tag": "CreateField",
