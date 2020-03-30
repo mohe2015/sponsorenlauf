@@ -15,6 +15,7 @@ import { ExecutionParams } from 'subscriptions-transport-ws'
 import { printSchema } from 'graphql'
 import fs from 'fs'
 import { Round } from './graphql/Round'
+import { Request } from 'nexus-future/dist/runtime/app'
 
 let pubSub = new PubSub()
 
@@ -22,11 +23,10 @@ interface WebSocketContext {
   Authorization: string
 }
 
-function requestToUserID(param: any) {
-  let req: import('http').IncomingMessage = param.req // WTF?
-  let connection: ExecutionParams<WebSocketContext> = param.connection
-  let authorization =
-    connection?.context?.Authorization || req.headers.authorization
+function requestToUserID(param: Request) {
+  console.log(param)
+  // TODO FIXME ACCESS websocket context
+  let authorization = param.headers.authorization
   const token = authorization?.replace('Bearer ', '')
   if (!token) {
     return null
