@@ -1,0 +1,26 @@
+# Write your query or mutation here
+subscription Test {
+  SubscribeRounds {
+    id
+  }
+}
+
+mutation Login {
+  login(name: "admin", password: "admin") {
+    token
+  }
+}
+
+mutation Student {
+  createOneStudent(
+    data: { startNumber: 2, name: "Test", class: "Q34", grade: 13 }
+  ) {
+    id
+  }
+}
+
+mutation Round {
+  createOneRound(startNumber: 1) {
+    id
+  }
+}
