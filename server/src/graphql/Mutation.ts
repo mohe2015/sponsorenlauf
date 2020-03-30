@@ -52,21 +52,6 @@ export const Mutation = schema.mutationType({
             id,
           },
         })
-        console.log({
-          data: {
-            time: 1337, // TODO
-            student: {
-              connect: {
-                id: student?.id,
-              },
-            },
-            createdBy: {
-              connect: {
-                id: ctx.userId,
-              },
-            },
-          },
-        })
 
         const round = await ctx.db.round.create({
           data: {
