@@ -21,19 +21,16 @@ export const Mutation = schema.mutationType({
         password: schema.stringArg({ nullable: false }),
       },
       resolve: async (_parent, { name, password }, context) => {
-        console.log('login')
         const user = await context.db.user.findOne({
           where: {
             name,
           },
         })
-        console.log('user: ', user)
         if (!user) {
           throw new Error(`No user found with name: ${name}`)
         }
         // @ts-ignore
         const passwordValid = await compare(password, user.password)
-        console.log('passwordValid: ', passwordValid)
         if (!passwordValid) {
           throw new Error('Invalid password')
         }
