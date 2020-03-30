@@ -44,15 +44,29 @@ export const Mutation = schema.mutationType({
     t.field('createOneRound', {
       type: 'Round',
       args: {
-        startNumber: schema.intArg({ nullable: false }),
+        id: schema.idArg({ nullable: false }),
       },
-      resolve: async (parent, { startNumber }, ctx) => {
+      resolve: async (parent, { id }, ctx) => {
         const student = await ctx.db.student.findOne({
           where: {
-            startNumber,
+            id,
           },
         })
-        console.log(student)
+        console.log({
+          data: {
+            time: 1337, // TODO
+            student: {
+              connect: {
+                id: student?.id,
+              },
+            },
+            createdBy: {
+              connect: {
+                id: ctx.userId,
+              },
+            },
+          },
+        })
 
         const round = await ctx.db.round.create({
           data: {
