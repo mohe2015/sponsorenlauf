@@ -12,8 +12,8 @@
     "graphql-middleware": "^4.0.2",
     "graphql-shield": "^7.2.1",
     "jsonwebtoken": "^8.5.1",
-    "nexus-future": "^0.13.0-next.6",
-    "nexus-plugin-prisma": "0.0.0-pr.67.1.b5fb830",
+    "nexus-future": "^0.13.0-next.12",
+    "nexus-plugin-prisma": "^0.6.0-next.6",
     "subscriptions-transport-ws": "^0.9.16",
     "typescript": "^3.9.0-dev.20200327"
   },
