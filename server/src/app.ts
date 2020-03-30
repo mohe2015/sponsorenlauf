@@ -24,26 +24,22 @@ interface WebSocketContext {
 }
 
 function requestToUserID(param: Request) {
-  console.log('a')
-  console.log(param.headers)
   // TODO FIXME ACCESS websocket context
   let authorization = param.headers.authorization
   const token = authorization?.replace('Bearer ', '')
   if (!token) {
     return null
   }
-  console.log('b')
   const verifiedToken = verify(
     token as string,
     process.env.APP_SECRET as Secret,
   )
-  console.log('c')
   return verifiedToken.userId
 }
 
 schema.addToContext((req) => {
   return {
-    //userId: requestToUserID(req),
+    userId: requestToUserID(req),
     pubsub: pubSub,
   }
 })
