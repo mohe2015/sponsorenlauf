@@ -58,7 +58,7 @@ export const Mutation = schema.mutationType({
             time: 1337, // TODO
             student: {
               connect: {
-                id: student?.id,
+                id: student.id,
               },
             },
             createdBy: {

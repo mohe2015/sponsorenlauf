@@ -11,16 +11,18 @@ mutation Login {
   }
 }
 
-mutation Student {
-  createOneStudent(
-    data: { startNumber: 2, name: "Test", class: "Q34", grade: 13 }
-  ) {
-    id
+query Students {
+  students(first: 1) {
+    edges {
+      node {
+        id
+      }
+    }
   }
 }
 
 mutation Round {
-  createOneRound(startNumber: 1) {
+  createOneRound(id: "ck8ezuvtr0001avjzlo3n6l2j") {
     id
   }
 }
