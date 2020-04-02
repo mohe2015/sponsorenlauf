@@ -1,14 +1,11 @@
 import { verify, Secret } from 'jsonwebtoken'
 import { permissions } from './permissions'
 import { applyMiddleware } from 'graphql-middleware'
-import { PubSub } from 'graphql-subscriptions'
 import { GraphQLSchema } from 'graphql'
 import { schema, settings } from 'nexus'
 import { printSchema } from 'graphql'
 import fs from 'fs'
 import { Request } from 'nexus/dist/runtime/app'
-
-let pubSub = new PubSub()
 
 function requestToUserID(param: Request) {
   // TODO FIXME ACCESS websocket context
@@ -25,9 +22,9 @@ function requestToUserID(param: Request) {
 }
 
 schema.addToContext((req) => {
+  console.log("yay")
   return {
-    userId: requestToUserID(req),
-    pubsub: pubSub,
+    userId: requestToUserID(req)
   }
 })
 
