@@ -5,6 +5,10 @@
       "signature": "f33ae9283d651377af97085c7ab0ba44",
       "file": true,
       "replaced": "^0.13.0-next.12"
+    },
+    "nexus": {
+      "signature": "1489e068f88ea547b1ebaf4c30a2bc43",
+      "file": true
     }
   }
 }
