@@ -1,4 +1,4 @@
-import { schema } from 'nexus-future'
+import { schema } from 'nexus'
 import { Student } from './Student'
 import { decode } from '../relay-tools-custom'
 

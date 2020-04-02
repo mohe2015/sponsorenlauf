@@ -1,4 +1,4 @@
-import { schema } from 'nexus-future'
+import { schema } from 'nexus'
 import { decode, encode } from '../relay-tools-custom'
 
 export const Node = schema.interfaceType({

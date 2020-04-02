@@ -1,4 +1,4 @@
-import { schema } from 'nexus-future'
+import { schema } from 'nexus'
 import { Round } from './Round'
 
 schema.subscriptionField('SubscribeRounds', {
