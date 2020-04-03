@@ -47,18 +47,14 @@ export const Mutation = schema.mutationType({
         id: schema.idArg({ nullable: false }),
       },
       resolve: async (parent, { id }, ctx) => {
-        const student = await ctx.db.student.findOne({
-          where: {
-            id,
-          },
-        })
+        console.log(id)
 
         const round = await ctx.db.round.create({
           data: {
             time: 1337, // TODO
             student: {
               connect: {
-                id: student.id,
+                id: id,
               },
             },
             createdBy: {
@@ -69,7 +65,7 @@ export const Mutation = schema.mutationType({
           },
         })
         console.log('publish rounds', round)
-        ctx.pubsub.publish('ROUNDS', round)
+        ctx.pubSub.publish('ROUNDS', round)
         return round
       },
     })

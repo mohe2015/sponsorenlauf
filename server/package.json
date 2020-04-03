@@ -19,7 +19,7 @@
   },
   "scripts": {
     "format": "npx prettier --write './**/*.{ts,md}' '!./prisma/**/*.md'",
-    "seed": "prisma2 migrate save --experimental --create-db --name init && yarn prisma2 migrate up --experimental --verbose && ts-node prisma/seed.ts",
+    "seed": "prisma migrate save --experimental --create-db --name init && yarn prisma migrate up --experimental --verbose && ts-node prisma/seed.ts",
     "dev": "APP_SECRET=test LOG_LEVEL=info DEBUG=true nexus dev",
     "build": "nexus build",
     "db": "nexus db ui",

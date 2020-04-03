@@ -6,6 +6,9 @@ import { schema, settings } from 'nexus'
 import { printSchema } from 'graphql'
 import fs from 'fs'
 import { Request } from 'nexus/dist/runtime/app'
+import { PubSub } from 'graphql-subscriptions'
+
+let pubSub = new PubSub()
 
 function requestToUserID(param: Request) {
   // TODO FIXME ACCESS websocket context
@@ -22,9 +25,9 @@ function requestToUserID(param: Request) {
 }
 
 schema.addToContext((req) => {
-  console.log("yay")
   return {
-    userId: requestToUserID(req)
+    userId: requestToUserID(req),
+    pubSub: pubSub
   }
 })
 
