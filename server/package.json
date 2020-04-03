@@ -13,6 +13,7 @@
     "graphql-subscriptions": "^1.1.0",
     "jsonwebtoken": "^8.5.1",
     "nexus": "file:.yalc/nexus",
+    "nexus-plugin-graphql-shield": "file:.yalc/nexus-plugin-graphql-shield",
     "nexus-plugin-prisma": "^0.6.0",
     "subscriptions-transport-ws": "^0.9.16",
     "typescript": "^3.8.3"
