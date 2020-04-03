@@ -44,10 +44,12 @@ async function main() {
     a['Klasse'].localeCompare(b['Klasse']),
   )
 
-  await asyncForEach(records, async (data: any) => {
+  let i = 0
+  await asyncForEach(records, async (data: any, index: number) => {
     console.log(data)
     await db.student.create({
       data: {
+        startNumber: i++,
         name: data['Name'],
         class: data['Klasse'],
         grade: Number(data['Jahrgang']),

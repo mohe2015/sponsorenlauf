@@ -1,4 +1,4 @@
-import { schema } from 'nexus-future'
+import { schema } from 'nexus'
 import { hashSync, compare } from 'bcrypt'
 import { sign, Secret } from 'jsonwebtoken'
 
@@ -44,15 +44,17 @@ export const Mutation = schema.mutationType({
     t.field('createOneRound', {
       type: 'Round',
       args: {
-        startNumber: schema.intArg({ nullable: false }),
+        id: schema.idArg({ nullable: false }),
       },
-      resolve: async (parent, { startNumber }, ctx) => {
+      resolve: async (parent, { id }, ctx) => {
+        console.log(id)
+
         const round = await ctx.db.round.create({
           data: {
             time: 1337, // TODO
             student: {
               connect: {
-                startNumber: startNumber, // TODO FIXME doesn't check if it exists
+                id: id,
               },
             },
             createdBy: {
@@ -63,7 +65,7 @@ export const Mutation = schema.mutationType({
           },
         })
         console.log('publish rounds', round)
-        ctx.pubsub.publish('ROUNDS', round)
+        ctx.pubSub.publish('ROUNDS', round)
         return round
       },
     })

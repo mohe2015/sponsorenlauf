@@ -1,0 +1,28 @@
+# Write your query or mutation here
+subscription Test {
+  SubscribeRounds {
+    id
+  }
+}
+
+mutation Login {
+  login(name: "admin", password: "admin") {
+    token
+  }
+}
+
+query Students {
+  students(first: 1) {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+
+mutation Round {
+  createOneRound(id: "ck8ezuvtr0001avjzlo3n6l2j") {
+    id
+  }
+}

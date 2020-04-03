@@ -1,8 +1,10 @@
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
 import { SubscriptionClient } from "subscriptions-transport-ws";
-import { GC_AUTH_TOKEN } from "./constants";
 import { execute } from "apollo-link";
 import { WebSocketLink } from "apollo-link-ws";
+
+export const GC_USER_ID = "graphcool-user-id";
+export const GC_AUTH_TOKEN = "graphcool-auth-token";
 
 function fetchQuery(operation, variables) {
   let headers = {

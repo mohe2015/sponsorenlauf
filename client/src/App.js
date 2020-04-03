@@ -5,13 +5,14 @@ import "./App.css";
 import Login from "./Login";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { GC_USER_ID, GC_AUTH_TOKEN } from "./constants";
+import { GC_USER_ID, GC_AUTH_TOKEN } from "./environment";
 import Me from "./Me";
 import Dropdown from "react-bootstrap/Dropdown";
-import StudentListPage from "./StudentListPage";
 import { Container } from "react-bootstrap";
-import AddRound from "./AddRound";
+import AddRound from "./add-round/AddRound";
 import RoundSubscriptionPage from "./RoundSubscriptionPage";
+import StudentList from "./students/StudentList";
+import RoundList from "./rounds/RoundList";
 
 class App extends Component {
   constructor(props) {
@@ -91,11 +92,11 @@ class App extends Component {
                 </Nav.Item>
 
                 <Nav.Item>
-                  <Nav.Link href="/add_round">Runde hinzufügen</Nav.Link>
+                  <Nav.Link href="/rounds">Runden</Nav.Link>
                 </Nav.Item>
 
                 <Nav.Item>
-                  <Nav.Link href="/rounds">Runden</Nav.Link>
+                  <Nav.Link href="/add_round">Runde hinzufügen</Nav.Link>
                 </Nav.Item>
               </Nav>
               <Nav>
@@ -115,16 +116,16 @@ class App extends Component {
           <Route exact path="/students">
             <Container fluid>
               <h1 className="text-center dont-print">Schüler</h1>
-              <StudentListPage />
+              <StudentList />
+            </Container>
+          </Route>
+          <Route exact path="/rounds">
+            <Container fluid>
+              <RoundList />
             </Container>
           </Route>
           <Route exact path="/add_round">
             <AddRound />
-          </Route>
-          <Route exact path="/rounds">
-            <Container fluid>
-              <RoundSubscriptionPage />
-            </Container>
           </Route>
         </Switch>
       </BrowserRouter>

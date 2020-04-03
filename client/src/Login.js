@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { GC_USER_ID, GC_AUTH_TOKEN } from "./constants";
+import { GC_USER_ID, GC_AUTH_TOKEN } from "./environment";
 import LoginMutation from "./LoginMutation";
 import { withRouter } from "react-router-dom";
 import Button from "react-bootstrap/Button";

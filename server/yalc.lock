@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "packages": {
+    "nexus-future": {
+      "signature": "f33ae9283d651377af97085c7ab0ba44",
+      "file": true,
+      "replaced": "^0.13.0-next.12"
+    },
+    "nexus": {
+      "signature": "a75ea9251914d6463f0c5aa82633c755",
+      "file": true
+    }
+  }
+}

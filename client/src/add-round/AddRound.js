@@ -5,9 +5,9 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import AddRoundMutation from "./AddRoundMutation";
 import { QueryRenderer } from "react-relay";
-import environment from "./environment";
+import environment from "../environment";
 import graphql from "babel-plugin-relay/macro";
-import RoundList from "./RoundList";
+import RoundList from "../rounds/RoundList";
 
 class AddRound extends Component {
   constructor(props) {
@@ -105,36 +105,7 @@ class AddRound extends Component {
             </div>
           </Form>
         </Container>
-        <QueryRenderer
-          environment={environment}
-          query={graphql`
-            query AddRoundSubscriptionPageQuery {
-              rounds(first: 0, last: 100000000)
-                @connection(key: "RoundSubscriptionPageQuery_rounds") {
-                edges {
-                  node {
-                    id
-                    student {
-                      startNumber
-                      name
-                    }
-                    time
-                  }
-                }
-              }
-            }
-          `}
-          variables={{}}
-          render={({ error, props }) => {
-            if (error) {
-              return <div>{error.message}</div>;
-            }
-            if (!props) {
-              return <div>Loading...</div>;
-            }
-            return <RoundList viewer={props.rounds.edges} />;
-          }}
-        />
+        <RoundList />
       </Container>
     );
   }
