@@ -7,6 +7,12 @@ generator prisma_client {
   provider = "prisma-client-js"
 }
 
+enum UserRole {
+  ADMIN
+  TEACHER
+  VIEWER
+}
+
 model User {
   id            String   @default(cuid()) @id
   name          String   @unique
@@ -15,24 +21,20 @@ model User {
   createdRounds Round[]
 }
 
-enum UserRole {
-  ADMIN
-  TEACHER
-  VIEWER
-}
-
 model Student {
-  id          String @default(cuid()) @id
-  startNumber Int   // @unique @default(autoincrement()) // https://github.com/prisma/prisma2/issues/1938 https://github.com/graphql-nexus/nexus-plugin-prisma https://github.com/prisma/prisma2 has a bug autoincrement makes this the primary key
-  name        String @unique
-  class       String
-  grade       Int
-  rounds      Round[]
+  id            String   @default(cuid()) @id
+  startNumber   Int      @unique @default(autoincrement()) // https://github.com/prisma/prisma2/issues/1938 https://github.com/graphql-nexus/nexus-plugin-prisma https://github.com/prisma/prisma2 has a bug autoincrement makes this the primary key
+  name          String   @unique
+  class         String
+  grade         Int
+  rounds        Round[]
 }
 
 model Round {
-  id        String   @default(cuid()) @id
-  student   Student
-  createdBy User
-  time      Int
+  id           String    @default(cuid()) @id
+  student      Student   @relation(fields: [studentId], references: [id])
+  studentId    Int
+  createdBy    User      @relation(fields: [createdById], references: [id])
+  createdById  Int
+  time         Int
 }
