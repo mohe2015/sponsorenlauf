@@ -7,13 +7,15 @@ import { PubSub } from 'graphql-subscriptions'
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import { PrismaClient } from "@prisma/client"
 import { config } from 'dotenv'
+import { applyMiddleware } from 'graphql-middleware'
+import { permissions } from './permissions'
 
 config()
 
 let pubSub = new PubSub()
 const db = new PrismaClient()
 
-const schema = makeSchema({
+let schema = makeSchema({
   types: types,
   plugins: [
     nexusPrismaPlugin(),
@@ -27,6 +29,7 @@ const schema = makeSchema({
   },
 });
 
+schema = applyMiddleware(schema, permissions)
 
 const server = new ApolloServer({
   schema,
