@@ -31,14 +31,10 @@ const schema = makeSchema({
 const server = new ApolloServer({
   schema,
   context: async ({ req, connection }) => {
-    let authToken;
-    if (connection) {
-      authToken = connection.context.Authorization;
-    } else {
-      const match = /^Bearer (.*)$/.exec(req.headers.authorization as string);
-      if (match) authToken = match[1]
-    }
-
+    let authToken = connection ? connection.context.Authorization : req.headers.authorization
+    const match = /^Bearer (.*)$/.exec(authToken);
+    if (match) authToken = match[1]
+    
     if (authToken) {
       const verifiedToken = verify(
         authToken,
