@@ -1,7 +1,7 @@
-import { schema } from 'nexus'
+import { subscriptionField } from '@nexus/schema'
 import { Round } from './Round'
-/*
-schema.subscriptionField('SubscribeRounds', {
+
+subscriptionField('SubscribeRounds', {
   type: Round,
   subscribe: (source, args, context, info) => {
     console.log('Subscribe')
@@ -15,4 +15,3 @@ schema.subscriptionField('SubscribeRounds', {
     return source
   },
 })
-*/

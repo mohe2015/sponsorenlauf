@@ -1,8 +1,8 @@
-import { schema } from 'nexus'
+import { mutationType, stringArg, idArg } from '@nexus/schema'
 import { hashSync, compare } from 'bcrypt'
 import { sign, Secret } from 'jsonwebtoken'
 
-export const Mutation = schema.mutationType({
+export const Mutation = mutationType({
   definition(t) {
     t.crud.createOneUser({
       // TODO FIXME IMPORTANT this stores the password in plaintext!!!!
@@ -17,8 +17,8 @@ export const Mutation = schema.mutationType({
     t.field('login', {
       type: 'AuthPayload',
       args: {
-        name: schema.stringArg({ nullable: false }),
-        password: schema.stringArg({ nullable: false }),
+        name: stringArg({ nullable: false }),
+        password: stringArg({ nullable: false }),
       },
       resolve: async (_parent, { name, password }, context) => {
         const user = await context.db.user.findOne({
@@ -44,7 +44,7 @@ export const Mutation = schema.mutationType({
     t.field('createOneRound', {
       type: 'Round',
       args: {
-        id: schema.idArg({ nullable: false }),
+        id: idArg({ nullable: false }),
       },
       resolve: async (parent, { id }, ctx) => {
         console.log(id)

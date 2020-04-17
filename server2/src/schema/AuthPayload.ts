@@ -1,6 +1,6 @@
-import { schema } from 'nexus'
+import { objectType } from '@nexus/schema'
 
-export const AuthPayload = schema.objectType({
+export const AuthPayload = objectType({
   name: 'AuthPayload',
   definition(t) {
     t.string('token')

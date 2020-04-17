@@ -1,7 +1,7 @@
-import { schema } from 'nexus'
+import { interfaceType } from '@nexus/schema'
 import { decode, encode } from '../relay-tools-custom'
 
-export const Node = schema.interfaceType({
+export const Node = interfaceType({
   name: 'Node',
   definition(t) {
     t.resolveType(({ id }) => decode(id).__typename as any)

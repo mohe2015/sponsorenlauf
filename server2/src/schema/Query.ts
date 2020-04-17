@@ -1,8 +1,8 @@
-import { schema } from 'nexus'
+import { queryType, idArg } from '@nexus/schema'
 import { Student } from './Student'
 import { decode } from '../relay-tools-custom'
 
-export const Query = schema.queryType({
+export const Query = queryType({
   definition(t) {
     t.field('me', {
       type: 'User',
@@ -34,7 +34,7 @@ export const Query = schema.queryType({
 
     t.field('node', {
       type: 'Node',
-      args: { id: schema.idArg({ required: true }) },
+      args: { id: idArg({ required: true }) },
       resolve: (root, args, context, info) => {
         const { id, __typename } = decode(args.id)
         const objeto = __typename.charAt(0).toLowerCase() + __typename.slice(1) // from TitleCase to camelCase
