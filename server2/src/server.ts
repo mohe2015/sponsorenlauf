@@ -28,27 +28,31 @@ const server = new ApolloServer({
   context: async ({ req, connection }) => {
     let authToken;
     if (connection) {
-      authToken = connection.context.authToken;
+      authToken = connection.context.Authorization;
     } else {
       const match = /^Bearer (.*)$/.exec(req.headers.authorization as string);
       if (match) authToken = match[1]
     }
 
-    const verifiedToken = verify(
-      authToken,
-      process.env.APP_SECRET as Secret,
-    )
-    return {
-      userId: verifiedToken.userId,
-      pubSub: pubSub
+    if (authToken) {
+      const verifiedToken = verify(
+        authToken,
+        process.env.APP_SECRET as Secret,
+      )
+      return {
+        userId: verifiedToken.userId,
+        pubSub
+      }
+    } else {
+      return {
+        userId: null,
+        pubSub
+      }
     }
   },
   // https://github.com/apollographql/apollo-server/issues/2315
   subscriptions: {
-    onConnect: async (connectionParams: any) => {
-      const { authToken } = connectionParams;
-      return { authToken };
-    },
+    onConnect: (connectionParams: any) => connectionParams
   },
 });
 
