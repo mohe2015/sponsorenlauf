@@ -2,11 +2,14 @@ import { verify, Secret } from 'jsonwebtoken'
 import { permissions } from './permissions'
 import { applyMiddleware } from 'graphql-middleware'
 import { GraphQLSchema } from 'graphql'
-import { schema, settings } from 'nexus'
 import { printSchema } from 'graphql'
 import fs from 'fs'
 import { Request } from 'nexus/dist/runtime/app'
 import { PubSub } from 'graphql-subscriptions'
+import { use, schema, settings } from 'nexus'
+import { prisma } from 'nexus-plugin-prisma'
+
+use(prisma())
 
 let pubSub = new PubSub()
 

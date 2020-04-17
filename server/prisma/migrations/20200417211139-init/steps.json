@@ -4,7 +4,11 @@
     {
       "tag": "CreateEnum",
       "enum": "UserRole",
-      "values": ["ADMIN", "TEACHER", "VIEWER"]
+      "values": [
+        "ADMIN",
+        "TEACHER",
+        "VIEWER"
+      ]
     },
     {
       "tag": "CreateSource",
@@ -26,7 +30,7 @@
         "source": "db"
       },
       "argument": "url",
-      "value": "\"file:./dev.db\""
+      "value": "env(\"DATABASE_URL\")"
     },
     {
       "tag": "CreateModel",
