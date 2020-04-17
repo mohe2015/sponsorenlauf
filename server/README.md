@@ -1,2 +1,2 @@
-yalc add nexus-future
+yalc add nexus
 yarn

@@ -56,6 +56,14 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@nexus/schema@^0.13.1":
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/@nexus/schema/-/schema-0.13.1.tgz#02dadf66b121b3c270659479f2410b7023fcc4a6"
+  integrity sha512-V7fFhkPOcqQ7KwSaAkfSTAV/klY/NlL7aIHTuEZynAUNm2cG8S6QSU+TuVlbpj0L14B9tqgPrVeO+IOe0AV+yA==
+  dependencies:
+    iterall "^1.2.2"
+    tslib "^1.9.3"
+
 "@nexus/schema@^0.14.0-next.1":
   version "0.14.0-next.1"
   resolved "https://registry.yarnpkg.com/@nexus/schema/-/schema-0.14.0-next.1.tgz#ea822ce28fe914ff5167962d786bb803ee1e37e6"
@@ -95,20 +103,20 @@
   resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.0.0-beta.1.tgz#7e5f13db65244cf723323c3046d63cd744f2f026"
   integrity sha512-uMCthsNkLCmQiPs6veMdqT/Y4RWRbn8Y0GAfqvg+qStene6Pqid7DTrdN7hC+VYlY7Ok5Fxcb6oBis1jsOO7pQ==
 
-"@prisma/cli@^2.0.0-beta.2":
-  version "2.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.0.0-beta.2.tgz#5252cbe458fd7de479a6697ab5cffd1659a5762c"
-  integrity sha512-lD0cv/YC4g4SKByxH3hvzX1oS9cjRdCDU1Sh2inATaKcTHWPlxxgXQW4yYU2FF/HSWR9KK6YMAdO3ShkOl1PEQ==
+"@prisma/cli@^2.0.0-alpha.1107":
+  version "2.0.0-alpha.1107"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.0.0-alpha.1107.tgz#d0d4142875e47fe7d9bebb90bacad5b23315fa52"
+  integrity sha512-mdDe2PG/z8iGSLYfOJ4y8TmKAXgso4tPpDeYAlNd9k0rXQc9B/mIlgcr8w3UlF1+7jQ0Me1W33jgvihjVmEW5w==
 
 "@prisma/client@2.0.0-beta.1":
   version "2.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-beta.1.tgz#457d83167cf1657e16473ebf467a9b339d982932"
   integrity sha512-4uRHUJs/RGc517wLZPrr9ZRq/NbUoPrX4Pa8mb4wIluJMxk4d1raE0O2/LBM5EcVH0RaoIA+dffTvPGfI3by+g==
 
-"@prisma/client@^2.0.0-beta.1":
-  version "2.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-beta.2.tgz#dd7b357f65e8100cd6cc1b610d848b72217640bb"
-  integrity sha512-VhNYeeGTrFfLjB/JL7XPoWpxSTCb+YV+F3ggR1X0CGa4b/u6Kxy65aElLozs+yFdMQPVNkyg2PwUO8xQ7G9fpg==
+"@prisma/client@^2.0.0-alpha.1107":
+  version "2.0.0-alpha.1107"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-alpha.1107.tgz#d3093a26019e61b9a337154c352041337633a088"
+  integrity sha512-wH2QenXdnolZz0+0cgO4LalMc2dnE/pR/EO7juWk/oQONDjczxyrE+sblZv6XljTHxx7r7APGwTnTBA1tIfqvQ==
 
 "@prisma/engine-core@2.0.0-beta.1":
   version "2.0.0-beta.1"
@@ -2683,10 +2691,10 @@ negotiator@0.6.2:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
 
-nexus-plugin-prisma@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.7.0.tgz#ac777a85db6c11d100e7ceb4505e2ecd83459bc2"
-  integrity sha512-LOylsyfoIUT27NcZGlJ+DLRq8AfFGtGQ1Pi4FO52Sp3NkE/VnF3gvtor3SRcvm1iqqRG5hqZP7vV7C3AeEwf4A==
+nexus-plugin-prisma@^0.8.0-next.5:
+  version "0.8.0-next.5"
+  resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.8.0-next.5.tgz#2cce2f96658ecf99d662566c438c2c7de20e3911"
+  integrity sha512-aVlqjCFjHBnoz+9pfI7UwnhwD1paBPbqPZyvflaefImeKlujJRZSueTnTLPi9UnUdCDJxaiQatmFu3PvY1mqdw==
   dependencies:
     "@nexus/schema" "^0.14.0-next.1"
     "@prisma/cli" "2.0.0-beta.1"
@@ -2710,8 +2718,10 @@ nexus-prisma@^0.12.0:
     fs-extra "^8.1.0"
     pluralize "^8.0.0"
 
-"nexus@file:.yalc/nexus":
-  version "0.0.0-dripip-458bcbd3"
+nexus@^0.20.0-next.46:
+  version "0.20.0-next.46"
+  resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.20.0-next.46.tgz#8a4df4b7a65594cb8d3fb6ec66ed76ae8a77ef79"
+  integrity sha512-cOBtG/uJxfcYoirfw/mzR3K2S5+NhUEl+vNMMWvDm+r1y51V5K/F/1qSBYFA6VMgPBE2Izurj3QHKwitTQpxog==
   dependencies:
     "@nexus/schema" "^0.14.0-next.1"
     "@types/express" "^4.17.2"
