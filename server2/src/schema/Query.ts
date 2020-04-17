@@ -18,19 +18,19 @@ export const Query = queryType({
 
     t.crud.student({})
 
-    /*t.connection('students', {
+    t.connectionField('students', {
       type: Student,
       nodes: async (root, args, ctx, info) => {
         return await ctx.db.student.findMany()
       },
     })
 
-    t.connection('rounds', {
+    t.connectionField('rounds', {
       type: 'Round',
       nodes: async (root, args, ctx, info) => {
         return await ctx.db.round.findMany()
       },
-    })*/
+    })
 
     t.field('node', {
       type: 'Node',
