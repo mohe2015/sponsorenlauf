@@ -6,8 +6,16 @@ import { printSchema } from 'graphql'
 import fs from 'fs'
 import { Request } from 'nexus/dist/runtime/app'
 import { PubSub } from 'graphql-subscriptions'
-import { use, schema, settings } from 'nexus'
+import { use, schema, settings, server } from 'nexus'
 import { prisma } from 'nexus-plugin-prisma'
+
+import { makeSchema } from '@nexus/schema'
+
+makeSchema({
+  plugins: [
+    
+  ]
+})
 
 use(prisma())
 
