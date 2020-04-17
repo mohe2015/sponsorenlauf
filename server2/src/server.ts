@@ -5,8 +5,13 @@ import * as types from "./schema";
 import { verify, Secret } from 'jsonwebtoken'
 import { PubSub } from 'graphql-subscriptions'
 import { nexusPrismaPlugin } from 'nexus-prisma'
+import { PrismaClient } from "@prisma/client"
+import { config } from 'dotenv'
+
+config()
 
 let pubSub = new PubSub()
+const db = new PrismaClient()
 
 const schema = makeSchema({
   types: types,
@@ -41,12 +46,14 @@ const server = new ApolloServer({
       )
       return {
         userId: verifiedToken.userId,
-        pubSub
+        pubSub,
+        db
       }
     } else {
       return {
         userId: null,
-        pubSub
+        pubSub,
+        db
       }
     }
   },
