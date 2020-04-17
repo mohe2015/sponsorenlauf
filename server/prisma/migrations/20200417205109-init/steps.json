@@ -4,11 +4,7 @@
     {
       "tag": "CreateEnum",
       "enum": "UserRole",
-      "values": [
-        "ADMIN",
-        "TEACHER",
-        "VIEWER"
-      ]
+      "values": ["ADMIN", "TEACHER", "VIEWER"]
     },
     {
       "tag": "CreateSource",
@@ -319,7 +315,7 @@
       "tag": "CreateField",
       "model": "Round",
       "field": "studentId",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
     },
     {
@@ -372,7 +368,7 @@
       "tag": "CreateField",
       "model": "Round",
       "field": "createdById",
-      "type": "Int",
+      "type": "String",
       "arity": "Required"
     },
     {
