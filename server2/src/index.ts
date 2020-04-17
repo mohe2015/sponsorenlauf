@@ -1,8 +1,9 @@
-import { queryType, stringArg, makeSchema } from "@nexus/schema";
+import { makeSchema } from "@nexus/schema";
 import { ApolloServer } from "apollo-server";
 import * as types from "./schema";
 import { verify, Secret } from 'jsonwebtoken'
 import { PubSub } from 'graphql-subscriptions'
+import { nexusPrismaPlugin } from 'nexus-prisma'
 
 let pubSub = new PubSub()
 
@@ -29,6 +30,7 @@ function requestToUserID(param: Request) {
 
 const schema = makeSchema({
   types: types,
+  plugins: [nexusPrismaPlugin()],
   outputs: {
     schema: __dirname + "/generated/schema.graphql",
     typegen: __dirname + "/generated/typings.ts",
