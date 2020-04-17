@@ -1,4 +1,4 @@
-import { makeSchema } from "@nexus/schema";
+import { makeSchema, connectionPlugin, queryComplexityPlugin } from "@nexus/schema";
 import { ApolloServer } from "apollo-server";
 import * as types from "./schema";
 import { verify, Secret } from 'jsonwebtoken'
@@ -30,7 +30,13 @@ function requestToUserID(param: Request) {
 
 const schema = makeSchema({
   types: types,
-  plugins: [nexusPrismaPlugin()],
+  plugins: [
+    nexusPrismaPlugin(),
+    // https://nexus.js.org/docs/plugin-connection
+    connectionPlugin(),
+    // https://nexus.js.org/docs/plugin-querycomplexity
+    queryComplexityPlugin(),
+  ],
   outputs: {
     schema: __dirname + "/generated/schema.graphql",
     typegen: __dirname + "/generated/typings.ts",

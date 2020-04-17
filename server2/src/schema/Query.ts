@@ -1,4 +1,4 @@
-import { queryType, idArg } from '@nexus/schema'
+import { queryType, idArg, queryField } from '@nexus/schema'
 import { Student } from './Student'
 import { decode } from '../relay-tools-custom'
 
