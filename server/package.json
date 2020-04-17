@@ -1,28 +1,19 @@
 {
-  "name": "salty-sheep",
+  "name": "early-eagle",
   "license": "UNLICENSED",
   "dependencies": {
-    "@prisma/cli": "^2.0.0-beta.1",
-    "@types/bcrypt": "^10.0.28-alpha",
-    "@types/jsonwebtoken": "^8.3.8",
+    "@types/bcrypt": "^3.0.0",
     "bcrypt": "^4.0.1",
     "csv-parse": "^4.8.8",
-    "graphql": "^14.6.0",
-    "graphql-middleware": "^4.0.2",
-    "graphql-shield": "^7.2.2",
     "graphql-subscriptions": "^1.1.0",
     "jsonwebtoken": "^8.5.1",
-    "nexus": "file:.yalc/nexus",
-    "nexus-plugin-prisma": "^0.6.0",
-    "subscriptions-transport-ws": "^0.9.16",
-    "typescript": "^3.8.3"
+    "nexus": "0.20.0-next.46",
+    "nexus-plugin-prisma": "^0.7.0"
   },
   "scripts": {
-    "format": "npx prettier --write './**/*.{ts,md}' '!./prisma/**/*.md'",
-    "seed": "prisma migrate save --experimental --create-db --name init && yarn prisma migrate up --experimental --verbose && ts-node prisma/seed.ts",
-    "dev": "APP_SECRET=test LOG_LEVEL=info DEBUG=true nexus dev",
+    "format": "npx prettier --write './**/*.{ts,md}'",
+    "dev": "nexus dev",
     "build": "nexus build",
-    "db": "nexus db ui",
     "start": "node node_modules/.build"
   },
   "prettier": {
@@ -30,14 +21,7 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
   "devDependencies": {
-    "husky": "^4.2.3",
-    "prettier": "^2.0.2",
-    "pretty-quick": "^2.0.1"
+    "prettier": "^2.0.4"
   }
 }

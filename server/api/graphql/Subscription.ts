@@ -1,5 +1,6 @@
 import { schema } from 'nexus'
 import { Round } from './Round'
+/*
 schema.subscriptionField('SubscribeRounds', {
   type: Round,
   subscribe: (source, args, context, info) => {
@@ -14,3 +15,4 @@ schema.subscriptionField('SubscribeRounds', {
     return source
   },
 })
+*/

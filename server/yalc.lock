@@ -7,7 +7,11 @@
       "replaced": "^0.13.0-next.12"
     },
     "nexus": {
-      "signature": "a75ea9251914d6463f0c5aa82633c755",
+      "signature": "458bcbd31a13e41aedd6935b3a93858e",
+      "file": true
+    },
+    "nexus-plugin-graphql-shield": {
+      "signature": "d6b74470f940c26fd6a958a837d5f977",
       "file": true
     }
   }

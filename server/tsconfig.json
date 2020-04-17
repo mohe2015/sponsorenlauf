@@ -2,21 +2,14 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
-    "lib": ["esnext"],
+    "lib": [
+      "esnext"
+    ],
     "strict": true,
-    "esModuleInterop": true
-    // [1] nexus managed
-    // "rootDir": "./src",
-    // "outDir": "node_modules/.build",
+    "esModuleInterop": true,
+    "rootDir": "api"
   },
-  // [1] nexus managed
-  // "include": "./src"
+  "include": [
+    "api"
+  ]
 }
-
-// [1] nexus managed
-//
-// These settings are managed by nexus.
-// Do not edit these manually. Please refer to
-// https://github.com/graphql-nexus/nexus-future/issues/82
-// Contribute feedback/use-cases if you feel strongly
-// about controlling these settings manually.
