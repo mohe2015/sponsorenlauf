@@ -3,7 +3,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@nexus/schema": "^0.13.1",
-    "@prisma/client": "^2.0.0-alpha.1107",
+    "@prisma/client": "^2.0.0-beta.2",
     "@types/bcrypt": "^10.0.28-alpha",
     "@types/jsonwebtoken": "^8.3.9",
     "bcrypt": "^4.0.1",
@@ -37,7 +37,7 @@
     }
   },
   "devDependencies": {
-    "@prisma/cli": "^2.0.0-alpha.1107",
+    "@prisma/cli": "^2.0.0-beta.2",
     "husky": "^4.2.5",
     "prettier": "^2.0.4",
     "pretty-quick": "^2.0.1"
