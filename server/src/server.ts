@@ -1,35 +1,14 @@
-import { makeSchema, connectionPlugin, queryComplexityPlugin } from "@nexus/schema";
 import { ApolloServer } from "apollo-server";
-import { ExpressContext } from "apollo-server-express/src/ApolloServer"
-import * as types from "./schema";
 import { verify, Secret } from 'jsonwebtoken'
 import { PubSub } from 'graphql-subscriptions'
-import { nexusPrismaPlugin } from 'nexus-prisma'
 import { PrismaClient } from "@prisma/client"
 import { config } from 'dotenv'
-import { applyMiddleware } from 'graphql-middleware'
-import { permissions } from './permissions'
+import schema from './schema'
 
 config()
 
 let pubSub = new PubSub()
 const db = new PrismaClient()
-
-let schema = makeSchema({
-  types: types,
-  plugins: [
-    nexusPrismaPlugin(),
-    // https://nexus.js.org/docs/plugin-connection
-    connectionPlugin(),
-    // https://nexus.js.org/docs/plugin-querycomplexity
-    queryComplexityPlugin(),
-  ],
-  outputs: {
-    schema: __dirname + "/generated/schema.graphql",
-  },
-});
-
-schema = applyMiddleware(schema, permissions)
 
 const server = new ApolloServer({
   schema,
