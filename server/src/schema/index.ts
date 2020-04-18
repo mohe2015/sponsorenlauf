@@ -21,8 +21,8 @@ let schema = makeSchema({
     queryComplexityPlugin(),
   ],
   outputs: {
-    schema: __dirname + '/../schema.graphql',
-    typegen: __dirname + '/generated/nexus.ts',
+    schema: __dirname + '/../../generated/schema.graphql',
+    typegen: __dirname + '/../../generated/nexus.ts',
   },
   typegenAutoConfig: {
     contextType: 'Context.Context',
