@@ -29,7 +29,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "setup": "prisma migrate save --experimental && prisma migrate up --experimental && ts-node prisma/seed.ts",
+    "setup": "prisma migrate save --name init --create-db --experimental && prisma migrate up --experimental && ts-node prisma/seed.ts",
     "start": "node dist/server",
     "build": "npm -s run generate && tsc",
     "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
