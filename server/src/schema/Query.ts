@@ -39,6 +39,7 @@ export const Query = queryType({
         const { id, __typename } = decode(args.id)
         const objeto = __typename.charAt(0).toLowerCase() + __typename.slice(1) // from TitleCase to camelCase
         return {
+           // @ts-ignore
           ...context.db[objeto].findOne({ where: { id } }),
           __typename,
         }

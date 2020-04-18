@@ -1,10 +1,11 @@
 import { rule, shield, deny, allow } from 'graphql-shield'
 import { UserRole } from '@prisma/client'
+import { Context } from './context'
 
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
     rule({ cache: 'contextual' })(
-      async (parent, args, context: NexusContext, info) => {
+      async (parent, args, context: Context, info) => {
         const id = context.userId
         const user = await context.db.user.findOne({
           where: {
