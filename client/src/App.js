@@ -18,14 +18,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: localStorage.getItem(GC_USER_ID)
+      userId: localStorage.getItem(GC_USER_ID),
     };
     this.logout = this.logout.bind(this);
   }
 
-  handler = val => {
+  handler = (val) => {
     this.setState({
-      userId: val
+      userId: val,
     });
   };
 
@@ -126,6 +126,9 @@ class App extends Component {
           </Route>
           <Route exact path="/add_round">
             <AddRound />
+          </Route>
+          <Route exact path="/round_subscription">
+            <RoundSubscriptionPage />
           </Route>
         </Switch>
       </BrowserRouter>

@@ -1,7 +1,7 @@
-import { schema } from 'nexus'
+import { objectType } from '@nexus/schema'
 import { Node } from './Node'
 
-export const Student = schema.objectType({
+export const Student = objectType({
   name: 'Student',
   definition(t) {
     t.implements(Node)

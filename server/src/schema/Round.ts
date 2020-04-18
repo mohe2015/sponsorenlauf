@@ -1,6 +1,6 @@
-import { schema } from 'nexus'
+import { objectType } from '@nexus/schema'
 
-export const Round = schema.objectType({
+export const Round = objectType({
   name: 'Round',
   definition(t) {
     t.model.id()

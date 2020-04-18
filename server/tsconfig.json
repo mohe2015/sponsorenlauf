@@ -7,9 +7,10 @@
     ],
     "strict": true,
     "esModuleInterop": true,
-    "rootDir": "api"
+    "rootDir": "src",
+    "outDir": "dist",
   },
   "include": [
-    "api"
+    "src"
   ]
 }
