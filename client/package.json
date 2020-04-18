@@ -31,8 +31,8 @@
     "watch": "npm-run-all --parallel watch:relay watch:react",
     "test": "npm-run-all --sequential build:relay test:react",
     "test:react": "react-scripts test",
-    "build:relay": "relay-compiler --src ./src --schema ../server/generated/schema.graphql",
-    "watch:relay": "relay-compiler --src ./src --schema ../server/generated/schema.graphql --watch"
+    "build:relay": "relay-compiler --src ./src --schema ../server/src/schema/generated/schema.graphql",
+    "watch:relay": "relay-compiler --src ./src --schema ../server/src/schema/generated/schema.graphql --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
