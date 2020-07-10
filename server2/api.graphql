@@ -36,13 +36,6 @@ type Mutation {
   login(name: String!, password: String!): AuthPayload
 }
 
-"""
-This scalar should never make it into production. It is used as a placeholder for situations
-where GraphQL Nexus encounters a missing type. We don't want to error immedately, otherwise
-the TypeScript definitions will not be updated.
-"""
-scalar NEXUS__UNKNOWN__TYPE
-
 interface Node {
   """
   CUID for a resource
@@ -190,7 +183,7 @@ input StudentWhereUniqueInput {
 }
 
 type Subscription {
-  test: NEXUS__UNKNOWN__TYPE
+  test: Subscription
 }
 
 type User {
