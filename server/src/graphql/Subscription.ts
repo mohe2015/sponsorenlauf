@@ -1,11 +1,15 @@
 import { schema } from "nexus";
 
-schema.subscriptionField("SubscribeRounds", {
-  type: "Round",
-  subscribe: (source, args, context, info) => {
-    return context.pubSub.asyncIterator("ROUNDS");
-  },
-  resolve: (source, args, context, info) => {
-    return source;
+schema.subscriptionType({
+  definition(t) {
+    t.field("test", {
+      type: "SubscribeRounds",
+      subscribe(root, args, context, info) {
+        return context.pubSub.asyncIterator("ROUNDS");
+      },
+      resolve(root, args, context, info) {
+        return root;
+      },
+    });
   },
 });
