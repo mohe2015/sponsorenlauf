@@ -4,33 +4,29 @@
     {
       "tag": "CreateEnum",
       "enum": "UserRole",
-      "values": [
-        "ADMIN",
-        "TEACHER",
-        "VIEWER"
-      ]
+      "values": ["ADMIN", "TEACHER", "VIEWER"]
     },
     {
       "tag": "CreateSource",
-      "source": "db"
+      "source": "postgresql"
     },
     {
       "tag": "CreateArgument",
       "location": {
         "tag": "Source",
-        "source": "db"
+        "source": "postgresql"
       },
       "argument": "provider",
-      "value": "\"sqlite\""
+      "value": "\"postgresql\""
     },
     {
       "tag": "CreateArgument",
       "location": {
         "tag": "Source",
-        "source": "db"
+        "source": "postgresql"
       },
       "argument": "url",
-      "value": "\"file:./dev.db\""
+      "value": "\"***\""
     },
     {
       "tag": "CreateModel",

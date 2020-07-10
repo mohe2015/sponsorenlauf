@@ -1,6 +1,6 @@
-datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+datasource postgresql {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator prisma_client {
