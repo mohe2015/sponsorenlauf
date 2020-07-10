@@ -2,15 +2,14 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
-    "lib": [
-      "esnext"
-    ],
+    "lib": ["esnext"],
     "strict": true,
     "esModuleInterop": true,
     "rootDir": "src",
     "outDir": "dist",
+    "noEmit": true,
+    "typeRoots": ["node_modules/@types", "types"],
+    "plugins": [{ "name": "nexus/typescript-language-service" }]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src", "types.d.ts"]
 }
