@@ -1,7 +1,7 @@
 import { schema } from "nexus";
 
 schema.subscriptionField("SubscribeRounds", {
-  type: Round,
+  type: "Round",
   subscribe: (source, args, context, info) => {
     return context.pubSub.asyncIterator("ROUNDS");
   },
