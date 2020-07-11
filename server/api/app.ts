@@ -9,6 +9,7 @@ import { PubSub } from "graphql-subscriptions";
 import { subscriptions } from "nexus-plugin-subscriptions";
 import { permissions } from "./permissions";
 import { verify, Secret } from "jsonwebtoken";
+import cors from "cors";
 
 interface BearerToken {
   userId: string;
@@ -29,6 +30,8 @@ use(
 );
 
 use(permissions);
+
+server.express.use(cors());
 
 use(
   subscriptions({
