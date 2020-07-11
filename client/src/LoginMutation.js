@@ -16,17 +16,17 @@ const mutation = graphql`
 export default (name, password, callback) => {
   const variables = {
     name,
-    password
+    password,
   };
 
   commitMutation(environment, {
     mutation,
     variables,
-    onCompleted: response => {
+    onCompleted: (response, errors) => {
       const id = response.login.user.id;
       const token = response.login.token;
-      callback(id, token);
+      callback(errors, id, token);
     },
-    onError: err => console.error(err)
+    onError: (err) => console.error(err),
   });
 };

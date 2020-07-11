@@ -33,11 +33,14 @@ class Login extends Component {
     e.preventDefault();
     this.setState({ disabled: true });
     const { name, password } = this.state;
-    LoginMutation(name, password, (id, token) => {
-      this._saveUserData(id, token);
-      this.setState({ disabled: false }); // TODO failure
-      this.navigate = useNavigate();
-      this.navigate("/");
+    LoginMutation(name, password, (errors, id, token) => {
+      if (errors.length > 0) {
+      } else {
+        this._saveUserData(id, token);
+        this.setState({ disabled: false }); // TODO failure
+        this.navigate = useNavigate();
+        this.navigate("/");
+      }
     });
   };
 
