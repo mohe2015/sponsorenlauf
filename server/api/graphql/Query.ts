@@ -15,21 +15,21 @@ schema.queryType({
       },
     });
 
-    //t.crud.student({});
-    /*
-    t.connectionField("students", {
-      type: Student,
+    t.crud.student({});
+
+    t.connection("students", {
+      type: "Student",
       nodes: async (root, args, ctx, info) => {
         return await ctx.db.student.findMany();
       },
     });
 
-    t.connectionField("rounds", {
+    t.connection("rounds", {
       type: "Round",
       nodes: async (root, args, ctx, info) => {
         return await ctx.db.round.findMany();
       },
-    });*/
+    });
 
     t.field("node", {
       type: "Node",

@@ -12,7 +12,7 @@ schema.objectType({
     t.model.id();
     t.model.name();
     t.model.password();
-    //t.model.role();
-    // t.model.createdRounds({ type: "Round" });
+    t.model.role();
+    t.model.createdRounds({ type: "Round" });
   },
 });
