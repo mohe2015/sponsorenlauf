@@ -7,7 +7,7 @@ export interface State {
   password: string;
 }
 
-class LoginForm extends React.Component<Props, State> {
+export class LoginForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
