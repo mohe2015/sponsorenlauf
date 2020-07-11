@@ -8,13 +8,14 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.3.0-next.80",
-    "typescript": "^4.0.0-dev.20200711"
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,6 +34,9 @@
   },
   "devDependencies": {
     "@types/react": "^16.9.42",
-    "@types/react-dom": "^16.9.8"
+    "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
+    "eslint": "^7.4.0"
   }
 }
