@@ -8,7 +8,11 @@ import purple from "@material-ui/core/colors/purple";
 import green from "@material-ui/core/colors/green";
 import { CssBaseline } from "@material-ui/core";
 
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  palette: {
+    type: "dark",
+  },
+});
 
 function App() {
   return (

@@ -52,8 +52,12 @@ class LoginForm extends React.Component<Props, State> {
     this.state = { username: "", password: "" };
   }
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ username: event.target.value });
+  };
+
+  handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ password: event.target.value });
   };
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -71,7 +75,7 @@ class LoginForm extends React.Component<Props, State> {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Anmelden
           </Typography>
           <form
             className={classes.form}
@@ -83,13 +87,13 @@ class LoginForm extends React.Component<Props, State> {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Benutzername"
+              name="username"
+              autoComplete="current-username"
               autoFocus
               value={this.state.username}
-              onChange={this.handleChange}
+              onChange={this.handleUsernameChange}
             />
             <TextField
               variant="outlined"
@@ -97,14 +101,12 @@ class LoginForm extends React.Component<Props, State> {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Passwort"
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
             />
             <Button
               type="submit"
@@ -113,17 +115,15 @@ class LoginForm extends React.Component<Props, State> {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              Anmelden
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link
+                  href="mailto:Moritz.Hedtke@t-online.de?subject=Ich habe mein Passwort vergessen&body=Mein Benutzername ist: "
+                  variant="body2"
+                >
+                  Passwort vergessen?
                 </Link>
               </Grid>
             </Grid>

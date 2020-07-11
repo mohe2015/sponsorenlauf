@@ -3,6 +3,9 @@ https://www.typescriptlang.org/docs/handbook/react.html
 https://material-ui.com
 https://fettblog.eu/typescript-react/components/
 https://github.com/typescript-cheatsheets/react-typescript-cheatsheet
+https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md
+
+TODO https://material-ui.com/customization/palette/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
