@@ -31,8 +31,6 @@ use(
 
 use(permissions);
 
-server.express.use(cors());
-
 use(
   subscriptions({
     ws: { server: server.raw.http, path: "/graphql" }, // use server.raw.http here
@@ -46,6 +44,8 @@ use(
     },
   })
 );
+
+server.express.use(cors());
 
 schema.addToContext(async (req) => {
   return await createContext(req.headers["authorization"]!);
