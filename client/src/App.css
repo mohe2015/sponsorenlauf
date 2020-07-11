@@ -1,0 +1,13 @@
+@page {
+  size: 105mm 297mm;
+}
+
+@media print {
+  .dont-print {
+    display: none;
+  }
+}
+
+body {
+  overflow-y: scroll;
+}

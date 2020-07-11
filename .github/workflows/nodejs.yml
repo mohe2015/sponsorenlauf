@@ -1,0 +1,35 @@
+name: Node CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [13.x]
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: server
+        run: |
+          cd server
+          yarn install
+          yarn run build
+        env:
+          CI: true
+      - name: client
+        run: |
+          cd client
+          yarn install
+          yarn run build
+          yarn run test
+        env:
+          CI: true
