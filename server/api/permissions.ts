@@ -1,5 +1,5 @@
-import { rule, shield, deny, allow } from "graphql-shield";
-import { UserRole } from "@prisma/client";
+import { shield, rule, deny, not, and, or, allow } from "nexus-plugin-shield";
+import { UserRole } from "nexus-plugin-prisma/client";
 
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
@@ -14,8 +14,8 @@ const rules = {
     }),
 };
 
-export const permissions = shield(
-  {
+export const permissions = shield({
+  rules: {
     Query: {
       me: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       students: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
@@ -47,5 +47,5 @@ export const permissions = shield(
     Student: rules.isUserWithRole(["ADMIN"]),
     AuthPayload: allow,
   },
-  { fallbackRule: deny, allowExternalErrors: true }
-);
+  options: { fallbackRule: deny, allowExternalErrors: true },
+});

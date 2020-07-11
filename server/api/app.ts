@@ -28,7 +28,7 @@ use(
   })
 );
 
-//use(permissions());
+use(permissions);
 
 use(
   subscriptions({
