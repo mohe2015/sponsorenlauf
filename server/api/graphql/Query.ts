@@ -15,7 +15,7 @@ schema.queryType({
       },
     });
 
-    t.crud.student({});
+    //t.crud.student({});
     /*
     t.connectionField("students", {
       type: Student,

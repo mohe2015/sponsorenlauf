@@ -65,7 +65,7 @@ schema.mutationType({
           },
         });
         console.log("publish rounds", round);
-        ctx.pubSub.publish("ROUNDS", round);
+        ctx.pubsub.publish("ROUNDS", round);
         return round;
       },
     });

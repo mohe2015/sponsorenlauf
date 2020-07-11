@@ -51,7 +51,6 @@ enum OrderByArg {
 type Query {
   me: User
   node(id: ID!): Node
-  student(where: StudentWhereUniqueInput!): Student
 }
 
 type Round {

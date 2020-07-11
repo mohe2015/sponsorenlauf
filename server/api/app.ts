@@ -15,6 +15,6 @@ use(
 schema.addToContext(() => {
   return {
     pubsub: new PubSub(),
-    userId: 1,
+    userId: "",
   };
 });
