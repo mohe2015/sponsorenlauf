@@ -22,7 +22,7 @@
     "nexus": "^0.26.0-next.3",
     "nexus-plugin-prisma": "^0.16.1",
     "nexus-plugin-shield": "^0.2.0",
-    "nexus-plugin-subscriptions": "git+https://github.com/mohe2015/nexus-plugin-subscriptions.git#fix-typescript-errors",
+    "nexus-plugin-subscriptions": "0.0.8",
     "subscriptions-transport-ws": "^0.9.17"
   }
 }
