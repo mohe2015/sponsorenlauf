@@ -8,21 +8,21 @@ export const GC_AUTH_TOKEN = "graphcool-auth-token";
 
 function fetchQuery(operation, variables) {
   let headers = {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   };
   if (localStorage.getItem(GC_AUTH_TOKEN)) {
     headers.Authorization = `Bearer ${localStorage.getItem(GC_AUTH_TOKEN)}`;
   }
-  return fetch("http://localhost:4000", {
+  return fetch("http://localhost:4000/graphql", {
     method: "POST",
     headers,
     body: JSON.stringify({
       query: operation.text,
-      variables
-    })
+      variables,
+    }),
   })
-    .then(response => response.json())
-    .then(result => {
+    .then((response) => response.json())
+    .then((result) => {
       if (result && result.errors) {
         return { data: null, errors: result.errors };
       }
@@ -35,9 +35,9 @@ const subscriptionClient = new SubscriptionClient(
   "ws://localhost:4000/graphql",
   {
     connectionParams: {
-      Authorization: `Bearer ${localStorage.getItem(GC_AUTH_TOKEN)}`
+      Authorization: `Bearer ${localStorage.getItem(GC_AUTH_TOKEN)}`,
     },
-    reconnect: true
+    reconnect: true,
   }
 );
 
@@ -47,12 +47,12 @@ const subscriptionLink = new WebSocketLink(subscriptionClient);
 const networkSubscriptions = (operation, variables) =>
   execute(subscriptionLink, {
     query: operation.text,
-    variables
+    variables,
   });
 
 const environment = new Environment({
   network: Network.create(fetchQuery, networkSubscriptions),
-  store: new Store(new RecordSource())
+  store: new Store(new RecordSource()),
 });
 
 export default environment;
