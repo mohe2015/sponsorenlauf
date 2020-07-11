@@ -15,6 +15,7 @@ import Container from "@material-ui/core/Container";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { Styles } from "@material-ui/core/styles/withStyles";
+import LoadingButton from "@material-ui/lab/LoadingButton";
 
 type Props = {
   classes: any;
@@ -23,6 +24,7 @@ type Props = {
 type State = {
   username: string;
   password: string;
+  loading: boolean;
 };
 
 const styles: Styles<Theme, object> = (theme: Theme) => ({
@@ -49,7 +51,11 @@ class LoginForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.state = { username: "", password: "" };
+    this.state = {
+      username: "",
+      password: "",
+      loading: false,
+    };
   }
 
   handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,8 +67,8 @@ class LoginForm extends React.Component<Props, State> {
   };
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    alert(this.state.username);
     event.preventDefault();
+    this.setState({ loading: true });
   };
 
   render() {
@@ -79,7 +85,7 @@ class LoginForm extends React.Component<Props, State> {
           </Typography>
           <form
             className={classes.form}
-            noValidate
+            //noValidate
             onSubmit={this.handleSubmit}
           >
             <TextField
@@ -108,15 +114,16 @@ class LoginForm extends React.Component<Props, State> {
               value={this.state.password}
               onChange={this.handlePasswordChange}
             />
-            <Button
+            <LoadingButton
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              pending={this.state.loading}
             >
               Anmelden
-            </Button>
+            </LoadingButton>
             <Grid container>
               <Grid item xs>
                 <Link
