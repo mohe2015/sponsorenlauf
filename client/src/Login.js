@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { GC_USER_ID, GC_AUTH_TOKEN } from "./environment";
 import LoginMutation from "./LoginMutation";
-import { withRouter } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
+import { useNavigate } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -13,11 +13,13 @@ class Login extends Component {
     this.state = {
       name: "",
       password: "",
-      validated: false
+      validated: false,
     };
+
+    this.navigate = useNavigate();
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -29,14 +31,14 @@ class Login extends Component {
     this.setState({ validated: true });
   };
 
-  _confirm = e => {
+  _confirm = (e) => {
     e.preventDefault();
     this.setState({ disabled: true });
     const { name, password } = this.state;
     LoginMutation(name, password, (id, token) => {
       this._saveUserData(id, token);
       this.setState({ disabled: false }); // TODO failure
-      this.props.history.push("/");
+      this.navigate("/");
     });
   };
 
@@ -54,13 +56,13 @@ class Login extends Component {
           <Form
             noValidate
             validated={this.state.validated}
-            onSubmit={e => this.handleSubmit(e)}
+            onSubmit={(e) => this.handleSubmit(e)}
           >
             <div className="pb-3">
               <Form.Label>Nutzername:</Form.Label>
               <Form.Control
                 value={this.state.name}
-                onChange={e => this.setState({ name: e.target.value })}
+                onChange={(e) => this.setState({ name: e.target.value })}
                 type="text"
                 placeholder="Nutzername"
                 autoComplete="username"
@@ -77,7 +79,7 @@ class Login extends Component {
               <Form.Label>Passwort:</Form.Label>
               <Form.Control
                 value={this.state.password}
-                onChange={e => this.setState({ password: e.target.value })}
+                onChange={(e) => this.setState({ password: e.target.value })}
                 type="password"
                 placeholder="Passwort"
                 autoComplete="current-password"
@@ -106,4 +108,4 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+export default Login;

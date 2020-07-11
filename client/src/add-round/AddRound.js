@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -16,11 +15,11 @@ class AddRound extends Component {
     this.state = {
       disabled: false,
       validated: false,
-      startNumber: ""
+      startNumber: "",
     };
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -32,7 +31,7 @@ class AddRound extends Component {
     this.setState({ validated: true });
   };
 
-  _confirm = e => {
+  _confirm = (e) => {
     e.preventDefault();
     this.setState({ disabled: true });
     const { startNumber } = this.state;
@@ -50,12 +49,12 @@ class AddRound extends Component {
           <Form
             noValidate
             validated={this.state.validated}
-            onSubmit={e => this.handleSubmit(e)}
+            onSubmit={(e) => this.handleSubmit(e)}
           >
             <div className="pb-3">
               <Form.Control
                 value={this.state.startNumber}
-                onChange={e => this.setState({ startNumber: e.target.value })}
+                onChange={(e) => this.setState({ startNumber: e.target.value })}
                 type="number"
                 placeholder="Startnummer"
                 required
@@ -111,4 +110,4 @@ class AddRound extends Component {
   }
 }
 
-export default withRouter(AddRound);
+export default AddRound;

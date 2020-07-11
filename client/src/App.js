@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import Login from "./Login";
@@ -108,7 +108,7 @@ class App extends Component {
           </Container>
         </Navbar>
 
-        <Switch>
+        <Routes>
           <Route exact path="/"></Route>
           <Route exact path="/login">
             <Login handler={this.handler}></Login>
@@ -130,7 +130,7 @@ class App extends Component {
           <Route exact path="/round_subscription">
             <RoundSubscriptionPage />
           </Route>
-        </Switch>
+        </Routes>
       </BrowserRouter>
     );
   }

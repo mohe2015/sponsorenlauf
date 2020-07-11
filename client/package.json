@@ -18,6 +18,7 @@
     "react-bootstrap": "^1.2.1",
     "react-dom": "^16.13.1",
     "react-relay": "^9.1.0",
+    "react-router": "^6.0.0-beta.0",
     "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "^3.4.1",
     "subscriptions-transport-ws": "^0.9.17",
@@ -31,8 +32,8 @@
     "watch": "npm-run-all --parallel watch:relay watch:react",
     "test": "npm-run-all --sequential build:relay test:react",
     "test:react": "react-scripts test --passWithNoTests",
-    "build:relay": "relay-compiler --src ./src --schema ../server/src/schema/generated/schema.graphql",
-    "watch:relay": "relay-compiler --src ./src --schema ../server/src/schema/generated/schema.graphql --watch"
+    "build:relay": "relay-compiler --src ./src --schema ../server/api.graphql",
+    "watch:relay": "relay-compiler --src ./src --schema ../server/api.graphql --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
