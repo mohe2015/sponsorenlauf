@@ -13,6 +13,7 @@
     "bootstrap-icons": "^1.0.0-alpha5",
     "eslint": "^7.4.0",
     "graphql": "^15.3.0",
+    "history": "^5.0.0-beta.9",
     "npm-run-all": "^4.1.5",
     "react": "^16.13.1",
     "react-bootstrap": "^1.2.1",
@@ -23,7 +24,7 @@
     "react-scripts": "^3.4.1",
     "subscriptions-transport-ws": "^0.9.17",
     "typescript": "^4.0.0-dev.20200711",
-    "webpack": "^5.0.0-beta.22"
+    "webpack": "^4.43.0"
   },
   "scripts": {
     "watch:react": "react-scripts start",
