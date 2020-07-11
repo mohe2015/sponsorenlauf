@@ -4,8 +4,8 @@ import { Round, RoundWhereUniqueInput } from "nexus-plugin-prisma/client";
 
 schema.subscriptionType({
   definition(t) {
-    t.field("test", {
-      type: "Subscription",
+    t.field("SubscribeRounds", {
+      type: "Round",
       subscribe: withFilter(
         function (root, args, context, info) {
           return context.pubsub.asyncIterator("ROUNDS");
