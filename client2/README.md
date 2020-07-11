@@ -1,6 +1,8 @@
 https://reactjs.org/docs/hello-world.html
 https://www.typescriptlang.org/docs/handbook/react.html
 https://material-ui.com
+https://fettblog.eu/typescript-react/components/
+https://github.com/typescript-cheatsheets/react-typescript-cheatsheet
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

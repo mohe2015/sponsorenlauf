@@ -16,12 +16,14 @@ import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { Styles } from "@material-ui/core/styles/withStyles";
 
-export interface Props {}
+type Props = {
+  classes: any;
+};
 
-export interface State {
+type State = {
   username: string;
   password: string;
-}
+};
 
 const styles: Styles<Theme, object> = (theme: Theme) => ({
   paper: {
@@ -44,7 +46,7 @@ const styles: Styles<Theme, object> = (theme: Theme) => ({
 });
 
 class LoginForm extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.state = { username: "", password: "" };
@@ -131,9 +133,5 @@ class LoginForm extends React.Component<Props, State> {
     );
   }
 }
-
-LoginForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(LoginForm);
