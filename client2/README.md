@@ -1,3 +1,6 @@
+TODO https://github.com/relay-tools/relay-compiler-webpack-plugin
+TODO https://reactjs.org/docs/optimizing-performance.html
+
 https://reactjs.org/docs/hello-world.html
 https://www.typescriptlang.org/docs/handbook/react.html
 
@@ -9,6 +12,8 @@ https://github.com/typescript-cheatsheets/react-typescript-cheatsheet
 https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md
 
 TODO https://material-ui.com/customization/palette/
+
+sudo pacman -S watchman
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

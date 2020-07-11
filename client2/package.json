@@ -6,9 +6,13 @@
     "@material-ui/core": "^5.0.0-alpha.2",
     "@material-ui/icons": "^5.0.0-alpha.1",
     "@material-ui/lab": "^5.0.0-alpha.2",
+    "@types/relay-runtime": "^9.1.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-relay": "^9.1.0",
+    "react-relay-network-modern": "^4.7.3",
     "react-scripts": "3.3.0-next.80",
+    "relay-runtime": "^9.1.0",
     "typescript": "^3.9.6"
   },
   "scripts": {
@@ -16,7 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "relay": "relay-compiler"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +43,10 @@
     "@types/react-dom": "^16.9.8",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
-    "eslint": "^7.4.0"
+    "babel-plugin-relay": "^9.1.0",
+    "eslint": "^7.4.0",
+    "graphql": "^15.3.0",
+    "relay-compiler": "^9.1.0",
+    "relay-config": "^9.1.0"
   }
 }
