@@ -15,8 +15,6 @@ class Login extends Component {
       password: "",
       validated: false,
     };
-
-    this.navigate = useNavigate();
   }
 
   handleSubmit = (event) => {
@@ -38,6 +36,7 @@ class Login extends Component {
     LoginMutation(name, password, (id, token) => {
       this._saveUserData(id, token);
       this.setState({ disabled: false }); // TODO failure
+      this.navigate = useNavigate();
       this.navigate("/");
     });
   };
