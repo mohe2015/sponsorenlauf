@@ -5,7 +5,7 @@ schema.subscriptionType({
     t.field("test", {
       type: "Subscription",
       subscribe(root, args, context, info) {
-        return context.pubSub.asyncIterator("ROUNDS");
+        return context.pubsub.asyncIterator("ROUNDS");
       },
       resolve(root, args, context, info) {
         return root;
