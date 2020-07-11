@@ -2,6 +2,7 @@ datasource postgresql {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 // postgresql://postgres:postgres@localhost:5432/myapp
 // docker run --detach --publish 5432:5432 -e POSTGRES_PASSWORD=postgres --name postgres postgres:10.12
 
@@ -24,19 +25,19 @@ model User {
 }
 
 model Student {
-  id            String   @default(cuid()) @id
-  startNumber   Int      @unique // @default(autoincrement()) // https://github.com/prisma/prisma2/issues/1938 https://github.com/graphql-nexus/nexus-plugin-prisma https://github.com/prisma/prisma2 has a bug autoincrement makes this the primary key
-  name          String   @unique
-  class         String
-  grade         Int
-  rounds        Round[]
+  id          String  @default(cuid()) @id
+  startNumber Int     @unique // @default(autoincrement()) // https://github.com/prisma/prisma2/issues/1938 https://github.com/graphql-nexus/nexus-plugin-prisma https://github.com/prisma/prisma2 has a bug autoincrement makes this the primary key
+  name        String  @unique
+  class       String
+  grade       Int
+  rounds      Round[]
 }
 
 model Round {
-  id           String    @default(cuid()) @id
-  student      Student   @relation(fields: [studentId], references: [id])
-  studentId    String
-  createdBy    User      @relation(fields: [createdById], references: [id])
-  createdById  String
-  time         Int
+  id          String  @default(cuid()) @id
+  student     Student @relation(fields: [studentId], references: [id])
+  studentId   String
+  createdBy   User    @relation(fields: [createdById], references: [id])
+  createdById String
+  time        Int
 }
