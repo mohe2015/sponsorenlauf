@@ -1,3 +1,6 @@
+https://reactjs.org/docs/hello-world.html
+https://www.typescriptlang.org/docs/handbook/react.html
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
