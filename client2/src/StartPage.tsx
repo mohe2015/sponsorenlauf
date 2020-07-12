@@ -3,6 +3,7 @@ import Container from "@material-ui/core/Container";
 import { QueryRenderer } from 'react-relay';
 import { graphql } from "babel-plugin-relay/macro";
 import environment from "./Environment";
+import { Navigate } from "react-router-dom";
 
 type Props = {
 };
@@ -33,7 +34,11 @@ class StartPage extends React.Component<Props, State> {
     console.log(props);
     console.log(error);
     if (error) {
-      return <div>{error.message}</div>;
+      if (error.message == "Not Authorised!") {
+        return <Navigate to="/login"></Navigate>;
+      } else {
+        return <div>{error.message}</div>;
+      }
     } else if (props) {
       return <div>{properties.me.name} is great!</div>;
     }

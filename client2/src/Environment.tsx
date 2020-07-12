@@ -34,6 +34,14 @@ function fetchQuery(
     }),
   }).then(response => {
     return response.json();
+  })
+  // this is a hack because relay is stupid
+  .then((result) => {
+    if (result && result.errors) {
+      throw new Error(result.errors.map((e: any) => e.message));
+      //return { data: null, errors: result.errors };
+    }
+    return result;
   });
 }
 /*

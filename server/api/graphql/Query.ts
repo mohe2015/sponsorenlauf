@@ -5,7 +5,7 @@ schema.queryType({
   definition(t) {
     t.field("me", {
       type: "User",
-      nullable: true,
+      nullable: false,
       resolve: (parent, args, ctx) => {
         return ctx.db.user.findOne({
           where: {
