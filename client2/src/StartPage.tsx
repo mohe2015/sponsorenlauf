@@ -12,14 +12,6 @@ type State = {
   
 };
 
-type MeQueryType = {
-  me: {
-    id: string,
-    name: string,
-    role: string
-  }
-}
-
 class StartPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -28,9 +20,7 @@ class StartPage extends React.Component<Props, State> {
     };
   }
 
-
-  renderQuery = ({error, props}: {error: Error | null, props: unknown}) => {
-    let properties = props as MeQueryType;
+  renderQuery = ({error, props}: {error: Error | null, props: any}) => {
     console.log(props);
     console.log(error);
     if (error) {
@@ -40,7 +30,7 @@ class StartPage extends React.Component<Props, State> {
         return <div>{error.message}</div>;
       }
     } else if (props) {
-      return <div>{properties.me.name} is great!</div>;
+      return <div>{props.me.name} is great!</div>;
     }
     return <div>Loading</div>;
   }
