@@ -10,6 +10,7 @@ import { subscriptions } from "nexus-plugin-subscriptions";
 import { permissions } from "./permissions";
 import { verify, Secret } from "jsonwebtoken";
 import cors from "cors";
+import { formatErrors } from "./errors";
 
 interface BearerToken {
   userId: string;
@@ -46,6 +47,8 @@ use(
 );
 
 server.express.use(cors());
+
+server.express.use(formatErrors);
 
 schema.addToContext(async (req) => {
   return await createContext(req.headers["authorization"]!);
