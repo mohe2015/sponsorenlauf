@@ -7,6 +7,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import purple from "@material-ui/core/colors/purple";
 import green from "@material-ui/core/colors/green";
 import { CssBaseline } from "@material-ui/core";
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 const theme = createMuiTheme({
   palette: {
@@ -18,7 +19,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <LoginForm />
+      <BrowserRouter>
+        <Routes>
+          <Route path="login" element={<LoginForm />} />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

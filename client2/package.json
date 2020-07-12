@@ -8,10 +8,12 @@
     "@material-ui/lab": "^5.0.0-alpha.2",
     "@types/react-relay": "^7.0.8",
     "@types/relay-runtime": "^9.1.5",
+    "history": "^5.0.0-beta.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-relay": "^9.1.0",
     "react-relay-network-modern": "^4.7.3",
+    "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "3.4.1",
     "relay-runtime": "^9.1.0",
     "typescript": "^4.0.0-dev.20200712"

@@ -21,6 +21,9 @@ import environment from "./Environment";
 import { graphql } from "babel-plugin-relay/macro";
 import { RRNLRequestError } from "react-relay-network-modern";
 import { PayloadError } from "relay-runtime";
+import {
+  Navigate
+} from "react-router-dom";
 
 type Props = {
   classes: any;
@@ -30,6 +33,7 @@ type State = {
   username: string;
   password: string;
   loading: boolean;
+  loggedIn: boolean;
   errors: PayloadError[];
 };
 
@@ -73,6 +77,7 @@ class LoginForm extends React.Component<Props, State> {
       password: "",
       loading: false,
       errors: [],
+      loggedIn: false,
     };
   }
 
@@ -102,7 +107,7 @@ class LoginForm extends React.Component<Props, State> {
           // @ts-expect-error
           this.setState({ loading: false, errors: errors });
         } else {
-          this.setState({ loading: false });
+          this.setState({ loading: false, errors: [], loggedIn: true });
         }
       },
       onError: (err) => {
@@ -121,6 +126,9 @@ class LoginForm extends React.Component<Props, State> {
 
   render() {
     const { classes } = this.props;
+    if (this.state.loggedIn) {
+      return (<Navigate to="/"></Navigate>)
+    }
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
