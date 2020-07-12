@@ -21,35 +21,13 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import withStyles, { Styles } from "@material-ui/core/styles/withStyles";
 import Box from "@material-ui/core/Box";
+import Tooltip from "@material-ui/core/Tooltip";
+import Button from "@material-ui/core/Button";
+import ControlledTooltip from "./ControlledTooltip";
 
 const styles: Styles<Theme, object> = (theme: Theme) => ({
     grow: {
       flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      display: 'none',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      },
-    },
-    inputRoot: {
-      color: 'inherit',
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: '20ch',
-      },
-    },
-    sectionDesktop: {
-      display: 'flex',
     },
   });
 
@@ -107,28 +85,16 @@ class MyAppBar extends React.Component<Props, State> {
             </Typography>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton aria-label="show 4 new mails" color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton aria-label="show 17 new notifications" color="inherit">
-                <Badge badgeContent={17} color="secondary">
+              <ControlledTooltip title="Benachrichtigungen">
+                <IconButton>
                   <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-
-              >
-                <AccountCircle /> <Box component="span" display={{ xs: 'none', md: 'block' }}>
-                  {this.props.me.name}
-                </Box>
-              </IconButton>
+                  <Typography variant="button" noWrap>
+                    <Box component="span" display={{ xs: 'none', md: 'block' }}>
+                      Benachrichtigungen
+                    </Box>
+                  </Typography>
+                </IconButton>
+              </ControlledTooltip>
             </div>
           </Toolbar>
         </AppBar>
