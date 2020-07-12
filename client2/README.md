@@ -1,5 +1,6 @@
 TODO https://github.com/relay-tools/relay-compiler-webpack-plugin
 TODO https://reactjs.org/docs/optimizing-performance.html
+TODO material-ui use default imports as they are faster
 
 https://reactjs.org/docs/hello-world.html
 https://www.typescriptlang.org/docs/handbook/react.html

@@ -16,6 +16,8 @@ import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { Styles } from "@material-ui/core/styles/withStyles";
 import LoadingButton from "@material-ui/lab/LoadingButton";
+import { commitMutation, graphql } from "react-relay";
+import environment from "./Environment";
 
 type Props = {
   classes: any;
@@ -47,6 +49,18 @@ const styles: Styles<Theme, object> = (theme: Theme) => ({
   },
 });
 
+const mutation = graphql`
+  mutation LoginMutation($username: String!, $password: String!) {
+    login(name: $username, password: $password) {
+      token
+      user {
+        id
+        role
+      }
+    }
+  }
+`;
+
 class LoginForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -69,6 +83,20 @@ class LoginForm extends React.Component<Props, State> {
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     this.setState({ loading: true });
+
+    const variables = {
+      username: "hi",
+      password: "jo",
+    };
+
+    commitMutation(environment, {
+      mutation,
+      variables,
+      onCompleted: (response, errors) => {
+        console.log("Response received from server.");
+      },
+      onError: (err) => console.error(err),
+    });
   };
 
   render() {
