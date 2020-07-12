@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "relay": "relay-compiler"
+    "relay": "relay-compiler --watch"
   },
   "eslintConfig": {
     "extends": "react-app"

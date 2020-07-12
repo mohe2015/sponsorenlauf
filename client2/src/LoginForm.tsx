@@ -30,7 +30,7 @@ type State = {
   username: string;
   password: string;
   loading: boolean;
-  errors: readonly PayloadError[];
+  errors: PayloadError[];
 };
 
 const styles: Styles<Theme, object> = (theme: Theme) => ({
@@ -98,15 +98,24 @@ class LoginForm extends React.Component<Props, State> {
       mutation,
       variables,
       onCompleted: (response, errors) => {
+        console.log("onCompleted")
         if (errors) {
+          // @ts-expect-error
           this.setState({ loading: false, errors: errors });
         } else {
           this.setState({ loading: false });
         }
       },
       onError: (err) => {
-        //let error: RRNLRequestError = err as RRNLRequestError;
-        this.setState({ loading: false });
+        console.log("onError")
+        console.log(err)
+        let unknownError = [{
+          message: "Ein unbekannter Fehler ist aufgetreten.",
+          locations: null,
+          severity: "CRITICAL",
+        }];
+        // @ts-expect-error
+        this.setState({ loading: false, errors: err.res?.errors || unknownError});
       },
     });
   };
