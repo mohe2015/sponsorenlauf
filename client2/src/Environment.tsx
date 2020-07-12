@@ -70,7 +70,7 @@ const network = new RelayNetworkLayer(
     },*/
   ],
   {
-    noThrow: true,
+    noThrow: false,
   } // TODO FIXME maybe we need subscribeFn or noThrow options
 );
 
