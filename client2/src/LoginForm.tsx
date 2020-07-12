@@ -16,8 +16,9 @@ import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { Styles } from "@material-ui/core/styles/withStyles";
 import LoadingButton from "@material-ui/lab/LoadingButton";
-import { commitMutation, graphql } from "react-relay";
+import { commitMutation } from "react-relay";
 import environment from "./Environment";
+import { graphql } from "babel-plugin-relay/macro";
 
 type Props = {
   classes: any;
@@ -50,7 +51,7 @@ const styles: Styles<Theme, object> = (theme: Theme) => ({
 });
 
 const mutation = graphql`
-  mutation LoginMutation($username: String!, $password: String!) {
+  mutation LoginFormMutation($username: String!, $password: String!) {
     login(name: $username, password: $password) {
       token
       user {
