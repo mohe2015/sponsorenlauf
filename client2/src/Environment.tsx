@@ -23,7 +23,7 @@ const network = new RelayNetworkLayer(
       ttl: 900000, // 15 minutes
     }),
     urlMiddleware({
-      url: (req) => Promise.resolve("/graphql"),
+      url: (req) => Promise.resolve("http://localhost:4000/graphql"),
     }),
     //batchMiddleware({
     //  batchUrl: (requestList) => Promise.resolve('/graphql/batch'),
@@ -47,24 +47,6 @@ const network = new RelayNetworkLayer(
       },
       statusCodes: [500, 503, 504],
     }),
-    authMiddleware({
-      // @ts-expect-error
-      token: () => store.get("jwt"),
-      tokenRefreshPromise: (req) => {
-        console.log("[client.js] resolve token refresh", req);
-        return fetch("/jwt/refresh")
-          .then((res) => res.json())
-          .then((json) => {
-            const token = json.token;
-            // @ts-expect-error
-            store.set("jwt", token);
-            return token;
-          })
-          .catch((err) =>
-            console.log("[client.js] ERROR can not refresh token", err)
-          );
-      },
-    }),
     progressMiddleware({
       onProgress: (current, total) => {
         console.log("Downloaded: " + current + " B, total: " + total + " B");
@@ -87,12 +69,13 @@ const network = new RelayNetworkLayer(
       return res;
     },*/
   ],
-  {} // TODO FIXME maybe we need subscribeFn or noThrow options
+  {
+    noThrow: true,
+  } // TODO FIXME maybe we need subscribeFn or noThrow options
 );
 
 const source = new RecordSource();
 const store = new Store(source);
-console.log(typeof store);
 const environment = new Environment({ network, store });
 
 export default environment;

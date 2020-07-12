@@ -96,7 +96,9 @@ class LoginForm extends React.Component<Props, State> {
       onCompleted: (response, errors) => {
         console.log("Response received from server.");
       },
-      onError: (err) => console.error(err),
+      onError: (err) => {
+        console.error("thiserror ", err);
+      },
     });
   };
 
