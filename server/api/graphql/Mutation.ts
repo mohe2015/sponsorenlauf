@@ -1,6 +1,7 @@
 import { schema } from "nexus";
 import { hashSync, compare } from "bcrypt";
 import { sign, Secret } from "jsonwebtoken";
+import { AuthenticationError } from "../errors";
 
 schema.mutationType({
   definition(t) {
@@ -30,9 +31,9 @@ schema.mutationType({
           throw new Error(`No user found with name: ${name}`);
         }
         // @ts-ignore
-        const passwordValid = await compare(password, user.password);
+        const passwordValid: boolean = await compare(password, user.password);
         if (!passwordValid) {
-          throw new Error("Invalid password");
+          throw new AuthenticationError("Invalid password");
         }
         return {
           token: sign({ userId: user.id }, process.env.APP_SECRET as Secret),
