@@ -95,6 +95,16 @@ class MyAppBar extends React.Component<Props, State> {
                   </Typography>
                 </IconButton>
               </ControlledTooltip>
+              <ControlledTooltip title="Nutzer">
+                <IconButton>
+                  <AccountCircle />
+                  <Typography variant="button" noWrap>
+                    <Box component="span" display={{ xs: 'none', md: 'block' }}>
+                      {this.props.me.name}
+                    </Box>
+                  </Typography>
+                </IconButton>
+              </ControlledTooltip>
             </div>
           </Toolbar>
         </AppBar>

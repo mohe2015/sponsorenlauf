@@ -1,16 +1,19 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 export default function ControlledTooltip(props: any) {
   const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleClose = () => {
-    setOpen(true);
+    setOpen(false);
   };
 
   const handleOpen = () => {
-    setOpen(false);
+    setOpen(matches);
   };
 
   return (
