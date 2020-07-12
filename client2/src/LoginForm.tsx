@@ -19,6 +19,8 @@ import LoadingButton from "@material-ui/lab/LoadingButton";
 import { commitMutation } from "react-relay";
 import environment from "./Environment";
 import { graphql } from "babel-plugin-relay/macro";
+import { RRNLRequestError } from "react-relay-network-modern";
+import { PayloadError } from "relay-runtime";
 
 type Props = {
   classes: any;
@@ -28,6 +30,7 @@ type State = {
   username: string;
   password: string;
   loading: boolean;
+  errors: readonly PayloadError[];
 };
 
 const styles: Styles<Theme, object> = (theme: Theme) => ({
@@ -70,6 +73,7 @@ class LoginForm extends React.Component<Props, State> {
       username: "",
       password: "",
       loading: false,
+      errors: [],
     };
   }
 
@@ -86,18 +90,23 @@ class LoginForm extends React.Component<Props, State> {
     this.setState({ loading: true });
 
     const variables = {
-      username: "hi",
-      password: "jo",
+      username: this.state.username,
+      password: this.state.password,
     };
 
     commitMutation(environment, {
       mutation,
       variables,
       onCompleted: (response, errors) => {
-        console.log("Response received from server.");
+        if (errors) {
+          this.setState({ loading: false, errors: errors });
+        } else {
+          this.setState({ loading: false });
+        }
       },
       onError: (err) => {
-        console.error("thiserror ", err);
+        //let error: RRNLRequestError = err as RRNLRequestError;
+        this.setState({ loading: false });
       },
     });
   };
@@ -131,6 +140,8 @@ class LoginForm extends React.Component<Props, State> {
               autoFocus
               value={this.state.username}
               onChange={this.handleUsernameChange}
+              error={this.state.errors.length > 0}
+              helperText={this.state.errors.map(e => e.message).reduce((a, b) => a + "\n" + b, "")}
             />
             <TextField
               variant="outlined"
@@ -144,6 +155,8 @@ class LoginForm extends React.Component<Props, State> {
               autoComplete="current-password"
               value={this.state.password}
               onChange={this.handlePasswordChange}
+              error={this.state.errors.length > 0}
+              helperText={this.state.errors.map(e => e.message).reduce((a, b) => a + "\n" + b, "")}
             />
             <LoadingButton
               type="submit"

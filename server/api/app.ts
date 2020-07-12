@@ -46,6 +46,22 @@ use(
   })
 );
 
+/*
+this hides the stack trace in production:
+
+import graphqlHTTP from 'express-graphql';
+
+const graphQLMiddleware = graphqlHTTP({
+  schema: myGraphQLSchema,
+  formatError: (error) => ({
+    message: error.message,
+    stack: process.env.NODE_ENV === 'development' ? error.stack.split('\n') : null,
+  })
+});
+
+app.use('/graphql', graphQLMiddleware);
+*/
+
 server.express.use(cors());
 
 server.express.use(formatErrors);
