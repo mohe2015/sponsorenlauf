@@ -1,64 +1,98 @@
+import { Environment, RecordSource, Store } from "relay-runtime";
 import {
-  Environment,
-  Network,
-  RecordSource,
-  Store,
-  RequestParameters,
-  Variables,
-  CacheConfig,
-  UploadableMap,
-  Disposable,
-} from "relay-runtime";
-import {
-  LegacyObserver,
-  GraphQLResponse,
-} from "relay-runtime/lib/network/RelayNetworkTypes";
-import {
-  RelayObservable,
-  ObservableFromValue,
-} from "relay-runtime/lib/network/RelayObservable";
-/*
-function fetchQuery(
-  operation: RequestParameters,
-  variables: Variables,
-  cacheConfig: CacheConfig,
-  uploadables?: UploadableMap | null,
-): ObservableFromValue<GraphQLResponse> {
-  return fetch('/graphql', {
-    method: 'POST',
-    headers: {
-      // Add authentication and other headers here
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      query: operation.text, // GraphQL text from input
-      variables,
+  RelayNetworkLayer,
+  urlMiddleware,
+  batchMiddleware,
+  // legacyBatchMiddleware,
+  loggerMiddleware,
+  errorMiddleware,
+  perfMiddleware,
+  retryMiddleware,
+  authMiddleware,
+  cacheMiddleware,
+  progressMiddleware,
+  uploadMiddleware,
+} from "react-relay-network-modern";
+
+const __DEV__ = true; // TODO FIXME
+
+const network = new RelayNetworkLayer(
+  [
+    cacheMiddleware({
+      size: 100, // max 100 requests
+      ttl: 900000, // 15 minutes
     }),
-  }).then(response => {
-    return response.json();
-  });
-}
+    urlMiddleware({
+      url: (req) => Promise.resolve("/graphql"),
+    }),
+    //batchMiddleware({
+    //  batchUrl: (requestList) => Promise.resolve('/graphql/batch'),
+    //  batchTimeout: 10,
+    //}),
+    __DEV__ ? loggerMiddleware() : null,
+    __DEV__ ? errorMiddleware() : null,
+    __DEV__ ? perfMiddleware() : null,
+    retryMiddleware({
+      fetchTimeout: 15000,
+      retryDelays: (attempt) => Math.pow(2, attempt + 4) * 100, // or simple array [3200, 6400, 12800, 25600, 51200, 102400, 204800, 409600],
+      beforeRetry: ({ forceRetry, abort, delay, attempt, lastError, req }) => {
+        if (attempt > 10) abort();
+        // @ts-expect-error
+        window.forceRelayRetry = forceRetry;
+        console.log(
+          "call `forceRelayRetry()` for immediately retry! Or wait " +
+            delay +
+            " ms."
+        );
+      },
+      statusCodes: [500, 503, 504],
+    }),
+    authMiddleware({
+      // @ts-expect-error
+      token: () => store.get("jwt"),
+      tokenRefreshPromise: (req) => {
+        console.log("[client.js] resolve token refresh", req);
+        return fetch("/jwt/refresh")
+          .then((res) => res.json())
+          .then((json) => {
+            const token = json.token;
+            // @ts-expect-error
+            store.set("jwt", token);
+            return token;
+          })
+          .catch((err) =>
+            console.log("[client.js] ERROR can not refresh token", err)
+          );
+      },
+    }),
+    progressMiddleware({
+      onProgress: (current, total) => {
+        console.log("Downloaded: " + current + " B, total: " + total + " B");
+      },
+    }),
+    uploadMiddleware(),
 
-function subscribeQuery(request: RequestParameters,
-  variables: Variables,
-  cacheConfig: CacheConfig,
-  observer?: LegacyObserver<GraphQLResponse>): RelayObservable<GraphQLResponse> | Disposable {
-    
-  }*/
+    // example of the custom inline middleware
+    /*(next) => async (req) => {
+      req.fetchOpts.method = 'GET'; // change default POST request method to GET
+      //req.fetchOpts.headers['X-Request-ID'] = uuid.v4(); // add `X-Request-ID` to request headers
+      req.fetchOpts.credentials = 'same-origin'; // allow to send cookies (sending credentials to same domains)
+      // req.fetchOpts.credentials = 'include'; // allow to send cookies for CORS (sending credentials to other domains)
 
-// https://github.com/relay-tools/react-relay-network-modern
+      console.log('RelayRequest', req);
 
-// Create a network layer from the fetch function
-const network = Network.create(fetchQuery);
+      const res = await next(req);
+      console.log('RelayResponse', res);
+
+      return res;
+    },*/
+  ],
+  {} // TODO FIXME maybe we need subscribeFn or noThrow options
+);
 
 const source = new RecordSource();
-const store: Store = new Store(source);
-const handlerProvider = null;
-
-const environment = new Environment({
-  handlerProvider, // Can omit.
-  network,
-  store,
-});
+const store = new Store(source);
+console.log(typeof store);
+const environment = new Environment({ network, store });
 
 export default environment;
