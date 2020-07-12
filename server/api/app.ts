@@ -13,6 +13,7 @@ import { formatErrors } from "./errors";
 import { Request } from "nexus/dist/runtime/schema/schema";
 import { ConnectionContext } from "subscriptions-transport-ws";
 import * as http from "http";
+import { parse as parseCookie } from "cookie";
 
 declare global {
   interface NexusContext {
@@ -74,27 +75,29 @@ server.express.use(cors());
 server.express.use(formatErrors);
 
 schema.addToContext(async (req: Request) => {
-    // @ts-expect-error
+  // @ts-expect-error
   return await createContext(req.headers.cookie || null, req.res);
 });
 
 // https://github.com/graphql-nexus/nexus/issues/506
 async function createContext(cookie: string | null, response: Response | null) {
-  // TODO FIXME check session
+  // TODO FIXME THIS IS NOT SECURE
+  // TODO FIXME probably also disable cors
   if (cookie) {
-    console.log(cookie);
-    return {
-      userId: cookie,
-      pubsub,
-      db,
-      response,
+    let cookies = parseCookie(cookie);
+    if (cookies.id) {
+      return {
+        userId: cookies.id,
+        pubsub,
+        db,
+        response,
+      }
     }
-  } else {
-    return {
-      userId: null,
-      pubsub,
-      db,
-      response,
-    }
+  }
+  return {
+    userId: null,
+    pubsub,
+    db,
+    response,
   }
 }

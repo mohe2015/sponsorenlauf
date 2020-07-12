@@ -35,9 +35,11 @@ schema.mutationType({
         if (!passwordValid) {
           throw new AuthenticationError("Invalid password");
         }
+        // @ts-expect-error
         context.response.cookie('id', user.id, {
             httpOnly: true,
-            maxAge: 18000,
+            sameSite: "strict",
+            secure: true,
         })     
         return {
           user,
