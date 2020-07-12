@@ -182,7 +182,7 @@ class MyAppBar extends React.Component<Props, State> {
           >
             <AccountCircle />
           </IconButton>
-          <p>Profile</p>
+          <p>{this.props.me.name}</p>
         </MenuItem>
       </Menu>
     );
@@ -200,8 +200,7 @@ class MyAppBar extends React.Component<Props, State> {
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" noWrap>
-              {this.state.anchorEl == null ? "hi" : "jo"}
-              {this.state.mobileMoreAnchorEl == null ? "hi" : "jo"}
+              Sponsorenlauf
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
