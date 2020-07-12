@@ -1,4 +1,4 @@
-import { schema } from "nexus";
+import { schema, log } from "nexus";
 import { hashSync, compare } from "bcrypt";
 import { sign, Secret } from "jsonwebtoken";
 import { AuthenticationError } from "../errors";
@@ -28,15 +28,18 @@ schema.mutationType({
           },
         });
         if (!user) {
-          throw new Error(`No user found with name: ${name}`);
+          throw new AuthenticationError(`No user found with name: ${name}`);
         }
         // @ts-ignore
         const passwordValid: boolean = await compare(password, user.password);
         if (!passwordValid) {
           throw new AuthenticationError("Invalid password");
         }
+        context.response.cookie('id', user.id, {
+            httpOnly: true,
+            maxAge: 18000,
+        })     
         return {
-          token: sign({ userId: user.id }, process.env.APP_SECRET as Secret),
           user,
         };
       },
