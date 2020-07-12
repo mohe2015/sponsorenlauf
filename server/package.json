@@ -6,7 +6,7 @@
   "scripts": {
     "setup": "prisma migrate save --experimental && prisma migrate up --experimental && cd prisma && ts-node seed.ts",
     "studio": "prisma studio --experimental",
-    "dev": "nexus dev",
+    "dev": "APP_SECRET=test nexus dev",
     "build": "nexus build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

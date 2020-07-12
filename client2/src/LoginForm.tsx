@@ -59,7 +59,6 @@ const mutation = graphql`
       token
       user {
         id
-        role
       }
     }
   }
