@@ -70,7 +70,11 @@ const graphQLMiddleware = graphqlHTTP({
 app.use('/graphql', graphQLMiddleware);
 */
 
-server.express.use(cors());
+server.express.use(cors({
+  credentials: true,
+  methods: "POST",
+  origin: "http://localhost:3000"
+}));
 
 server.express.use(formatErrors);
 
