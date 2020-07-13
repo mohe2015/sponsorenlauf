@@ -6,6 +6,8 @@ import { unstable_createMuiStrictModeTheme as createMuiTheme, } from "@material-
 import { CssBaseline } from "@material-ui/core";
 import { Route, Switch } from 'react-router-dom';
 import StartPage from "./StartPage";
+import UserList from "./users/UserList";
+import UserListRenderer from "./users/UserListRenderer";
 
 const theme = createMuiTheme({
   palette: {
@@ -17,18 +19,15 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div>a</div>
       <Switch>
-        <Route path="/">
-          <div>b</div>
-          <StartPage />
-        </Route>
-        <Route path="login">
-          <div>c</div>
+        <Route path="/login">
           <LoginForm />
         </Route>
-        <Route path="*">
-          <div>d</div>
+        <Route path="/">
+          <StartPage />
+          <Route path="/users">
+            <UserListRenderer />
+          </Route>
         </Route>
       </Switch>
     </ThemeProvider>

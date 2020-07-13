@@ -19,8 +19,8 @@ export const permissions = shield({
     Query: {
       me: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       students: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
-      student: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       rounds: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
+      users: rules.isUserWithRole(["ADMIN"]),
     },
     Mutation: {
       createOneUser: rules.isUserWithRole(["ADMIN"]),
@@ -39,12 +39,15 @@ export const permissions = shield({
     Round: {
       "*": rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
     },
-    RoundConnection: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
-    StudentConnection: rules.isUserWithRole(["ADMIN"]),
+    Student: rules.isUserWithRole(["ADMIN"]),
+
     PageInfo: allow,
+    RoundConnection: allow,
+    StudentConnection: allow,
+    UserConnection: allow,
     RoundEdge: allow,
     StudentEdge: allow,
-    Student: rules.isUserWithRole(["ADMIN"]),
+    UserEdge: allow,
     AuthPayload: allow,
   },
   options: { fallbackRule: deny, allowExternalErrors: true },
