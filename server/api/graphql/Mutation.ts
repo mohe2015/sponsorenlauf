@@ -39,7 +39,7 @@ schema.mutationType({
         context.response.cookie('id', user.id, {
             httpOnly: true,
             sameSite: "strict",
-            secure: true,
+            // secure: true, // TODO FIXME
         })     
         return {
           user,

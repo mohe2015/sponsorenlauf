@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import LoginForm from "./LoginForm";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { unstable_createMuiStrictModeTheme as createMuiTheme, } from "@material-ui/core/styles";
