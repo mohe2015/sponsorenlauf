@@ -1,32 +1,16 @@
-import React, { ChangeEvent } from "react";
-import Container from "@material-ui/core/Container";
-import { QueryRenderer } from 'react-relay';
-import { graphql } from "babel-plugin-relay/macro";
-import environment from "./Environment";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import React from "react";
+import { Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import withStyles, { Styles } from "@material-ui/core/styles/withStyles";
 import Box from "@material-ui/core/Box";
-import Tooltip from "@material-ui/core/Tooltip";
-import Button from "@material-ui/core/Button";
 import ControlledTooltip from "./ControlledTooltip";
-import UserListRenderer from "./users/UserListRenderer";
 
-const styles: Styles<Theme, object> = (theme: Theme) => ({
+const styles: Styles<Theme, object> = () => ({
     grow: {
       flexGrow: 1,
     },
@@ -112,14 +96,6 @@ class MyAppBar extends React.Component<Props, State> {
           </AppBar>
         </div>
         <div>
-
-        <Routes>
-          <Route path="users">
-            <div>HIHIHDFOSIFH</div>
-            <UserListRenderer />
-          </Route>
-        </Routes>
-
         </div>
       </div>
     );

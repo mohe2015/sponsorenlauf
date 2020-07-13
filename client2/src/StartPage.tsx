@@ -2,7 +2,7 @@ import React, { ChangeEvent } from "react";
 import { QueryRenderer } from 'react-relay';
 import { graphql } from "babel-plugin-relay/macro";
 import environment from "./Environment";
-import { Navigate } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import MyAppBar from "./MyAppBar";
 
 type Props = {
@@ -22,7 +22,7 @@ class StartPage extends React.Component<Props, State> {
     console.log(error);
     if (error) {
       if (error.message == "Not Authorised!") {
-        return <Navigate to="/login"></Navigate>;
+        return <Redirect to="/login" />;
       } else {
         return <div>{error.message}</div>;
       }

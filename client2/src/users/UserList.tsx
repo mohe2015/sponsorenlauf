@@ -1,9 +1,6 @@
-import React, { ChangeEvent } from "react";
-import { QueryRenderer, createFragmentContainer } from 'react-relay';
+import React from "react";
+import { createFragmentContainer } from 'react-relay';
 import { graphql } from "babel-plugin-relay/macro";
-import environment from "../Environment";
-import { Navigate } from "react-router-dom";
-import MyAppBar from "../MyAppBar";
 import User from "./User";
 
 type Props = {

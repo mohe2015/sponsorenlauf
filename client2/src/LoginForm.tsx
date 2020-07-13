@@ -1,28 +1,22 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import { Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { withStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
 import { Styles } from "@material-ui/core/styles/withStyles";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import { commitMutation } from "react-relay";
 import environment from "./Environment";
 import { graphql } from "babel-plugin-relay/macro";
-import { RRNLRequestError } from "react-relay-network-modern";
 import { PayloadError } from "relay-runtime";
 import {
-  Navigate
+  Redirect
 } from "react-router-dom";
 
 type Props = {
@@ -127,7 +121,7 @@ class LoginForm extends React.Component<Props, State> {
   render() {
     const { classes } = this.props;
     if (this.state.loggedIn) {
-      return (<Navigate to="/"></Navigate>)
+      return (<Redirect to="/" />)
     }
     return (
       <Container component="main" maxWidth="xs">

@@ -2,7 +2,7 @@ import React, { ChangeEvent } from "react";
 import { QueryRenderer } from 'react-relay';
 import { graphql } from "babel-plugin-relay/macro";
 import environment from "../Environment";
-import { Navigate } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import UserList from "./UserList";
 
 type Props = {
@@ -20,7 +20,7 @@ class UserListRenderer extends React.Component<Props, State> {
   renderQuery = ({error, props}: {error: Error | null, props: any}) => {
     if (error) {
       if (error.message == "Not Authorised!") {
-        return <Navigate to="/login"></Navigate>;
+        return <Redirect to="/login" />;
       } else {
         return <div>{error.message}</div>;
       }
