@@ -15,8 +15,6 @@ schema.queryType({
       },
     });
 
-    t.crud.student({});
-
     t.connection("students", {
       type: "Student",
       nodes: async (root, args, ctx, info) => {
@@ -30,6 +28,13 @@ schema.queryType({
         return await ctx.db.round.findMany();
       },
     });
+
+    t.connection("users", {
+      type: "User",
+      nodes: async (root, args, ctx, info) => {
+        return await ctx.db.user.findMany();
+      },
+    })
 
     t.field("node", {
       type: "Node",
