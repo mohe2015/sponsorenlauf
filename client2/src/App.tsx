@@ -20,14 +20,20 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/">
-            <StartPage />
-          </Route>
-          <Route path="login" element={<LoginForm />} />
-        </Routes>
-      </BrowserRouter>
+      <div>a</div>
+      <Routes>
+        <Route path="/">
+          <div>b</div>
+          <StartPage />
+        </Route>
+        <Route path="login">
+          <div>c</div>
+          <LoginForm />
+        </Route>
+        <Route path="*">
+          <div>d</div>
+        </Route>
+      </Routes>
     </ThemeProvider>
   );
 }

@@ -3,7 +3,7 @@ import Container from "@material-ui/core/Container";
 import { QueryRenderer } from 'react-relay';
 import { graphql } from "babel-plugin-relay/macro";
 import environment from "./Environment";
-import { Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -24,6 +24,7 @@ import Box from "@material-ui/core/Box";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
 import ControlledTooltip from "./ControlledTooltip";
+import UserListRenderer from "./users/UserListRenderer";
 
 const styles: Styles<Theme, object> = (theme: Theme) => ({
     grow: {
@@ -77,37 +78,49 @@ class MyAppBar extends React.Component<Props, State> {
     const { classes } = this.props;
 
     return (
-      <div className={classes.grow}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography className={classes.title} variant="h6" noWrap>
-              Sponsorenlauf
-            </Typography>
-            <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
-              <ControlledTooltip title="Benachrichtigungen">
-                <IconButton>
-                  <NotificationsIcon />
-                  <Typography variant="button" noWrap>
-                    <Box component="span" display={{ xs: 'none', md: 'block' }}>
-                      Benachrichtigungen
-                    </Box>
-                  </Typography>
-                </IconButton>
-              </ControlledTooltip>
-              <ControlledTooltip title="Nutzer">
-                <IconButton>
-                  <AccountCircle />
-                  <Typography variant="button" noWrap>
-                    <Box component="span" display={{ xs: 'none', md: 'block' }}>
-                      {this.props.me.name}
-                    </Box>
-                  </Typography>
-                </IconButton>
-              </ControlledTooltip>
-            </div>
-          </Toolbar>
-        </AppBar>
+      <div>
+        <div className={classes.grow}>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography className={classes.title} variant="h6" noWrap>
+                Sponsorenlauf
+              </Typography>
+              <div className={classes.grow} />
+              <div className={classes.sectionDesktop}>
+                <ControlledTooltip title="Benachrichtigungen">
+                  <IconButton>
+                    <NotificationsIcon />
+                    <Typography variant="button" noWrap>
+                      <Box component="span" display={{ xs: 'none', md: 'block' }}>
+                        Benachrichtigungen
+                      </Box>
+                    </Typography>
+                  </IconButton>
+                </ControlledTooltip>
+                <ControlledTooltip title="Nutzer">
+                  <IconButton>
+                    <AccountCircle />
+                    <Typography variant="button" noWrap>
+                      <Box component="span" display={{ xs: 'none', md: 'block' }}>
+                        {this.props.me.name}
+                      </Box>
+                    </Typography>
+                  </IconButton>
+                </ControlledTooltip>
+              </div>
+            </Toolbar>
+          </AppBar>
+        </div>
+        <div>
+
+        <Routes>
+          <Route path="users">
+            <div>HIHIHDFOSIFH</div>
+            <UserListRenderer />
+          </Route>
+        </Routes>
+
+        </div>
       </div>
     );
   }

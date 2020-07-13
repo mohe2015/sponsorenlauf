@@ -17,7 +17,7 @@ export default function ControlledTooltip(props: any) {
   };
 
   return (
-    <Tooltip open={open} onClose={handleClose} onOpen={handleOpen} title="Add">
+    <Tooltip open={open} onClose={handleClose} onOpen={handleOpen} title={props.title}>
       {props.children}
     </Tooltip>
   );
