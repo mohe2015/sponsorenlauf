@@ -25,7 +25,8 @@ class UserListRenderer extends React.Component<Props, State> {
         return <div>{error.message}</div>;
       }
     } else if (props) {
-      return <UserList list={props.list} />;
+      console.log(props);
+      return <UserList list={props.users} />;
     }
     return <div>Loading</div>;
   }

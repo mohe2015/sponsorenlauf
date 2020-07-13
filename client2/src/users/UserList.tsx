@@ -19,7 +19,7 @@ class UserList extends React.Component<Props, State> {
   render() {
     return (
       <ul>
-        {this.props.list.map((user: any) => <User user={user} />)}
+        {this.props.list.edges.map((user: any) => <User key={user.node.id} user={user.node} />)}
       </ul>
     );
   }
@@ -33,6 +33,7 @@ export default createFragmentContainer(UserList, {
       }
       edges {
         node {
+          id
           ...User_user
         }
       }
