@@ -3,19 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^5.0.0-alpha.2",
+    "@material-ui/core": "^5.0.0-alpha.3",
     "@material-ui/icons": "^5.0.0-alpha.1",
-    "@material-ui/lab": "^5.0.0-alpha.2",
+    "@material-ui/lab": "^5.0.0-alpha.3",
     "@types/react-relay": "^7.0.8",
     "@types/relay-runtime": "^9.1.5",
-    "history": "^5.0.0-beta.9",
+    "history": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-relay": "^9.1.0",
+    "react-relay": "^10.0.0",
     "react-relay-network-modern": "^4.7.3",
     "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "3.4.1",
-    "relay-runtime": "^9.1.0",
+    "relay-runtime": "^10.0.0",
     "typescript": "^4.0.0-dev.20200712"
   },
   "scripts": {
@@ -44,15 +44,15 @@
   "devDependencies": {
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
-    "@typescript-eslint/eslint-plugin": "^3.6.1-alpha.3",
-    "@typescript-eslint/parser": "^3.6.1-alpha.3",
+    "@typescript-eslint/eslint-plugin": "^3.6.2-alpha.0",
+    "@typescript-eslint/parser": "^3.6.2-alpha.0",
     "babel-plugin-macros": "^2.8.0",
-    "babel-plugin-relay": "^9.1.0",
+    "babel-plugin-relay": "^10.0.0",
     "eslint": "^7.4.0",
     "graphql": "^15.3.0",
     "react-app-rewired": "^2.1.6",
-    "relay-compiler": "^9.1.0",
+    "relay-compiler": "^10.0.0",
     "relay-compiler-webpack-plugin": "^8.1.0",
-    "relay-config": "^9.1.0"
+    "relay-config": "^10.0.0"
   }
 }
