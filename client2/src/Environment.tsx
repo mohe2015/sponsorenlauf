@@ -5,22 +5,15 @@ import {
   Store,
   RequestParameters,
   Variables,
-  CacheConfig,
-  UploadableMap,
   GraphQLResponse,
   ObservableFromValue,
-  Disposable,
 } from 'relay-runtime';
-import { LegacyObserver } from 'relay-runtime/lib/network/RelayNetworkTypes';
-import { RelayObservable } from 'relay-runtime/lib/network/RelayObservable';
 
 // Define a function that fetches the results of an operation (query/mutation/etc)
 // and returns its results as a Promise:
 function fetchQuery(
   request: RequestParameters,
   variables: Variables,
-  cacheConfig: CacheConfig,
-  uploadables?: UploadableMap | null,
 ): ObservableFromValue<GraphQLResponse> {
   return fetch('http://localhost:4000/graphql', {
     method: 'POST',

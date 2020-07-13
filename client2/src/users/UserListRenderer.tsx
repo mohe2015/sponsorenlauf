@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { QueryRenderer } from 'react-relay';
 import { graphql } from "babel-plugin-relay/macro";
 import environment from "../Environment";
@@ -13,13 +13,9 @@ type State = {
 
 class UserListRenderer extends React.Component<Props, State> {
 
-  constructor(props: Props) {
-    super(props);
-  }
-
   renderQuery = ({error, props}: {error: Error | null, props: any}) => {
     if (error) {
-      if (error.message == "Not Authorised!") {
+      if (error.message === "Not Authorised!") {
         return <Redirect to="/login" />;
       } else {
         return <div>{error.message}</div>;

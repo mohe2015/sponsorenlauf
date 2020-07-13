@@ -9,8 +9,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Container, IconButton, Typography, Box } from "@material-ui/core";
-import DeleteIcon from '@material-ui/icons/Delete';
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import IconButton from "@material-ui/core/IconButton";
+import Box from "@material-ui/core/Box";
 import AddIcon from '@material-ui/icons/Add';
 
 type Props = {
@@ -21,10 +23,6 @@ type State = {
 };
 
 class UserList extends React.Component<Props, State> {
-
-  constructor(props: Props) {
-    super(props);
-  }
 
   render() {
     return (
