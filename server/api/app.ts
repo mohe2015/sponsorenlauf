@@ -73,7 +73,7 @@ app.use('/graphql', graphQLMiddleware);
 server.express.use(cors({
   credentials: true,
   methods: "POST",
-  origin: "http://localhost:3000"
+  origin: ["http://localhost:3000", "http://localhost:5000"]
 }));
 
 server.express.use(formatErrors);
