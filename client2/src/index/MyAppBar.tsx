@@ -13,6 +13,8 @@ import PeopleIcon from '@material-ui/icons/People';
 import { Link as RouterLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRunning } from '@fortawesome/free-solid-svg-icons'
+import { Menu, MenuItem } from "@material-ui/core";
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 const styles: Styles<Theme, object> = () => ({
     grow: {
@@ -85,7 +87,7 @@ class MyAppBar extends React.Component<Props, State> {
                 </ControlledTooltip>
                 <ControlledTooltip title="Läufer">
                   <IconButton component={RouterLink} to="/runners">
-                  <FontAwesomeIcon icon={faRunning} />
+                    <FontAwesomeIcon icon={faRunning} />
                     <Typography variant="button" noWrap>
                       <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
                       Läufer
@@ -94,16 +96,36 @@ class MyAppBar extends React.Component<Props, State> {
                   </IconButton>
                 </ControlledTooltip>
 
-                <ControlledTooltip title="Nutzer">
-                  <IconButton>
-                    <AccountCircle />
-                    <Typography variant="button" noWrap>
-                      <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}>
-                        NoName
-                      </Box>
-                    </Typography>
-                  </IconButton>
-                </ControlledTooltip>
+                <PopupState variant="popover" popupId="demo-popup-menu">
+                  {(popupState) => (
+                    <React.Fragment>
+                        <IconButton aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}>
+                          <AccountCircle />
+                          <Typography variant="button" noWrap>
+                            <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
+                            Account
+                            </Box>
+                          </Typography>
+                        </IconButton>
+                        <Menu {...bindMenu(popupState)}
+                          getContentAnchorEl={null}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <MenuItem onClick={popupState.close}>Cake</MenuItem>
+                          <MenuItem onClick={popupState.close}>Death</MenuItem>
+                        </Menu>
+                    </React.Fragment>
+                  )}
+                </PopupState>
+
+                 
               </div>
             </Toolbar>
           </AppBar>
