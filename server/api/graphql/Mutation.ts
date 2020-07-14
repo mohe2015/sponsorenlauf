@@ -2,6 +2,8 @@ import { schema, log } from "nexus";
 import { hashSync, compare } from "bcrypt";
 import { sign, Secret } from "jsonwebtoken";
 import { AuthenticationError } from "../errors";
+import { connect } from "http2";
+let crypto = require('crypto');
 
 schema.mutationType({
   definition(t) {
@@ -35,8 +37,26 @@ schema.mutationType({
         if (!passwordValid) {
           throw new AuthenticationError("Invalid password");
         }
+
+        const id = crypto.randomBytes(32).toString("hex");
+
+        let validUntil = new Date();
+        validUntil.setHours(validUntil.getHours() + 8);
+
+        let userSession = await context.db.userSession.create({
+          data: {
+            id,
+            user: {
+              connect: {
+                id: user.id
+              },
+            },
+            validUntil,
+          }
+        })
+
         // @ts-expect-error
-        context.response.cookie('id', user.id, {
+        context.response.cookie('id', id, {
             httpOnly: true,
             sameSite: "strict",
             // secure: true, // TODO FIXME

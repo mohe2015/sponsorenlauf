@@ -26,6 +26,7 @@ declare global {
 
 const db = new PrismaClient();
 const pubsub = new PubSub();
+let nextCleanupCheck = new Date();
 
 use(
   prisma({
@@ -85,16 +86,36 @@ schema.addToContext(async (req: Request) => {
 
 // https://github.com/graphql-nexus/nexus/issues/506
 async function createContext(cookie: string | null, response: Response | null) {
-  // TODO FIXME THIS IS NOT SECURE
-  // TODO FIXME probably also disable cors
+  if (nextCleanupCheck.getTime() < Date.now()) {
+    nextCleanupCheck = new Date();
+    nextCleanupCheck.setHours(nextCleanupCheck.getMinutes() + 1); // TODO FIXME TEST
+    log.info("session cleanup start")
+    let result = await db.userSession.deleteMany({
+      where: {
+        validUntil: {
+          lt: new Date()
+        }
+      }
+    })
+    log.info(`cleaned up ${result.count} sessions`)
+  }
   if (cookie) {
     let cookies = parseCookie(cookie);
     if (cookies.id) {
-      return {
-        userId: cookies.id,
-        pubsub,
-        db,
-        response,
+
+      let userSession = await db.userSession.findOne({
+        where: {
+          id: cookies.id,
+        },
+      })
+
+      if (userSession && userSession.validUntil.getTime() > Date.now()) {
+        return {
+          userId: userSession?.userId,
+          pubsub,
+          db,
+          response,
+        }
       }
     }
   }
