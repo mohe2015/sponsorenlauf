@@ -3,7 +3,7 @@ import { QueryRenderer } from 'react-relay';
 import { graphql } from "babel-plugin-relay/macro";
 import environment from "../Environment";
 import { Redirect } from "react-router-dom";
-import UserList from "./RunnerList";
+import RunnerList from "./RunnerList";
 
 type Props = {
 };
@@ -11,7 +11,7 @@ type Props = {
 type State = {
 };
 
-class UserListRenderer extends React.Component<Props, State> {
+class RunnerListRenderer extends React.Component<Props, State> {
 
   renderQuery = ({error, props}: {error: Error | null, props: any}) => {
     if (error) {
@@ -21,9 +21,9 @@ class UserListRenderer extends React.Component<Props, State> {
         return <div>{error.message}</div>;
       }
     } else if (props) {
-      return <UserList loading={false} list={props.users} />;
+      return <RunnerList loading={false} list={props.runners} />;
     }
-    return <UserList loading={true} list={null} />;
+    return <RunnerList loading={true} list={null} />;
   }
 
   render() {
@@ -31,9 +31,9 @@ class UserListRenderer extends React.Component<Props, State> {
       <QueryRenderer
         environment={environment}
         query={graphql`
-          query UserListRendererQuery {
-            users(first: 100) {
-              ...UserList_list
+          query RunnerListRendererQuery {
+            runners(first: 100) {
+              ...RunnerList_list
             }
           }
         `}
@@ -45,4 +45,4 @@ class UserListRenderer extends React.Component<Props, State> {
   }
 }
 
-export default UserListRenderer;
+export default RunnerListRenderer;

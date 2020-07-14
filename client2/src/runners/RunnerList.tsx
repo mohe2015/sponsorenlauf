@@ -1,7 +1,7 @@
 import React from "react";
 import { createFragmentContainer } from 'react-relay';
 import { graphql } from "babel-plugin-relay/macro";
-import User from "./Runner";
+import Runner from "./Runner";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -27,7 +27,7 @@ type Props = {
 type State = {
 };
 
-class UserList extends React.Component<Props, State> {
+class RunnerList extends React.Component<Props, State> {
 
   render() {
     return (
@@ -36,12 +36,12 @@ class UserList extends React.Component<Props, State> {
           <AddIcon />
           <Typography variant="button" noWrap>
             <Box component="span">
-            Nutzer erstellen
+            Läufer erstellen
             </Box>
           </Typography>
         </IconButton>
       <TableContainer component={Paper}>
-        <Table aria-label="table of users">
+        <Table aria-label="Liste der Läufer">
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -74,7 +74,7 @@ class UserList extends React.Component<Props, State> {
             </TableRow>)}
 
 
-          {!this.props.loading && this.props.list.edges.map((user: any) => <User key={user.node.id} user={user.node} />)}
+          {!this.props.loading && this.props.list.edges.map((runner: any) => <Runner key={runner.node.id} runner={runner.node} />)}
           
           
           </TableBody>
@@ -85,16 +85,16 @@ class UserList extends React.Component<Props, State> {
   }
 }
 
-export default createFragmentContainer(UserList, {
+export default createFragmentContainer(RunnerList, {
   list: graphql`
-    fragment UserList_list on UserConnection {
+    fragment RunnerList_list on RunnerConnection {
       pageInfo {
         hasNextPage
       }
       edges {
         node {
           id
-          ...User_user
+          ...Runner_runner
         }
       }
     }

@@ -6,6 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route, Switch } from 'react-router-dom';
 import UserListRenderer from "./users/UserListRenderer";
 import MyAppBar from "./index/MyAppBar";
+import RunnerListRenderer from "./runners/RunnerListRenderer";
 
 const theme = createMuiTheme({
   palette: {
@@ -25,6 +26,9 @@ function App() {
           <MyAppBar />
           <Route path="/users">
             <UserListRenderer />
+          </Route>
+          <Route path="/runners">
+            <RunnerListRenderer />
           </Route>
         </Route>
       </Switch>

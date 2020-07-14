@@ -34,11 +34,13 @@ function Runner(props: any) {
 }
 
 export default createFragmentContainer(Runner, {
-  user: graphql`
-    fragment User_user on User {
+  runner: graphql`
+    fragment Runner_runner on Runner {
       id
+      startNumber
       name
-      role
+      clazz
+      grade
     }
   `,
 });
