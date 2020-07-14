@@ -22,6 +22,9 @@ schema.queryType({
       ordering: true,
     })
 
+    // TODO FIXME https://nexus.js.org/docs/plugin-connection
+    // currentIndex needs to be provided for pagination information
+    // pagination maybe depending on cursor and not offset (see base64 decode of cursor)
     t.connection("runners", {
       type: "Runner",
       nodes: async (root, args, ctx, info) => {
