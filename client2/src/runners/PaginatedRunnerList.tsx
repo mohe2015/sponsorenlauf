@@ -118,7 +118,7 @@ export default createPaginationContainer(PaginatedRunnerList, {
   `,
 }, {
   direction: 'forward',
-    getConnectionFromProps(props) {
+    getConnectionFromProps(props) { // TODO try withouth
       return props.list;
     },
     getVariables(props, {count, cursor}, fragmentVariables) {

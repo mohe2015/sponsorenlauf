@@ -43,7 +43,7 @@ export const permissions = shield({
 
     PageInfo: allow,
     RoundConnection: allow,
-    RunnerConnection: allow,
+    QueryRunners_Connection: allow,
     UserConnection: allow,
     RoundEdge: allow,
     RunnerEdge: allow,

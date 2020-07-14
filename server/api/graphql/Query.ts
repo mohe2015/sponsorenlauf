@@ -15,11 +15,23 @@ schema.queryType({
       },
     });
 
+    t.crud.runners({
+      alias: "jojo",
+      pagination: true,
+      filtering: true,
+      ordering: true,
+    })
+
     t.connection("runners", {
       type: "Runner",
       nodes: async (root, args, ctx, info) => {
         return await ctx.db.runner.findMany();
       },
+      extendConnection(t) {
+        t.int("totalCount", {
+          resolve: (source, args, ctx) => ctx.db.runner.count(args),
+        })
+      }
     });
 
     t.connection("rounds", {
