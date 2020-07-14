@@ -16,9 +16,9 @@ schema.queryType({
     });
 
     t.connection("students", {
-      type: "Student",
+      type: "Runner",
       nodes: async (root, args, ctx, info) => {
-        return await ctx.db.student.findMany();
+        return await ctx.db.runner.findMany();
       },
     });
 

@@ -26,7 +26,7 @@ export const permissions = shield({
       createOneUser: rules.isUserWithRole(["ADMIN"]),
       login: allow,
       createOneRound: rules.isUserWithRole(["ADMIN", "TEACHER"]),
-      createOneStudent: rules.isUserWithRole(["ADMIN"]),
+      createOneRunner: rules.isUserWithRole(["ADMIN"]),
     },
     Subscription: {
       SubscribeRounds: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
@@ -39,14 +39,14 @@ export const permissions = shield({
     Round: {
       "*": rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
     },
-    Student: rules.isUserWithRole(["ADMIN"]),
+    Runner: rules.isUserWithRole(["ADMIN"]),
 
     PageInfo: allow,
     RoundConnection: allow,
-    StudentConnection: allow,
+    RunnerConnection: allow,
     UserConnection: allow,
     RoundEdge: allow,
-    StudentEdge: allow,
+    RunnerEdge: allow,
     UserEdge: allow,
     AuthPayload: allow,
   },

@@ -96,6 +96,6 @@ schema.mutationType({
       },
     });
 
-    t.crud.createOneStudent();
+    t.crud.createOneRunner();
   },
 });
