@@ -1,6 +1,9 @@
-import { schema } from "nexus";
+import { schema, log } from "nexus";
 import { hashSync, compare } from "bcrypt";
 import { sign, Secret } from "jsonwebtoken";
+import { AuthenticationError } from "../errors";
+import { connect } from "http2";
+let crypto = require('crypto');
 
 schema.mutationType({
   definition(t) {
@@ -27,15 +30,38 @@ schema.mutationType({
           },
         });
         if (!user) {
-          throw new Error(`No user found with name: ${name}`);
+          throw new AuthenticationError(`No user found with name: ${name}`);
         }
         // @ts-ignore
-        const passwordValid = await compare(password, user.password);
+        const passwordValid: boolean = await compare(password, user.password);
         if (!passwordValid) {
-          throw new Error("Invalid password");
+          throw new AuthenticationError("Invalid password");
         }
+
+        const id = crypto.randomBytes(32).toString("hex");
+
+        let validUntil = new Date();
+        validUntil.setHours(validUntil.getHours() + 8);
+
+        let userSession = await context.db.userSession.create({
+          data: {
+            id,
+            user: {
+              connect: {
+                id: user.id
+              },
+            },
+            validUntil,
+          }
+        })
+
+        // @ts-expect-error
+        context.response.cookie('id', id, {
+            httpOnly: true,
+            sameSite: "strict",
+            // secure: true, // TODO FIXME
+        })     
         return {
-          token: sign({ userId: user.id }, process.env.APP_SECRET as Secret),
           user,
         };
       },
@@ -70,6 +96,6 @@ schema.mutationType({
       },
     });
 
-    t.crud.createOneStudent();
+    t.crud.createOneRunner();
   },
 });

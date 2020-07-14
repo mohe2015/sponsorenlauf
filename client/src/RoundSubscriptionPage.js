@@ -1,7 +1,6 @@
 import { ConnectionHandler } from "relay-runtime";
 import { requestSubscription } from "react-relay";
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import environment from "./environment";
 import graphql from "babel-plugin-relay/macro";
 import { QueryRenderer } from "react-relay";
@@ -33,7 +32,7 @@ class RoundSubscriptionPage extends Component {
     requestSubscription(environment, {
       subscription,
       variables,
-      updater: store => {
+      updater: (store) => {
         const newRecord = store.getRootField("SubscribeRounds");
         console.log("newRecord", newRecord);
         const conn = ConnectionHandler.getConnection(
@@ -50,7 +49,7 @@ class RoundSubscriptionPage extends Component {
         console.log("edge", edge);
         ConnectionHandler.insertEdgeBefore(conn, edge);
       },
-      onError: error => console.log(`An error occured:`, error)
+      onError: (error) => console.log(`An error occured:`, error),
     });
 
     return (
@@ -88,4 +87,4 @@ class RoundSubscriptionPage extends Component {
   }
 }
 
-export default withRouter(RoundSubscriptionPage);
+export default RoundSubscriptionPage;

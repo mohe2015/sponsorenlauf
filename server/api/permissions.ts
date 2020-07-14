@@ -18,15 +18,15 @@ export const permissions = shield({
   rules: {
     Query: {
       me: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
-      students: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
-      student: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
+      runners: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       rounds: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
+      users: rules.isUserWithRole(["ADMIN"]),
     },
     Mutation: {
       createOneUser: rules.isUserWithRole(["ADMIN"]),
       login: allow,
       createOneRound: rules.isUserWithRole(["ADMIN", "TEACHER"]),
-      createOneStudent: rules.isUserWithRole(["ADMIN"]),
+      createOneRunner: rules.isUserWithRole(["ADMIN"]),
     },
     Subscription: {
       SubscribeRounds: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
@@ -39,12 +39,15 @@ export const permissions = shield({
     Round: {
       "*": rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
     },
-    RoundConnection: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
-    StudentConnection: rules.isUserWithRole(["ADMIN"]),
+    Runner: rules.isUserWithRole(["ADMIN"]),
+
     PageInfo: allow,
+    RoundConnection: allow,
+    RunnerConnection: allow,
+    UserConnection: allow,
     RoundEdge: allow,
-    StudentEdge: allow,
-    Student: rules.isUserWithRole(["ADMIN"]),
+    RunnerEdge: allow,
+    UserEdge: allow,
     AuthPayload: allow,
   },
   options: { fallbackRule: deny, allowExternalErrors: true },

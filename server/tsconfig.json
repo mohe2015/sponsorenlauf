@@ -11,7 +11,8 @@
         "name": "nexus/typescript-language-service"
       }
     ],
-    "typeRoots": ["node_modules/@types", "types"]
+    "typeRoots": ["node_modules/@types", "types"],
+    "esModuleInterop": true
   },
   "include": ["types.d.ts", "."]
 }

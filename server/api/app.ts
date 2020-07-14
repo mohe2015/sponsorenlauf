@@ -2,20 +2,31 @@ import { use } from "nexus";
 import { schema } from "nexus";
 import { server } from "nexus";
 import { log } from "nexus";
-import { settings } from "nexus";
 import { prisma } from "nexus-plugin-prisma";
 import { PrismaClient } from "nexus-plugin-prisma/client";
 import { PubSub } from "graphql-subscriptions";
 import { subscriptions } from "nexus-plugin-subscriptions";
 import { permissions } from "./permissions";
 import { verify, Secret } from "jsonwebtoken";
+import cors from "cors";
+import { formatErrors } from "./errors";
+import { Request } from "nexus/dist/runtime/schema/schema";
+import { ConnectionContext } from "subscriptions-transport-ws";
+import * as http from "http";
+import { parse as parseCookie } from "cookie";
 
-interface BearerToken {
-  userId: string;
+declare global {
+  interface NexusContext {
+    userId: string | null;
+    pubsub: PubSub;
+    db: PrismaClient,
+    response: http.ServerResponse;
+  }
 }
 
 const db = new PrismaClient();
 const pubsub = new PubSub();
+let nextCleanupCheck = new Date();
 
 use(
   prisma({
@@ -34,9 +45,9 @@ use(
   subscriptions({
     ws: { server: server.raw.http, path: "/graphql" }, // use server.raw.http here
     keepAlive: 10 * 1000,
-    onConnect: (payload: Record<string, any>) => {
+    onConnect: (connectionParams: Record<string, any>, webSocket: WebSocket, context: ConnectionContext) => {
       log.info("client connected");
-      return createContext(payload["authorization"]);
+      return createContext(context.request.headers.cookie || null, null);
     },
     onDisconnect: () => {
       log.info("client disconnected");
@@ -44,29 +55,74 @@ use(
   })
 );
 
-schema.addToContext(async (req) => {
-  return await createContext(req.headers["authorization"]!);
+/*
+this hides the stack trace in production:
+
+import graphqlHTTP from 'express-graphql';
+
+const graphQLMiddleware = graphqlHTTP({
+  schema: myGraphQLSchema,
+  formatError: (error) => ({
+    message: error.message,
+    stack: process.env.NODE_ENV === 'development' ? error.stack.split('\n') : null,
+  })
 });
 
-async function createContext(authorization: string) {
-  const match = /^Bearer (.*)$/.exec(authorization);
-  if (match) authorization = match[1];
+app.use('/graphql', graphQLMiddleware);
+*/
 
-  if (authorization) {
-    const verifiedToken = verify(
-      authorization,
-      process.env.APP_SECRET as Secret
-    ) as BearerToken;
-    return {
-      userId: verifiedToken.userId,
-      pubsub,
-      db,
-    };
-  } else {
-    return {
-      userId: null,
-      pubsub,
-      db,
-    };
+server.express.use(cors({
+  credentials: true,
+  methods: "POST",
+  origin: ["http://localhost:3000", "http://localhost:5000"]
+}));
+
+server.express.use(formatErrors);
+
+schema.addToContext(async (req: Request) => {
+  // @ts-expect-error
+  return await createContext(req.headers.cookie || null, req.res);
+});
+
+// https://github.com/graphql-nexus/nexus/issues/506
+async function createContext(cookie: string | null, response: Response | null) {
+  if (nextCleanupCheck.getTime() < Date.now()) {
+    nextCleanupCheck = new Date();
+    nextCleanupCheck.setHours(nextCleanupCheck.getMinutes() + 1); // TODO FIXME TEST
+    log.info("session cleanup start")
+    let result = await db.userSession.deleteMany({
+      where: {
+        validUntil: {
+          lt: new Date()
+        }
+      }
+    })
+    log.info(`cleaned up ${result.count} sessions`)
+  }
+  if (cookie) {
+    let cookies = parseCookie(cookie);
+    if (cookies.id) {
+
+      let userSession = await db.userSession.findOne({
+        where: {
+          id: cookies.id,
+        },
+      })
+
+      if (userSession && userSession.validUntil.getTime() > Date.now()) {
+        return {
+          userId: userSession?.userId,
+          pubsub,
+          db,
+          response,
+        }
+      }
+    }
+  }
+  return {
+    userId: null,
+    pubsub,
+    db,
+    response,
   }
 }

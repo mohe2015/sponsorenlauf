@@ -5,7 +5,7 @@ schema.queryType({
   definition(t) {
     t.field("me", {
       type: "User",
-      nullable: true,
+      nullable: false,
       resolve: (parent, args, ctx) => {
         return ctx.db.user.findOne({
           where: {
@@ -15,12 +15,10 @@ schema.queryType({
       },
     });
 
-    t.crud.student({});
-
-    t.connection("students", {
-      type: "Student",
+    t.connection("runners", {
+      type: "Runner",
       nodes: async (root, args, ctx, info) => {
-        return await ctx.db.student.findMany();
+        return await ctx.db.runner.findMany();
       },
     });
 
@@ -30,6 +28,13 @@ schema.queryType({
         return await ctx.db.round.findMany();
       },
     });
+
+    t.connection("users", {
+      type: "User",
+      nodes: async (root, args, ctx, info) => {
+        return await ctx.db.user.findMany();
+      },
+    })
 
     t.field("node", {
       type: "Node",

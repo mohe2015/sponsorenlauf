@@ -2,8 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { hash } from "bcrypt";
 import parse from "csv-parse/lib/sync";
 import fs from "fs";
-
-const db = new PrismaClient();
+import dotenv from "dotenv";
 
 main();
 
@@ -14,6 +13,10 @@ async function asyncForEach(array: any, callback: any) {
 }
 
 async function main() {
+  dotenv.config();
+
+  const db = new PrismaClient();
+
   if (
     !(await db.user.findOne({
       where: {
@@ -34,7 +37,7 @@ async function main() {
     console.log("added admin account:\n", admin);
   }
 
-  var content = fs.readFileSync("prisma/test.csv", "utf8");
+  var content = fs.readFileSync("test.csv", "utf8");
 
   let records = parse(content, {
     columns: true,
@@ -47,11 +50,11 @@ async function main() {
   let i = 0;
   await asyncForEach(records, async (data: any, index: number) => {
     console.log(data);
-    await db.student.create({
+    await db.runner.create({
       data: {
         startNumber: i++,
         name: data["Name"],
-        class: data["Klasse"],
+        clazz: data["Klasse"],
         grade: Number(data["Jahrgang"]),
       },
     });
