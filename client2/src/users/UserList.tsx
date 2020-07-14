@@ -14,9 +14,14 @@ import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
 import Box from "@material-ui/core/Box";
 import AddIcon from '@material-ui/icons/Add';
+import { CircularProgress } from "@material-ui/core";
+import Skeleton from '@material-ui/lab/Skeleton';
+import ControlledTooltip from "../ControlledTooltip";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 type Props = {
   list: any;
+  loading: boolean;
 };
 
 type State = {
@@ -45,7 +50,33 @@ class UserList extends React.Component<Props, State> {
             </TableRow>
           </TableHead>
           <TableBody>
-          {this.props.list.edges.map((user: any) => <User key={user.node.id} user={user.node} />)}
+
+          {this.props.loading && [...Array(5)].map((e, i) => 
+            <TableRow key={i}>
+              <TableCell component="th" scope="row">
+                <Skeleton variant="text" />
+              </TableCell>
+              <TableCell align="right">
+                <Skeleton variant="text" />
+              </TableCell>
+              <TableCell align="right">
+                <ControlledTooltip title="Löschen">
+                  <IconButton>
+                    <DeleteIcon />
+                    <Typography variant="button" noWrap>
+                      <Box component="span" display={{ xs: 'none', md: 'block' }}>
+                      Löschen
+                      </Box>
+                    </Typography>
+                  </IconButton>
+                </ControlledTooltip>
+              </TableCell>
+            </TableRow>)}
+
+
+          {!this.props.loading && this.props.list.edges.map((user: any) => <User key={user.node.id} user={user.node} />)}
+          
+          
           </TableBody>
         </Table>
       </TableContainer>
