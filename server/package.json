@@ -36,6 +36,6 @@
     "subscriptions-transport-ws": "^0.9.17"
   },
   "resolutions": {
-    "graphql": "^14.7.0"
+    "graphql": "^15.3.0"
   }
 }
