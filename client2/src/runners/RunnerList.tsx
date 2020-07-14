@@ -87,7 +87,7 @@ class RunnerList extends React.Component<Props, State> {
 
 export default createFragmentContainer(RunnerList, {
   list: graphql`
-    fragment RunnerList_list on RunnerConnection {
+    fragment RunnerList_list on QueryRunners_Connection {
       pageInfo {
         hasNextPage
       }
