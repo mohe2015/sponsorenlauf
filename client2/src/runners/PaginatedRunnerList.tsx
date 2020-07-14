@@ -21,9 +21,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import {createPaginationContainer} from 'react-relay';
 
 type Props = {
-  list: any;
-  loading: boolean;
   relay: any;
+  list: any;
+  loading: any;
 };
 
 type State = {
@@ -38,7 +38,7 @@ class PaginatedRunnerList extends React.Component<Props, State> {
 
     this.props.relay.loadMore(
       10,  // Fetch the next 10 feed items
-      error => {
+      (error: any) => {
         console.log(error);
       },
     );
@@ -89,7 +89,7 @@ class PaginatedRunnerList extends React.Component<Props, State> {
             </TableRow>)}
 
 
-          {!this.props.loading && this.props.list.edges.map((runner: any) => <Runner key={runner.node.id} runner={runner.node} />)}
+          {!this.props.loading && this.props.list.runners.edges.map((runner: any) => <Runner key={runner.node.id} runner={runner.node} />)}
           
           </TableBody>
         </Table>
