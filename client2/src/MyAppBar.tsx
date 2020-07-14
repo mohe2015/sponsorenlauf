@@ -9,6 +9,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import withStyles, { Styles } from "@material-ui/core/styles/withStyles";
 import Box from "@material-ui/core/Box";
 import ControlledTooltip from "./ControlledTooltip";
+import PeopleIcon from '@material-ui/icons/People';
+import { Link as RouterLink } from 'react-router-dom';
 
 const styles: Styles<Theme, object> = () => ({
     grow: {
@@ -71,12 +73,12 @@ class MyAppBar extends React.Component<Props, State> {
               </Typography>
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
-                <ControlledTooltip title="Benachrichtigungen">
-                  <IconButton>
-                    <NotificationsIcon />
+                <ControlledTooltip title="Nutzer">
+                  <IconButton component={RouterLink} to="/users">
+                    <PeopleIcon />
                     <Typography variant="button" noWrap>
                       <Box component="span" display={{ xs: 'none', md: 'block' }}>
-                        Benachrichtigungen
+                        Nutzer
                       </Box>
                     </Typography>
                   </IconButton>

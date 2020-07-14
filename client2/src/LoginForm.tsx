@@ -108,7 +108,7 @@ class LoginForm extends React.Component<Props, State> {
         console.log("onError")
         console.log(err)
         let unknownError = [{
-          message: "Ein unbekannter Fehler ist aufgetreten.",
+          message: "Ein unbekannter Fehler ist aufgetreten: " + err.message,
           locations: null,
           severity: "CRITICAL",
         }];
