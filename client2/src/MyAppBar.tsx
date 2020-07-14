@@ -11,6 +11,8 @@ import Box from "@material-ui/core/Box";
 import ControlledTooltip from "./ControlledTooltip";
 import PeopleIcon from '@material-ui/icons/People';
 import { Link as RouterLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRunning } from '@fortawesome/free-solid-svg-icons'
 
 const styles: Styles<Theme, object> = () => ({
     grow: {
@@ -77,17 +79,26 @@ class MyAppBar extends React.Component<Props, State> {
                   <IconButton component={RouterLink} to="/users">
                     <PeopleIcon />
                     <Typography variant="button" noWrap>
-                      <Box component="span" display={{ xs: 'none', md: 'block' }}>
-                        Nutzer
+                      <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> Nutzer</Box>
+                    </Typography>
+                  </IconButton>
+                </ControlledTooltip>
+                <ControlledTooltip title="Läufer">
+                  <IconButton component={RouterLink} to="/runners">
+                  <FontAwesomeIcon icon={faRunning} />
+                    <Typography variant="button" noWrap>
+                      <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
+                      Läufer
                       </Box>
                     </Typography>
                   </IconButton>
                 </ControlledTooltip>
+
                 <ControlledTooltip title="Nutzer">
                   <IconButton>
                     <AccountCircle />
                     <Typography variant="button" noWrap>
-                      <Box component="span" display={{ xs: 'none', md: 'block' }}>
+                      <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}>
                         {this.props.me.name}
                       </Box>
                     </Typography>
