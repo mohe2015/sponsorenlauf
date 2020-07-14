@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 import UserListRenderer from "./users/UserListRenderer";
 import MyAppBar from "./index/MyAppBar";
 import RunnerListRenderer from "./runners/RunnerListRenderer";
+import "./index.css";
 
 const theme = createMuiTheme({
   palette: {
