@@ -12,7 +12,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Styles } from "@material-ui/core/styles/withStyles";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import { commitMutation } from "react-relay";
-import environment from "./Environment";
+import environment from "../Environment";
 import { graphql } from "babel-plugin-relay/macro";
 import { PayloadError } from "relay-runtime";
 import {

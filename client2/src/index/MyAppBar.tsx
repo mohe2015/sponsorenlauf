@@ -8,7 +8,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import withStyles, { Styles } from "@material-ui/core/styles/withStyles";
 import Box from "@material-ui/core/Box";
-import ControlledTooltip from "./ControlledTooltip";
+import ControlledTooltip from "../ControlledTooltip";
 import PeopleIcon from '@material-ui/icons/People';
 import { Link as RouterLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -22,7 +22,7 @@ const styles: Styles<Theme, object> = () => ({
 
 type Props = {
   classes: any;
-  me: any;
+  //me: any;
 };
 
 type State = {
@@ -99,7 +99,7 @@ class MyAppBar extends React.Component<Props, State> {
                     <AccountCircle />
                     <Typography variant="button" noWrap>
                       <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}>
-                        {this.props.me.name}
+                        NoName
                       </Box>
                     </Typography>
                   </IconButton>
