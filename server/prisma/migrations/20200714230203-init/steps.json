@@ -4,7 +4,11 @@
     {
       "tag": "CreateEnum",
       "enum": "UserRole",
-      "values": ["ADMIN", "TEACHER", "VIEWER"]
+      "values": [
+        "ADMIN",
+        "TEACHER",
+        "VIEWER"
+      ]
     },
     {
       "tag": "CreateSource",
@@ -116,11 +120,11 @@
     },
     {
       "tag": "CreateModel",
-      "model": "Student"
+      "model": "Runner"
     },
     {
       "tag": "CreateField",
-      "model": "Student",
+      "model": "Runner",
       "field": "id",
       "type": "String",
       "arity": "Required"
@@ -130,7 +134,7 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "Student",
+          "model": "Runner",
           "field": "id"
         },
         "directive": "default"
@@ -142,7 +146,7 @@
         "tag": "Directive",
         "path": {
           "tag": "Field",
-          "model": "Student",
+          "model": "Runner",
           "field": "id"
         },
         "directive": "default"
@@ -155,7 +159,7 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "Student",
+          "model": "Runner",
           "field": "id"
         },
         "directive": "id"
@@ -163,7 +167,7 @@
     },
     {
       "tag": "CreateField",
-      "model": "Student",
+      "model": "Runner",
       "field": "startNumber",
       "type": "Int",
       "arity": "Required"
@@ -173,7 +177,7 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "Student",
+          "model": "Runner",
           "field": "startNumber"
         },
         "directive": "unique"
@@ -181,7 +185,7 @@
     },
     {
       "tag": "CreateField",
-      "model": "Student",
+      "model": "Runner",
       "field": "name",
       "type": "String",
       "arity": "Required"
@@ -191,7 +195,7 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "Student",
+          "model": "Runner",
           "field": "name"
         },
         "directive": "unique"
@@ -199,21 +203,21 @@
     },
     {
       "tag": "CreateField",
-      "model": "Student",
-      "field": "class",
+      "model": "Runner",
+      "field": "clazz",
       "type": "String",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Student",
+      "model": "Runner",
       "field": "grade",
       "type": "Int",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Student",
+      "model": "Runner",
       "field": "rounds",
       "type": "Round",
       "arity": "List"
@@ -269,7 +273,7 @@
       "tag": "CreateField",
       "model": "Round",
       "field": "student",
-      "type": "Student",
+      "type": "Runner",
       "arity": "Required"
     },
     {
@@ -376,6 +380,88 @@
       "model": "Round",
       "field": "time",
       "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateModel",
+      "model": "UserSession"
+    },
+    {
+      "tag": "CreateField",
+      "model": "UserSession",
+      "field": "id",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "UserSession",
+          "field": "id"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateField",
+      "model": "UserSession",
+      "field": "user",
+      "type": "User",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "UserSession",
+          "field": "user"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "UserSession",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[userId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "UserSession",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "UserSession",
+      "field": "userId",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "UserSession",
+      "field": "validUntil",
+      "type": "DateTime",
       "arity": "Required"
     }
   ]

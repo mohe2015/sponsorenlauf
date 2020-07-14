@@ -50,11 +50,11 @@ async function main() {
   let i = 0;
   await asyncForEach(records, async (data: any, index: number) => {
     console.log(data);
-    await db.student.create({
+    await db.runner.create({
       data: {
         startNumber: i++,
         name: data["Name"],
-        class: data["Klasse"],
+        clazz: data["Klasse"],
         grade: Number(data["Jahrgang"]),
       },
     });
