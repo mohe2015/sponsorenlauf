@@ -15,11 +15,10 @@ function Runner(props: any) {
   return (
     <TableRow
       hover
-      onClick={(event) => handleClick(event, props.runner.name)}
+      onClick={(event) => handleClick(event, props.runner.id)}
       role="checkbox"
       aria-checked={isItemSelected}
       tabIndex={-1}
-      key={props.runner.name}
       selected={isItemSelected}
     >
       <TableCell padding="checkbox">
