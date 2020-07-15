@@ -8,6 +8,8 @@ import UserListRenderer from "./users/UserListRenderer";
 import MyAppBar from "./index/MyAppBar";
 import RunnerListRenderer from "./runners/RunnerListRenderer";
 import "./index.css";
+import PaginatedRunnerList from "./runners/PaginatedRunnerList";
+import PaginatedRunnerListRenderer from "./runners/PaginatedRunnerListRenderer";
 
 const theme = createMuiTheme({
   palette: {
@@ -30,6 +32,9 @@ function App() {
           </Route>
           <Route path="/runners">
             <RunnerListRenderer />
+          </Route>
+          <Route path="/paginated-runners">
+            <PaginatedRunnerListRenderer />
           </Route>
         </Route>
       </Switch>

@@ -11,7 +11,8 @@
     "@material-ui/lab": "^5.0.0-alpha.3",
     "@types/react-relay": "^7.0.8",
     "@types/react-router-dom": "^5.1.5",
-    "@types/relay-runtime": "^9.1.5",
+    "@types/relay-runtime": "^10.0.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "history": "^5.0.0",
     "material-ui-popup-state": "^1.6.1",
     "react": "^16.13.1",
@@ -22,7 +23,7 @@
     "react-scripts": "3.4.1",
     "relay-runtime": "^10.0.0",
     "source-map-explorer": "^2.4.2",
-    "typescript": "^4.0.0-dev.20200712"
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,7 +31,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "relay": "relay-compiler --watch",
+    "relay": "relay-compiler --src ./src --schema ../server/api.graphql --language typescript --artifactDirectory ./src/__generated__ --watch",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
@@ -59,6 +60,7 @@
     "graphql": "^15.3.0",
     "react-app-rewired": "^2.1.6",
     "relay-compiler": "^10.0.0",
+    "relay-compiler-language-typescript": "^12.0.3",
     "relay-compiler-webpack-plugin": "^8.1.0",
     "relay-config": "^10.0.0"
   }

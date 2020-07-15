@@ -15,11 +15,27 @@ schema.queryType({
       },
     });
 
+    t.crud.runners({
+      alias: "jojo",
+      pagination: true,
+      filtering: true,
+      ordering: true,
+    })
+
+    // https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
+    // TODO FIXME https://nexus.js.org/docs/plugin-connection
+    // currentIndex needs to be provided for pagination information
+    // pagination maybe depending on cursor and not offset (see base64 decode of cursor)
     t.connection("runners", {
       type: "Runner",
       nodes: async (root, args, ctx, info) => {
         return await ctx.db.runner.findMany();
       },
+      extendConnection(t) {
+        t.int("totalCount", {
+          resolve: (source, args, ctx) => ctx.db.runner.count(args),
+        })
+      }
     });
 
     t.connection("rounds", {

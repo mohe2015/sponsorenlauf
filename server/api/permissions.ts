@@ -4,12 +4,7 @@ import { UserRole } from "nexus-plugin-prisma/client";
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
     rule({ cache: "contextual" })(async (parent, args, context, info) => {
-      const id = context.userId;
-      const user = await context.db.user.findOne({
-        where: {
-          id,
-        },
-      });
+      const user = context.user;
       return roles.some((r) => user && r === user.role);
     }),
 };
@@ -43,7 +38,7 @@ export const permissions = shield({
 
     PageInfo: allow,
     RoundConnection: allow,
-    RunnerConnection: allow,
+    QueryRunners_Connection: allow,
     UserConnection: allow,
     RoundEdge: allow,
     RunnerEdge: allow,
