@@ -76,11 +76,10 @@ interface HeadCell {
 }
 
 const headCells: HeadCell[] = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-  { id: 'clazz', numeric: false, disablePadding: false, label: 'Calories' },
-  { id: 'grade', numeric: true, disablePadding: false, label: 'Fat (g)' },
-  { id: 'id', numeric: false, disablePadding: false, label: 'Carbs (g)' },
-  { id: 'startNumber', numeric: true, disablePadding: false, label: 'Protein (g)' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
+  { id: 'startNumber', numeric: true, disablePadding: false, label: 'Startnummer' },
+  { id: 'clazz', numeric: false, disablePadding: false, label: 'Klasse' },
+  { id: 'grade', numeric: true, disablePadding: false, label: 'Jahrgang' },
 ];
 
 interface EnhancedTableProps {
@@ -107,7 +106,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
+            inputProps={{ 'aria-label': 'Alle Läufer auswählen' }}
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -178,7 +177,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Nutrition
+          Läufer
         </Typography>
       )}
       {numSelected > 0 ? (

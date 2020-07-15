@@ -31,10 +31,9 @@ function Runner(props: any) {
       <TableCell component="th" id={labelId} scope="row" padding="none">
         {props.runner.name}
       </TableCell>
+      <TableCell align="right">{props.runner.startNumber}</TableCell>
       <TableCell align="right">{props.runner.clazz}</TableCell>
       <TableCell align="right">{props.runner.grade}</TableCell>
-      <TableCell align="right">{props.runner.id}</TableCell>
-      <TableCell align="right">{props.runner.startNumber}</TableCell>
     </TableRow>
   );
 }
