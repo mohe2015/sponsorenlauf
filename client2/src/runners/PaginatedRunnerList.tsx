@@ -316,29 +316,7 @@ function PaginatedRunnerList(props: any) {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.clazz}</TableCell>
-                      <TableCell align="right">{row.grade}</TableCell>
-                      <TableCell align="right">{row.id}</TableCell>
-                      <TableCell align="right">{row.startNumber}</TableCell>
-                    </TableRow>
+                    <Runner key={row.name} runner={row} isItemSelected={isItemSelected} labelId={labelId} handleClick={handleClick} />
                   );
                 })}
               {emptyRows > 0 && (

@@ -8,27 +8,33 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import DeleteIcon from '@material-ui/icons/Delete';
+import Checkbox from "@material-ui/core/Checkbox";
 
 function Runner(props: any) {
-  const {id, startNumber, name, clazz, grade} = props.runner;
+  const { isItemSelected, labelId, handleClick } = props;
   return (
-    <TableRow key={name}>
-      <TableCell component="th" scope="row">
-        {name}
+    <TableRow
+      hover
+      onClick={(event) => handleClick(event, props.runner.name)}
+      role="checkbox"
+      aria-checked={isItemSelected}
+      tabIndex={-1}
+      key={props.runner.name}
+      selected={isItemSelected}
+    >
+      <TableCell padding="checkbox">
+        <Checkbox
+          checked={isItemSelected}
+          inputProps={{ 'aria-labelledby': labelId }}
+        />
       </TableCell>
-      <TableCell align="right">{startNumber}</TableCell>
-      <TableCell align="right">
-        <ControlledTooltip title="Löschen">
-          <IconButton>
-            <DeleteIcon />
-            <Typography variant="button" noWrap>
-              <Box component="span" display={{ xs: 'none', md: 'block' }}>
-              Löschen
-              </Box>
-            </Typography>
-          </IconButton>
-        </ControlledTooltip>
+      <TableCell component="th" id={labelId} scope="row" padding="none">
+        {props.runner.name}
       </TableCell>
+      <TableCell align="right">{props.runner.clazz}</TableCell>
+      <TableCell align="right">{props.runner.grade}</TableCell>
+      <TableCell align="right">{props.runner.id}</TableCell>
+      <TableCell align="right">{props.runner.startNumber}</TableCell>
     </TableRow>
   );
 }
