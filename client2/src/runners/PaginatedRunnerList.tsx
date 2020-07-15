@@ -29,39 +29,13 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import ControlledTooltip from "../ControlledTooltip";
 import {createPaginationContainer} from 'react-relay';
 
-interface Data {
-  calories: number;
-  carbs: number;
-  fat: number;
+interface Runner {
+  clazz: string;
+  grade: number;
+  id: string;
   name: string;
-  protein: number;
+  startNumber: number;
 }
-
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-): Data {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -96,23 +70,23 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
 
 interface HeadCell {
   disablePadding: boolean;
-  id: keyof Data;
+  id: keyof Runner;
   label: string;
   numeric: boolean;
 }
 
 const headCells: HeadCell[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-  { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-  { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-  { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-  { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+  { id: 'clazz', numeric: false, disablePadding: false, label: 'Calories' },
+  { id: 'grade', numeric: true, disablePadding: false, label: 'Fat (g)' },
+  { id: 'id', numeric: false, disablePadding: false, label: 'Carbs (g)' },
+  { id: 'startNumber', numeric: true, disablePadding: false, label: 'Protein (g)' },
 ];
 
 interface EnhancedTableProps {
   classes: ReturnType<typeof useStyles>;
   numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Runner) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   order: Order;
   orderBy: string;
@@ -121,7 +95,7 @@ interface EnhancedTableProps {
 
 function EnhancedTableHead(props: EnhancedTableProps) {
   const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
-  const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+  const createSortHandler = (property: keyof Runner) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property);
   };
 
@@ -250,16 +224,17 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function PaginatedRunnerList() {
+function EnhancedTable(props: any) {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
+  const [orderBy, setOrderBy] = React.useState<keyof Runner>('startNumber');
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  let rows: Runner[] = props.rows;
 
-  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Runner) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
@@ -357,10 +332,10 @@ function PaginatedRunnerList() {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.clazz}</TableCell>
+                      <TableCell align="right">{row.grade}</TableCell>
+                      <TableCell align="right">{row.id}</TableCell>
+                      <TableCell align="right">{row.startNumber}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -396,8 +371,16 @@ function PaginatedRunnerList() {
 
 
 
+type Props = {
+  relay: any;
+  list: any;
+  loading: boolean;
+}
 
-/*
+type State = {
+
+}
+
 class PaginatedRunnerList extends React.Component<Props, State> {
 
   _loadMore = () => {
@@ -414,8 +397,12 @@ class PaginatedRunnerList extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = this.props;
     return (
+      <React.Fragment>
+      {!this.props.loading && <EnhancedTable list={this.props.list.runners.edges.map((runner: any) => runner.node)} />}
+      </React.Fragment>
+    );
+    /*return (
       <Container maxWidth="sm">
         <IconButton>
           <AddIcon />
@@ -474,9 +461,9 @@ class PaginatedRunnerList extends React.Component<Props, State> {
           </Table>
         </TableContainer>
       </Container>
-    );
+    );*/
   }
-}*/
+}
 
 export default createPaginationContainer(PaginatedRunnerList, {
   list: graphql`
