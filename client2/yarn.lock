@@ -1725,10 +1725,15 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/relay-runtime@*", "@types/relay-runtime@^9.1.5":
+"@types/relay-runtime@*":
   version "9.1.5"
   resolved "https://registry.yarnpkg.com/@types/relay-runtime/-/relay-runtime-9.1.5.tgz#7eb46d754d3d3474647a230e8d15aae69f6cdc5b"
   integrity sha512-T7bz98tP9w3HwK+s8LAHjKUOnBTpu0jy8L3v51IBKnmoPt6NY+8Vpdws12j2ZaJXiE1t7ihyJneRkOLF/lPuCQ==
+
+"@types/relay-runtime@^10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@types/relay-runtime/-/relay-runtime-10.0.1.tgz#0fca4e922e77a29772d325f0eb21fc461cfd7f1f"
+  integrity sha512-7JTrA3QR3rSgLVkMjFjmkUkGHKAiNZCXOX46okT+20kiuxfg6Fz/q90ukVAYTXLfbFHXWQQRZZ69HOdiR5IFGQ==
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -10962,10 +10967,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.0.0-dev.20200712:
-  version "4.0.0-dev.20200712"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.0-dev.20200712.tgz#b998b2890749cf017d93c056438359cd5623e0f5"
-  integrity sha512-qR8rfTI9A0SeC9akZq+/xMuDud3xcB07pJC3Pt3dBqJ+fcyrBCpapfB709syNw+6/SQHueMOMhUYk74DZMPedA==
+typescript@^4.0.0-dev.20200715:
+  version "4.0.0-dev.20200715"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.0-dev.20200715.tgz#d65961a5a6f13fde95a6f4db5f5946f15e4c59bc"
+  integrity sha512-gmPXoWktfXeutmWTM6el9U4vIn5kqOHGI1OESSOhPtLWrxodKqLfFuMygQtOUTtGjKLFQRFAJhHEwUhHZNOURA==
 
 ua-parser-js@^0.7.18:
   version "0.7.21"
