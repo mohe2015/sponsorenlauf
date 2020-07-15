@@ -316,7 +316,7 @@ function PaginatedRunnerList(props: any) {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <Runner key={row.name} runner={row} isItemSelected={isItemSelected} labelId={labelId} handleClick={handleClick} />
+                    <Runner key={row.id} runner={row} isItemSelected={isItemSelected} labelId={labelId} handleClick={handleClick} />
                   );
                 })}
               {emptyRows > 0 && (
