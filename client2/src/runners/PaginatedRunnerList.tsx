@@ -14,7 +14,7 @@ import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
 import Box from "@material-ui/core/Box";
 import AddIcon from '@material-ui/icons/Add';
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Checkbox } from "@material-ui/core";
 import Skeleton from '@material-ui/lab/Skeleton';
 import ControlledTooltip from "../ControlledTooltip";
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -24,7 +24,21 @@ type Props = {
   relay: any;
   list: any;
   loading: any;
+  classes?: any;
+  onSelectAllClick?: any;
+  order?: any;
+  orderBy?: any;
+  numSelected?: any;
+  rowCount?: any;
+  onRequestSort?: any;
 };
+
+
+
+
+
+
+
 
 type State = {
 };
@@ -45,6 +59,7 @@ class PaginatedRunnerList extends React.Component<Props, State> {
   }
 
   render() {
+    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = this.props;
     return (
       <Container maxWidth="sm">
         <IconButton>
@@ -55,45 +70,54 @@ class PaginatedRunnerList extends React.Component<Props, State> {
             </Box>
           </Typography>
         </IconButton>
-      <TableContainer component={Paper}>
-        <Table aria-label="Liste der Läufer">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Rolle</TableCell>
-              <TableCell align="right">Aktionen</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+        <TableContainer component={Paper}>
+          <Table aria-label="Liste der Läufer">
+            <TableHead>
 
-          {this.props.loading && [...Array(5)].map((e, i) => 
-            <TableRow key={i}>
-              <TableCell component="th" scope="row">
-                <Skeleton variant="text" />
-              </TableCell>
-              <TableCell align="right">
-                <Skeleton variant="text" />
-              </TableCell>
-              <TableCell align="right">
-                <ControlledTooltip title="Löschen">
-                  <IconButton>
-                    <DeleteIcon />
-                    <Typography variant="button" noWrap>
-                      <Box component="span" display={{ xs: 'none', md: 'block' }}>
-                      Löschen
-                      </Box>
-                    </Typography>
-                  </IconButton>
-                </ControlledTooltip>
-              </TableCell>
-            </TableRow>)}
+              <TableRow>
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    indeterminate={numSelected > 0 && numSelected < rowCount}
+                    checked={rowCount > 0 && numSelected === rowCount}
+                    onChange={onSelectAllClick}
+                    inputProps={{ 'aria-label': 'select all desserts' }}
+                  />
+                </TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Rolle</TableCell>
+                <TableCell align="right">Aktionen</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+            {this.props.loading && [...Array(5)].map((e, i) => 
+              <TableRow key={i}>
+                <TableCell component="th" scope="row">
+                  <Skeleton variant="text" />
+                </TableCell>
+                <TableCell align="right">
+                  <Skeleton variant="text" />
+                </TableCell>
+                <TableCell align="right">
+                  <ControlledTooltip title="Löschen">
+                    <IconButton>
+                      <DeleteIcon />
+                      <Typography variant="button" noWrap>
+                        <Box component="span" display={{ xs: 'none', md: 'block' }}>
+                        Löschen
+                        </Box>
+                      </Typography>
+                    </IconButton>
+                  </ControlledTooltip>
+                </TableCell>
+              </TableRow>)}
 
 
-          {!this.props.loading && this.props.list.runners.edges.map((runner: any) => <Runner key={runner.node.id} runner={runner.node} />)}
-          
-          </TableBody>
-        </Table>
-      </TableContainer>
+            {!this.props.loading && this.props.list.runners.edges.map((runner: any) => <Runner key={runner.node.id} runner={runner.node} />)}
+            
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Container>
     );
   }
