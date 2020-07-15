@@ -3,7 +3,7 @@ import { schema } from "nexus";
 import { server } from "nexus";
 import { log } from "nexus";
 import { prisma } from "nexus-plugin-prisma";
-import { PrismaClient } from "nexus-plugin-prisma/client";
+import { PrismaClient, User } from "nexus-plugin-prisma/client";
 import { PubSub } from "graphql-subscriptions";
 import { subscriptions } from "nexus-plugin-subscriptions";
 import { permissions } from "./permissions";
@@ -17,7 +17,7 @@ import { parse as parseCookie } from "cookie";
 
 declare global {
   interface NexusContext {
-    userId: string | null;
+    user: User | null;
     pubsub: PubSub;
     db: PrismaClient,
     response: http.ServerResponse;
@@ -107,11 +107,14 @@ async function createContext(cookie: string | null, response: Response | null) {
         where: {
           id: cookies.id,
         },
+        include: {
+          user: true
+        }
       })
 
       if (userSession && userSession.validUntil.getTime() > Date.now()) {
         return {
-          userId: userSession?.userId,
+          user: userSession?.user,
           pubsub,
           db,
           response,
@@ -120,7 +123,7 @@ async function createContext(cookie: string | null, response: Response | null) {
     }
   }
   return {
-    userId: null,
+    user: null,
     pubsub,
     db,
     response,
