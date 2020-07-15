@@ -230,7 +230,6 @@ function PaginatedRunnerList(props: any) {
   const [orderBy, setOrderBy] = React.useState<keyof Runner>('startNumber');
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   console.log(props);
   let rows: Runner[] = props.loading ? [] : props.list.runners.edges.map((runner: any) => runner.node);
@@ -280,10 +279,6 @@ function PaginatedRunnerList(props: any) {
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
-
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -296,7 +291,7 @@ function PaginatedRunnerList(props: any) {
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={'small'}
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -320,7 +315,7 @@ function PaginatedRunnerList(props: any) {
                   );
                 })}
               {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                <TableRow style={{ height: 33 * emptyRows }}>
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
@@ -337,10 +332,6 @@ function PaginatedRunnerList(props: any) {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </div>
   );
 }
