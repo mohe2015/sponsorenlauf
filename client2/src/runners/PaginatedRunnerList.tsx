@@ -224,7 +224,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function EnhancedTable(props: any) {
+function PaginatedRunnerList(props: any) {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Runner>('startNumber');
@@ -232,7 +232,9 @@ function EnhancedTable(props: any) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  let rows: Runner[] = props.rows;
+  console.log(props);
+  let rows: Runner[] = props.loading ? [] : props.list.runners.edges.map((runner: any) => runner.node);
+  console.log(rows);
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Runner) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -363,106 +365,6 @@ function EnhancedTable(props: any) {
       />
     </div>
   );
-}
-
-
-
-
-
-
-
-type Props = {
-  relay: any;
-  list: any;
-  loading: boolean;
-}
-
-type State = {
-
-}
-
-class PaginatedRunnerList extends React.Component<Props, State> {
-
-  _loadMore = () => {
-    if (!this.props.relay.hasMore() || this.props.relay.isLoading()) {
-      return;
-    }
-
-    this.props.relay.loadMore(
-      10,  // Fetch the next 10 feed items
-      (error: any) => {
-        console.log(error);
-      },
-    );
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-      {!this.props.loading && <EnhancedTable list={this.props.list.runners.edges.map((runner: any) => runner.node)} />}
-      </React.Fragment>
-    );
-    /*return (
-      <Container maxWidth="sm">
-        <IconButton>
-          <AddIcon />
-          <Typography variant="button" noWrap>
-            <Box component="span">
-            Läufer erstellen
-            </Box>
-          </Typography>
-        </IconButton>
-        <TableContainer component={Paper}>
-          <Table aria-label="Liste der Läufer">
-            <TableHead>
-
-              <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    indeterminate={numSelected > 0 && numSelected < rowCount}
-                    checked={rowCount > 0 && numSelected === rowCount}
-                    onChange={onSelectAllClick}
-                    inputProps={{ 'aria-label': 'select all desserts' }}
-                  />
-                </TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell align="right">Rolle</TableCell>
-                <TableCell align="right">Aktionen</TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-            {this.props.loading && [...Array(5)].map((e, i) => 
-              <TableRow key={i}>
-                <TableCell component="th" scope="row">
-                  <Skeleton variant="text" />
-                </TableCell>
-                <TableCell align="right">
-                  <Skeleton variant="text" />
-                </TableCell>
-                <TableCell align="right">
-                  <ControlledTooltip title="Löschen">
-                    <IconButton>
-                      <DeleteIcon />
-                      <Typography variant="button" noWrap>
-                        <Box component="span" display={{ xs: 'none', md: 'block' }}>
-                        Löschen
-                        </Box>
-                      </Typography>
-                    </IconButton>
-                  </ControlledTooltip>
-                </TableCell>
-              </TableRow>)}
-
-
-            {!this.props.loading && this.props.list.runners.edges.map((runner: any) => <Runner key={runner.node.id} runner={runner.node} />)}
-            
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-    );*/
-  }
 }
 
 export default createPaginationContainer(PaginatedRunnerList, {
