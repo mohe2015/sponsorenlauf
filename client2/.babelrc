@@ -1,3 +1,3 @@
 {
-  "plugins": [["relay", { "artifactDirectory": "./src/__generated__" }]]
+  "plugins": [["relay", { "artifactDirectory": "./src/__generated__" }], "babel-plugin-transform-es2015-modules-commonjs"]
 }

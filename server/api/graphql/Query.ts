@@ -29,15 +29,13 @@ schema.queryType({
     t.connection("runners", {
       type: "Runner",
       nodes: async (root, args, ctx, info) => {
-        return await ctx.db.runner.findMany({
-
-        });
+        return await ctx.db.runner.findMany();
       },
-      /*extendConnection(t) {
+      extendConnection(t) {
         t.int("totalCount", {
           resolve: (source, args, ctx) => ctx.db.runner.count(args),
         })
-      }*/
+      }
     });
 
     t.connection("rounds", {
