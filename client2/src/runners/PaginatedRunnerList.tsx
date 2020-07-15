@@ -51,7 +51,7 @@ const useStyles1 = makeStyles((theme: Theme) =>
 );
 
 interface TablePaginationActionsProps {
-  nextPage: number;
+  nextPage: () => void;
 
   count: number;
   page: number;
@@ -75,8 +75,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   };
 
   const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(props);
-
+    nextPage();
     //onChangePage(event, page + 1);
   };
 
@@ -329,6 +328,12 @@ function PaginatedRunnerList(props: any) {
     setPage(0);
   };
 
+  const nextPage = () => {
+    props.relay.loadMore(10, (error?: Error) => {
+      console.log("FETCHED NEW DATA!!!", error);
+    })
+  }
+
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -380,7 +385,7 @@ function PaginatedRunnerList(props: any) {
           page={page}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
-          ActionsComponent={(subProps) => <TablePaginationActions {...subProps} nextPage={1} />}
+          ActionsComponent={(subProps) => <TablePaginationActions {...subProps} nextPage={nextPage} />}
         />
       </Paper>
     </div>
