@@ -201,7 +201,8 @@ function PaginatedRunnerList(props: any) {
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  console.log(props);
+
+  const totalCount = props.loading ? 0 : props.list.runners.totalCount;
   let rows: Runner[] = props.loading ? [] : props.list.runners.edges.map((runner: any) => runner.node);
   console.log(rows);
 
@@ -271,7 +272,7 @@ function PaginatedRunnerList(props: any) {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={totalCount}
             />
             <TableBody>
               {rows
@@ -295,7 +296,7 @@ function PaginatedRunnerList(props: any) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={totalCount}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
@@ -320,6 +321,7 @@ export default createPaginationContainer(PaginatedRunnerList, {
             ...Runner_runner
           }
         }
+        totalCount
       }
     }
   `,
