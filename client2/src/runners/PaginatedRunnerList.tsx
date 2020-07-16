@@ -286,7 +286,7 @@ function PaginatedRunnerList(props: any) {
 
   const totalCount = props.loading ? 0 : props.list.runners.totalCount;
   let rows: Runner[] = props.loading ? [] : props.list.runners.edges.map((runner: any) => runner.node);
-  console.log(rows);
+  console.log("rows: ", rows);
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Runner) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -328,15 +328,13 @@ function PaginatedRunnerList(props: any) {
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, 5));
     setPage(0);
   };
 
   const nextPage = () => {
-    console.log(props.relay.loadMore(10, (error?: Error) => {
+    console.log("loadmore: ", props.relay.loadMore(5, (error?: Error) => {
       console.log("FETCHED NEW DATA!!!", error);
-    }, {
-      force: true
     }))
   }
 
@@ -402,7 +400,7 @@ export default createPaginationContainer(PaginatedRunnerList, {
   list: graphql`
     fragment PaginatedRunnerList_list on Query
     @argumentDefinitions(
-      count: {type: "Int", defaultValue: 10}
+      count: {type: "Int", defaultValue: 5}
       cursor: {type: "String"}
     ) {
       runners(first: $count, after: $cursor) @connection(key: "Runner_runners") {
@@ -418,6 +416,16 @@ export default createPaginationContainer(PaginatedRunnerList, {
   `,
 }, {
   direction: 'forward',
+  getConnectionFromProps(props) {
+    console.log("getConnectionFromProps: ", props)
+    return props.list && props.list.runners;
+  },
+  getFragmentVariables(prevVars, totalCount) {
+    return {
+      ...prevVars,
+      count: totalCount,
+    };
+  },
   getVariables(props, {count, cursor}, fragmentVariables) {
     return {
       count,
@@ -429,7 +437,7 @@ export default createPaginationContainer(PaginatedRunnerList, {
     # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
     query PaginatedRunnerListQuery (
       $count: Int!
-      $cursor: ID
+      $cursor: String
     ) {
         ...PaginatedRunnerList_list @arguments(count: $count, cursor: $cursor)
     }
