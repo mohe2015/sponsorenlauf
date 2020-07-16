@@ -1,3 +1,6 @@
+https://reactjs.org/docs/concurrent-mode-suspense.html
+
+
 TODO https://github.com/relay-tools/relay-compiler-webpack-plugin
 TODO https://reactjs.org/docs/optimizing-performance.html
 TODO material-ui use default imports as they are faster

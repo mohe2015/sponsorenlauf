@@ -4,7 +4,7 @@ import { graphql } from "babel-plugin-relay/macro";
 import environment from "../Environment";
 import { Redirect } from "react-router-dom";
 import RunnerList from "./RunnerList";
-import PaginatedRunnerList from "./PaginatedRunnerList";
+import TestPaginatedRunnerList from "./TestPaginatedRunnerList";
 
 type Props = {
 };
@@ -12,7 +12,7 @@ type Props = {
 type State = {
 };
 
-class PaginatedRunnerListRenderer extends React.Component<Props, State> {
+class TestPaginatedRunnerListRenderer extends React.Component<Props, State> {
 
   renderQuery = ({error, props}: {error: Error | null, props: any}) => {
     if (error) {
@@ -23,7 +23,7 @@ class PaginatedRunnerListRenderer extends React.Component<Props, State> {
       }
     } else if (props) {
       console.log("renderQuery: ", props)
-      return <PaginatedRunnerList list={props} />;
+      return <TestPaginatedRunnerList list={props} />;
     }
     return <div>loading</div>; // TESTING
     //return <PaginatedRunnerList loading={true} list={null} />;
@@ -34,11 +34,11 @@ class PaginatedRunnerListRenderer extends React.Component<Props, State> {
       <QueryRenderer
         environment={environment}
         query={graphql`
-          query PaginatedRunnerListRendererQuery(
+          query TestPaginatedRunnerListRendererQuery(
             $count: Int!,
             $cursor: String
           ) {
-            ...PaginatedRunnerList_list @arguments(count: $count, cursor: $cursor)
+            ...TestPaginatedRunnerList_list @arguments(count: $count, cursor: $cursor)
           }
         `}
         variables={{
@@ -50,4 +50,4 @@ class PaginatedRunnerListRenderer extends React.Component<Props, State> {
   }
 }
 
-export default PaginatedRunnerListRenderer;
+export default TestPaginatedRunnerListRenderer;

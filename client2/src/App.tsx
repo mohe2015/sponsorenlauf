@@ -10,6 +10,7 @@ import RunnerListRenderer from "./runners/RunnerListRenderer";
 import "./index.css";
 import PaginatedRunnerList from "./runners/PaginatedRunnerList";
 import PaginatedRunnerListRenderer from "./runners/PaginatedRunnerListRenderer";
+import TestPaginatedRunnerListRenderer from "./runners/TestPaginatedRunnerListRenderer";
 
 const theme = createMuiTheme({
   palette: {
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route path="/paginated-runners">
             <PaginatedRunnerListRenderer />
+          </Route>
+          <Route path="/test-paginated-runners">
+            <TestPaginatedRunnerListRenderer />
           </Route>
         </Route>
       </Switch>
