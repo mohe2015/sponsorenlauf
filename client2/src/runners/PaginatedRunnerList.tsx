@@ -284,10 +284,6 @@ function PaginatedRunnerList(props: any) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const totalCount = props.loading ? 0 : props.list.runners.totalCount;
-  let rows: Runner[] = props.loading ? [] : props.list.runners.edges.map((runner: any) => runner.node);
-  console.log("rows: ", rows);
-
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Runner) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -296,7 +292,7 @@ function PaginatedRunnerList(props: any) {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = props.list.runners.edges.map((runner: any) => runner.node).map((n: Runner) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -340,7 +336,7 @@ function PaginatedRunnerList(props: any) {
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.list.runners.edges.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -360,12 +356,12 @@ function PaginatedRunnerList(props: any) {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={totalCount}
+              rowCount={props.list.runners.totalCount}
             />
             <TableBody>
-              {rows
+              {props.list.runners.edges.map((runner: any) => runner.node)
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
+                .map((row: Runner, index: number) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -384,7 +380,7 @@ function PaginatedRunnerList(props: any) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={totalCount}
+          count={props.list.runners.totalCount}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

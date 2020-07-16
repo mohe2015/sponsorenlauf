@@ -25,7 +25,8 @@ class PaginatedRunnerListRenderer extends React.Component<Props, State> {
       console.log("renderQuery: ", props)
       return <PaginatedRunnerList loading={false} list={props} />;
     }
-    return <PaginatedRunnerList loading={true} list={null} />;
+    return <div>loading</div>; // TESTING
+    //return <PaginatedRunnerList loading={true} list={null} />;
   }
 
   render() {
