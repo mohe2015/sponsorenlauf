@@ -32,6 +32,7 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
+import withStyles, { Styles } from '@material-ui/core/styles/withStyles';
 
 // https://github.com/facebook/relay/issues/3007
 // https://www.howtographql.com/react-relay/1-getting-started/
@@ -136,13 +137,13 @@ const headCells: HeadCell[] = [
 ];
 
 interface EnhancedTableProps {
-  classes: ReturnType<typeof useStyles>;
   numSelected: number;
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Runner) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   order: Order;
   orderBy: string;
   rowCount: number;
+  classes: any;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
@@ -250,149 +251,167 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-    },
-    paper: {
-      width: '100%',
-      marginBottom: theme.spacing(2),
-    },
-    table: {
-      minWidth: 750,
-    },
-    visuallyHidden: {
-      border: 0,
-      clip: 'rect(0 0 0 0)',
-      height: 1,
-      margin: -1,
-      overflow: 'hidden',
-      padding: 0,
-      position: 'absolute',
-      top: 20,
-      width: 1,
-    },
-  }),
-);
+const styles: Styles<Theme, object> = (theme: Theme) => ({
+  root: {
+    width: '100%',
+  },
+  paper: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 750,
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: 'rect(0 0 0 0)',
+    height: 1,
+    margin: -1,
+    overflow: 'hidden',
+    padding: 0,
+    position: 'absolute',
+    top: 20,
+    width: 1,
+  },
+});
 
-function PaginatedRunnerList(props: any) {
-  const classes = useStyles();
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Runner>('startNumber');
-  const [selected, setSelected] = React.useState<string[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+type Props = {
+  list: any;
+  relay: any;
+  classes: any;
+}
 
-  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Runner) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
+type State = {
+  order: Order;
+  orderBy: keyof Runner;
+  selected: string[];
+  page: number;
+  rowsPerPage: number;
+}
+
+class PaginatedRunnerList extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+
+    this.state = {
+      order: 'asc',
+      orderBy: 'startNumber',
+      selected: [],
+      page: 0,
+      rowsPerPage: 5,
+    }
+  }
+
+  handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Runner) => {
+    const isAsc = this.state.orderBy === property && this.state.order === 'asc';
+    this.setState({order: isAsc ? 'desc' : 'asc', orderBy: property});
   };
 
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = props.list.runners.edges.map((runner: any) => runner.node).map((n: Runner) => n.id);
-      setSelected(newSelecteds);
+      const newSelecteds = this.props.list.runners.edges.map((runner: any) => runner.node).map((n: Runner) => n.id);
+      this.setState({selected: newSelecteds});
       return;
     }
-    setSelected([]);
+    this.setState({selected: []});
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-    const selectedIndex = selected.indexOf(name);
+  handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+    const selectedIndex = this.state.selected.indexOf(name);
     let newSelected: string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(this.state.selected, name);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(this.state.selected.slice(1));
+    } else if (selectedIndex === this.state.selected.length - 1) {
+      newSelected = newSelected.concat(this.state.selected.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        this.state.selected.slice(0, selectedIndex),
+        this.state.selected.slice(selectedIndex + 1),
       );
     }
 
-    setSelected(newSelected);
+    this.setState({selected: newSelected});
   };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
+  handleChangePage = (event: unknown, newPage: number) => {
+    this.setState({page:newPage});
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 5));
-    setPage(0);
+  handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({rowsPerPage: parseInt(event.target.value, 5), page: 0});
   };
 
-  const nextPage = () => {
-    console.log("loadmore: ", props.relay.loadMore(5, (error?: Error) => {
+  nextPage = () => {
+    console.log("loadmore: ", this.props.relay.loadMore(5, (error?: Error) => {
       console.log("FETCHED NEW DATA!!!", error);
     }))
   }
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
+  render() {
+    const { classes } = this.props;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.list.runners.edges.length - page * rowsPerPage);
+    let isSelected = (name: string) => this.state.selected.indexOf(name) !== -1;
+    let emptyRows = this.state.rowsPerPage - Math.min(this.state.rowsPerPage, this.props.list.runners.edges.length - this.state.page * this.state.rowsPerPage);
 
-  return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={'small'}
-            aria-label="enhanced table"
-          >
-            <EnhancedTableHead
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={props.list.runners.totalCount}
-            />
-            <TableBody>
-              {props.list.runners.edges.map((runner: any) => runner.node)
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row: Runner, index: number) => {
-                  const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+    return (
+      <div className={classes.root}>
+        <Paper className={classes.paper}>
+          <EnhancedTableToolbar numSelected={this.state.selected.length} />
+          <TableContainer>
+            <Table
+              className={classes.table}
+              aria-labelledby="tableTitle"
+              size={'small'}
+              aria-label="enhanced table"
+            >
+              <EnhancedTableHead
+                classes={classes}
+                numSelected={this.state.selected.length}
+                order={this.state.order}
+                orderBy={this.state.orderBy}
+                onSelectAllClick={this.handleSelectAllClick}
+                onRequestSort={this.handleRequestSort}
+                rowCount={this.props.list.runners.totalCount}
+              />
+              <TableBody>
+                {this.props.list.runners.edges.map((runner: any) => runner.node)
+                  .slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
+                  .map((row: Runner, index: number) => {
+                    const isItemSelected = isSelected(row.id);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <Runner key={row.id} runner={row} isItemSelected={isItemSelected} labelId={labelId} handleClick={handleClick} />
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 33 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={props.list.runners.totalCount}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-          ActionsComponent={(subProps) => <TablePaginationActions {...subProps} nextPage={nextPage} />}
-        />
-      </Paper>
-    </div>
-  );
+                    return (
+                      <Runner key={row.id} runner={row} isItemSelected={isItemSelected} labelId={labelId} handleClick={this.handleClick} />
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 33 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={this.props.list.runners.totalCount}
+            rowsPerPage={this.state.rowsPerPage}
+            page={this.state.page}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+            ActionsComponent={(subProps) => <TablePaginationActions {...subProps} nextPage={this.nextPage} />}
+          />
+        </Paper>
+      </div>
+    );
+  }
 }
 
-export default createPaginationContainer(PaginatedRunnerList, {
+export default withStyles(styles)(createPaginationContainer(PaginatedRunnerList, {
   list: graphql`
     fragment PaginatedRunnerList_list on Query
     @argumentDefinitions(
@@ -412,7 +431,7 @@ export default createPaginationContainer(PaginatedRunnerList, {
   `,
 }, {
   direction: 'forward',
-  getConnectionFromProps(props) {
+  getConnectionFromProps(props: Props) {
     console.log("getConnectionFromProps: ", props)
     return props.list && props.list.runners;
   },
@@ -438,4 +457,4 @@ export default createPaginationContainer(PaginatedRunnerList, {
         ...PaginatedRunnerList_list @arguments(count: $count, cursor: $cursor)
     }
   `
-});
+}));
