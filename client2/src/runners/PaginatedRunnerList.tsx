@@ -33,6 +33,10 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 
+// https://github.com/facebook/relay/issues/3007
+// https://www.howtographql.com/react-relay/1-getting-started/
+// https://relay.dev/docs/en/pagination-container#loadmore
+
 interface Runner {
   clazz: string;
   grade: number;
@@ -329,9 +333,11 @@ function PaginatedRunnerList(props: any) {
   };
 
   const nextPage = () => {
-    props.relay.loadMore(10, (error?: Error) => {
+    console.log(props.relay.loadMore(10, (error?: Error) => {
       console.log("FETCHED NEW DATA!!!", error);
-    })
+    }, {
+      force: true
+    }))
   }
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
