@@ -34,11 +34,15 @@ class PaginatedRunnerListRenderer extends React.Component<Props, State> {
       <QueryRenderer
         environment={environment}
         query={graphql`
-          query PaginatedRunnerListRendererQuery {
+          query PaginatedRunnerListRendererQuery(
+            $count: Int!,
+            $after: String
+          ) {
             ...PaginatedRunnerList_list
           }
         `}
         variables={{
+          count: 5
         }}
         render={this.renderQuery}
       />
