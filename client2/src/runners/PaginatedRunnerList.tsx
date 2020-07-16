@@ -418,23 +418,20 @@ export default createPaginationContainer(PaginatedRunnerList, {
   `,
 }, {
   direction: 'forward',
-    getConnectionFromProps(props: any) { // TODO try withouth
-      return props.list;
-    },
-    getVariables(props, {count, cursor}, fragmentVariables) {
-      return {
-        count,
-        cursor,
-      };
-    },
-    query: graphql`
-      # Pagination query to be fetched upon calling 'loadMore'.
-      # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
-      query PaginatedRunnerListQuery (
-        $count: Int!
-        $cursor: ID
-      ) {
-          ...PaginatedRunnerList_list @arguments(count: $count, cursor: $cursor)
-      }
-    `
+  getVariables(props, {count, cursor}, fragmentVariables) {
+    return {
+      count,
+      cursor,
+    };
+  },
+  query: graphql`
+    # Pagination query to be fetched upon calling 'loadMore'.
+    # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
+    query PaginatedRunnerListQuery (
+      $count: Int!
+      $cursor: ID
+    ) {
+        ...PaginatedRunnerList_list @arguments(count: $count, cursor: $cursor)
+    }
+  `
 });
