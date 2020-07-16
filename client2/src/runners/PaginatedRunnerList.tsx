@@ -143,11 +143,10 @@ interface EnhancedTableProps {
   order: Order;
   orderBy: string;
   rowCount: number;
-  classes: any;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property: keyof Runner) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property);
   };
@@ -177,7 +176,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             >
               {headCell.label}
               {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
+                <span>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
               ) : null}
@@ -278,7 +277,6 @@ const styles: Styles<Theme, object> = (theme: Theme) => ({
 type Props = {
   list: any;
   relay: any;
-  classes: any;
 }
 
 type State = {
@@ -351,24 +349,22 @@ class PaginatedRunnerList extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes } = this.props;
-
     let isSelected = (name: string) => this.state.selected.indexOf(name) !== -1;
     let emptyRows = this.state.rowsPerPage - Math.min(this.state.rowsPerPage, this.props.list.runners.edges.length - this.state.page * this.state.rowsPerPage);
 
     return (
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
+      <div>
+        <Paper>
           <EnhancedTableToolbar numSelected={this.state.selected.length} />
           <TableContainer>
             <Table
-              className={classes.table}
+              
               aria-labelledby="tableTitle"
               size={'small'}
               aria-label="enhanced table"
             >
               <EnhancedTableHead
-                classes={classes}
+                
                 numSelected={this.state.selected.length}
                 order={this.state.order}
                 orderBy={this.state.orderBy}
@@ -411,7 +407,7 @@ class PaginatedRunnerList extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(createPaginationContainer(PaginatedRunnerList, {
+export default createPaginationContainer(PaginatedRunnerList, {
   list: graphql`
     fragment PaginatedRunnerList_list on Query
     @argumentDefinitions(
@@ -457,4 +453,4 @@ export default withStyles(styles)(createPaginationContainer(PaginatedRunnerList,
         ...PaginatedRunnerList_list @arguments(count: $count, cursor: $cursor)
     }
   `
-}));
+});
