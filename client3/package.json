@@ -16,7 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "relay": "yarn run relay-compiler --schema ../server/api.graphql --src ./src/ --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
