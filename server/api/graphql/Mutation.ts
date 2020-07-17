@@ -94,7 +94,7 @@ schema.mutationType({
             },
             createdBy: {
               connect: {
-                id: ctx.userId!,
+                id: ctx.user.id!,
               },
             },
           },

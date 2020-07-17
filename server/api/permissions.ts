@@ -43,7 +43,7 @@ export const permissions = shield({
     RoundEdge: allow,
     RunnerEdge: allow,
     UserEdge: allow,
-    AuthPayload: allow,
+    LoginMutationError: allow,
   },
   options: { fallbackRule: deny, allowExternalErrors: true },
 });
