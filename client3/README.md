@@ -4,6 +4,9 @@ yarn add relay-runtime react-relay@experimental
 yarn add --dev relay-compiler graphql babel-plugin-relay
 yarn add react@experimental react-dom@experimental
 yarn add --dev relay-config
+yarn add @material-ui/core@next
+yarn add @fortawesome/fontawesome-svg-core  @fortawesome/free-solid-svg-icons @fortawesome/free-brands-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/react-fontawesome
+
 
 https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
 https://reactjs.org/docs/concurrent-mode-suspense.html
