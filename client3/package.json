@@ -6,8 +6,8 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^0.0.0-experimental-4c8c98ab9",
+    "react-dom": "^0.0.0-experimental-4c8c98ab9",
     "react-relay": "^0.0.0-experimental-7f19cb58",
     "react-scripts": "3.4.1",
     "relay-runtime": "^10.0.0"
@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "relay": "yarn run relay-compiler --schema ../server/api.graphql --src ./src/ --watch"
+    "relay": "relay-compiler --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,6 +37,7 @@
   "devDependencies": {
     "babel-plugin-relay": "^10.0.0",
     "graphql": "^15.3.0",
-    "relay-compiler": "^10.0.0"
+    "relay-compiler": "^10.0.0",
+    "relay-config": "^10.0.0"
   }
 }

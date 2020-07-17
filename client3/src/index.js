@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { RelayEnvironmentProvider } from 'react-relay/hooks';
+import RelayEnvironment from './RelayEnvironment'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RelayEnvironmentProvider environment={RelayEnvironment}>
+      <App />
+    </RelayEnvironmentProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
