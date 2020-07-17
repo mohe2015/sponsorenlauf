@@ -1,4 +1,7 @@
 npx create-react-app@next client3
+cd client3
+yarn add relay-runtime react-relay@experimental
+yarn add --dev relay-compiler graphql babel-plugin-relay
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

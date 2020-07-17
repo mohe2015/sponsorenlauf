@@ -8,7 +8,9 @@
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-relay": "^0.0.0-experimental-7f19cb58",
+    "react-scripts": "3.4.1",
+    "relay-runtime": "^10.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,5 +32,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-plugin-relay": "^10.0.0",
+    "graphql": "^15.3.0",
+    "relay-compiler": "^10.0.0"
   }
 }
