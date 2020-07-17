@@ -7,6 +7,7 @@ async function fetchRelay(params, variables) {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: "include",
     body: JSON.stringify({
       query: params.text,
       variables,

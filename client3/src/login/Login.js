@@ -15,7 +15,7 @@ mutation LoginMutation($username: String!, $password: String!) {
 `;
 
 export function Login(props) {
-  const [isLoginPending, login] = useMutation(LoginMutation);
+  const [login, isLoginPending] = useMutation(LoginMutation);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +31,7 @@ export function Login(props) {
         }
       })
     },
-    [username, password]
+    [username, password, login]
   );
 
     return (
@@ -40,7 +40,7 @@ export function Login(props) {
         <input type="text" />
         <input type="password" />
 
-        <button type="submit">Anemlden</button>
+        <button type="submit">Anmelden</button>
       
       </form>
 
