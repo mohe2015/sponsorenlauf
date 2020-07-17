@@ -7,15 +7,14 @@ import { RelayEnvironmentProvider } from 'react-relay/hooks';
 import RelayEnvironment from './RelayEnvironment'
 import { BrowserRouter as Router } from "react-router-dom";
 
-ReactDOM.render(
+ReactDOM.unstable_createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RelayEnvironmentProvider environment={RelayEnvironment}>
       <Router>
         <App />
       </Router>
     </RelayEnvironmentProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change

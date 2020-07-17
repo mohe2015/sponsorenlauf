@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMutation } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
-import { useState, useCallback } from 'react';
+import { useState, useCallback, unstable_useTransition as useTransition } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -76,6 +76,8 @@ export function Login(props) {
   const [usernameError, setUsernameError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
 
+  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+
   const onSubmit = useCallback(
     event => {
       event.preventDefault();
@@ -89,7 +91,10 @@ export function Login(props) {
           } else {
             setUsernameError(null);
             setPasswordError(null);
-            navigate("/");
+
+            startTransition(() => {
+              navigate("/");
+            });
           }
         },
         onError: error => {
@@ -101,7 +106,7 @@ export function Login(props) {
         }
       })
     },
-    [username, password, login, navigate]
+    [username, password, login, navigate, startTransition]
   );
 
     return (
@@ -155,7 +160,7 @@ export function Login(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            pending={isLoginPending}
+            pending={isLoginPending || isPending}
           >
             Anmelden
           </LoadingButton>
