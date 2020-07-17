@@ -18,7 +18,7 @@ schema.mutationType({
     });
 
     t.field("login", {
-      type: "AuthPayload",
+      type: "LoginMutationResponse",
       args: {
         name: schema.stringArg({ nullable: false }),
         password: schema.stringArg({ nullable: false }),
@@ -30,12 +30,20 @@ schema.mutationType({
           },
         });
         if (!user) {
-          throw new AuthenticationError(`No user found with name: ${name}`);
+          return {
+            __typename: "LoginMutationError",
+            usernameError: "Nutzername nicht gefunden!",
+            passwordError: null,
+          }
         }
         // @ts-ignore
         const passwordValid: boolean = await compare(password, user.password);
         if (!passwordValid) {
-          throw new AuthenticationError("Invalid password");
+          return {
+            __typename: "LoginMutationError",
+            usernameError: null,
+            passwordError: "Passwort falsch!",
+          }
         }
 
         const id = crypto.randomBytes(32).toString("hex");
@@ -62,7 +70,8 @@ schema.mutationType({
             // secure: true, // TODO FIXME
         })     
         return {
-          user,
+          __typename: "User",
+          ...user,
         };
       },
     });
