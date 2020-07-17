@@ -7,11 +7,7 @@ schema.queryType({
       type: "User",
       nullable: false,
       resolve: (parent, args, ctx) => {
-        return ctx.db.user.findOne({
-          where: {
-            id: ctx.userId!,
-          },
-        });
+        return ctx.user;
       },
     });
 
