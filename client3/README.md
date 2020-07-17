@@ -5,6 +5,12 @@ yarn add --dev relay-compiler graphql babel-plugin-relay
 yarn add react@experimental react-dom@experimental
 yarn add --dev relay-config
 
+https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
+https://reactjs.org/docs/concurrent-mode-suspense.html
+https://reacttraining.com/blog/react-router-v6-pre/
+https://material-ui.com/getting-started/usage/
+https://github.com/mohe2015/relay-examples/tree/issue-tracker-dependency-updates/issue-tracker
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
