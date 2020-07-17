@@ -1,9 +1,20 @@
 import React from 'react';
+import { useLazyLoadQuery } from 'react-relay/hooks';
+import graphql from "babel-plugin-relay/macro";
 
 export function Home() {
-  return (
-    <div>
+  const data = useLazyLoadQuery(
+    graphql`
+query HomeQuery {
+  me {
+    id
+    name
+  }
+}
+    `
+  )  
 
-    </div>
+  return (
+      <h1>{data.me.name}</h1>
   );
 }

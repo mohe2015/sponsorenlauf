@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMutation } from 'react-relay/hooks';
-import { useState, useCallback } from 'react';
 import graphql from "babel-plugin-relay/macro";
+import { useState, useCallback } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -14,6 +14,7 @@ import Container from '@material-ui/core/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
+import { useNavigate } from "react-router-dom";
 
 const LoginMutation = graphql`
 mutation LoginMutation($username: String!, $password: String!) {
@@ -65,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function Login(props) {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const [login, isLoginPending] = useMutation(LoginMutation);
 
@@ -87,6 +89,7 @@ export function Login(props) {
           } else {
             setUsernameError(null);
             setPasswordError(null);
+            navigate("/");
           }
         },
         onError: error => {
@@ -98,7 +101,7 @@ export function Login(props) {
         }
       })
     },
-    [username, password, login]
+    [username, password, login, navigate]
   );
 
     return (
