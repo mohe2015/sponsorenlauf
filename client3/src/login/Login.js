@@ -6,9 +6,12 @@ import graphql from "babel-plugin-relay/macro";
 const LoginMutation = graphql`
 mutation LoginMutation($username: String!, $password: String!) {
   login(name: $username, password: $password) {
-    token
-    user {
+    ... on User {
       id
+    }
+    ... on LoginMutationError {
+      usernameError
+      passwordError
     }
   }
 }
@@ -37,8 +40,8 @@ export function Login(props) {
     return (
       <form onSubmit={onSubmit}>
 
-        <input type="text" />
-        <input type="password" />
+        <input value={username} onChange={e => setUsername(e.target.value)} type="text" />
+        <input value={password} onChange={e => setPassword(e.target.value)} type="password" />
 
         <button type="submit">Anmelden</button>
       
