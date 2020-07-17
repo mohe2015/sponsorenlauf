@@ -1,13 +1,10 @@
 import React from 'react';
-import { useRelayEnvironment, useMutation } from 'react-relay/hooks';
+import { useMutation } from 'react-relay/hooks';
 import { useState, useCallback } from 'react';
 import graphql from "babel-plugin-relay/macro";
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -21,6 +18,7 @@ import LoadingButton from '@material-ui/lab/LoadingButton';
 const LoginMutation = graphql`
 mutation LoginMutation($username: String!, $password: String!) {
   login(name: $username, password: $password) {
+    __typename
     ... on User {
       id
     }
@@ -73,11 +71,27 @@ export function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const [usernameError, setUsernameError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+
   const onSubmit = useCallback(
     event => {
       event.preventDefault();
 
       login({
+        onCompleted: response => {
+          console.log(response);
+          if (response.login.__typename === "LoginMutationError") {
+            setUsernameError(response.login.usernameError);
+            setPasswordError(response.login.passwordError);
+          } else {
+            setUsernameError(null);
+            setPasswordError(null);
+          }
+        },
+        onError: error => {
+          
+        },
         variables: {
           username,
           password
@@ -110,6 +124,8 @@ export function Login(props) {
             autoFocus
             value={username}
             onChange={e => setUsername(e.target.value)}
+            helperText={usernameError}
+            error={usernameError !== null}
           />
           <TextField
             variant="outlined"
@@ -123,6 +139,8 @@ export function Login(props) {
             autoComplete="current-password"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            helperText={passwordError}
+            error={passwordError !== null}
           />
           {/*<FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
