@@ -5,12 +5,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
 import RelayEnvironment from './RelayEnvironment'
-import { Login } from './login/Login';
 
 ReactDOM.render(
   <React.StrictMode>
     <RelayEnvironmentProvider environment={RelayEnvironment}>
-      <Login />
+      <App />
     </RelayEnvironmentProvider>
   </React.StrictMode>,
   document.getElementById('root')

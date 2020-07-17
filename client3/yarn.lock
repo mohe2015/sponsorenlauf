@@ -2002,6 +2002,17 @@
     react-is "^16.8.0"
     react-transition-group "^4.4.0"
 
+"@material-ui/lab@^5.0.0-alpha.3":
+  version "5.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-5.0.0-alpha.3.tgz#9d9f424e195785b1d3ab4fa482bff3f6cad46d54"
+  integrity sha512-EJvs1wf0JV6ve906TMuad1BeyWjFY5YKo9IovzxKduesgurEfbOD8h7+C4Sl0InDc1tifXfNDhxZaPDmeGrNGA==
+  dependencies:
+    "@babel/runtime" "^7.4.4"
+    "@material-ui/utils" "^5.0.0-alpha.1"
+    clsx "^1.0.4"
+    prop-types "^15.7.2"
+    react-is "^16.8.0"
+
 "@material-ui/styles@^5.0.0-alpha.1":
   version "5.0.0-alpha.1"
   resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-5.0.0-alpha.1.tgz#fad59945ef97d1ed0afaac5250323dd9410c258f"
