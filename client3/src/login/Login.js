@@ -1,6 +1,7 @@
 import React from 'react';
-import { graphql, useRelayEnvironment, useMutation } from 'react-relay/hooks';
+import { useRelayEnvironment, useMutation } from 'react-relay/hooks';
 import { useState, useCallback } from 'react';
+import graphql from "babel-plugin-relay/macro";
 
 const LoginMutation = graphql`
 mutation LoginMutation($username: String!, $password: String!) {
