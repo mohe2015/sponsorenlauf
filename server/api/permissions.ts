@@ -13,7 +13,7 @@ const rules = {
 export const permissions = shield({
   rules: {
     Query: {
-      me: deny, // rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"])
+      me: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       runners: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       rounds: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       users: rules.isUserWithRole(["ADMIN"]),
