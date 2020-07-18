@@ -1,5 +1,6 @@
 import { shield, rule, deny, not, and, or, allow } from "nexus-plugin-shield";
 import { UserRole } from "nexus-plugin-prisma/client";
+import { AuthenticationError, ForbiddenError } from "./errors";
 
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
@@ -45,5 +46,16 @@ export const permissions = shield({
     UserEdge: allow,
     LoginMutationError: allow,
   },
-  options: { fallbackRule: deny, allowExternalErrors: true },
+  options: {
+    fallbackRule: deny,
+    allowExternalErrors: true, 
+    fallbackError: (err, parent, args, ctx, info) => {
+      // @ts-expect-error
+      if (ctx.user) {
+        return new ForbiddenError("Unzureichende Berechtigungen!");
+      } else {
+        return new AuthenticationError("Nicht angemeldet!");
+      }
+    }
+  },
 });
