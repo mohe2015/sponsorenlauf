@@ -4,11 +4,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import withStyles, { Styles } from "@material-ui/core/styles/withStyles";
 import Box from "@material-ui/core/Box";
-import ControlledTooltip from "../ControlledTooltip";
+import ControlledTooltip from "./ControlledTooltip";
 import PeopleIcon from '@material-ui/icons/People';
 import { Link as RouterLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -100,7 +98,7 @@ class MyAppBar extends React.Component<Props, State> {
                   {(popupState) => (
                     <React.Fragment>
                         <IconButton aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}>
-                          <AccountCircle />
+                          <FontAwesomeIcon icon={faRunning} />
                           <Typography variant="button" noWrap>
                             <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
                             Account
