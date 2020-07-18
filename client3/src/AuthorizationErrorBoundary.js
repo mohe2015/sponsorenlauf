@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navigate } from "react-router-dom";
 
 export class AuthorizationErrorBoundary extends React.Component {
   constructor(props) {
@@ -12,16 +13,35 @@ export class AuthorizationErrorBoundary extends React.Component {
     };
   }
 
+  errorToElement = (error) => {
+    if (error.extensions?.code === "UNAUTHENTICATED") {
+      this.setState({error: null});
+      return <Navigate to="/login" state={{errorMessage: error.message}} />
+    } else if (error.extensions?.code === "FORBIDDEN") {
+      return <div>{error.message}</div>
+    } else {
+      return <div>{error.message}</div>
+    }
+  }  
+
   render() {
     if (this.state.error != null) {
-      return (
-        <div>
-          <div>Error: {this.state.error.message}</div>
+      if (this.state.error.name === "RelayNetwork") {
+        return (
+          <React.Fragment>
+            {this.state.error.source.errors.map(this.errorToElement)}
+          </React.Fragment>
+        )
+      } else {
+        return (
           <div>
-            <pre>{JSON.stringify(this.state.error.source, null, 2)}</pre>
+            <div>Fehler {this.state.error.name}: {this.state.error.message}</div>
+            <div>
+              <pre>{JSON.stringify(this.state.error.source, null, 2)}</pre>
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
     }
     return this.props.children;
   }

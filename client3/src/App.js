@@ -13,14 +13,18 @@ function App() {
     <React.Fragment>
       <CssBaseline />
 
+
       <AuthorizationErrorBoundary>
-        <Suspense fallback={<CircularProgress />}>
-          <Routes>
+          <Suspense fallback={<CircularProgress />}>
+
+      <Routes>
             <Route path="/" element={<Home />} />
             <Route path="login" element={<Login />} />
-          </Routes>
-        </Suspense>
-      </AuthorizationErrorBoundary>
+        
+      </Routes>
+
+      </Suspense>
+        </AuthorizationErrorBoundary>
 
     </React.Fragment>
   );

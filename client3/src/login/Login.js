@@ -14,7 +14,8 @@ import Container from '@material-ui/core/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
-import { useNavigate } from "react-router-dom";
+import Alert from '@material-ui/lab/Alert';
+import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginMutation = graphql`
 mutation LoginMutation($username: String!, $password: String!) {
@@ -67,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
 export function Login(props) {
   const classes = useStyles();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [login, isLoginPending] = useMutation(LoginMutation);
 
@@ -119,7 +121,12 @@ export function Login(props) {
         <Typography component="h1" variant="h5">
           Anmelden
         </Typography>
+
         <form className={classes.form} noValidate onSubmit={onSubmit}>
+          {location.state?.errorMessage && <Alert variant="filled" severity="error">
+            {location.state?.errorMessage}
+          </Alert>}
+
           <TextField
             variant="outlined"
             margin="normal"
