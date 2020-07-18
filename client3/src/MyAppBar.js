@@ -15,6 +15,9 @@ import { Menu, MenuItem } from "@material-ui/core";
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { Suspense } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useLazyLoadQuery } from 'react-relay/hooks';
+import graphql from "babel-plugin-relay/macro";
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -24,10 +27,62 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
+function AccountButton() {
+  const data = useLazyLoadQuery(
+    graphql`
+query MyAppBarQuery {
+  me {
+    id
+    name
+  }
+}
+  `)
+
+  return (
+    <PopupState variant="popover" popupId="demo-popup-menu">
+      {(popupState) => (
+        <React.Fragment>
+            <IconButton aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}>
+              <FontAwesomeIcon icon={faUser} />
+              <Typography variant="button" noWrap>
+                <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
+                {data.me.name}
+                </Box>
+              </Typography>
+            </IconButton>
+            <Menu {...bindMenu(popupState)}
+              getContentAnchorEl={null}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <MenuItem onClick={popupState.close}>Abmelden</MenuItem>
+            </Menu>
+        </React.Fragment>
+      )}
+    </PopupState>)
+}
+
+function LoadingAccountButton() {
+  return (
+    <IconButton>
+      <FontAwesomeIcon icon={faUser} />
+      <Typography variant="button" noWrap>
+        <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
+          <Skeleton variant="text" width={40} />
+        </Box>
+      </Typography>
+    </IconButton>
+  )
+}
 
 export function MyAppBar() {
   const classes = useStyles();
-
   return (
     <div>
   <AppBar position="static">
@@ -55,35 +110,9 @@ export function MyAppBar() {
             </IconButton>
           </ControlledTooltip>
 
-          <PopupState variant="popover" popupId="demo-popup-menu">
-            {(popupState) => (
-              <React.Fragment>
-                  <IconButton aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}>
-                    <FontAwesomeIcon icon={faUser} />
-                    <Typography variant="button" noWrap>
-                      <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
-                      Account
-                      </Box>
-                    </Typography>
-                  </IconButton>
-                  <Menu {...bindMenu(popupState)}
-                    getContentAnchorEl={null}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
-                    }}
-                  >
-                    <MenuItem onClick={popupState.close}>Abmelden</MenuItem>
-                  </Menu>
-              </React.Fragment>
-            )}
-          </PopupState>
-
-            
+          <Suspense fallback={<LoadingAccountButton />}>
+            <AccountButton />
+          </Suspense>
         </div>
       </Toolbar>
     </AppBar>
