@@ -86,7 +86,6 @@ export function Login(props) {
 
       login({
         onCompleted: response => {
-          console.log(response);
           if (response.login.__typename === "LoginMutationError") {
             setUsernameError(response.login.usernameError);
             setPasswordError(response.login.passwordError);
@@ -125,8 +124,6 @@ export function Login(props) {
         <Typography component="h1" variant="h5">
           Anmelden
         </Typography>
-
-        <div>{location.state?.original}</div>
 
         <form className={classes.form} noValidate onSubmit={onSubmit}>
           {location.state?.errorMessage && <Alert variant="filled" severity="error">

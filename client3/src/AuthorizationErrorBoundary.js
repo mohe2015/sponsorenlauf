@@ -1,5 +1,10 @@
 import React from 'react';
 import { Navigate } from "react-router-dom";
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRedo } from '@fortawesome/free-solid-svg-icons'
 
 export class AuthorizationErrorBoundary extends React.Component {
   constructor(props) {
@@ -18,11 +23,25 @@ export class AuthorizationErrorBoundary extends React.Component {
       this.setState({error: null});
       return <Navigate to="/login" state={{errorMessage: error.message, oldPathname: window.location.pathname }} />
     } else if (error.extensions?.code === "FORBIDDEN") {
-      return <div>{error.message}</div>
+      return  <Alert variant="filled" severity="error">
+                {error.message}
+              </Alert>;
     } else {
-      return <div>{error.message}</div>
+      return  <Alert variant="filled" severity="error"
+                action={
+                  <Button color="inherit" size="small" onClick={this._retry}>
+                    Erneut versuchen
+                  </Button>
+                }
+              >
+                {error.message}
+              </Alert>;
     }
-  }  
+  }
+
+  _retry = () => {
+    this.setState({error: null});
+  }
 
   render() {
     if (this.state.error != null) {
@@ -33,14 +52,16 @@ export class AuthorizationErrorBoundary extends React.Component {
           </React.Fragment>
         )
       } else {
-        return (
-          <div>
-            <div>Fehler {this.state.error.name}: {this.state.error.message}</div>
-            <div>
-              <pre>{JSON.stringify(this.state.error.source, null, 2)}</pre>
-            </div>
-          </div>
-        );
+        console.log(this.state.error.name);
+        return  <Alert variant="filled" severity="error"
+                  action={
+                    <Button color="inherit" size="small" onClick={this._retry}>
+                      Erneut versuchen
+                    </Button>
+                  }
+                >
+                  Fehler {this.state.error.name}: {this.state.error.message}
+                </Alert>;
       }
     }
     return this.props.children;
