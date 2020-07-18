@@ -36,7 +36,9 @@ query MyAppBarQuery {
     name
   }
 }
-  `)
+  `,
+  null,
+  {fetchPolicy: "store-and-network"})
 
   return (
     <PopupState variant="popover" popupId="demo-popup-menu">
