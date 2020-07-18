@@ -1,5 +1,5 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,6 +9,8 @@ import ControlledTooltip from "./ControlledTooltip";
 import { Link as RouterLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRunning } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import { Menu, MenuItem } from "@material-ui/core";
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
@@ -32,7 +34,7 @@ export function MyAppBar() {
         <div>
           <ControlledTooltip title="Nutzer">
             <IconButton component={RouterLink} to="/users">
-              <FontAwesomeIcon icon={faRunning} />
+              <FontAwesomeIcon icon={faUsers} />
               <Typography variant="button" noWrap>
                 <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> Nutzer</Box>
               </Typography>
@@ -53,7 +55,7 @@ export function MyAppBar() {
             {(popupState) => (
               <React.Fragment>
                   <IconButton aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}>
-                    <FontAwesomeIcon icon={faRunning} />
+                    <FontAwesomeIcon icon={faUser} />
                     <Typography variant="button" noWrap>
                       <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
                       Account
@@ -71,8 +73,7 @@ export function MyAppBar() {
                       horizontal: 'center',
                     }}
                   >
-                    <MenuItem onClick={popupState.close}>Cake</MenuItem>
-                    <MenuItem onClick={popupState.close}>Death</MenuItem>
+                    <MenuItem onClick={popupState.close}>Abmelden</MenuItem>
                   </Menu>
               </React.Fragment>
             )}

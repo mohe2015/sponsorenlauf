@@ -1,10 +1,7 @@
 import React from 'react';
 import { Navigate } from "react-router-dom";
 import Alert from '@material-ui/lab/Alert';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRedo } from '@fortawesome/free-solid-svg-icons'
 
 export class AuthorizationErrorBoundary extends React.Component {
   constructor(props) {
