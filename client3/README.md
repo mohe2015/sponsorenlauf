@@ -7,6 +7,7 @@ yarn add --dev relay-config
 yarn add @material-ui/core@next
 yarn add @fortawesome/fontawesome-svg-core  @fortawesome/free-solid-svg-icons @fortawesome/free-brands-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/react-fontawesome
 
+TODO IMPLEMENT AUTHENTICATED ROUTE FOR BETTER UX (not waiting for failed request, use cookie to check if logged in?)
 
 https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
 https://reactjs.org/docs/concurrent-mode-suspense.html

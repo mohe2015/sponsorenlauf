@@ -16,7 +16,7 @@ export class AuthorizationErrorBoundary extends React.Component {
   errorToElement = (error) => {
     if (error.extensions?.code === "UNAUTHENTICATED") {
       this.setState({error: null});
-      return <Navigate to="/login" state={{errorMessage: error.message}} />
+      return <Navigate to="/login" state={{errorMessage: error.message, oldPathname: window.location.pathname }} />
     } else if (error.extensions?.code === "FORBIDDEN") {
       return <div>{error.message}</div>
     } else {

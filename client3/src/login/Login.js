@@ -95,7 +95,11 @@ export function Login(props) {
             setPasswordError(null);
 
             startTransition(() => {
-              navigate("/");
+              if (location.state?.oldPathname) {
+                navigate(location.state?.oldPathname);
+              } else {
+                navigate("/");
+              }
             });
           }
         },
@@ -108,7 +112,7 @@ export function Login(props) {
         }
       })
     },
-    [username, password, login, navigate, startTransition]
+    [username, password, login, navigate, startTransition, location]
   );
 
     return (
@@ -121,6 +125,8 @@ export function Login(props) {
         <Typography component="h1" variant="h5">
           Anmelden
         </Typography>
+
+        <div>{location.state?.original}</div>
 
         <form className={classes.form} noValidate onSubmit={onSubmit}>
           {location.state?.errorMessage && <Alert variant="filled" severity="error">
