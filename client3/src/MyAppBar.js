@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Box from "@material-ui/core/Box";
 import ControlledTooltip from "./ControlledTooltip";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Outlet } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRunning } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
@@ -26,7 +26,9 @@ const useStyles = makeStyles((theme) =>
 export function MyAppBar() {
   const classes = useStyles();
 
-  return (<AppBar position="static">
+  return (
+    <div>
+  <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" noWrap className={classes.grow}>
           Sponsorenlauf
@@ -83,5 +85,9 @@ export function MyAppBar() {
         </div>
       </Toolbar>
     </AppBar>
+
+    <Outlet />
+
+    </div>
     );
 }

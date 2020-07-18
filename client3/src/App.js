@@ -16,10 +16,8 @@ function App() {
       <AuthorizationErrorBoundary>
         <Suspense fallback={<CircularProgress />}>
           <Routes>
-            <Route path="/">
-              <MyAppBar />
-              <Home />
-
+            <Route path="*" element={<MyAppBar />}>
+              <Route path="/" element={<Home />} />
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>
