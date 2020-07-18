@@ -13,6 +13,8 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import { Menu, MenuItem } from "@material-ui/core";
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import { Suspense } from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -86,7 +88,9 @@ export function MyAppBar() {
       </Toolbar>
     </AppBar>
 
-    <Outlet />
+    <Suspense fallback={<CircularProgress />}>
+      <Outlet />
+    </Suspense>
 
     </div>
     );
