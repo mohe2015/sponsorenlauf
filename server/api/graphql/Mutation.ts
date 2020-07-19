@@ -15,8 +15,51 @@ schema.inputObjectType({
   }
 })
 
+schema.inputObjectType({
+  name: "CreateRunnerInput",
+  nonNullDefaults: { output: false, input: false },
+  definition(t) {
+    t.string("name", { nullable: false })
+    t.string("clazz", { nullable: false })
+    t.int("grade", { nullable: false })
+  }
+})
+
+
 schema.mutationType({
   definition(t) {
+    t.field("runner_create", {
+      type: "CreateRunnerMutationResponse",
+      nullable: false,
+      args: { data: schema.arg({type: "CreateRunnerInput", nullable: false}) },
+      resolve: async (_parent, args, context, info) => {
+        let runner = await context.db.runner.create({
+          data: {
+            startNumber: 1337, // TODO FIXME
+            ...args.data
+          }
+        });
+
+        if (!runner) {
+          return {
+            __typename: "CreateRunnerMutationError",
+            usernameError: "Nutzername nicht gefunden!",
+            roleError: null,
+          }
+        }
+
+        return {
+          __typename: "CreateRunnerMutationOutput",
+          runner_edge: {
+            cursor: new Buffer("cursor:" + (await context.db.runner.count() - 1)).toString('base64'),
+            node: {
+              ...runner,
+            }
+          }
+        };
+      }
+    });
+
     t.field("user_create", {
       type: "CreateOneUserMutationResponse",
       nullable: false,
