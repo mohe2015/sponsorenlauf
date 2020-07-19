@@ -3,6 +3,7 @@ import { hashSync, compare } from "bcrypt";
 import { sign, Secret } from "jsonwebtoken";
 import { AuthenticationError } from "../errors";
 import { connect } from "http2";
+import { connectionPlugin } from '@nexus/schema'
 let crypto = require('crypto');
 
 schema.inputObjectType({
@@ -20,7 +21,7 @@ schema.mutationType({
       type: "CreateOneUserMutationResponse",
       nullable: false,
       args: { data: schema.arg({type: "CreateOneUserInput", nullable: false}) },
-      resolve: async (_parent, args, context) => {
+      resolve: async (_parent, args, context, info) => {
         let user = await context.db.user.create({
           data: {
             password: "hi",
@@ -39,7 +40,7 @@ schema.mutationType({
         return {
           __typename: "CreateUserMutationOutput",
           user_edge: {
-            cursor: "blubl",
+            cursor: new Buffer("cursor:" + (await context.db.user.count() - 1)).toString('base64'),
             node: {
               ...user,
             }

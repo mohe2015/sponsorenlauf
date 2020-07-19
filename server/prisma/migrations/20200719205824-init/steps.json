@@ -119,6 +119,13 @@
       "arity": "List"
     },
     {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "currentSessions",
+      "type": "UserSession",
+      "arity": "List"
+    },
+    {
       "tag": "CreateModel",
       "model": "Runner"
     },

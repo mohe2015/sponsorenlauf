@@ -47,7 +47,7 @@ export function CreateUser(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [createOneUser, isCreateOneUserPending] = useMutation(graphql`
+  const [user_create, isCreateOneUserPending] = useMutation(graphql`
   mutation CreateUserMutation($username: String!, $role: UserRole!) {
     user_create(data: { name: $username, role: $role }) {
       __typename
@@ -81,11 +81,11 @@ export function CreateUser(props) {
     event => {
       event.preventDefault();
 
-      createOneUser({
+      user_create({
         onCompleted: response => {
-          if (response.createOneUser.__typename === "CreateUserMutationError") {
-            setUsernameError(response.createOneUser.usernameError);
-            setRoleError(response.createOneUser.roleError);
+          if (response.user_create.__typename === "CreateUserMutationError") {
+            setUsernameError(response.user_create.usernameError);
+            setRoleError(response.user_create.roleError);
           } else {
             setUsernameError(null);
             setRoleError(null);
@@ -137,7 +137,7 @@ export function CreateUser(props) {
         }
       })
     },
-    [username, role, createOneUser, navigate, startTransition, location]
+    [username, role, user_create, navigate, startTransition, location]
   );
 
     return (
