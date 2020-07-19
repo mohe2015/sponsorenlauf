@@ -3,7 +3,7 @@ import { Environment, Network, QueryResponseCache, RecordSource, Store } from 'r
 
 const oneMinute = 60 * 1000;
 const cache = new QueryResponseCache({ size: 2500, ttl: 100 * oneMinute });
-const store = new Store(new RecordSource());
+const store = new Store(new RecordSource(), {gcReleaseBufferSize: 100});
 
 function fetchQuery(
   operation,
@@ -46,9 +46,9 @@ function fetchQuery(
 
     setTimeout(() => {
 
-      console.log(store);
+      //console.log(store);
       let hashMap = store._recordSource._records
-      console.log(Array.from(hashMap.keys()))
+      console.log(Array.from(hashMap.entries()))
     }, 100)
 
     return json;

@@ -101,17 +101,17 @@ export function CreateUser(props) {
           role
         },
         updater: (store) => {
-          console.log(store)
-          console.log(store.__recordSource._proxies)
+          //console.log(store)
+          //console.log(store.__recordSource._proxies)
 
-          console.log(store.getRoot());
-          console.log(ConnectionHandler);
+          //console.log(store.getRoot());
+          //console.log(ConnectionHandler);
           // TODO FIXME error response
           const connectionRecord = ConnectionHandler.getConnection(store.getRoot(), "UsersList_user_users");
           const newUserRecord = store.getRootField("createOneUser");
 
-          console.log(connectionRecord);
-          console.log(newUserRecord);
+          //console.log(connectionRecord);
+          //console.log(newUserRecord);
 
           const newEdge = ConnectionHandler.createEdge(
             store,
