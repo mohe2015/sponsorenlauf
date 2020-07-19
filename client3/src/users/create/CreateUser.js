@@ -20,6 +20,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { ConnectionHandler } from 'react-relay';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -92,12 +93,38 @@ export function CreateUser(props) {
           }
         },
         onError: error => {
+          console.log(error);
           alert(error); // TODO FIXME
         },
         variables: {
           username,
           role
         },
+        updater: (store) => {
+          console.log(store)
+          console.log(store.__recordSource._proxies)
+
+          console.log(store.getRoot());
+          console.log(ConnectionHandler);
+          // TODO FIXME error response
+          const connectionRecord = ConnectionHandler.getConnection(store.getRoot(), "UsersList_user_users");
+          const newUserRecord = store.getRootField("createOneUser");
+
+          console.log(connectionRecord);
+          console.log(newUserRecord);
+
+          const newEdge = ConnectionHandler.createEdge(
+            store,
+            connectionRecord,
+            newUserRecord,
+            'UserEdge',
+          );
+
+          ConnectionHandler.insertEdgeAfter(
+            connectionRecord,
+            newEdge,
+          );
+        }
       })
     },
     [username, role, createOneUser, navigate, startTransition, location]

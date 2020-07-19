@@ -2,7 +2,8 @@
 import { Environment, Network, QueryResponseCache, RecordSource, Store } from 'relay-runtime';
 
 const oneMinute = 60 * 1000;
-const cache = new QueryResponseCache({ size: 250, ttl: oneMinute });
+const cache = new QueryResponseCache({ size: 2500, ttl: 100 * oneMinute });
+const store = new Store(new RecordSource());
 
 function fetchQuery(
   operation,
@@ -42,10 +43,13 @@ function fetchQuery(
     if (isQuery && json) {
       cache.set(queryID, variables, json);
     }
-    // Clear cache on mutations
-    if (isMutation) {
-      cache.clear();
-    }
+
+    setTimeout(() => {
+
+      console.log(store);
+      let hashMap = store._recordSource._records
+      console.log(Array.from(hashMap.keys()))
+    }, 100)
 
     return json;
   });
@@ -53,7 +57,7 @@ function fetchQuery(
 
 const environment = new Environment({
   network: Network.create(fetchQuery),
-  store: new Store(new RecordSource()),
+  store,
 });
 
 export default environment;

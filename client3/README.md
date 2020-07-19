@@ -7,6 +7,8 @@ yarn add --dev relay-config
 yarn add @material-ui/core@next
 yarn add @fortawesome/fontawesome-svg-core  @fortawesome/free-solid-svg-icons @fortawesome/free-brands-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/react-fontawesome
 
+https://chrome.google.com/webstore/detail/relay-developer-tools/ncedobpgnmkhcmnnkcimnobpfepidadl
+
 TODO IMPLEMENT AUTHENTICATED ROUTE FOR BETTER UX (not waiting for failed request, use cookie to check if logged in?)
 
 https://relay.dev/docs/en/experimental/a-guided-tour-of-relay
