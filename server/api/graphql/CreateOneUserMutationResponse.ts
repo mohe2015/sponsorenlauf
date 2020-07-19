@@ -8,12 +8,18 @@ schema.objectType({
   },
 });
 
+schema.objectType({
+  name: "CreateUserMutationOutput",
+  definition(t) {
+    t.field("user_edge", {type: "UserEdge"})
+  }
+})
 
 schema.unionType({
   name: "CreateOneUserMutationResponse",
   definition(t) {
     t.members(
-      "User",
+      "CreateUserMutationOutput",
       "CreateOneUserMutationError"
     )
     // @ts-expect-error

@@ -16,7 +16,7 @@ schema.inputObjectType({
 
 schema.mutationType({
   definition(t) {
-    t.field("createOneUser", {
+    t.field("user_create", {
       type: "CreateOneUserMutationResponse",
       nullable: false,
       args: { data: schema.arg({type: "CreateOneUserInput", nullable: false}) },
@@ -37,8 +37,13 @@ schema.mutationType({
         }
 
         return {
-          __typename: "User",
-          ...user,
+          __typename: "CreateUserMutationOutput",
+          user_edge: {
+            cursor: "blubl",
+            node: {
+              ...user,
+            }
+          }
         };
       }
     });

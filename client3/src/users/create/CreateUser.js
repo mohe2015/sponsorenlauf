@@ -49,10 +49,17 @@ export function CreateUser(props) {
 
   const [createOneUser, isCreateOneUserPending] = useMutation(graphql`
   mutation CreateUserMutation($username: String!, $role: UserRole!) {
-    createOneUser(data: { name: $username, role: $role }) {
+    user_create(data: { name: $username, role: $role }) {
       __typename
-      ... on User {
-        id
+      ... on CreateUserMutationOutput {
+        user_edge {
+          cursor
+          node {
+            id
+            name
+            role
+          }
+        }
       }
       ... on CreateOneUserMutationError {
         usernameError
@@ -107,17 +114,20 @@ export function CreateUser(props) {
           //console.log(store.getRoot());
           //console.log(ConnectionHandler);
           // TODO FIXME error response
-          const connectionRecord = ConnectionHandler.getConnection(store.getRoot(), "UsersList_user_users");
-          const newUserRecord = store.getRootField("createOneUser");
+          const connectionRecord = ConnectionHandler.getConnection(
+            store.getRoot(),
+            "UsersList_user_users"
+          );
+          const payload = store.getRootField("user_create");
+          const serverEdge = payload.getLinkedRecord('user_edge');
 
           //console.log(connectionRecord);
           //console.log(newUserRecord);
 
-          const newEdge = ConnectionHandler.createEdge(
+          const newEdge = ConnectionHandler.buildConnectionEdge(
             store,
             connectionRecord,
-            newUserRecord,
-            'UserEdge',
+            serverEdge,
           );
 
           ConnectionHandler.insertEdgeAfter(

@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/bin/yarn add @types/crypto
+  /usr/bin/node /usr/bin/yarn add --dev @prisma/cli
 
 PATH: 
   /usr/bin:/usr/local/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/home/moritz/Documents/racket-git/src/racket/racket/bin/:/home/moritz/.gem/ruby/2.7.0/bin
@@ -14,17 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fcrypto: Not found
-      at Request.params.callback [as _callback] (/usr/lib/node_modules/yarn/lib/cli.js:66987:18)
-      at Request.self.callback (/usr/lib/node_modules/yarn/lib/cli.js:140748:22)
-      at Request.emit (events.js:314:20)
-      at Request.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141720:10)
-      at Request.emit (events.js:314:20)
-      at IncomingMessage.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141642:12)
-      at Object.onceWrapper (events.js:420:28)
-      at IncomingMessage.emit (events.js:326:22)
-      at endReadableNT (_stream_readable.js:1226:12)
-      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+  Error: ENOENT: no such file or directory, scandir '/home/moritz/Documents/sponsorenlauf/server/node_modules/nexus-plugin-prisma/node_modules/@prisma/cli'
 
 npm manifest: 
   {
@@ -43,10 +33,12 @@ npm manifest:
     "author": "",
     "license": "ISC",
     "dependencies": {
+      "@prisma/client": "2.2.0",
       "@types/bcrypt": "^10.0.28-alpha",
       "@types/cookie": "^0.4.0",
       "@types/cors": "^2.8.6",
       "@types/jsonwebtoken": "^8.5.0",
+      "@types/node": "^14.0.23",
       "apollo-server-errors": "^2.4.2",
       "bcrypt": "^5.0.0",
       "cookie": "^0.4.1",
@@ -65,6 +57,9 @@ npm manifest:
     },
     "resolutions": {
       "graphql": "^14.7.0"
+    },
+    "devDependencies": {
+      "@prisma/cli": "2.2.0"
     }
   }
 
@@ -398,6 +393,11 @@ Lockfile:
     version "14.0.22"
     resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.22.tgz#23ea4d88189cec7d58f9e6b66f786b215eb61bdc"
     integrity sha512-emeGcJvdiZ4Z3ohbmw93E/64jRzUHAItSHt8nF7M4TGgQTiWqFVGB8KNpLGFmUHmHLvjvBgFwVlqNcq+VuGv9g==
+  
+  "@types/node@^14.0.23":
+    version "14.0.23"
+    resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.23.tgz#676fa0883450ed9da0bb24156213636290892806"
+    integrity sha512-Z4U8yDAl5TFkmYsZdFPdjeMa57NOvnaf1tljHzhouaPEp7LCj2JKkejpI1ODviIAQuW4CcQmxkQ77rnLsOOoKw==
   
   "@types/normalize-package-data@^2.4.0":
     version "2.4.0"
