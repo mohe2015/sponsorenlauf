@@ -5,16 +5,42 @@ import { AuthenticationError } from "../errors";
 import { connect } from "http2";
 let crypto = require('crypto');
 
+schema.inputObjectType({
+  name: "CreateOneUserInput",
+  nonNullDefaults: { output: false, input: false },
+  definition(t) {
+    t.string("name", { nullable: false })
+    t.field("role", { type: "UserRole", nullable: false })
+  }
+})
+
 schema.mutationType({
   definition(t) {
-    t.crud.createOneUser({
-      // TODO FIXME IMPORTANT this stores the password in plaintext!!!!
-      /*computedInputs: {
-        password: ({ args }) => {
-          // @ts-ignore
-          hashSync(args.data.password, 10)
-        },
-      },*/
+    t.field("createOneUser", {
+      type: "CreateOneUserMutationResponse",
+      nullable: false,
+      args: { data: schema.arg({type: "CreateOneUserInput", nullable: false}) },
+      resolve: async (_parent, args, context) => {
+        let user = await context.db.user.create({
+          data: {
+            password: "hi",
+            ...args.data
+          }
+        });
+
+        if (!user) {
+          return {
+            __typename: "CreateOneUserMutationError",
+            usernameError: "Nutzername nicht gefunden!",
+            roleError: null,
+          }
+        }
+
+        return {
+          __typename: "User",
+          ...user,
+        };
+      }
     });
 
     t.field("login", {
@@ -86,7 +112,7 @@ schema.mutationType({
 
         const round = await ctx.db.round.create({
           data: {
-            time: 1337, // TODO
+            time: 1337, // TODO just store current time
             student: {
               connect: {
                 startNumber: startNumber,
