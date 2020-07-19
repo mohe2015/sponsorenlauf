@@ -110,7 +110,6 @@ export function Login(props) {
           password
         },
         updater: store => {
-          // TODO FIXME maybe use viewer(id) method instead?
           store.invalidateStore();
         }
       })
