@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Suspense } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { AuthorizationErrorBoundary } from './AuthorizationErrorBoundary';
+import { CreateUser } from './users/create/CreateUser';
 
 function App() {
   return (
@@ -19,7 +20,10 @@ function App() {
           <Routes>
             <Route path="*" element={<MyAppBar />}>
               <Route path="/" element={<Home />} />
-              <Route path="/users" element={<UsersList />} />
+              <Route path="/users">
+                <Route path="/create" element={<CreateUser />} />
+                <Route path="*" element={<UsersList />} />
+              </Route>
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>
