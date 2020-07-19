@@ -103,11 +103,15 @@ export function Login(props) {
           }
         },
         onError: error => {
-          
+          alert(error); // TODO FIXME
         },
         variables: {
           username,
           password
+        },
+        updater: store => {
+          // TODO FIXME maybe use viewer(id) method instead?
+          store.invalidateStore();
         }
       })
     },

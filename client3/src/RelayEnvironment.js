@@ -14,14 +14,14 @@ function fetchQuery(
   const isQuery = operation.operationKind === 'query';
   const forceFetch = cacheConfig && cacheConfig.force;
 
-  // Try to get data from cache on queries
-  const fromCache = cache.get(queryID, variables);
   if (
     isQuery &&
-    fromCache !== null &&
     !forceFetch
   ) {
-    return fromCache;
+    let fromCache = cache.get(queryID, variables);
+    if (fromCache !== null) {
+      return fromCache;
+    }
   }
 
   // Otherwise, fetch data from server
