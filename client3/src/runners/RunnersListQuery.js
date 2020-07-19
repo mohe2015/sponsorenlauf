@@ -9,7 +9,7 @@ export function RunnersListQuery() {
   const data = useLazyLoadQuery(
     graphql`
 query RunnersListQuery($count: Int, $cursor: String) {
-  ...RunnersListComponent_user
+  ...RunnersListComponent_runner
 }
   `,
   {count: 100},

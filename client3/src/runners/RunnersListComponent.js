@@ -20,12 +20,12 @@ export function RunnersListComponent(props) {
         }
       }
     `,
-    props.users
+    props.runners
   );
 
   return (
     <SuspenseList revealOrder="forwards">
-      {(data.users?.edges ?? []).map(edge => {
+      {(data.runners?.edges ?? []).map(edge => {
         const node = edge.node;
         return (
           <RunnerRow key={node.id} runner={node} />

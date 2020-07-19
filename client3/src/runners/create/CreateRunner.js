@@ -48,20 +48,22 @@ export function CreateRunner(props) {
   const location = useLocation();
 
   const [runner_create, IsCreateRunnerPending] = useMutation(graphql`
-  mutation CreateRunnerMutation($username: String!, $role: UserRole!) {
-    runner_create(data: { name: $username, role: $role }) {
+  mutation CreateRunnerMutation($name: String!, $clazz: String!, $grade: Int!) {
+    runner_create(data: { name: $name, clazz: $clazz, grade: $grade }) {
       __typename
-      ... on CreateUserMutationOutput {
+      ... on CreateRunnerMutationOutput {
         runner_edge {
           cursor
           node {
             id
+            startNumber
             name
-            role
+            clazz
+            grade
           }
         }
       }
-      ... on CreateOneUserMutationError {
+      ... on CreateRunnerMutationError {
         usernameError
         roleError
       }
@@ -69,11 +71,13 @@ export function CreateRunner(props) {
   }
   `);
 
-  const [username, setUsername] = useState('');
-  const [role, setRole] = useState('');
+  const [name, setName] = useState('');
+  const [clazz, setClazz] = useState('');
+  const [grade, setGrade] = useState(0);
 
-  const [usernameError, setUsernameError] = useState(null);
-  const [roleError, setRoleError] = useState(null);
+  const [nameError, setNameError] = useState(null);
+  const [clazzError, setGlazzError] = useState(null);
+  const [gradeError, setGradeError] = useState(null);
 
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
@@ -83,18 +87,18 @@ export function CreateRunner(props) {
 
       runner_create({
         onCompleted: response => {
-          if (response.user_create.__typename === "CreateUserMutationError") {
-            setUsernameError(response.user_create.usernameError);
-            setRoleError(response.user_create.roleError);
+          if (response.user_create.__typename === "CreateRunnerMutationError") {
+            setNameError(response.user_create.nameError);
+            setGradeError(response.user_create.gradeError);
           } else {
-            setUsernameError(null);
-            setRoleError(null);
+            setNameError(null);
+            setGradeError(null);
 
             startTransition(() => {
               if (location.state?.oldPathname) {
                 navigate(location.state?.oldPathname);
               } else {
-                navigate("/users");
+                navigate("/runners");
               }
             });
           }
@@ -104,8 +108,9 @@ export function CreateRunner(props) {
           alert(error); // TODO FIXME
         },
         variables: {
-          username,
-          role
+          name,
+          clazz,
+          grade
         },
         updater: (store) => {
           //console.log(store)
@@ -137,7 +142,7 @@ export function CreateRunner(props) {
         }
       })
     },
-    [username, role, runner_create, navigate, startTransition, location]
+    [name, clazz, grade, runner_create, navigate, startTransition, location]
   );
 
     return (
@@ -148,7 +153,7 @@ export function CreateRunner(props) {
           <FontAwesomeIcon icon={faPlus} />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Nutzer hinzufügen
+          Läufer hinzufügen
         </Typography>
 
         <form className={classes.form} noValidate onSubmit={onSubmit}>
@@ -161,38 +166,56 @@ export function CreateRunner(props) {
             margin="normal"
             required
             fullWidth
-            id="username"
-            label="Nutzername"
-            name="username"
+            id="name"
+            label="Name"
+            name="name"
             autoComplete="off"
             autoFocus
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            helperText={usernameError}
-            error={usernameError !== null}
+            value={name}
+            onChange={e => setName(e.target.value)}
+            helperText={nameError}
+            error={nameError !== null}
           />
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel id="demo-simple-select-label">Rolle</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={role}
-              onChange={e => setRole(e.target.value)}
-              >
-              <MenuItem value={"ADMIN"}>Admin</MenuItem>
-              <MenuItem value={"TEACHER"}>Rundenzähler</MenuItem>
-              <MenuItem value={"VIEWER"}>Anzeiger</MenuItem>
-            </Select>
-          </FormControl>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="clazz"
+            label="Klasse"
+            name="clazz"
+            autoComplete="off"
+            autoFocus
+            value={clazz}
+            onChange={e => setClazz(e.target.value)}
+            helperText={clazzError}
+            error={clazzError !== null}
+          />
+          <TextField
+            type="number"
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="grade"
+            label="Jahrgang"
+            name="grade"
+            autoComplete="off"
+            autoFocus
+            value={grade}
+            onChange={e => setGrade(e.target.value)}
+            helperText={gradeError}
+            error={gradeError !== null}
+          />
           <LoadingButton
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            pending={isCreateOneUserPending || isPending}
+            pending={IsCreateRunnerPending || isPending}
           >
-            Nutzer hinzufügen
+            Läufer hinzufügen
           </LoadingButton>
         </form>
       </div>

@@ -43,15 +43,17 @@ export function RunnerRow(props) {
       grade
     }
     `,
-    props.user,
+    props.runner,
   );
 
   return (
     <TableRow>
       <TableCell component="th" scope="row">
-        {data.name}
+        {data.startNumber}
       </TableCell>
-      <TableCell align="right">{data.role}</TableCell>
+      <TableCell align="right">{data.name}</TableCell>
+      <TableCell align="right">{data.clazz}</TableCell>
+      <TableCell align="right">{data.grade}</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
           <IconButton>
