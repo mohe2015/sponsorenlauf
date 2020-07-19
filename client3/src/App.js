@@ -3,7 +3,7 @@ import './App.css';
 import { Login } from './login/Login';
 import { Home } from './Home';
 import { MyAppBar } from './MyAppBar';
-import { UsersListQuery } from './users/UsersListQuery'
+import { UsersList } from './users/UsersList'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Routes, Route } from 'react-router-dom';
 import { Suspense } from 'react';
@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path="*" element={<MyAppBar />}>
               <Route path="/" element={<Home />} />
-              <Route path="/users" element={<UsersListQuery />} />
+              <Route path="/users" element={<UsersList />} />
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>
