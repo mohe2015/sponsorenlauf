@@ -20,6 +20,7 @@ export const permissions = shield({
     },
     Mutation: {
       user_create: rules.isUserWithRole(["ADMIN"]),
+      runner_create: rules.isUserWithRole(["ADMIN"]),
       login: allow,
       createOneRound: rules.isUserWithRole(["ADMIN", "TEACHER"]),
       createOneRunner: rules.isUserWithRole(["ADMIN"]),
@@ -47,6 +48,8 @@ export const permissions = shield({
     LoginMutationError: allow,
     CreateUserMutationOutput: allow,
     CreateOneUserMutationError: allow,
+    CreateRunnerMutationError: allow,
+    CreateRunnerMutationOutput: allow,
   },
   options: {
     fallbackRule: deny,

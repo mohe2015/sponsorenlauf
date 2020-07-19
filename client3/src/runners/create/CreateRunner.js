@@ -87,9 +87,9 @@ export function CreateRunner(props) {
 
       runner_create({
         onCompleted: response => {
-          if (response.user_create.__typename === "CreateRunnerMutationError") {
-            setNameError(response.user_create.nameError);
-            setGradeError(response.user_create.gradeError);
+          if (response.runner_create.__typename === "CreateRunnerMutationError") {
+            setNameError(response.runner_create.nameError);
+            setGradeError(response.runner_create.gradeError);
           } else {
             setNameError(null);
             setGradeError(null);
@@ -110,7 +110,7 @@ export function CreateRunner(props) {
         variables: {
           name,
           clazz,
-          grade
+          grade: parseInt(grade)
         },
         updater: (store) => {
           //console.log(store)

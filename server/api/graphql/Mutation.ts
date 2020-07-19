@@ -35,7 +35,7 @@ schema.mutationType({
       resolve: async (_parent, args, context, info) => {
         let runner = await context.db.runner.create({
           data: {
-            startNumber: 1337, // TODO FIXME
+            startNumber: 1340, // TODO FIXME
             ...args.data
           }
         });
@@ -51,7 +51,7 @@ schema.mutationType({
         return {
           __typename: "CreateRunnerMutationOutput",
           runner_edge: {
-            cursor: new Buffer("cursor:" + (await context.db.runner.count() - 1)).toString('base64'),
+            cursor: Buffer.from("cursor:" + (await context.db.runner.count() - 1)).toString('base64'),
             node: {
               ...runner,
             }
@@ -83,7 +83,7 @@ schema.mutationType({
         return {
           __typename: "CreateUserMutationOutput",
           user_edge: {
-            cursor: new Buffer("cursor:" + (await context.db.user.count() - 1)).toString('base64'),
+            cursor: Buffer.from("cursor:" + (await context.db.user.count() - 1)).toString('base64'),
             node: {
               ...user,
             }
