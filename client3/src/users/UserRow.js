@@ -45,7 +45,7 @@ export function UserRow(props) {
   );
 
   return (
-    <TableRow key={data.name}>
+    <TableRow>
       <TableCell component="th" scope="row">
         {data.name}
       </TableCell>

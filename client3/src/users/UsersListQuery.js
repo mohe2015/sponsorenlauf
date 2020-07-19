@@ -13,7 +13,12 @@ query UsersListQuery($count: Int, $cursor: String) {
 }
   `,
   {count: 10},
-  {fetchPolicy: "store-or-network"})
+  {
+    fetchPolicy: "store-or-network",
+    networkCacheConfig: {
+      force: false
+    }
+  })
 
   return (
     <UsersListComponent users={data} />

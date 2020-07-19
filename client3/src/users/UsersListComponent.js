@@ -13,6 +13,7 @@ export function UsersListComponent(props) {
         @connection(key: "UsersList_user_users") {
           edges {
             node {
+              id
               ...UserRow_user
             }
           }
@@ -31,7 +32,7 @@ export function UsersListComponent(props) {
         {(data.users?.edges ?? []).map(edge => {
           const node = edge.node;
           return (
-            <UserRow user={node} />
+            <UserRow key={node.id} user={node} />
           );
         })}
       </SuspenseList>
