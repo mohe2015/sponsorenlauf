@@ -12,7 +12,7 @@ query UsersListQuery($count: Int!, $cursor: String) {
   ...UsersListComponent_user
 }
   `,
-  {count: 1},
+  {count: 25},
   {
     fetchPolicy: "store-or-network",
     networkCacheConfig: {

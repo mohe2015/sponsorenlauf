@@ -36,13 +36,13 @@ export function UsersList() {
       <TableHead>
         <TableRow>
           <TableCell>Name</TableCell>
-          <TableCell align="right">Rolle</TableCell>
+          <TableCell>Rolle</TableCell>
           <TableCell align="right">Aktionen</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
 
-  <Suspense fallback={<LoadingUserRow />}>
+  <Suspense fallback={[...Array(25)].map((e, i) => <LoadingUserRow key={i} />)}>
     <UsersListQuery />
   </Suspense>
   

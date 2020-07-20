@@ -124,6 +124,9 @@ export function CreateRunner(props) {
             store.getRoot(),
             "RunnersList_runner_runners"
           );
+          if (!connectionRecord) {
+            return;
+          }
           const payload = store.getRootField("runner_create");
 
           const previousEdge = payload.getLinkedRecord('previous_edge');

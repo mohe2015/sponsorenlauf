@@ -39,15 +39,15 @@ export function RunnersListComponent(props) {
       })}
     </SuspenseList>
     { hasNext ? <TableRow>
-      <TableCell component="th" scope="row">
-        <LoadingButton pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {
-              startTransition(() => {
-                loadNext(100)
-              });
-            }}>
-          Mehr anzeigen
-        </LoadingButton>
-      </TableCell>
+      <TableCell component="th" scope="row" colSpan={4}>
+          <LoadingButton fullWidth={true} pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {
+                startTransition(() => {
+                  loadNext(25)
+                });
+              }}>
+            Mehr anzeigen
+          </LoadingButton>
+        </TableCell>
     </TableRow> : null}
   </>
   );

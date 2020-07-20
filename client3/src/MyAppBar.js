@@ -18,6 +18,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useLazyLoadQuery } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import Skeleton from '@material-ui/lab/Skeleton';
+import { unstable_useTransition as useTransition } from 'react';
+import { useNavigate } from "react-router-dom";
+import LoadingButton from '@material-ui/lab/LoadingButton';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -44,7 +47,9 @@ query MyAppBarQuery {
     <PopupState variant="popover" popupId="demo-popup-menu">
       {(popupState) => (
         <React.Fragment>
-            <IconButton aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}>
+            <IconButton
+            color="inherit"
+            aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}>
               <FontAwesomeIcon icon={faUser} />
               <Typography variant="button" noWrap>
                 <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
@@ -72,7 +77,7 @@ query MyAppBarQuery {
 
 function LoadingAccountButton() {
   return (
-    <IconButton>
+    <IconButton color="inherit">
       <FontAwesomeIcon icon={faUser} />
       <Typography variant="button" noWrap>
         <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
@@ -84,7 +89,11 @@ function LoadingAccountButton() {
 }
 
 export function MyAppBar() {
+  const [startUsersTransition, isUsersPending] = useTransition({ timeoutMs: 3000 });
+  const [startRunnersTransition, isRunnersPending] = useTransition({ timeoutMs: 3000 });
   const classes = useStyles();
+  const navigate = useNavigate();
+
   return (
     <div>
   <AppBar position="static">
@@ -94,22 +103,37 @@ export function MyAppBar() {
         </Typography>
         <div>
           <ControlledTooltip title="Nutzer">
-            <IconButton component={RouterLink} to="/users">
+          <LoadingButton
+            variant="contained"
+            color="primary"
+            disableElevation
+            pending={isUsersPending} onClick={() => {
+                startUsersTransition(() => {
+                  navigate("/users")
+                });
+              }}>
               <FontAwesomeIcon icon={faUsers} />
               <Typography variant="button" noWrap>
-                <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> Nutzer</Box>
+                <Box component="span" display={{ xs: 'none', md: 'block' }}>Nutzer</Box>
               </Typography>
-            </IconButton>
+            </LoadingButton>
           </ControlledTooltip>
           <ControlledTooltip title="Läufer">
-            <IconButton component={RouterLink} to="/runners">
-              <FontAwesomeIcon icon={faRunning} />
+            <LoadingButton
+            variant="contained"
+            color="primary"
+            disableElevation
+            pendingPosition="start"
+            startIcon={<FontAwesomeIcon icon={faRunning} />}
+            pending={isRunnersPending} onClick={() => {
+                startRunnersTransition(() => {
+                  navigate("/runners")
+                });
+              }}>
               <Typography variant="button" noWrap>
-                <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
-                Läufer
-                </Box>
+                <Box component="span" display={{ xs: 'none', md: 'block' }}>Läufer</Box>
               </Typography>
-            </IconButton>
+            </LoadingButton>
           </ControlledTooltip>
 
           <Suspense fallback={<LoadingAccountButton />}>

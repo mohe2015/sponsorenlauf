@@ -32,18 +32,18 @@ export function RunnersList() {
       </Typography>
     </IconButton>
   <TableContainer component={Paper}>
-    <Table aria-label="table of runners">
+    <Table aria-label="Liste der Läufer">
       <TableHead>
         <TableRow>
-          <TableCell>Startnummer</TableCell>
-          <TableCell align="right">Name</TableCell>
-          <TableCell align="right">Klasse</TableCell>
+          <TableCell align="right">Startnummer</TableCell>
+          <TableCell>Name</TableCell>
+          <TableCell>Klasse</TableCell>
           <TableCell align="right">Jahrgang</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
 
-  <Suspense fallback={<LoadingRunnerRow />}>
+  <Suspense fallback={[...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />)}>
     <RunnersListQuery />
   </Suspense>
   

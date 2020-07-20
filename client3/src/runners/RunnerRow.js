@@ -48,11 +48,11 @@ export function RunnerRow(props) {
 
   return (
     <TableRow>
-      <TableCell component="th" scope="row">
+      <TableCell component="th" scope="row" align="right">
         {data.startNumber}
       </TableCell>
-      <TableCell align="right">{data.name}</TableCell>
-      <TableCell align="right">{data.clazz}</TableCell>
+      <TableCell>{data.name}</TableCell>
+      <TableCell>{data.clazz}</TableCell>
       <TableCell align="right">{data.grade}</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">

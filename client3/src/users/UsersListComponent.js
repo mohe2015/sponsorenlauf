@@ -40,10 +40,10 @@ export function UsersListComponent(props) {
         })}
       </SuspenseList>
       { hasNext ? <TableRow>
-        <TableCell component="th" scope="row">
-          <LoadingButton pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {
+        <TableCell component="th" scope="row" colSpan={3}>
+          <LoadingButton fullWidth={true} pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {
                 startTransition(() => {
-                  loadNext(1)
+                  loadNext(25)
                 });
               }}>
             Mehr anzeigen

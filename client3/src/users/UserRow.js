@@ -49,7 +49,7 @@ export function UserRow(props) {
       <TableCell component="th" scope="row">
         {data.name}
       </TableCell>
-      <TableCell align="right">{data.role}</TableCell>
+      <TableCell>{data.role}</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
           <IconButton>

@@ -118,7 +118,12 @@ export function CreateUser(props) {
             store.getRoot(),
             "UsersList_user_users"
           );
+          if (!connectionRecord) {
+            return;
+          }
           const payload = store.getRootField("user_create");
+
+          const previousEdge = payload.getLinkedRecord('previous_edge');
           const serverEdge = payload.getLinkedRecord('user_edge');
 
           //console.log(connectionRecord);
@@ -133,6 +138,7 @@ export function CreateUser(props) {
           ConnectionHandler.insertEdgeAfter(
             connectionRecord,
             newEdge,
+            previousEdge
           );
         }
       })
