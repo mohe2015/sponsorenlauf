@@ -98,7 +98,6 @@ export function MyAppBar() {
   const navigate = useNavigate();
 
   return (
-    <div>
   <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" noWrap className={classes.grow}>
@@ -162,9 +161,5 @@ export function MyAppBar() {
         </div>
       </Toolbar>
     </AppBar>
-
-    <Outlet />
-
-    </div>
     );
 }

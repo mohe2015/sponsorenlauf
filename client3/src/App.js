@@ -19,15 +19,15 @@ function App() {
       <CssBaseline />
       <AuthorizationErrorBoundary>
           <Routes>
-            <Route path="*" element={<MyAppBar />}>
-              <Route path="/" element={<Home />} />
+            <Route path="*">
+              <Route path="/" element={<><MyAppBar /><Suspense fallback={<CircularProgress />}><Home /></Suspense></>} />
               <Route path="/users">
-                <Route path="/create" element={<CreateUser />} />
-                <Route path="*" element={<UsersList />} />
+                <Route path="/create" element={<><MyAppBar /><CreateUser /></>} />
+                <Route path="*" element={<><MyAppBar /><UsersList /></>} />
               </Route>
               <Route path="/runners">
-                <Route path="/create" element={<CreateRunner />} />
-                <Route path="*" element={<RunnersList />} />
+                <Route path="/create" element={<><MyAppBar /><CreateRunner /></>} />
+                <Route path="*" element={<><MyAppBar /><RunnersList /></>} />
               </Route>
             </Route>
             <Route path="login" element={<Login />} />
