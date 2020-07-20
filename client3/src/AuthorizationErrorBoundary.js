@@ -15,6 +15,10 @@ export class AuthorizationErrorBoundary extends React.Component {
     };
   }
 
+  componentDidCatch(error, info) {
+    // Customized error handling goes here!
+  }
+
   errorToElement = (error) => {
     if (error.extensions?.code === "UNAUTHENTICATED") {
       this.setState({error: null});

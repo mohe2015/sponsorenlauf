@@ -95,6 +95,7 @@ export function Login(props) {
 
             startTransition(() => {
               if (location.state?.oldPathname) {
+                console.log("Redirecting to ", location.state?.oldPathname)
                 navigate(location.state?.oldPathname);
               } else {
                 navigate("/");
