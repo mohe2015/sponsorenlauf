@@ -30,14 +30,12 @@ export function RunnersListComponent(props) {
   );
 
   return (<>
-    <SuspenseList revealOrder="forwards">
-      {(data.runners?.edges ?? []).map(edge => {
-        const node = edge.node;
-        return (
-          <RunnerRow key={node.id} runner={node} />
-        );
-      })}
-    </SuspenseList>
+    {(data.runners?.edges ?? []).map(edge => {
+      const node = edge.node;
+      return (
+        <RunnerRow key={node.id} runner={node} />
+      );
+    })}
     { hasNext ? <TableRow>
       <TableCell component="th" scope="row" colSpan={4}>
           <LoadingButton fullWidth={true} pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {

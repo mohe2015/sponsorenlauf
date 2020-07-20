@@ -30,15 +30,12 @@ export function UsersListComponent(props) {
   );
 
   return (<>
-      <SuspenseList revealOrder="forwards">
-        {/* Extract each friend from the resulting data */}
-        {(data.users?.edges ?? []).map(edge => {
-          const node = edge.node;
-          return (
-            <UserRow key={node.id} user={node} />
-          );
-        })}
-      </SuspenseList>
+      {(data.users?.edges ?? []).map(edge => {
+        const node = edge.node;
+        return (
+          <UserRow key={node.id} user={node} />
+        );
+      })}
       { hasNext ? <TableRow>
         <TableCell component="th" scope="row" colSpan={3}>
           <LoadingButton fullWidth={true} pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {
