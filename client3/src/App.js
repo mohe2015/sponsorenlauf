@@ -24,13 +24,13 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/users">
                 <Route path="/create" element={<CreateUser />} />
-                <Route path="*" element={<Suspense fallback={<UsersList loading={true} />}><UsersList /></Suspense>} />
+                <Route path="*" element={<UsersList />} />
               </Route>
               <Route path="/runners">
                 <Route path="/create" element={<CreateRunner />} />
-                <Route path="*" element={<Suspense fallback={<RunnersList loading={true} />}><RunnersList /></Suspense>} />
+                <Route path="*" element={<RunnersList />} />
               </Route>
-              <Route path="*" element={<Suspense fallback={<NotFound />}><NotFound /></Suspense>} />
+              <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>

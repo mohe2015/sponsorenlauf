@@ -160,7 +160,11 @@ export function MyAppBar() {
       </Toolbar>
     </AppBar>
 
-    <Outlet />
+
+    <Suspense fallback={<div>loading</div>}>
+      <Outlet />
+    </Suspense>
+
     </>
     );
 }
