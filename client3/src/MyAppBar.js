@@ -21,6 +21,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { unstable_useTransition as useTransition } from 'react';
 import { useNavigate } from "react-router-dom";
 import LoadingButton from '@material-ui/lab/LoadingButton';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -112,9 +113,9 @@ export function MyAppBar() {
                   navigate("/users")
                 });
               }}>
-              <FontAwesomeIcon icon={faUsers} />
+              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faUsers} />
               <Typography variant="button" noWrap>
-                <Box component="span" display={{ xs: 'none', md: 'block' }}>Nutzer</Box>
+                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Nutzer</Box>
               </Typography>
             </LoadingButton>
           </ControlledTooltip>
@@ -123,13 +124,12 @@ export function MyAppBar() {
             variant="contained"
             color="primary"
             disableElevation
-            pendingPosition="start"
-            startIcon={<FontAwesomeIcon icon={faRunning} />}
             pending={isRunnersPending} onClick={() => {
                 startRunnersTransition(() => {
                   navigate("/runners")
                 });
               }}>
+              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faRunning} />
               <Typography variant="button" noWrap>
                 <Box component="span" display={{ xs: 'none', md: 'block' }}>Läufer</Box>
               </Typography>
