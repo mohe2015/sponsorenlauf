@@ -20,7 +20,7 @@ function App() {
       <AuthorizationErrorBoundary>
           <Routes>
             <Route path="*">
-              <Route path="/" element={<><MyAppBar /><Suspense fallback={<CircularProgress />}><Home /></Suspense></>} />
+              <Route path="/" element={<><MyAppBar /><Home /></>} />
               <Route path="/users">
                 <Route path="/create" element={<><MyAppBar /><CreateUser /></>} />
                 <Route path="*" element={<><MyAppBar /><UsersList /></>} />
