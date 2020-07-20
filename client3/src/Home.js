@@ -5,6 +5,7 @@ import { UsersList } from './users/UsersList'
 import { RunnersList } from './runners/RunnersList'
 import Checkbox from '@material-ui/core/Checkbox';
 import { unstable_useTransition as useTransition } from 'react';
+import { Suspense, unstable_SuspenseList as SuspenseList } from 'react';
 
 export function Home() {
   const [checked, setChecked] = React.useState(true);
@@ -18,7 +19,9 @@ export function Home() {
         })}
         inputProps={{ 'aria-label': 'primary checkbox' }}
       />
-      {checked ? <UsersList /> : <RunnersList />}
+      <Suspense fallback={<div></div>}>
+        {checked ? <UsersList /> : <RunnersList />}
+      </Suspense>
     </>
   );
 }

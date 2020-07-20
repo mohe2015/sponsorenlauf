@@ -42,9 +42,9 @@ export function UsersList() {
       </TableHead>
       <TableBody>
 
-  <Suspense fallback={[...Array(25)].map((e, i) => <LoadingUserRow key={i} />)}>
+  {/*<Suspense fallback={[...Array(25)].map((e, i) => <LoadingUserRow key={i} />)}>*/}
     <UsersListQuery />
-  </Suspense>
+  {/*</Suspense>*/}
   
   </TableBody>
         </Table>

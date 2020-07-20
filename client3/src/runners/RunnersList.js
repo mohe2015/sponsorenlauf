@@ -43,9 +43,9 @@ export function RunnersList() {
       </TableHead>
       <TableBody>
 
-  <Suspense fallback={[...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />)}>
+  {/*<Suspense fallback={[...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />)}>*/}
     <RunnersListQuery />
-  </Suspense>
+  {/*</Suspense>*/}
   
   </TableBody>
         </Table>
