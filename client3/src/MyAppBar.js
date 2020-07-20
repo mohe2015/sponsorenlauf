@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 function AccountButton() {
-  const data = useLazyLoadQuery(
+ /* const data = useLazyLoadQuery(
     graphql`
 query MyAppBarQuery {
   me {
@@ -43,7 +43,7 @@ query MyAppBarQuery {
 }
   `,
   null,
-  {fetchPolicy: "store-and-network"})
+  {fetchPolicy: "store-and-network"})*/
 
   return (
     <PopupState variant="popover" popupId="demo-popup-menu">
@@ -55,7 +55,7 @@ query MyAppBarQuery {
               <FontAwesomeIcon icon={faUser} />
               <Typography variant="button" noWrap>
                 <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
-                {data.me.name}
+                Blub
                 </Box>
               </Typography>
             </IconButton>
@@ -91,9 +91,9 @@ function LoadingAccountButton() {
 }
 
 export function MyAppBar() {
-  const [startUsersTransition, isUsersPending] = useTransition({ timeoutMs: 3000 });
-  const [startRunnersTransition, isRunnersPending] = useTransition({ timeoutMs: 3000 });
-  const [startRoundsTransition, isRoundsPending] = useTransition({ timeoutMs: 3000 });
+  const [startUsersTransition, isUsersPending] = useTransition({ timeoutMs: 30000 });
+  const [startRunnersTransition, isRunnersPending] = useTransition({ timeoutMs: 30000 });
+  const [startRoundsTransition, isRoundsPending] = useTransition({ timeoutMs: 30000 });
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -155,9 +155,7 @@ export function MyAppBar() {
             </LoadingButton>
           </ControlledTooltip>
 
-          <Suspense fallback={<LoadingAccountButton />}>
-            <AccountButton />
-          </Suspense>
+          <AccountButton />
         </div>
       </Toolbar>
     </AppBar>
