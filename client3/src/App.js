@@ -20,17 +20,17 @@ function App() {
       <CssBaseline />
       <AuthorizationErrorBoundary>
           <Routes>
-            <Route path="*">
-              <Route path="/" element={<><MyAppBar /><Home /></>} />
+            <Route path="*" element={<MyAppBar />}>
+              <Route path="/" element={<Home />} />
               <Route path="/users">
-                <Route path="/create" element={<><MyAppBar /><CreateUser /></>} />
-                <Route path="*" element={<Suspense fallback={<><MyAppBar /><UsersList loading={true} /></>}><MyAppBar /><UsersList /></Suspense>} />
+                <Route path="/create" element={<CreateUser />} />
+                <Route path="*" element={<Suspense fallback={<UsersList loading={true} />}><UsersList /></Suspense>} />
               </Route>
               <Route path="/runners">
-                <Route path="/create" element={<><MyAppBar /><CreateRunner /></>} />
-                <Route path="*" element={<Suspense fallback={<><MyAppBar /><RunnersList loading={true} /></>}><MyAppBar /><RunnersList /></Suspense>} />
+                <Route path="/create" element={<CreateRunner />} />
+                <Route path="*" element={<Suspense fallback={<RunnersList loading={true} />}><RunnersList /></Suspense>} />
               </Route>
-              <Route path="*" element={<Suspense fallback={<><MyAppBar /><NotFound /></>}><MyAppBar /><NotFound /></Suspense>} />
+              <Route path="*" element={<Suspense fallback={<NotFound />}><NotFound /></Suspense>} />
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>
