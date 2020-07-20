@@ -1,18 +1,21 @@
 {
-  "name": "server2",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "setup": "prisma migrate save --experimental && prisma migrate up --experimental && cd prisma && ts-node seed.ts",
     "studio": "prisma studio --experimental",
-    "dev": "APP_SECRET=test nexus dev",
+    "dev": "LOG=trace APP_SECRET=test nexus dev",
     "build": "nexus build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "resolutions": {
+    "graphql": "14.5.8"
+  },
   "dependencies": {
     "@prisma/client": "2.3.0-dev.49",
     "@types/bcrypt": "^10.0.28-alpha",
@@ -36,11 +39,7 @@
     "nexus-plugin-shield": "^0.2.0",
     "nexus-plugin-subscriptions": "0.0.8"
   },
-  "resolutions": {
-    "graphql": "^14.7.0"
-  },
   "devDependencies": {
-    "@prisma/cli": "2.3.0-dev.49",
-    "@types/graphql-relay": "^0.6.0"
+    "@prisma/cli": "2.3.0-dev.49"
   }
 }

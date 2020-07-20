@@ -48,7 +48,7 @@ use(permissions);
 
 use(
   subscriptions({
-    ws: { server: server.raw.http, path: "ws://localhost:4000/graphql" }, // use server.raw.http here
+    ws: { server: server.raw.http, path: "/graphql" }, // use server.raw.http here
     keepAlive: 10 * 1000,
     onConnect: (connectionParams: Record<string, any>, webSocket: WebSocket, context: ConnectionContext) => {
       log.info("client connected");
@@ -92,7 +92,7 @@ schema.addToContext(async (req: Request) => {
 // https://github.com/graphql-nexus/nexus/issues/506
 async function createContext(cookie: string | null, response: Response | null) {
   // Added for debugging
-  await new Promise((r) => setTimeout(r, 3000));
+  //await new Promise((r) => setTimeout(r, 3000));
   
   if (nextCleanupCheck.getTime() < Date.now()) {
     nextCleanupCheck = new Date();
