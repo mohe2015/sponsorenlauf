@@ -12,7 +12,7 @@ query RunnersListQuery($count: Int!, $cursor: String) {
   ...RunnersListComponent_runner
 }
   `,
-  {count: 1},
+  {count: 100},
   {
     fetchPolicy: "store-or-network",
     networkCacheConfig: {

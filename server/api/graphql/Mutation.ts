@@ -50,9 +50,9 @@ schema.mutationType({
 
         return {
           __typename: "CreateRunnerMutationOutput",
-          previous_edge: Buffer.from("cursor:" + (await context.db.runner.count() - 2)).toString('base64'),
+          previous_edge: Buffer.from("arrayconnection:" + (await context.db.runner.count() - 2)).toString('base64'),
           runner_edge: {
-            cursor: Buffer.from("cursor:" + (await context.db.runner.count() - 1)).toString('base64'),
+            cursor: Buffer.from("arrayconnection:" + (await context.db.runner.count() - 1)).toString('base64'),
             node: {
               ...runner,
             }

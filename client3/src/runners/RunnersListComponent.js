@@ -42,7 +42,7 @@ export function RunnersListComponent(props) {
       <TableCell component="th" scope="row">
         <LoadingButton pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {
               startTransition(() => {
-                loadNext(1)
+                loadNext(100)
               });
             }}>
           Mehr anzeigen
