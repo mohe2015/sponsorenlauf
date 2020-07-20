@@ -23,11 +23,11 @@ function App() {
               <Route path="/" element={<><MyAppBar /><Home /></>} />
               <Route path="/users">
                 <Route path="/create" element={<><MyAppBar /><CreateUser /></>} />
-                <Route path="*" element={<Suspense fallback={<div></div>}><MyAppBar /><UsersList /></Suspense>} />
+                <Route path="*" element={<Suspense fallback={<><MyAppBar /><UsersList loading={true} /></>}><MyAppBar /><UsersList /></Suspense>} />
               </Route>
               <Route path="/runners">
                 <Route path="/create" element={<><MyAppBar /><CreateRunner /></>} />
-                <Route path="*" element={<Suspense fallback={<div></div>}><MyAppBar /><RunnersList /></Suspense>} />
+                <Route path="*" element={<Suspense fallback={<><MyAppBar /><RunnersList loading={true} /></>}><MyAppBar /><RunnersList /></Suspense>} />
               </Route>
             </Route>
             <Route path="login" element={<Login />} />

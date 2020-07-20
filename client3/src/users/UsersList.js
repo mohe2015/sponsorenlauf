@@ -20,7 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link as RouterLink } from 'react-router-dom';
 
-export function UsersList() {
+export function UsersList(props) {
   return (
     <Container maxWidth="sm">
     <IconButton component={RouterLink} to="/users/create">
@@ -42,9 +42,7 @@ export function UsersList() {
       </TableHead>
       <TableBody>
 
-  {/*<Suspense fallback={[...Array(25)].map((e, i) => <LoadingUserRow key={i} />)}>*/}
-    <UsersListQuery />
-  {/*</Suspense>*/}
+  {props.loading ? [...Array(25)].map((e, i) => <LoadingUserRow key={i} />) : <UsersListQuery /> }
   
   </TableBody>
         </Table>

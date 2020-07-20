@@ -20,7 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link as RouterLink } from 'react-router-dom';
 
-export function RunnersList() {
+export function RunnersList(props) {
   return (
     <Container maxWidth="sm">
     <IconButton component={RouterLink} to="/runners/create">
@@ -43,9 +43,7 @@ export function RunnersList() {
       </TableHead>
       <TableBody>
 
-  {/*<Suspense fallback={[...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />)}>*/}
-    <RunnersListQuery />
-  {/*</Suspense>*/}
+      {props.loading ? [...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />) : <RunnersListQuery /> }
   
   </TableBody>
         </Table>
