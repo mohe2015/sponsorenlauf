@@ -104,10 +104,22 @@
   resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.2.0.tgz#f2f46ea4b406aa08fdd1c9eac7c6ceb608b457ba"
   integrity sha512-MNb2u/EPML9LZZQSQx/+h/KNNa89UocdQmxF7+ElRi66JckTtMo2A2ZCLw1Xb+1cyYXhcJgMnZ9q2bm5rsF0WA==
 
+"@prisma/cli@2.3.0-dev.49":
+  version "2.3.0-dev.49"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.3.0-dev.49.tgz#660331688fb1064b98df2605c7c2321bea9b503f"
+  integrity sha512-1Cq3V9lWVqgNHRgViHucu2Si8u/WFaDsNk1Licy9rGRb7DZEv3ZdW7SZdSWUs56i/f+x10jB4Gt6lZ8plS3Lww==
+
 "@prisma/client@2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.2.0.tgz#be390658688702a5980b2c8eec673e5a20d90e36"
   integrity sha512-i7zcVEtMk3QCPCc/oC+vQG2pyXYWWzhPZ11bBxgULo0gL7C/3GPZvAvAkNxpQ0mmt46EdzvpgEBNbg4VdjiR+Q==
+  dependencies:
+    pkg-up "^3.1.0"
+
+"@prisma/client@2.3.0-dev.49":
+  version "2.3.0-dev.49"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.3.0-dev.49.tgz#524015cfdeea66448d24dd5f624164352742fdf6"
+  integrity sha512-FHKzAHPnaOJmyyHB0CwPaVfgxVGqC+6QHei5zR47+nMf7GXQOzCHE5mizN7G3vT0PRxiEMqY+VguYsrmmVLW/g==
   dependencies:
     pkg-up "^3.1.0"
 
@@ -1029,10 +1041,10 @@ crypto-random-string@^2.0.0:
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
   integrity sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
 
-csv-parse@^4.10.1:
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-4.10.1.tgz#1e26ba63d29c75e94d0eba6e9de9a8aaf89d72a6"
-  integrity sha512-gdDJVchi0oSLIcYXz1H/VSgLE6htHDqJyFsRU/vTkQgmVOZ3S0IR2LXnNbWUYG7VD76dYVwdfBLyx8AX9+An8A==
+csv-parse@^4.11.1:
+  version "4.11.1"
+  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-4.11.1.tgz#3935a7862d7e431020a25538905dec0153fa75bd"
+  integrity sha512-cH2BG5Gd0u4G8qVI/jGXJSP2+El7Vy91/ZD3ehKALAWids1aIKOPhZ1ZVJzUrs2zTn6aGumVPBlbHsI91kI83A==
 
 debug@2.6.9:
   version "2.6.9"
@@ -2178,10 +2190,10 @@ nexus-plugin-subscriptions@0.0.8:
   dependencies:
     subscriptions-transport-ws "0.9.16"
 
-nexus@^0.26.0-next.3:
-  version "0.26.0-next.3"
-  resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.26.0-next.3.tgz#449ebcd2a140ff00f15ea3a3a8a343954eb74cdc"
-  integrity sha512-nliR4DWTzbngasMiUkzzQSHqN69i2FeMTc1c9w68PSzUUVgeG7pdoRzdertm6NvU2ZDgYR/1gyChz2MG23Mepg==
+nexus@^0.26.0-next.5:
+  version "0.26.0-next.5"
+  resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.26.0-next.5.tgz#28742c39509b792d03f04e36adb1871526fa59c6"
+  integrity sha512-hyjGeoidTkDTAHxpf8MM6LZoiNDOzhYW03h8AwD34g2vLOejRUu7CK6T+luTYPb5YiZjp+ewOWf3z4KzXX7bDA==
   dependencies:
     "@nexus/logger" "^0.2.0"
     "@nexus/schema" "^0.15.0-next.1"
@@ -3061,17 +3073,6 @@ subscriptions-transport-ws@0.9.16:
   version "0.9.16"
   resolved "https://registry.yarnpkg.com/subscriptions-transport-ws/-/subscriptions-transport-ws-0.9.16.tgz#90a422f0771d9c32069294c08608af2d47f596ec"
   integrity sha512-pQdoU7nC+EpStXnCfh/+ho0zE0Z+ma+i7xvj7bkXKb1dvYHSZxgRPaU6spRP+Bjzow67c/rRDoix5RT0uU9omw==
-  dependencies:
-    backo2 "^1.0.2"
-    eventemitter3 "^3.1.0"
-    iterall "^1.2.1"
-    symbol-observable "^1.0.4"
-    ws "^5.2.0"
-
-subscriptions-transport-ws@^0.9.17:
-  version "0.9.17"
-  resolved "https://registry.yarnpkg.com/subscriptions-transport-ws/-/subscriptions-transport-ws-0.9.17.tgz#e30e40f0caae0d2781903c01a8cb51b6e2682098"
-  integrity sha512-hNHi2N80PBz4T0V0QhnnsMGvG3XDFDS9mS6BhZ3R12T6EBywC8d/uJscsga0cVO4DKtXCkCRrWm2sOYrbOdhEA==
   dependencies:
     backo2 "^1.0.2"
     eventemitter3 "^3.1.0"
