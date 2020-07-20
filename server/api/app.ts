@@ -87,7 +87,7 @@ schema.addToContext(async (req: Request) => {
 // https://github.com/graphql-nexus/nexus/issues/506
 async function createContext(cookie: string | null, response: Response | null) {
   // Added for debugging
-  await new Promise((r) => setTimeout(r, 10000));
+  await new Promise((r) => setTimeout(r, 3000));
   
   if (nextCleanupCheck.getTime() < Date.now()) {
     nextCleanupCheck = new Date();
