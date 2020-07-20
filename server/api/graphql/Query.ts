@@ -1,5 +1,6 @@
 import { schema } from "nexus";
 import { decode } from "../relay-tools-custom";
+import { connectionFromPromisedArray } from "graphql-relay";
 
 schema.queryType({
   definition(t) {
@@ -7,11 +8,7 @@ schema.queryType({
       type: "User",
       nullable: false,
       resolve: (parent, args, ctx) => {
-        return ctx.db.user.findOne({
-          where: {
-            id: ctx.userId!,
-          },
-        });
+        return ctx.user;
       },
     });
 
@@ -28,8 +25,9 @@ schema.queryType({
     // pagination maybe depending on cursor and not offset (see base64 decode of cursor)
     t.connection("runners", {
       type: "Runner",
-      nodes: async (root, args, ctx, info) => {
-        return await ctx.db.runner.findMany();
+      disableBackwardPagination: true,
+      resolve: (root, args, ctx, info) => {
+        return connectionFromPromisedArray(ctx.db.runner.findMany(), args);
       },
       extendConnection(t) {
         t.int("totalCount", {
@@ -40,16 +38,28 @@ schema.queryType({
 
     t.connection("rounds", {
       type: "Round",
-      nodes: async (root, args, ctx, info) => {
-        return await ctx.db.round.findMany();
+      disableBackwardPagination: true,
+      resolve: (root, args, ctx, info) => {
+        return connectionFromPromisedArray(ctx.db.round.findMany(), args);
       },
+      extendConnection(t) {
+        t.int("totalCount", {
+          resolve: (source, args, ctx) => ctx.db.round.count(args),
+        })
+      }
     });
 
     t.connection("users", {
       type: "User",
-      nodes: async (root, args, ctx, info) => {
-        return await ctx.db.user.findMany();
+      disableBackwardPagination: true,
+      resolve: (root, args, ctx, info) => {
+        return connectionFromPromisedArray(ctx.db.user.findMany(), args);
       },
+      extendConnection(t) {
+        t.int("totalCount", {
+          resolve: (source, args, ctx) => ctx.db.user.count(args),
+        })
+      }
     })
 
     t.field("node", {

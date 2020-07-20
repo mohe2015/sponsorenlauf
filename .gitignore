@@ -2,3 +2,4 @@ node_modules
 generated
 __generated__
 *.db
+.env.local

@@ -1,5 +1,6 @@
 import { shield, rule, deny, not, and, or, allow } from "nexus-plugin-shield";
 import { UserRole } from "nexus-plugin-prisma/client";
+import { AuthenticationError, ForbiddenError } from "./errors";
 
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
@@ -18,7 +19,8 @@ export const permissions = shield({
       users: rules.isUserWithRole(["ADMIN"]),
     },
     Mutation: {
-      createOneUser: rules.isUserWithRole(["ADMIN"]),
+      user_create: rules.isUserWithRole(["ADMIN"]),
+      runner_create: rules.isUserWithRole(["ADMIN"]),
       login: allow,
       createOneRound: rules.isUserWithRole(["ADMIN", "TEACHER"]),
       createOneRunner: rules.isUserWithRole(["ADMIN"]),
@@ -35,15 +37,29 @@ export const permissions = shield({
       "*": rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
     },
     Runner: rules.isUserWithRole(["ADMIN"]),
-
     PageInfo: allow,
-    RoundConnection: allow,
     QueryRunners_Connection: allow,
-    UserConnection: allow,
+    QueryRounds_Connection: allow,
+    QueryUsers_Connection: allow,
     RoundEdge: allow,
     RunnerEdge: allow,
     UserEdge: allow,
-    AuthPayload: allow,
+    LoginMutationError: allow,
+    CreateUserMutationOutput: allow,
+    CreateOneUserMutationError: allow,
+    CreateRunnerMutationError: allow,
+    CreateRunnerMutationOutput: allow,
   },
-  options: { fallbackRule: deny, allowExternalErrors: true },
+  options: {
+    fallbackRule: deny,
+    allowExternalErrors: true, 
+    fallbackError: (err, parent, args, ctx, info) => {
+      // @ts-expect-error
+      if (ctx.user) {
+        return new ForbiddenError("Unzureichende Berechtigungen!");
+      } else {
+        return new AuthenticationError("Nicht angemeldet!");
+      }
+    }
+  },
 });
