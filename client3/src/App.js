@@ -12,6 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { AuthorizationErrorBoundary } from './AuthorizationErrorBoundary';
 import { CreateUser } from './users/create/CreateUser';
 import { CreateRunner } from './runners/create/CreateRunner';
+import { NotFound } from './NotFound';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/create" element={<><MyAppBar /><CreateRunner /></>} />
                 <Route path="*" element={<Suspense fallback={<><MyAppBar /><RunnersList loading={true} /></>}><MyAppBar /><RunnersList /></Suspense>} />
               </Route>
+              <Route path="*" element={<Suspense fallback={<><MyAppBar /><NotFound /></>}><MyAppBar /><NotFound /></Suspense>} />
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>
