@@ -1,6 +1,6 @@
 import { schema } from "nexus";
 import { withFilter } from "graphql-subscriptions";
-import { Round, RoundWhereUniqueInput } from "nexus-plugin-prisma/client";
+import { Round, RoundWhereUniqueInput, User, UserWhereUniqueInput } from "nexus-plugin-prisma/client";
 
 schema.subscriptionType({
   definition(t) {
@@ -15,6 +15,24 @@ schema.subscriptionType({
         }
       ),
       resolve(payload: Round, args, context, info) {
+        return payload;
+      },
+    });
+
+    t.field("subscribeUsers", {
+      type: "User",
+      subscribe: withFilter(
+        function (root, args, context, info) {
+          console.log("asyncIterator")
+          return context.pubsub.asyncIterator("USERS");
+        },
+        (payload: User, args: UserWhereUniqueInput) => {
+          console.log("withFilter")
+          return true;
+        }
+      ),
+      resolve(payload: User, args, context, info) {
+        console.log("resolve")
         return payload;
       },
     });

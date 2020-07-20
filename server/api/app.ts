@@ -43,7 +43,7 @@ use(permissions);
 
 use(
   subscriptions({
-    ws: { server: server.raw.http, path: "/graphql" }, // use server.raw.http here
+    ws: { server: server.raw.http, path: "ws://localhost:4000/graphql" }, // use server.raw.http here
     keepAlive: 10 * 1000,
     onConnect: (connectionParams: Record<string, any>, webSocket: WebSocket, context: ConnectionContext) => {
       log.info("client connected");
