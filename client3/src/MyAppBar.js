@@ -163,9 +163,7 @@ export function MyAppBar() {
       </Toolbar>
     </AppBar>
 
-    <Suspense fallback={<CircularProgress />}>
-      <Outlet />
-    </Suspense>
+    <Outlet />
 
     </div>
     );
