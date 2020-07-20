@@ -11,6 +11,7 @@ schema.objectType({
 schema.objectType({
   name: "CreateRunnerMutationOutput",
   definition(t) {
+    t.field("previous_edge", {type: "String"})
     t.field("runner_edge", {type: "RunnerEdge"})
   }
 })

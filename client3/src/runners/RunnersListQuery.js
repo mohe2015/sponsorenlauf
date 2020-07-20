@@ -8,11 +8,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 export function RunnersListQuery() {
   const data = useLazyLoadQuery(
     graphql`
-query RunnersListQuery($count: Int, $cursor: String) {
+query RunnersListQuery($count: Int!, $cursor: String) {
   ...RunnersListComponent_runner
 }
   `,
-  {count: 100},
+  {count: 1},
   {
     fetchPolicy: "store-or-network",
     networkCacheConfig: {

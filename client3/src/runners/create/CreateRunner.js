@@ -52,6 +52,7 @@ export function CreateRunner(props) {
     runner_create(data: { name: $name, clazz: $clazz, grade: $grade }) {
       __typename
       ... on CreateRunnerMutationOutput {
+        previous_edge
         runner_edge {
           cursor
           node {
@@ -124,6 +125,8 @@ export function CreateRunner(props) {
             "RunnersList_runner_runners"
           );
           const payload = store.getRootField("runner_create");
+
+          const previousEdge = payload.getLinkedRecord('previous_edge');
           const serverEdge = payload.getLinkedRecord('runner_edge');
 
           //console.log(connectionRecord);
@@ -138,6 +141,7 @@ export function CreateRunner(props) {
           ConnectionHandler.insertEdgeAfter(
             connectionRecord,
             newEdge,
+            previousEdge
           );
         }
       })

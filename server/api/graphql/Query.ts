@@ -1,5 +1,6 @@
 import { schema } from "nexus";
 import { decode } from "../relay-tools-custom";
+import { connectionFromPromisedArray } from "graphql-relay";
 
 schema.queryType({
   definition(t) {
@@ -24,8 +25,9 @@ schema.queryType({
     // pagination maybe depending on cursor and not offset (see base64 decode of cursor)
     t.connection("runners", {
       type: "Runner",
-      nodes: async (root, args, ctx, info) => {
-        return await ctx.db.runner.findMany();
+      disableBackwardPagination: true,
+      resolve: (root, args, ctx, info) => {
+        return connectionFromPromisedArray(ctx.db.runner.findMany(), args);
       },
       extendConnection(t) {
         t.int("totalCount", {
