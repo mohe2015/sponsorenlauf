@@ -3,9 +3,15 @@ import { usePaginationFragment } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { Suspense, unstable_SuspenseList as SuspenseList } from 'react';
 import { UserRow } from './UserRow'
+import { unstable_useTransition as useTransition } from 'react';
+import LoadingButton from '@material-ui/lab/LoadingButton';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 
 export function UsersListComponent(props) {
-  const {data} = usePaginationFragment(
+  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+
+  const {data, hasNext, loadNext, isLoadingNext} = usePaginationFragment(
     graphql`
       fragment UsersListComponent_user on Query
       @refetchable(queryName: "UsersListPaginationQuery") {
@@ -23,10 +29,7 @@ export function UsersListComponent(props) {
     props.users
   );
 
-  return (
-    
-
-
+  return (<>
       <SuspenseList revealOrder="forwards">
         {/* Extract each friend from the resulting data */}
         {(data.users?.edges ?? []).map(edge => {
@@ -36,6 +39,17 @@ export function UsersListComponent(props) {
           );
         })}
       </SuspenseList>
-    
+      { hasNext ? <TableRow>
+        <TableCell component="th" scope="row">
+          <LoadingButton pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {
+                startTransition(() => {
+                  loadNext(1)
+                });
+              }}>
+            Mehr anzeigen
+          </LoadingButton>
+        </TableCell>
+      </TableRow> : null}
+    </>
   );
 }

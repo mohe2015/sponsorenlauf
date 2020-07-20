@@ -37,11 +37,10 @@ export const permissions = shield({
       "*": rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
     },
     Runner: rules.isUserWithRole(["ADMIN"]),
-
     PageInfo: allow,
-    RoundConnection: allow,
     QueryRunners_Connection: allow,
-    UserConnection: allow,
+    QueryRounds_Connection: allow,
+    QueryUsers_Connection: allow,
     RoundEdge: allow,
     RunnerEdge: allow,
     UserEdge: allow,

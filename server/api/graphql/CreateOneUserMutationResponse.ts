@@ -11,6 +11,7 @@ schema.objectType({
 schema.objectType({
   name: "CreateUserMutationOutput",
   definition(t) {
+    t.field("previous_edge", {type: "String"})
     t.field("user_edge", {type: "UserEdge"})
   }
 })

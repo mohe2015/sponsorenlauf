@@ -38,16 +38,28 @@ schema.queryType({
 
     t.connection("rounds", {
       type: "Round",
-      nodes: async (root, args, ctx, info) => {
-        return await ctx.db.round.findMany();
+      disableBackwardPagination: true,
+      resolve: (root, args, ctx, info) => {
+        return connectionFromPromisedArray(ctx.db.round.findMany(), args);
       },
+      extendConnection(t) {
+        t.int("totalCount", {
+          resolve: (source, args, ctx) => ctx.db.round.count(args),
+        })
+      }
     });
 
     t.connection("users", {
       type: "User",
-      nodes: async (root, args, ctx, info) => {
-        return await ctx.db.user.findMany();
+      disableBackwardPagination: true,
+      resolve: (root, args, ctx, info) => {
+        return connectionFromPromisedArray(ctx.db.user.findMany(), args);
       },
+      extendConnection(t) {
+        t.int("totalCount", {
+          resolve: (source, args, ctx) => ctx.db.user.count(args),
+        })
+      }
     })
 
     t.field("node", {
