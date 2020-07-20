@@ -15,7 +15,7 @@ export function LoadingUserRow(props) {
       <TableCell component="th" scope="row">
         <Skeleton variant="text" />
       </TableCell>
-      <TableCell align="right"><Skeleton variant="text" /></TableCell>
+      <TableCell><Skeleton variant="text" /></TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
           <IconButton>

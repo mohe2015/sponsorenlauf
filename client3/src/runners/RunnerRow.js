@@ -12,9 +12,11 @@ import Skeleton from '@material-ui/lab/Skeleton';
 export function LoadingRunnerRow(props) {
   return (
     <TableRow>
-      <TableCell component="th" scope="row">
-        <Skeleton variant="text" />
+      <TableCell component="th" scope="row" align="right">
+      <Skeleton variant="text" />
       </TableCell>
+      <TableCell><Skeleton variant="text" /></TableCell>
+      <TableCell><Skeleton variant="text" /></TableCell>
       <TableCell align="right"><Skeleton variant="text" /></TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
