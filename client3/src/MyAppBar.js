@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRunning } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
+import { faCircle } from '@fortawesome/free-regular-svg-icons'
 import { Menu, MenuItem } from "@material-ui/core";
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { Suspense } from 'react';
@@ -92,6 +93,7 @@ function LoadingAccountButton() {
 export function MyAppBar() {
   const [startUsersTransition, isUsersPending] = useTransition({ timeoutMs: 3000 });
   const [startRunnersTransition, isRunnersPending] = useTransition({ timeoutMs: 3000 });
+  const [startRoundsTransition, isRoundsPending] = useTransition({ timeoutMs: 3000 });
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -119,6 +121,7 @@ export function MyAppBar() {
               </Typography>
             </LoadingButton>
           </ControlledTooltip>
+
           <ControlledTooltip title="Läufer">
             <LoadingButton
             variant="contained"
@@ -131,7 +134,24 @@ export function MyAppBar() {
               }}>
               <FontAwesomeIcon style={{ fontSize: 24 }} icon={faRunning} />
               <Typography variant="button" noWrap>
-                <Box component="span" display={{ xs: 'none', md: 'block' }}>Läufer</Box>
+                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Läufer</Box>
+              </Typography>
+            </LoadingButton>
+          </ControlledTooltip>
+
+          <ControlledTooltip title="Runden">
+            <LoadingButton
+            variant="contained"
+            color="primary"
+            disableElevation
+            pending={isRoundsPending} onClick={() => {
+                startRoundsTransition(() => {
+                  navigate("/rounds")
+                });
+              }}>
+              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faCircle} />
+              <Typography variant="button" noWrap>
+                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Runden</Box>
               </Typography>
             </LoadingButton>
           </ControlledTooltip>

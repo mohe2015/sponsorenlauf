@@ -18,7 +18,6 @@ function App() {
     <React.Fragment>
       <CssBaseline />
       <AuthorizationErrorBoundary>
-        <Suspense fallback={<CircularProgress />}>
           <Routes>
             <Route path="*" element={<MyAppBar />}>
               <Route path="/" element={<Home />} />
@@ -33,7 +32,6 @@ function App() {
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>
-        </Suspense>
       </AuthorizationErrorBoundary>
     </React.Fragment>
   );

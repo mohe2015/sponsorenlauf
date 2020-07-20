@@ -57,7 +57,6 @@ export function RunnerRow(props) {
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
           <IconButton>
-            
             <Typography variant="button" noWrap>
               <Box component="span" display={{ xs: 'none', md: 'block' }}>
               Löschen
