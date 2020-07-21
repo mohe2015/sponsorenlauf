@@ -1,12 +1,12 @@
-import React from "react";
-import { usePaginationFragment } from 'react-relay/hooks';
+import React, { useMemo } from "react";
+import { usePaginationFragment, useSubscription } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
-import { Suspense, unstable_SuspenseList as SuspenseList } from 'react';
 import { UserRow } from './UserRow'
 import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import { ConnectionHandler } from 'react-relay';
 
 export function UsersListComponent(props) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
@@ -28,6 +28,57 @@ export function UsersListComponent(props) {
     `,
     props.users
   );
+  const subscriptionConfig = useMemo(() => ({
+    subscription: graphql`
+    subscription UsersListComponentSubscription {
+      subscribeUsers {
+        user_edge {
+          cursor
+          node {
+            id
+            name
+            role
+          }
+        }
+      }
+    }`,
+    variables: {},
+    onCompleted: () => {
+      console.log("onCompleted")
+    },
+    onError: error => {
+      console.log("onError", error)
+    },
+    onNext: response => {
+      console.log("onNext", response)
+    },
+    updater: (store) => {
+      const connectionRecord = ConnectionHandler.getConnection(
+        store.getRoot(),
+        "UsersList_user_users"
+      );
+      if (!connectionRecord) {
+        return;
+      }
+      const payload = store.getRootField("subscribeUsers");
+
+      const previousEdge = payload.getLinkedRecord('previous_edge');
+      const serverEdge = payload.getLinkedRecord('user_edge');
+
+      const newEdge = ConnectionHandler.buildConnectionEdge(
+        store,
+        connectionRecord,
+        serverEdge,
+      );
+
+      ConnectionHandler.insertEdgeAfter(
+        connectionRecord,
+        newEdge,
+        previousEdge
+      );
+    }
+  }), [])
+  useSubscription(subscriptionConfig);
 
   return (<>
       {(data.users?.edges ?? []).map(edge => {

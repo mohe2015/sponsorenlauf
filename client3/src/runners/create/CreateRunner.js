@@ -5,9 +5,6 @@ import { useState, useCallback, unstable_useTransition as useTransition } from '
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -16,10 +13,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import Alert from '@material-ui/lab/Alert';
 import { useNavigate, useLocation } from "react-router-dom";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { ConnectionHandler } from 'react-relay';
 
 const useStyles = makeStyles((theme) => ({
@@ -77,7 +70,7 @@ export function CreateRunner(props) {
   const [grade, setGrade] = useState(0);
 
   const [nameError, setNameError] = useState(null);
-  const [clazzError, setGlazzError] = useState(null);
+  const [clazzError, setClazzError] = useState(null);
   const [gradeError, setGradeError] = useState(null);
 
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });

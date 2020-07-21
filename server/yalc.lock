@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "nexus": {
+      "signature": "6b697991b058b792ad16de4bd0336c40",
+      "file": true,
+      "replaced": "^0"
+    }
+  }
+}

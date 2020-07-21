@@ -1,4 +1,4 @@
-import { use } from "nexus";
+import { use, settings } from "nexus";
 import { schema } from "nexus";
 import { server } from "nexus";
 import { log } from "nexus";
@@ -14,6 +14,11 @@ import { Request } from "nexus/dist/runtime/schema/schema";
 import { ConnectionContext } from "subscriptions-transport-ws";
 import * as http from "http";
 import { parse as parseCookie } from "cookie";
+
+//settings.current.server.playground.path NO
+
+//settings.current.server.host
+//settings.current.server.path
 
 declare global {
   interface NexusContext {
@@ -87,7 +92,7 @@ schema.addToContext(async (req: Request) => {
 // https://github.com/graphql-nexus/nexus/issues/506
 async function createContext(cookie: string | null, response: Response | null) {
   // Added for debugging
-  await new Promise((r) => setTimeout(r, 3000));
+  //await new Promise((r) => setTimeout(r, 3000));
   
   if (nextCleanupCheck.getTime() < Date.now()) {
     nextCleanupCheck = new Date();

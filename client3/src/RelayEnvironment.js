@@ -1,5 +1,6 @@
 // your-app-name/src/RelayEnvironment.js
-import { Environment, Network, QueryResponseCache, RecordSource, Store } from 'relay-runtime';
+import { Environment, Network, QueryResponseCache, RecordSource, Store, Observable } from 'relay-runtime';
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 
 const oneMinute = 60 * 1000;
 const cache = new QueryResponseCache({ size: 2500, ttl: 100 * oneMinute });
@@ -11,7 +12,6 @@ function fetchQuery(
   cacheConfig,
 ) {
   const queryID = operation.text;
-  const isMutation = operation.operationKind === 'mutation';
   const isQuery = operation.operationKind === 'query';
   const forceFetch = cacheConfig && cacheConfig.force;
 
@@ -55,8 +55,23 @@ function fetchQuery(
   });
 }
 
+const subscriptionClient = new SubscriptionClient('ws://localhost:4000/graphql', {
+    reconnect: true,
+});
+
+const subscribe = (request, variables) => {
+    const subscribeObservable = subscriptionClient.request({
+        query: request.text,
+        operationName: request.name,
+        variables,
+    });
+    // Important: Convert subscriptions-transport-ws observable type to Relay's
+    return Observable.from(subscribeObservable);
+};
+
+
 const environment = new Environment({
-  network: Network.create(fetchQuery),
+  network: Network.create(fetchQuery, subscribe),
   store,
 });
 

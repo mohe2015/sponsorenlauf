@@ -4361,6 +4361,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"backo2@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "backo2@npm:1.0.2"
+  checksum: 72f19a0fd2b573f5504adf1f2e74e7658eec000e7732ebd5f622b6b1d520187277a5e8310787906455d02fcf915f35c5c48e54c997bed1a60b95355db8f2ccab
+  languageName: node
+  linkType: hard
+
 "balanced-match@npm:^1.0.0":
   version: 1.0.0
   resolution: "balanced-match@npm:1.0.0"
@@ -5102,6 +5109,7 @@ __metadata:
     relay-compiler: ^10.0.0
     relay-config: ^10.0.0
     relay-runtime: ^10.0.0
+    subscriptions-transport-ws: ^0.9.17
   languageName: unknown
   linkType: soft
 
@@ -6993,6 +7001,13 @@ __metadata:
   version: 1.8.1
   resolution: "etag@npm:1.8.1"
   checksum: f18341a3c12a554ec46c0d4756bc9cae177e92f25a4ebd9ceefebf0ee448b675972fc110879f22b1bf514174713921ae5de9ff77af2062d422b1085588465a57
+  languageName: node
+  linkType: hard
+
+"eventemitter3@npm:^3.1.0":
+  version: 3.1.2
+  resolution: "eventemitter3@npm:3.1.2"
+  checksum: fa1a206c4e4e8e427542f7fdfa10bd073a4ddf2510fb22e2f9a33b9aa7a0d5669bffba9b889e22d8c1c976af51a92dab274845e58d626ddb2d3563ed4d5d50dc
   languageName: node
   linkType: hard
 
@@ -9170,6 +9185,13 @@ fsevents@~2.1.2:
   dependencies:
     handlebars: ^4.1.2
   checksum: df104454caf1865e1bcc42fd8108424ec64e10b2dbebef8b8412104725f4c3d4fb531c8a509345ba29894afcec0cf3e923e6f700e3f152a6239c7ef40576a9da
+  languageName: node
+  linkType: hard
+
+"iterall@npm:^1.2.1":
+  version: 1.3.0
+  resolution: "iterall@npm:1.3.0"
+  checksum: 25ae2d07cf97fc35d43fa7af814839689416b83d3ade0fec97a62c58b7b9fad5ff89dd0ede99f2d67cae2697ffa6987f0ab10876f40ae6466e802609a05b1006
   languageName: node
   linkType: hard
 
@@ -15175,6 +15197,21 @@ resolve@^1.15.1:
   languageName: node
   linkType: hard
 
+"subscriptions-transport-ws@npm:^0.9.17":
+  version: 0.9.17
+  resolution: "subscriptions-transport-ws@npm:0.9.17"
+  dependencies:
+    backo2: ^1.0.2
+    eventemitter3: ^3.1.0
+    iterall: ^1.2.1
+    symbol-observable: ^1.0.4
+    ws: ^5.2.0
+  peerDependencies:
+    graphql: ">=0.10.0"
+  checksum: 262d8194021262a42b678de1d2aaa86f951b0f2de4c545a4599166efd082c41a36cc2332bfb28ff2e8c0c4670d2959a47aebbb84b900ba22eccb6f0c5be0e2cc
+  languageName: node
+  linkType: hard
+
 "supports-color@npm:^2.0.0":
   version: 2.0.0
   resolution: "supports-color@npm:2.0.0"
@@ -15236,6 +15273,13 @@ resolve@^1.15.1:
   bin:
     svgo: ./bin/svgo
   checksum: e1659738423f625561fa23769d0a010f5ba08e83926ce697491153fa29a8cb2452fa5abb14c1bb489aa186718856f8768d4da870210a79302d47535c57c30d30
+  languageName: node
+  linkType: hard
+
+"symbol-observable@npm:^1.0.4":
+  version: 1.2.0
+  resolution: "symbol-observable@npm:1.2.0"
+  checksum: 268834a1d4cba19d40f367e5c2755f612969c8418e43a3be17408e392802a667f8bb542893440d58a080a8ea8da05ea98e27e472b9f4ff6fbda78a21a1a41c53
   languageName: node
   linkType: hard
 
