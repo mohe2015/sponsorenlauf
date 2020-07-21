@@ -1,7 +1,6 @@
 import React from "react";
 import { usePaginationFragment } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
-import { Suspense, unstable_SuspenseList as SuspenseList } from 'react';
 import { UserRow } from './UserRow'
 import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';

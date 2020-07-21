@@ -1,10 +1,6 @@
 import React from "react";
-import { useLazyLoadQuery } from 'react-relay/hooks';
-import graphql from "babel-plugin-relay/macro";
 import { UsersListQuery } from './UsersListQuery';
 import { LoadingUserRow } from './UserRow';
-import { Suspense } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';

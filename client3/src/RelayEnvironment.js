@@ -14,7 +14,6 @@ function fetchQuery(
   cacheConfig,
 ) {
   const queryID = operation.text;
-  const isMutation = operation.operationKind === 'mutation';
   const isQuery = operation.operationKind === 'query';
   const forceFetch = cacheConfig && cacheConfig.force;
 

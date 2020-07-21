@@ -7,8 +7,6 @@ import { UsersList } from './users/UsersList'
 import { RunnersList } from './runners/RunnersList'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Routes, Route } from 'react-router-dom';
-import { Suspense } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { AuthorizationErrorBoundary } from './AuthorizationErrorBoundary';
 import { CreateUser } from './users/create/CreateUser';
 import { CreateRunner } from './runners/create/CreateRunner';
