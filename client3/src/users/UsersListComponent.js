@@ -1,5 +1,5 @@
-import React from "react";
-import { usePaginationFragment } from 'react-relay/hooks';
+import React, { useMemo } from "react";
+import { usePaginationFragment, useSubscription } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { UserRow } from './UserRow'
 import { unstable_useTransition as useTransition } from 'react';
@@ -27,6 +27,30 @@ export function UsersListComponent(props) {
     `,
     props.users
   );
+  const subscriptionConfig = useMemo(() => ({
+    subscription: graphql`
+    subscription UsersListComponentSubscription {
+      subscribeUsers {
+        id
+        name
+        role
+      }
+    }`,
+    variables: {},
+    onCompleted: () => {
+
+    },
+    onError: error => {
+
+    },
+    onNext: response => {
+
+    },
+    updater: store => {
+      
+    }
+  }))
+  useSubscription(subscriptionConfig);
 
   return (<>
       {(data.users?.edges ?? []).map(edge => {

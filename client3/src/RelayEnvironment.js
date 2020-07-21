@@ -1,8 +1,8 @@
 // your-app-name/src/RelayEnvironment.js
 import { Environment, Network, QueryResponseCache, RecordSource, Store } from 'relay-runtime';
 import { SubscriptionClient } from "subscriptions-transport-ws";
-import { execute } from "apollo-link";
-import { WebSocketLink } from "apollo-link-ws";
+import { execute } from "@apollo/client";
+import { WebSocketLink } from "@apollo/client/link/ws";
 
 const oneMinute = 60 * 1000;
 const cache = new QueryResponseCache({ size: 2500, ttl: 100 * oneMinute });
@@ -62,7 +62,7 @@ function fetchQuery(
 const subscriptionClient = new SubscriptionClient(
   "ws://localhost:4000/graphql",
   {
-    credentials: "include",
+   // credentials: "include",
     reconnect: true,
   }
 );
@@ -70,11 +70,14 @@ const subscriptionClient = new SubscriptionClient(
 const subscriptionLink = new WebSocketLink(subscriptionClient);
 
 // Prepare network layer from apollo-link for graphql subscriptions
-const networkSubscriptions = (operation, variables) =>
+const networkSubscriptions = (operation, variables) => {
+  console.log(operation);
+  console.log(variables);
   execute(subscriptionLink, {
     query: operation.text,
     variables,
-  });
+  })
+};
 
 const environment = new Environment({
   network: Network.create(fetchQuery, networkSubscriptions),
