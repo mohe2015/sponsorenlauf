@@ -5083,9 +5083,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"client3@workspace:.":
+"client@workspace:.":
   version: 0.0.0-use.local
-  resolution: "client3@workspace:."
+  resolution: "client@workspace:."
   dependencies:
     "@fortawesome/fontawesome-svg-core": ^1.2.30
     "@fortawesome/free-brands-svg-icons": ^5.14.0
