@@ -6,6 +6,7 @@ import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import { ConnectionHandler } from 'react-relay';
 
 export function UsersListComponent(props) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
@@ -46,8 +47,30 @@ export function UsersListComponent(props) {
     onNext: response => {
 
     },
-    updater: store => {
-      
+    updater: (store) => {
+      const connectionRecord = ConnectionHandler.getConnection(
+        store.getRoot(),
+        "UsersList_user_users"
+      );
+      if (!connectionRecord) {
+        return;
+      }
+      const payload = store.getRootField("user_create");
+
+      const previousEdge = payload.getLinkedRecord('previous_edge');
+      const serverEdge = payload.getLinkedRecord('user_edge');
+
+      const newEdge = ConnectionHandler.buildConnectionEdge(
+        store,
+        connectionRecord,
+        serverEdge,
+      );
+
+      ConnectionHandler.insertEdgeAfter(
+        connectionRecord,
+        newEdge,
+        previousEdge
+      );
     }
   }))
   useSubscription(subscriptionConfig);
