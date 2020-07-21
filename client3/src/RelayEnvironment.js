@@ -1,8 +1,6 @@
 // your-app-name/src/RelayEnvironment.js
 import { Environment, Network, QueryResponseCache, RecordSource, Store } from 'relay-runtime';
-import { SubscriptionClient } from "subscriptions-transport-ws";
-import { execute } from "@apollo/client";
-import { WebSocketLink } from "@apollo/client/link/ws";
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 
 const oneMinute = 60 * 1000;
 const cache = new QueryResponseCache({ size: 2500, ttl: 100 * oneMinute });
@@ -57,30 +55,34 @@ function fetchQuery(
   });
 }
 
+const setupSubscription = (config, variables, cacheConfig, observer) => {
+  const query = config.text
 
-// https://theindustrialresolution.com/passion/graphql-relay-subscriptions
-const subscriptionClient = new SubscriptionClient(
-  "ws://localhost:4000/graphql",
-  {
-   // credentials: "include",
-    reconnect: true,
+  const subscriptionClient = new SubscriptionClient("ws://localhost:4000/graphql", {reconnect: true})
+
+  const onNext = (result) => {
+    observer.onNext(result)
   }
-);
 
-const subscriptionLink = new WebSocketLink(subscriptionClient);
+  const onError = (error) => {
+    observer.onError(error)
+  }
 
-// Prepare network layer from apollo-link for graphql subscriptions
-const networkSubscriptions = (operation, variables) => {
-  console.log(operation);
-  console.log(variables);
-  execute(subscriptionLink, {
-    query: operation.text,
-    variables,
-  })
-};
+  const onComplete = () => {
+    observer.onCompleted()
+  }
+
+  const client = subscriptionClient.request({ query, variables }).subscribe(
+    onNext,
+    onError,
+    onComplete
+  )
+
+  // client.unsubscribe()
+}
 
 const environment = new Environment({
-  network: Network.create(fetchQuery, networkSubscriptions),
+  network: Network.create(fetchQuery, setupSubscription),
   store,
 });
 
