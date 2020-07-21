@@ -20,18 +20,18 @@ schema.subscriptionType({
     });
 
     t.field("subscribeUsers", {
-      type: "User",
+      type: "CreateUserMutationOutput",
       subscribe: withFilter(
         function (root, args, context, info) {
           console.log("asyncIterator")
           return context.pubsub.asyncIterator("USERS");
         },
-        (payload: User, args: UserWhereUniqueInput) => {
+        (payload /*: CreateUserMutationOutput*/, args: UserWhereUniqueInput) => {
           console.log("withFilter")
           return true;
         }
       ),
-      resolve(payload: User, args, context, info) {
+      resolve(payload /*: CreateUserMutationOutput*/, args, context, info) {
         console.log("resolve")
         return payload;
       },

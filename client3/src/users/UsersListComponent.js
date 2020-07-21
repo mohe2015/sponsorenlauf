@@ -32,20 +32,25 @@ export function UsersListComponent(props) {
     subscription: graphql`
     subscription UsersListComponentSubscription {
       subscribeUsers {
-        id
-        name
-        role
+        user_edge {
+          cursor
+          node {
+            id
+            name
+            role
+          }
+        }
       }
     }`,
     variables: {},
     onCompleted: () => {
-
+      console.log("onCompleted")
     },
     onError: error => {
-
+      console.log("onError", error)
     },
     onNext: response => {
-
+      console.log("onNext", response)
     },
     updater: (store) => {
       const connectionRecord = ConnectionHandler.getConnection(
@@ -55,7 +60,7 @@ export function UsersListComponent(props) {
       if (!connectionRecord) {
         return;
       }
-      const payload = store.getRootField("user_create");
+      const payload = store.getRootField("subscribeUsers");
 
       const previousEdge = payload.getLinkedRecord('previous_edge');
       const serverEdge = payload.getLinkedRecord('user_edge');
@@ -72,7 +77,7 @@ export function UsersListComponent(props) {
         previousEdge
       );
     }
-  }))
+  }), [])
   useSubscription(subscriptionConfig);
 
   return (<>

@@ -81,9 +81,7 @@ schema.mutationType({
           }
         }
 
-        console.log("PUBLISH");
-        context.pubsub.publish("USERS", user);
-        return {
+        let output = {
           __typename: "CreateUserMutationOutput",
           previous_edge: Buffer.from("arrayconnection:" + (await context.db.user.count() - 2)).toString('base64'),
           user_edge: {
@@ -93,6 +91,9 @@ schema.mutationType({
             }
           }
         };
+        console.log("PUBLISH");
+        context.pubsub.publish("USERS", output);
+        return output;
       }
     });
 

@@ -1,5 +1,5 @@
 // your-app-name/src/RelayEnvironment.js
-import { Environment, Network, QueryResponseCache, RecordSource, Store } from 'relay-runtime';
+import { Environment, Network, QueryResponseCache, RecordSource, Store, Observable } from 'relay-runtime';
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 
 const oneMinute = 60 * 1000;
@@ -55,34 +55,23 @@ function fetchQuery(
   });
 }
 
-const setupSubscription = (config, variables, cacheConfig, observer) => {
-  const query = config.text
+const subscriptionClient = new SubscriptionClient('ws://localhost:4000/graphql', {
+    reconnect: true,
+});
 
-  const subscriptionClient = new SubscriptionClient("ws://localhost:4000/graphql", {reconnect: true})
+const subscribe = (request, variables) => {
+    const subscribeObservable = subscriptionClient.request({
+        query: request.text,
+        operationName: request.name,
+        variables,
+    });
+    // Important: Convert subscriptions-transport-ws observable type to Relay's
+    return Observable.from(subscribeObservable);
+};
 
-  const onNext = (result) => {
-    observer.onNext(result)
-  }
-
-  const onError = (error) => {
-    observer.onError(error)
-  }
-
-  const onComplete = () => {
-    observer.onCompleted()
-  }
-
-  const client = subscriptionClient.request({ query, variables }).subscribe(
-    onNext,
-    onError,
-    onComplete
-  )
-
-  // client.unsubscribe()
-}
 
 const environment = new Environment({
-  network: Network.create(fetchQuery, setupSubscription),
+  network: Network.create(fetchQuery, subscribe),
   store,
 });
 
