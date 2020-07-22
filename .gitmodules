@@ -2,3 +2,6 @@
 	path = server/nexus
 	url = git@github.com:mohe2015/nexus.git
 	branch = patch-1
+[submodule "server/prisma-engines"]
+	path = server/prisma-engines
+	url = https://github.com/prisma/prisma-engines

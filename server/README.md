@@ -1,3 +1,10 @@
+nixos
+# https://github.com/prisma/docs/issues/445
+cd prisma-engines
+cargo build --release
+
+# https://github.com/prisma/specs/blob/master/binaries/Readme.md#environment-variables
+
 npx prisma migrate save --experimental
 npx prisma migrate up --experimental
 ts-node prisma/seed.ts
