@@ -1,6 +1,8 @@
-nixos
+# nixos
 # https://github.com/prisma/docs/issues/445
+nix-shell
 cd prisma-engines
+source .envrc
 cargo build --release
 
 # https://github.com/prisma/specs/blob/master/binaries/Readme.md#environment-variables
