@@ -17,12 +17,12 @@
     "graphql": "14.5.8"
   },
   "dependencies": {
-    "@prisma/client": "2.3.0",
+    "@prisma/client": "^2.4.0-dev.7",
     "@types/bcrypt": "^10.0.28-alpha",
     "@types/cookie": "^0.4.0",
     "@types/cors": "^2.8.6",
     "@types/jsonwebtoken": "^8.5.0",
-    "@types/node": "^14.0.23",
+    "@types/node": "^14.0.24",
     "apollo-server-errors": "^2.4.2",
     "bcrypt": "^5.0.0",
     "cookie": "^0.4.1",
@@ -35,11 +35,11 @@
     "hijackresponse": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
     "nexus": "^0.26.0-next.7",
-    "nexus-plugin-prisma": "^0.16.2-next.4",
+    "nexus-plugin-prisma": "^0.17.0-next.5",
     "nexus-plugin-shield": "^0.2.0",
     "nexus-plugin-subscriptions": "0.0.8"
   },
   "devDependencies": {
-    "@prisma/cli": "2.3.0"
+    "@prisma/cli": "2.4.0-dev.7"
   }
 }
