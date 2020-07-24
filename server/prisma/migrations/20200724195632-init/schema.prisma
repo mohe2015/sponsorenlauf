@@ -1,6 +1,6 @@
 datasource postgresql {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 // postgresql://postgres:postgres@localhost:5432/myapp
@@ -14,6 +14,7 @@ enum UserRole {
   ADMIN
   TEACHER
   VIEWER
+  TEST
 }
 
 model User {
