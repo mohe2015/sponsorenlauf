@@ -2094,9 +2094,9 @@ new-github-issue-url@^0.2.1:
   integrity sha512-md4cGoxuT4T4d/HDOXbrUHkTKrp/vp+m3aOA7XXVYwNsUNMK49g3SQicTSeV5GIz/5QVGAeYRAOlyp9OvlgsYA==
 
 nexus-plugin-prisma@^0.17.0-next.5:
-  version "0.17.0-next.5"
-  resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.17.0-next.5.tgz#1304df3d3b6e3f303661c6efc797c70e25a29150"
-  integrity sha512-9C3r+fZqCQ9gIUKTE9chbj8jeVZopBR7xO7AkpaUCa/IO1XzXsHXi82Lb6XFltb8k1bE5693+LaTI28IQaQT6w==
+  version "0.17.0-next.6"
+  resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.17.0-next.6.tgz#069f90174f6f4c44956cddb9cf050435ec82d9a3"
+  integrity sha512-9gc4JSh9PT+YKVG+MzGJBJJPoggGLFaA321JLl38NmKAbU72rBlaFqQK1TNo1DrefNZ9t3dobrjrLJ2sITtFog==
   dependencies:
     "@prisma/cli" "2.3.0"
     "@prisma/client" "2.3.0"
