@@ -104,10 +104,10 @@
   resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.3.0.tgz#ddc89de63c2fcb88199fdd1b490a7616a2d32de1"
   integrity sha512-S84VeeUR3I2Z1fkBh3x42KmVyFgiX4USzIN5N5EDyoWC8BSlMVs2eHeLlhHOtx68sDz5oNo/YEIM2bkU8cUZKA==
 
-"@prisma/cli@2.4.0-dev.7":
-  version "2.4.0-dev.7"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.4.0-dev.7.tgz#14cf17b35bb7ff69497c42bbc64af80531e688fc"
-  integrity sha512-R4W/WOMD7xWrAKk5ctYZ6q+G/lnDwOQqnz7lWyDJXhUS/XGs/ALoCrSzHW7skb26OhYe+aLoNIprjhYEWT9BmQ==
+"@prisma/cli@2.4.0-dev.8":
+  version "2.4.0-dev.8"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.4.0-dev.8.tgz#483c999a72094304800862f3a6c55031454f1253"
+  integrity sha512-N2xasiDVz3+V99IHqjsrzEa4llYKHLD41vD7g3goxQ+8JzddE17yMKXJt6Oilcv1cJmcv66CvfmqE39CbvIIPw==
 
 "@prisma/client@2.3.0":
   version "2.3.0"
