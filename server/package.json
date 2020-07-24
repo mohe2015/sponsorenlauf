@@ -40,6 +40,6 @@
     "nexus-plugin-subscriptions": "0.0.8"
   },
   "devDependencies": {
-    "@prisma/cli": "2.4.0-dev.8"
+    "@prisma/cli": "2.4.0-dev.10"
   }
 }
