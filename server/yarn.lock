@@ -117,9 +117,9 @@
     pkg-up "^3.1.0"
 
 "@prisma/client@^2.4.0-dev.7":
-  version "2.4.0-dev.7"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.4.0-dev.7.tgz#3d2f43260e0d2c48aa4eb54dd86439140c997daa"
-  integrity sha512-Z43asZ8uAs4pF8mDVHtbbYFG05B82CYv6pt9yGKiYngpaz0hOjcl98p1il1i9QnCVFrQVZxXTXA58vCbglDxkQ==
+  version "2.4.0-dev.8"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.4.0-dev.8.tgz#7e4a98e9a619012cce0a4dbbdef56489f0856f5b"
+  integrity sha512-mbbN6YUYA9dAKawKNjbOislK1v2tB6VOtzjbx2FpRzqFX7KBHTrBns7NQOS543GyA0aq8nLIcK3jeyWRjd8BLg==
   dependencies:
     pkg-up "^3.1.0"
 
