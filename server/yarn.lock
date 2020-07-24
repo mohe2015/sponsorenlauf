@@ -149,10 +149,10 @@
   dependencies:
     pkg-up "^3.1.0"
 
-"@prisma/client@^2.4.0-dev.7":
-  version "2.4.0-dev.8"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.4.0-dev.8.tgz#7e4a98e9a619012cce0a4dbbdef56489f0856f5b"
-  integrity sha512-mbbN6YUYA9dAKawKNjbOislK1v2tB6VOtzjbx2FpRzqFX7KBHTrBns7NQOS543GyA0aq8nLIcK3jeyWRjd8BLg==
+"@prisma/client@^2.4.0-dev.10":
+  version "2.4.0-dev.10"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.4.0-dev.10.tgz#21e0ac3ec90f6ab0aa3e35ab27816c688db0e981"
+  integrity sha512-bdEorw6qO1PsZ8FwNPMsdE7igXoibdKg1OCmUYx9tYKNkiPvDzz8potD58/ZOEVahmkx/S9Rk0bgFRxDvVbyEg==
   dependencies:
     pkg-up "^3.1.0"
 
@@ -502,7 +502,7 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@^14.0.24":
+"@types/node@*", "@types/node@^14.0.25":
   version "14.0.25"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.25.tgz#7ad8b00a1206d6c9e94810e49f3115f0bcc30456"
   integrity sha512-okMqUHqrMlGOxfDZliX1yFX5MV6qcd5PpRz96XYtjkM0Ws/hwg23FMUqt6pETrVRZS+EKUB5HY19mmo54EuQbA==
@@ -2576,7 +2576,7 @@ new-github-issue-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/new-github-issue-url/-/new-github-issue-url-0.2.1.tgz#e17be1f665a92de465926603e44b9f8685630c1d"
   integrity sha512-md4cGoxuT4T4d/HDOXbrUHkTKrp/vp+m3aOA7XXVYwNsUNMK49g3SQicTSeV5GIz/5QVGAeYRAOlyp9OvlgsYA==
 
-nexus-plugin-prisma@^0.17.0-next.5:
+nexus-plugin-prisma@^0.17.0-next.6:
   version "0.17.0-next.6"
   resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.17.0-next.6.tgz#069f90174f6f4c44956cddb9cf050435ec82d9a3"
   integrity sha512-9gc4JSh9PT+YKVG+MzGJBJJPoggGLFaA321JLl38NmKAbU72rBlaFqQK1TNo1DrefNZ9t3dobrjrLJ2sITtFog==
@@ -2610,10 +2610,10 @@ nexus-plugin-subscriptions@0.0.8:
   dependencies:
     subscriptions-transport-ws "0.9.16"
 
-nexus@^0.26.0-next.7:
-  version "0.26.0-next.8"
-  resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.26.0-next.8.tgz#72fa4510f35377a132a9d483f164c1a779a653f6"
-  integrity sha512-sWjGPcl/XmF27oO1YGlcrH7ZOSfr197CTIJEHSyR1s7jMio9LiZmYrIK7+Neavfc13bTCI6vR40r+0YcQNd7vg==
+nexus@^0.26.0-next.9:
+  version "0.26.0-next.9"
+  resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.26.0-next.9.tgz#a63bf79b7e4d6372a0ae72e0310b98c83548cf3f"
+  integrity sha512-pnuhN7oIuQyb90ZHhbWeBbXVSYUGaHQ3jVgCaBGSZcum4PBpF7aN10YmXjm59pel5DfTjbdLT3qCDov7WnylOg==
   dependencies:
     "@nexus/logger" "^0.2.0"
     "@nexus/schema" "^0.15.0-next.1"
