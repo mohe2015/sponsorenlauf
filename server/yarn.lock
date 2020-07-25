@@ -137,22 +137,10 @@
   resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.3.0.tgz#ddc89de63c2fcb88199fdd1b490a7616a2d32de1"
   integrity sha512-S84VeeUR3I2Z1fkBh3x42KmVyFgiX4USzIN5N5EDyoWC8BSlMVs2eHeLlhHOtx68sDz5oNo/YEIM2bkU8cUZKA==
 
-"@prisma/cli@2.4.0-dev.10":
-  version "2.4.0-dev.10"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.4.0-dev.10.tgz#73da3c8314d5de8763e46dfd33b1ec801cd0956f"
-  integrity sha512-5cB+/Rub7fI+I1JwbrcYB98Lumktb76Y9804qaGZtaCcmEj485/vgKjW0oRwa6g3e/EwIN6N3zov9hhSYQz0WQ==
-
 "@prisma/client@2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.3.0.tgz#3979d973e0eececad5387c791aa1dd63316fc690"
   integrity sha512-mlXV/VdOKjEEoZPOmFOy7KJPecYGV5XSVXGsti0F1kkShpGcMvhPkpKhNOwIb/8muUTeN5NoNqEGqKDD5XKw3w==
-  dependencies:
-    pkg-up "^3.1.0"
-
-"@prisma/client@^2.4.0-dev.10":
-  version "2.4.0-dev.10"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.4.0-dev.10.tgz#21e0ac3ec90f6ab0aa3e35ab27816c688db0e981"
-  integrity sha512-bdEorw6qO1PsZ8FwNPMsdE7igXoibdKg1OCmUYx9tYKNkiPvDzz8potD58/ZOEVahmkx/S9Rk0bgFRxDvVbyEg==
   dependencies:
     pkg-up "^3.1.0"
 
@@ -502,7 +490,7 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@^14.0.25":
+"@types/node@*":
   version "14.0.25"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.25.tgz#7ad8b00a1206d6c9e94810e49f3115f0bcc30456"
   integrity sha512-okMqUHqrMlGOxfDZliX1yFX5MV6qcd5PpRz96XYtjkM0Ws/hwg23FMUqt6pETrVRZS+EKUB5HY19mmo54EuQbA==
@@ -511,6 +499,11 @@
   version "10.17.28"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.28.tgz#0e36d718a29355ee51cec83b42d921299200f6d9"
   integrity sha512-dzjES1Egb4c1a89C7lKwQh8pwjYmlOAG9dW1pBgxEk57tMrLnssOfEthz8kdkNaBd7lIqQx7APm5+mZ619IiCQ==
+
+"@types/node@^14.0.26":
+  version "14.0.26"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.26.tgz#22a3b8a46510da8944b67bfc27df02c34a35331c"
+  integrity sha512-W+fpe5s91FBGE0pEa0lnqGLL4USgpLgs4nokw16SrBBco/gQxuua7KnArSEOd5iaMqbbSHV10vUDkJYJJqpXKA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
