@@ -20,6 +20,15 @@ import { parse as parseCookie } from "cookie";
 //settings.current.server.host
 //settings.current.server.path
 
+settings.change({
+  schema: {
+    nullable: {
+      inputs: false,
+      outputs: false,
+    },
+  }
+});
+
 declare global {
   interface NexusContext {
     user: User | null;
@@ -86,7 +95,6 @@ server.express.use(formatErrors);
 
 // @ts-expect-error
 schema.addToContext(async ({req, res}) => {
-  // @ts-expect-error
   return await createContext(req.headers.cookie || null, res);
 });
 
