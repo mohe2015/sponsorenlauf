@@ -84,9 +84,10 @@ server.express.use(cors({
 
 server.express.use(formatErrors);
 
-schema.addToContext(async (req: Request) => {
+// @ts-expect-error
+schema.addToContext(async ({req, res}) => {
   // @ts-expect-error
-  return await createContext(req.headers.cookie || null, req.res);
+  return await createContext(req.headers.cookie || null, res);
 });
 
 // https://github.com/graphql-nexus/nexus/issues/506
