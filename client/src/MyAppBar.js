@@ -19,6 +19,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { unstable_useTransition as useTransition } from 'react';
 import { useNavigate } from "react-router-dom";
 import LoadingButton from '@material-ui/lab/LoadingButton';
+import { AuthorizationErrorBoundary } from './AuthorizationErrorBoundary';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -157,9 +158,11 @@ export function MyAppBar() {
     </AppBar>
 
 
-    <Suspense fallback={<div>loading</div>}>
-      <Outlet />
-    </Suspense>
+    <AuthorizationErrorBoundary>
+      <Suspense fallback={<div>loading</div>}>
+        <Outlet />
+      </Suspense>
+    </AuthorizationErrorBoundary>
 
     </>
     );

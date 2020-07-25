@@ -7,7 +7,6 @@ import { UsersList } from './users/UsersList'
 import { RunnersList } from './runners/RunnersList'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Routes, Route } from 'react-router-dom';
-import { AuthorizationErrorBoundary } from './AuthorizationErrorBoundary';
 import { CreateUser } from './users/create/CreateUser';
 import { CreateRunner } from './runners/create/CreateRunner';
 import { NotFound } from './NotFound';
@@ -16,7 +15,6 @@ function App() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AuthorizationErrorBoundary>
           <Routes>
             <Route path="*" element={<MyAppBar />}>
               <Route path="/" element={<Home />} />
@@ -32,7 +30,6 @@ function App() {
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>
-      </AuthorizationErrorBoundary>
     </React.Fragment>
   );
 }

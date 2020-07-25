@@ -7,6 +7,10 @@ yarn add --dev relay-config
 yarn add @material-ui/core@next
 yarn add @fortawesome/fontawesome-svg-core  @fortawesome/free-solid-svg-icons @fortawesome/free-brands-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/react-fontawesome
 
+https://wanago.io/2019/09/16/bug-proofing-our-application-with-error-boundaries-and-the-strict-mode/
+https://reactjs.org/docs/strict-mode.html
+
+
 https://github.com/ReactTraining/react-router/pull/7336
 
 https://chrome.google.com/webstore/detail/relay-developer-tools/ncedobpgnmkhcmnnkcimnobpfepidadl
