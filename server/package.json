@@ -12,10 +12,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "resolutions": {
-    "graphql": "14.5.8"
-  },
+  "license": "AGPL-3.0",
   "dependencies": {
     "@prisma/client": "2.3.0",
     "@prisma/sdk": "2.3.0",
