@@ -3,8 +3,8 @@ import { schema } from "nexus";
 schema.objectType({
   name: "LoginMutationError",
   definition(t) {
-    t.string("usernameError");
-    t.string("passwordError");
+    t.string("usernameError", { nullable: true });
+    t.string("passwordError", { nullable: true });
   },
 });
 
