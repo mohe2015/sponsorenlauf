@@ -6,19 +6,19 @@ import Button from '@material-ui/core/Button';
 export class AuthorizationErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isUnauthenticated: false, error: null };
+    this.state = { error: null, id: 0 };
   }
 
   static getDerivedStateFromError(error) {
     if (error.name === "RelayNetwork" && error.source.errors.some(error => error.extensions?.code === "UNAUTHENTICATED")) {
       return {
-        isUnauthenticated: true,
         error,
+        id: 0,
       };
     } else {
       return {
-        isUnauthenticated: false,
-        error
+        error,
+        id: 0,
       }
     }
   }
@@ -30,10 +30,15 @@ export class AuthorizationErrorBoundary extends React.Component {
   errorToElement = (error, index) => {
     console.log(index)
     if (error.extensions?.code === "UNAUTHENTICATED") {
-      return <Button onClick={() => {
-        this.setState({error: null, isUnauthenticated: false})
-        //       return <Navigate key={index} to="/login" state={{errorMessage: error.message, oldPathname: window.location.pathname }} />
-      }}>UNAUTHENTICATED</Button>
+      return <Alert key={index} variant="filled" severity="error"
+              action={
+                <Button color="inherit" size="small" onClick={this._relogin}>
+                  Neu authentifizieren
+                </Button>
+              }
+            >
+              {error.message}
+            </Alert>;
     } else if (error.extensions?.code === "FORBIDDEN") {
       return  <Alert key={index} variant="filled" severity="error">
                 {error.message}
@@ -50,8 +55,13 @@ export class AuthorizationErrorBoundary extends React.Component {
             </Alert>;
   }
 
+  _relogin = () => {
+    document.cookie = "logged-in=; sameSite=strict; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    this.setState((prevState) => { return {error: null, id: prevState.id + 1}});
+  }
+
   _retry = () => {
-    this.setState({error: null});
+    this.setState((prevState) => { return {error: null, id: prevState.id + 1}});
   }
 
   render() {
@@ -74,6 +84,8 @@ export class AuthorizationErrorBoundary extends React.Component {
                 </Alert>;
       }
     }
-    return this.props.children;
+    return <React.Fragment key={this.state.id}>
+            {this.props.children}
+          </React.Fragment>
   }
 }
