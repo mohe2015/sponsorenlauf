@@ -1,15 +1,16 @@
 import React from 'react';
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 
-export class AuthorizationErrorBoundary extends React.Component {
+export class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { error: null, id: 0 };
   }
 
-  static getDerivedStateFromError(error) {
+  // https://github.com/facebook/react/issues/13954
+  /*static getDerivedStateFromError(error) {
     if (error.name === "RelayNetwork" && error.source.errors.some(error => error.extensions?.code === "UNAUTHENTICATED")) {
       return {
         error,
@@ -21,10 +22,16 @@ export class AuthorizationErrorBoundary extends React.Component {
         id: 0,
       }
     }
-  }
+  }*/
 
   componentDidCatch(error, info) {
-    // Customized error handling goes here!
+    if (error.name === "RelayNetwork" && error.source.errors.some(error => error.extensions?.code === "UNAUTHENTICATED")) {
+      this.setState((prevState) => { return {error: null, id: prevState.id + 1}});
+      document.cookie = "logged-in=; sameSite=strict; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+      this.props.navigate("/login")
+    } else {
+      this.setState((prevState) => { return {error, id: prevState.id + 1}});
+    }
   }
 
   errorToElement = (error, index) => {
@@ -88,4 +95,9 @@ export class AuthorizationErrorBoundary extends React.Component {
             {this.props.children}
           </React.Fragment>
   }
+}
+
+export function AuthorizationErrorBoundary(props) {
+  const navigate = useNavigate()
+  return <ErrorBoundary navigate={navigate} {...props} />
 }

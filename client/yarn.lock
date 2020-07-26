@@ -4194,6 +4194,7 @@ __metadata:
     react: experimental
     react-dom: experimental
     react-relay: experimental
+    react-router: ^6.0.0-beta.0
     react-router-dom: ^6.0.0-beta.0
     react-scripts: 3.4.1
     relay-compiler: ^10.0.1
@@ -12072,7 +12073,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-router@npm:6.0.0-beta.0":
+"react-router@npm:6.0.0-beta.0, react-router@npm:^6.0.0-beta.0":
   version: 6.0.0-beta.0
   resolution: "react-router@npm:6.0.0-beta.0"
   dependencies:
