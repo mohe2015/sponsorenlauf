@@ -33,7 +33,7 @@ export class AuthorizationErrorBoundary extends React.Component {
       return <Button onClick={() => {
         this.setState({error: null, isUnauthenticated: false})
         //       return <Navigate key={index} to="/login" state={{errorMessage: error.message, oldPathname: window.location.pathname }} />
-      }}>fgfdg</Button>
+      }}>UNAUTHENTICATED</Button>
     } else if (error.extensions?.code === "FORBIDDEN") {
       return  <Alert key={index} variant="filled" severity="error">
                 {error.message}

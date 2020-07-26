@@ -158,11 +158,9 @@ export function MyAppBar() {
     </AppBar>
 
 
-    <AuthorizationErrorBoundary>
       <Suspense fallback={<div>loading</div>}>
         <Outlet />
       </Suspense>
-    </AuthorizationErrorBoundary>
 
     </>
     );

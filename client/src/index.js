@@ -6,13 +6,16 @@ import * as serviceWorker from './serviceWorker';
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
 import RelayEnvironment from './RelayEnvironment'
 import { BrowserRouter as Router } from "react-router-dom";
+import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.unstable_createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RelayEnvironmentProvider environment={RelayEnvironment}>
-      <Router>
-        <App />
-      </Router>
+      <CookiesProvider>
+        <Router>
+          <App />
+        </Router>
+      </CookiesProvider>
     </RelayEnvironmentProvider>
   </React.StrictMode>
 );

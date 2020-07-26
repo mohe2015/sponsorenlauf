@@ -148,7 +148,12 @@ schema.mutationType({
             httpOnly: true,
             sameSite: "strict",
             // secure: true, // TODO FIXME
-        })     
+        })
+        // @ts-expect-error
+        context.response.cookie('logged-in', "true", {
+          sameSite: "strict",
+          // secure: true, // TODO FIXME
+      })
         return {
           __typename: "User",
           ...user,

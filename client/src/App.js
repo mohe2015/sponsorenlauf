@@ -10,13 +10,14 @@ import { Routes, Route } from 'react-router-dom';
 import { CreateUser } from './users/create/CreateUser';
 import { CreateRunner } from './runners/create/CreateRunner';
 import { NotFound } from './NotFound';
+import { ProtectedRoute } from './ProtectedRoute';
 
 function App() {
   return (
     <React.Fragment>
       <CssBaseline />
           <Routes>
-            <Route path="*" element={<MyAppBar />}>
+            <ProtectedRoute path="*" element={<MyAppBar />}>
               <Route path="/" element={<Home />} />
               <Route path="/users">
                 <Route path="/create" element={<CreateUser />} />
@@ -27,7 +28,7 @@ function App() {
                 <Route path="*" element={<RunnersList />} />
               </Route>
               <Route path="*" element={<NotFound />} />
-            </Route>
+            </ProtectedRoute>
             <Route path="login" element={<Login />} />
           </Routes>
     </React.Fragment>
