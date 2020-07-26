@@ -26,8 +26,8 @@ export class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, info) {
     if (error.name === "RelayNetwork" && error.source.errors.some(error => error.extensions?.code === "UNAUTHENTICATED")) {
-      this.setState((prevState) => { return {error: null, id: prevState.id + 1}});
       document.cookie = "logged-in=; sameSite=strict; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+      this.setState((prevState) => { return {error: null, id: prevState.id + 1}});
       this.props.navigate("/login")
     } else {
       this.setState((prevState) => { return {error, id: prevState.id + 1}});
