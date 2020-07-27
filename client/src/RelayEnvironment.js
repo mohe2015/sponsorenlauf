@@ -2,16 +2,13 @@
 import { Environment, Network, QueryResponseCache, RecordSource, Store, Observable } from 'relay-runtime';
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 
-const oneMinute = 60 * 1000;
-const cache = new QueryResponseCache({ size: 2500, ttl: 100 * oneMinute });
-const store = new Store(new RecordSource(), {gcReleaseBufferSize: 100});
-
 function fetchQuery(
   operation,
   variables,
   cacheConfig,
 ) {
   const queryID = operation.text;
+  const isMutation = operation.operationKind === 'mutation';
   const isQuery = operation.operationKind === 'query';
   const forceFetch = cacheConfig && cacheConfig.force;
 
@@ -44,18 +41,13 @@ function fetchQuery(
       cache.set(queryID, variables, json);
     }
     if (json.data === null && json.errors) {
-      console.log("error, clearing cache");
-      cache.clear();
+      console.log("error, new environment");
+      createEnvironment();
     }
-
-    console.log(json);
-
-    setTimeout(() => {
-
-      //console.log(store);
-      let hashMap = store._recordSource._records
-      console.log(Array.from(hashMap.entries()))
-    }, 100)
+    if (isMutation && operation.name == "LoginMutation") {
+      console.log("login, new environment");
+      createEnvironment();
+    }
 
     return json;
   });
@@ -75,10 +67,17 @@ const subscribe = (request, variables) => {
     return Observable.from(subscribeObservable);
 };
 
+const createEnvironment = () => {
+  cache = new QueryResponseCache({ size: 2500, ttl: 60 * 1000 });
+  environment = new Environment({
+    network: Network.create(fetchQuery, subscribe),
+    store: new Store(new RecordSource()),
+  });
+}
+ 
+let cache;
+let environment;
 
-const environment = new Environment({
-  network: Network.create(fetchQuery, subscribe),
-  store,
-});
+createEnvironment();
 
 export default environment;

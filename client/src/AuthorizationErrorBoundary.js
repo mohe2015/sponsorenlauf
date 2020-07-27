@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
+import { Login } from './login/Login';
 
 export class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -9,49 +10,13 @@ export class ErrorBoundary extends React.Component {
     this.state = { error: null, id: 0 };
   }
 
-  // https://github.com/facebook/react/issues/13954
-  /*static getDerivedStateFromError(error) {
-    if (error.name === "RelayNetwork" && error.source.errors.some(error => error.extensions?.code === "UNAUTHENTICATED")) {
-      return {
-        error,
-        id: 0,
-      };
-    } else {
-      return {
-        error,
-        id: 0,
-      }
-    }
-  }*/
-
   componentDidCatch(error, info) {
-    if (error.name === "RelayNetwork" && error.source.errors.some(error => error.extensions?.code === "UNAUTHENTICATED")) {
-      // TODO FIXME this already rerenders the failing components?
-
-      // TODO FIXME maybe make this error boundary the login screen? So if it has an error it renders the login screen and then the login screen
-      // TODO FIXME can also update the error state on login. I think this might work the best
-
-
-      this.setState((prevState) => { return {error: null, id: prevState.id + 1}});
-      document.cookie = "logged-in=; sameSite=strict; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-      this.props.navigate("/login")
-    } else {
-      this.setState((prevState) => { return {error, id: prevState.id + 1}});
-    }
+    this.setState((prevState) => { return {error, id: prevState.id + 1}});
   }
 
   errorToElement = (error, index) => {
-    console.log(index)
     if (error.extensions?.code === "UNAUTHENTICATED") {
-      return <Alert key={index} variant="filled" severity="error"
-              action={
-                <Button color="inherit" size="small" onClick={this._relogin}>
-                  Neu authentifizieren
-                </Button>
-              }
-            >
-              {error.message}
-            </Alert>;
+      return <Login key={index} updateErrorBoundary={(state) => { this.setState(state) }} />;
     } else if (error.extensions?.code === "FORBIDDEN") {
       return  <Alert key={index} variant="filled" severity="error">
                 {error.message}
@@ -97,9 +62,9 @@ export class ErrorBoundary extends React.Component {
                 </Alert>;
       }
     }
-    return <React.Fragment key={this.state.id}>
+    return <div key={this.state.id}>
             {this.props.children}
-          </React.Fragment>
+          </div>
   }
 }
 

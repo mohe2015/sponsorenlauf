@@ -12,6 +12,10 @@ import { CreateRunner } from './runners/create/CreateRunner';
 import { NotFound } from './NotFound';
 import { ProtectedRoute } from './ProtectedRoute';
 
+// authorizationerrorboundary
+// which passes state update function down to login children
+// login can then update the error state
+
 function App() {
   return (
     <React.Fragment>
@@ -29,7 +33,7 @@ function App() {
               </Route>
               <Route path="*" element={<NotFound />} />
             </ProtectedRoute>
-            <Route path="login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
     </React.Fragment>
   );

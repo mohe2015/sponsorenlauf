@@ -66,6 +66,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Login(props) {
+  const { updateErrorBoundary } = props;
+
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
@@ -94,11 +96,15 @@ export function Login(props) {
             setPasswordError(null);
 
             startTransition(() => {
-              if (location.state?.oldPathname) {
-                console.log("Redirecting to ", location.state?.oldPathname)
-                navigate(location.state?.oldPathname);
+              if (updateErrorBoundary) {
+                updateErrorBoundary((prevState) => { return {error: null, id: prevState.id + 1}})
               } else {
-                navigate("/");
+                if (location.state?.oldPathname) {
+                  console.log("Redirecting to ", location.state?.oldPathname)
+                  navigate(location.state?.oldPathname);
+                } else {
+                  navigate("/");
+                }
               }
             });
           }
@@ -116,7 +122,7 @@ export function Login(props) {
         }
       })
     },
-    [username, password, login, navigate, startTransition, location]
+    [username, password, login, navigate, startTransition, location, updateErrorBoundary]
   );
 
     return (
