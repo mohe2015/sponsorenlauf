@@ -92,6 +92,7 @@ schema.mutationType({
           }
         };
         console.log("PUBLISH");
+        console.log(output);
         context.pubsub.publish("USERS", output);
         return output;
       }

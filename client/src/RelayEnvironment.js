@@ -71,7 +71,7 @@ const createEnvironment = () => {
   cache = new QueryResponseCache({ size: 2500, ttl: 60 * 1000 });
   environment = new Environment({
     network: Network.create(fetchQuery, subscribe),
-    store: new Store(new RecordSource()),
+    store: new Store(new RecordSource(), {gcReleaseBufferSize: 100}),
   });
 }
  

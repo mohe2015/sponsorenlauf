@@ -110,6 +110,7 @@ export function CreateUser(props) {
             "UsersList_user_users"
           );
           if (!connectionRecord) {
+            console.log("connection not found");
             return;
           }
           const payload = store.getRootField("user_create");
