@@ -26,8 +26,14 @@ export class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, info) {
     if (error.name === "RelayNetwork" && error.source.errors.some(error => error.extensions?.code === "UNAUTHENTICATED")) {
-      document.cookie = "logged-in=; sameSite=strict; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+      // TODO FIXME this already rerenders the failing components?
+
+      // TODO FIXME maybe make this error boundary the login screen? So if it has an error it renders the login screen and then the login screen
+      // TODO FIXME can also update the error state on login. I think this might work the best
+
+
       this.setState((prevState) => { return {error: null, id: prevState.id + 1}});
+      document.cookie = "logged-in=; sameSite=strict; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       this.props.navigate("/login")
     } else {
       this.setState((prevState) => { return {error, id: prevState.id + 1}});

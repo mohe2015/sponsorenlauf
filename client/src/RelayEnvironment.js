@@ -43,6 +43,12 @@ function fetchQuery(
     if (isQuery && json) {
       cache.set(queryID, variables, json);
     }
+    if (json.data === null && json.errors) {
+      console.log("error, clearing cache");
+      cache.clear();
+    }
+
+    console.log(json);
 
     setTimeout(() => {
 

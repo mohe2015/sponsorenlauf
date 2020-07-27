@@ -111,6 +111,7 @@ export function Login(props) {
           password
         },
         updater: store => {
+          console.log("invalidate store")
           store.invalidateStore();
         }
       })
