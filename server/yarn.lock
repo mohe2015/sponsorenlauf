@@ -2604,9 +2604,9 @@ nexus-plugin-subscriptions@0.0.8:
     subscriptions-transport-ws "0.9.16"
 
 nexus@^0.26.0-next.9:
-  version "0.26.0-next.10"
-  resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.26.0-next.10.tgz#6c1ad85b55bb90861e1e6b7d15c8590a1a575b9c"
-  integrity sha512-VQZMasvIFIA6BkPeXQG3Zbjy++hmZ+hYOscIQqyoAjoP49/b8hu5eUTm+yDO8gRuCM9haKzRxbH4z+FRFYNqIg==
+  version "0.26.0-next.14"
+  resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.26.0-next.14.tgz#408062a8205b2a2fb68122dbf751296574792de7"
+  integrity sha512-nJdiFNnc5GjkjlbgCwU2aoAfra8pd//at5rjDdaK9T3yBZBzTSBWccMThhRBG1EuvusBXjb5pYrINf/Ogh1KBw==
   dependencies:
     "@nexus/logger" "^0.2.0"
     "@nexus/schema" "^0.15.0-next.1"
