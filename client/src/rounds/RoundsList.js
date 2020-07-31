@@ -15,18 +15,12 @@ import Box from "@material-ui/core/Box";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link as RouterLink } from 'react-router-dom';
+import { CreateRound } from "./create/CreateRound";
 
 export function RoundsList(props) {
   return (
     <Container maxWidth="sm">
-    <IconButton component={RouterLink} to="/rounds/create">
-      <FontAwesomeIcon icon={faPlus} />
-      <Typography variant="button" noWrap>
-        <Box component="span" ml={1}>
-          Nutzer erstellen
-        </Box>
-      </Typography>
-    </IconButton>
+    <CreateRound />
   <TableContainer component={Paper}>
     <Table aria-label="table of rounds">
       <TableHead>

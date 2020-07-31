@@ -18,24 +18,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { ConnectionHandler } from 'react-relay';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 0),
   },
 }));
 
@@ -63,11 +55,8 @@ export function CreateRound(props) {
   }
   `);
 
-  const [roundname, setRoundname] = useState('');
-  const [role, setRole] = useState('');
-
-  const [roundnameError, setRoundnameError] = useState(null);
-  const [roleError, setRoleError] = useState(null);
+  const [startNumber, setStartNumber] = useState('');
+  const [startNumberError, setStartNumberError] = useState(null);
 
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
@@ -78,11 +67,9 @@ export function CreateRound(props) {
       round_create({
         onCompleted: response => {
           if (response.round_create.__typename === "CreateRoundMutationError") {
-            setRoundnameError(response.round_create.roundnameError);
-            setRoleError(response.round_create.roleError);
+            setStartNumberError(response.round_create.startNumberError);
           } else {
-            setRoundnameError(null);
-            setRoleError(null);
+            setStartNumberError(null);
 
             startTransition(() => {
               if (location.state?.oldPathname) {
@@ -98,8 +85,7 @@ export function CreateRound(props) {
           alert(error); // TODO FIXME
         },
         variables: {
-          roundname,
-          role
+          startNumber: parseInt(startNumber)
         },
         updater: (store) => {
           const connectionRecord = ConnectionHandler.getConnection(
@@ -129,65 +115,51 @@ export function CreateRound(props) {
         }
       })
     },
-    [roundname, role, round_create, navigate, startTransition, location]
+    [startNumber, round_create, navigate, startTransition, location]
   );
 
     return (
-      <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <FontAwesomeIcon icon={faPlus} />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Nutzer hinzufügen
-        </Typography>
-
-        <form className={classes.form} noValidate onSubmit={onSubmit}>
+      <form className={classes.form} onSubmit={onSubmit}>
           {location.state?.errorMessage && <Alert variant="filled" severity="error">
             {location.state?.errorMessage}
           </Alert>}
 
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="roundname"
-            label="Nutzername"
-            name="roundname"
-            autoComplete="off"
-            autoFocus
-            value={roundname}
-            onChange={e => setRoundname(e.target.value)}
-            helperText={roundnameError}
-            error={roundnameError !== null}
-          />
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel id="demo-simple-select-label">Rolle</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={role}
-              onChange={e => setRole(e.target.value)}
+
+          <Box display="flex">
+            <Box flexGrow={1} pr={1}>
+                <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="startNumber"
+                label="Startnummer"
+                name="startNumber"
+                type="number"
+                autoComplete="off"
+                autoFocus
+                value={startNumber}
+                onChange={e => setStartNumber(e.target.value)}
+                helperText={startNumberError}
+                error={startNumberError !== null}
+              />
+            </Box>
+            <Box>
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+                className={classes.submit}
+                pending={isCreateOneRoundPending || isPending}
               >
-              <MenuItem value={"ADMIN"}>Admin</MenuItem>
-              <MenuItem value={"TEACHER"}>Rundenzähler</MenuItem>
-              <MenuItem value={"VIEWER"}>Anzeiger</MenuItem>
-            </Select>
-          </FormControl>
-          <LoadingButton
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            pending={isCreateOneRoundPending || isPending}
-          >
-            Nutzer hinzufügen
-          </LoadingButton>
-        </form>
-      </div>
-    </Container>
+                +
+              </LoadingButton>
+            </Box>
+          </Box>
+
+          
+         
+      </form>
     )
 }
