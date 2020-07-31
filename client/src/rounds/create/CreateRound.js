@@ -2,23 +2,12 @@ import React from 'react';
 import { useMutation } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { useState, useCallback, unstable_useTransition as useTransition } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import Alert from '@material-ui/lab/Alert';
 import { useNavigate, useLocation } from "react-router-dom";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { ConnectionHandler } from 'react-relay';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
@@ -96,10 +85,18 @@ export function CreateRound(props) {
             console.log("connection not found");
             return;
           }
+
+
           const payload = store.getRootField("round_create");
 
           const previousEdge = payload.getLinkedRecord('previous_edge');
           const serverEdge = payload.getLinkedRecord('round_edge');
+
+          const existingEdges = connectionRecord.getLinkedRecords("edges").map(e => e.getLinkedRecord("node").getValue("id"));
+          if (existingEdges.includes(serverEdge.getLinkedRecord("node").getValue("id"))) {
+            console.log("node already in connection")
+            return;
+          }
 
           const newEdge = ConnectionHandler.buildConnectionEdge(
             store,
