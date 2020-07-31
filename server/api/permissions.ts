@@ -44,6 +44,8 @@ export const permissions = shield({
     RoundEdge: allow,
     RunnerEdge: allow,
     UserEdge: allow,
+    CreateRoundMutationError: allow,
+    CreateRoundMutationOutput: allow,
     LoginMutationError: allow,
     CreateUserMutationOutput: allow,
     CreateOneUserMutationError: allow,

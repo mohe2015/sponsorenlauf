@@ -52,13 +52,12 @@ export function RoundRow(props) {
   return (
     <TableRow>
       <TableCell component="th" scope="row">
-        {data.name}
+        {data.student.startNumber}
       </TableCell>
-      <TableCell>{data.role}</TableCell>
+      <TableCell>{data.time}</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
           <IconButton>
-            
             <Typography variant="button" noWrap>
               <Box component="span" display={{ xs: 'none', md: 'block' }}>
               Löschen

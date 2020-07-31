@@ -25,8 +25,8 @@ export function RoundsList(props) {
     <Table aria-label="table of rounds">
       <TableHead>
         <TableRow>
-          <TableCell>Name</TableCell>
-          <TableCell>Rolle</TableCell>
+          <TableCell>Startnummer</TableCell>
+          <TableCell>Zeit</TableCell>
           <TableCell align="right">Aktionen</TableCell>
         </TableRow>
       </TableHead>
