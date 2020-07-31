@@ -45,22 +45,19 @@ export function CreateRound(props) {
   const location = useLocation();
 
   const [round_create, isCreateOneRoundPending] = useMutation(graphql`
-  mutation CreateRoundMutation($roundname: String!, $role: RoundRole!) {
-    round_create(data: { name: $roundname, role: $role }) {
+  mutation CreateRoundMutation($startNumber: Int!) {
+    round_create(data: { startNumber: $startNumber }) {
       __typename
       ... on CreateRoundMutationOutput {
         round_edge {
           cursor
           node {
             id
-            name
-            role
           }
         }
       }
-      ... on CreateOneRoundMutationError {
-        roundnameError
-        roleError
+      ... on CreateRoundMutationError {
+        startNumberError
       }
     }
   }

@@ -25,9 +25,52 @@ schema.inputObjectType({
   }
 })
 
+schema.inputObjectType({
+  name: "CreateRoundInput",
+  nonNullDefaults: { output: false, input: false },
+  definition(t) {
+    t.int("startNumber", { nullable: false })
+  }
+})
 
 schema.mutationType({
   definition(t) {
+
+    t.field("user_create", {
+      type: "CreateOneUserMutationResponse",
+      nullable: false,
+      args: { data: schema.arg({type: "CreateOneUserInput", nullable: false}) },
+      resolve: async (_parent, args, context, info) => {
+        let user = await context.db.user.create({
+          data: {
+            password: "hi",
+            ...args.data
+          }
+        });
+
+        if (!user) {
+          return {
+            __typename: "CreateOneUserMutationError",
+            usernameError: "Nutzername nicht gefunden!",
+            roleError: null,
+          }
+        }
+
+        let output = {
+          __typename: "CreateUserMutationOutput",
+          previous_edge: Buffer.from("arrayconnection:" + (await context.db.user.count() - 2)).toString('base64'),
+          user_edge: {
+            cursor: Buffer.from("cursor:" + (await context.db.user.count() - 1)).toString('base64'),
+            node: {
+              ...user,
+            }
+          }
+        };
+        context.pubsub.publish("USERS", output);
+        return output;
+      }
+    });
+
     t.field("runner_create", {
       type: "CreateRunnerMutationResponse",
       nullable: false,
@@ -61,41 +104,38 @@ schema.mutationType({
       }
     });
 
-    t.field("user_create", {
-      type: "CreateOneUserMutationResponse",
+    t.field("round_create", {
+      type: "CreateRoundMutationResponse",
       nullable: false,
-      args: { data: schema.arg({type: "CreateOneUserInput", nullable: false}) },
-      resolve: async (_parent, args, context, info) => {
-        let user = await context.db.user.create({
+      args: { data: schema.arg({type: "CreateRoundInput", nullable: false}) },
+      resolve: async (parent, args, context) => {
+        const round = await context.db.round.create({
           data: {
-            password: "hi",
-            ...args.data
-          }
+            student: {
+              connect: {
+                startNumber: args.data.startNumber,
+              },
+            },
+            createdBy: {
+              connect: {
+                id: context.user.id!,
+              },
+            },
+          },
         });
-
-        if (!user) {
-          return {
-            __typename: "CreateOneUserMutationError",
-            usernameError: "Nutzername nicht gefunden!",
-            roleError: null,
-          }
-        }
-
         let output = {
-          __typename: "CreateUserMutationOutput",
-          previous_edge: Buffer.from("arrayconnection:" + (await context.db.user.count() - 2)).toString('base64'),
+          __typename: "CreateRoundMutationOutput",
+          previous_edge: Buffer.from("arrayconnection:" + (await context.db.round.count() - 2)).toString('base64'),
           user_edge: {
-            cursor: Buffer.from("cursor:" + (await context.db.user.count() - 1)).toString('base64'),
+            cursor: Buffer.from("cursor:" + (await context.db.round.count() - 1)).toString('base64'),
             node: {
-              ...user,
+              ...round,
             }
           }
         };
-        console.log("PUBLISH");
-        console.log(output);
-        context.pubsub.publish("USERS", output);
+        context.pubsub.publish("ROUNDS", output);
         return output;
-      }
+      },
     });
 
     t.field("login", {
@@ -161,36 +201,5 @@ schema.mutationType({
         };
       },
     });
-
-    t.field("createOneRound", {
-      type: "Round",
-      args: {
-        startNumber: schema.intArg({ nullable: false }),
-      },
-      resolve: async (parent, { startNumber }, ctx) => {
-        console.log(startNumber);
-
-        const round = await ctx.db.round.create({
-          data: {
-            time: 1337, // TODO just store current time
-            student: {
-              connect: {
-                startNumber: startNumber,
-              },
-            },
-            createdBy: {
-              connect: {
-                id: ctx.user.id!,
-              },
-            },
-          },
-        });
-        console.log("publish rounds", round);
-        ctx.pubsub.publish("ROUNDS", round);
-        return round;
-      },
-    });
-
-    t.crud.createOneRunner();
   },
 });

@@ -36,8 +36,13 @@ export function RoundsListComponent(props) {
           cursor
           node {
             id
-            name
-            role
+            student {
+              startNumber
+            }
+            time
+            createdBy {
+              name
+            }
           }
         }
       }

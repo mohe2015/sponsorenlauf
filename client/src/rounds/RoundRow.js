@@ -37,8 +37,13 @@ export function RoundRow(props) {
     graphql`
     fragment RoundRow_round on Round {
       id
-      name
-      role
+      student {
+        startNumber
+      }
+      time
+      createdBy {
+        name
+      }
     }
     `,
     props.round,

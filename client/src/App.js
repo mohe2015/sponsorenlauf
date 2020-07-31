@@ -5,10 +5,12 @@ import { Home } from './Home';
 import { MyAppBar } from './MyAppBar';
 import { UsersList } from './users/UsersList'
 import { RunnersList } from './runners/RunnersList'
+import { RoundsList } from './rounds/RoundsList';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Routes, Route } from 'react-router-dom';
 import { CreateUser } from './users/create/CreateUser';
 import { CreateRunner } from './runners/create/CreateRunner';
+import { CreateRound } from './rounds/create/CreateRound';
 import { NotFound } from './NotFound';
 import { ProtectedRoute } from './ProtectedRoute';
 
@@ -30,6 +32,10 @@ function App() {
               <Route path="/runners">
                 <Route path="/create" element={<CreateRunner />} />
                 <Route path="*" element={<RunnersList />} />
+              </Route>
+              <Route path="/rounds">
+                <Route path="/create" element={<CreateRound />} />
+                <Route path="*" element={<RoundsList />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </ProtectedRoute>
