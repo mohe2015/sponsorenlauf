@@ -38,9 +38,13 @@ schema.queryType({
 
     t.connection("rounds", {
       type: "Round",
-      disableBackwardPagination: true,
+      disableForwardPagination: true,
       resolve: (root, args, ctx, info) => {
-        return connectionFromPromisedArray(ctx.db.round.findMany(), args);
+        return connectionFromPromisedArray(ctx.db.round.findMany({
+          orderBy: {
+            id: 'desc'
+          }
+        }), args);
       },
       extendConnection(t) {
         t.int("totalCount", {

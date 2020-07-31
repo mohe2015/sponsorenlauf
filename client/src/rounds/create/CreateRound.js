@@ -104,7 +104,7 @@ export function CreateRound(props) {
             serverEdge,
           );
 
-          ConnectionHandler.insertEdgeAfter(
+          ConnectionHandler.insertEdgeBefore(
             connectionRecord,
             newEdge,
             previousEdge

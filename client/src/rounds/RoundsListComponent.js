@@ -11,11 +11,11 @@ import { ConnectionHandler } from 'react-relay';
 export function RoundsListComponent(props) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
-  const {data, hasNext, loadNext, isLoadingNext} = usePaginationFragment(
+  const {data, hasPrevious, loadPrevious, isLoadingPrevious} = usePaginationFragment(
     graphql`
       fragment RoundsListComponent_round on Query
       @refetchable(queryName: "RoundsListPaginationQuery") {
-        rounds(first: $count, after: $cursor)
+        rounds(last: $count, before: $cursor)
         @connection(key: "RoundsList_round_rounds") {
           edges {
             node {
@@ -82,7 +82,7 @@ export function RoundsListComponent(props) {
         serverEdge,
       );
 
-      ConnectionHandler.insertEdgeAfter(
+      ConnectionHandler.insertEdgeBefore(
         connectionRecord,
         newEdge,
         previousEdge
@@ -98,11 +98,11 @@ export function RoundsListComponent(props) {
           <RoundRow key={node.id} round={node} />
         );
       })}
-      { hasNext ? <TableRow>
+      { hasPrevious ? <TableRow>
         <TableCell component="th" scope="row" colSpan={4}>
-          <LoadingButton fullWidth={true} pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {
+          <LoadingButton fullWidth={true} pending={isLoadingPrevious || isPending} variant="contained" color="primary" onClick={() => {
                 startTransition(() => {
-                  loadNext(25)
+                  loadPrevious(25)
                 });
               }}>
             Mehr anzeigen
