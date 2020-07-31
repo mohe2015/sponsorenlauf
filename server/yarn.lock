@@ -2361,7 +2361,7 @@ lodash.union@^4.6.0:
   resolved "https://registry.yarnpkg.com/lodash.union/-/lodash.union-4.6.0.tgz#48bb5088409f16f1821666641c44dd1aaae3cd88"
   integrity sha1-SLtQiECfFvGCFmZkHETdGqrjzYg=
 
-lodash@^4.17.15, lodash@^4.17.19:
+lodash@4.17.19, lodash@^4.17.15, lodash@^4.17.19:
   version "4.17.19"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
@@ -2581,12 +2581,13 @@ nexus-plugin-shield@^0.2.0:
     graphql-middleware "^4.0.2"
     graphql-shield "^7.3.0"
 
-nexus-plugin-subscriptions@0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/nexus-plugin-subscriptions/-/nexus-plugin-subscriptions-0.0.8.tgz#33ac52b7f2806f3b17001a139905a13749dd8061"
-  integrity sha512-eR+2U5EQxMULL8KxcCV97pgCC1osWdq2wnhz4ChLOEI51f7xT/ZE34V0Hbe0Wg/TvJF2b2rvc3OvXXhnCDdmZw==
+nexus-plugin-subscriptions@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/nexus-plugin-subscriptions/-/nexus-plugin-subscriptions-0.2.0.tgz#878735ae798cf6359db07f6b2a99c15557097807"
+  integrity sha512-btE0DNdJajEwcsMOR4GahdS9/3vKrU7Ux1n3YHJYqiBCkA/gOzKZHQd4SbDxO55orwLw/DrrlW9USBPbmlIyoA==
   dependencies:
-    subscriptions-transport-ws "0.9.16"
+    lodash "4.17.19"
+    subscriptions-transport-ws "0.9.17"
 
 nexus@^0.26.0-next.9:
   version "0.26.0-next.14"
@@ -3503,18 +3504,7 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
-subscriptions-transport-ws@0.9.16:
-  version "0.9.16"
-  resolved "https://registry.yarnpkg.com/subscriptions-transport-ws/-/subscriptions-transport-ws-0.9.16.tgz#90a422f0771d9c32069294c08608af2d47f596ec"
-  integrity sha512-pQdoU7nC+EpStXnCfh/+ho0zE0Z+ma+i7xvj7bkXKb1dvYHSZxgRPaU6spRP+Bjzow67c/rRDoix5RT0uU9omw==
-  dependencies:
-    backo2 "^1.0.2"
-    eventemitter3 "^3.1.0"
-    iterall "^1.2.1"
-    symbol-observable "^1.0.4"
-    ws "^5.2.0"
-
-subscriptions-transport-ws@^0.9.11, subscriptions-transport-ws@^0.9.16:
+subscriptions-transport-ws@0.9.17, subscriptions-transport-ws@^0.9.11, subscriptions-transport-ws@^0.9.16:
   version "0.9.17"
   resolved "https://registry.yarnpkg.com/subscriptions-transport-ws/-/subscriptions-transport-ws-0.9.17.tgz#e30e40f0caae0d2781903c01a8cb51b6e2682098"
   integrity sha512-hNHi2N80PBz4T0V0QhnnsMGvG3XDFDS9mS6BhZ3R12T6EBywC8d/uJscsga0cVO4DKtXCkCRrWm2sOYrbOdhEA==
