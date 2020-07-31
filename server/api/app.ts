@@ -26,6 +26,14 @@ settings.change({
       inputs: false,
       outputs: false,
     },
+  },
+  server: {
+    cors: {
+      enabled: true,
+      credentials: true,
+      methods: "POST",
+      origin: ["http://localhost:3000", "http://localhost:5000"]
+    }
   }
 });
 
@@ -68,28 +76,6 @@ use(
     },
   })
 );
-
-/*
-this hides the stack trace in production:
-
-import graphqlHTTP from 'express-graphql';
-
-const graphQLMiddleware = graphqlHTTP({
-  schema: myGraphQLSchema,
-  formatError: (error) => ({
-    message: error.message,
-    stack: process.env.NODE_ENV === 'development' ? error.stack.split('\n') : null,
-  })
-});
-
-app.use('/graphql', graphQLMiddleware);
-*/
-
-server.express.use(cors({
-  credentials: true,
-  methods: "POST",
-  origin: ["http://localhost:3000", "http://localhost:5000"]
-}));
 
 server.express.use(formatErrors);
 
