@@ -1834,9 +1834,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/core@npm:^5.0.0-alpha.4":
-  version: 5.0.0-alpha.4
-  resolution: "@material-ui/core@npm:5.0.0-alpha.4"
+"@material-ui/core@npm:^5.0.0-alpha.5":
+  version: 5.0.0-alpha.5
+  resolution: "@material-ui/core@npm:5.0.0-alpha.5"
   dependencies:
     "@babel/runtime": ^7.4.4
     "@material-ui/styles": ^5.0.0-alpha.1
@@ -1857,13 +1857,13 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: a59aee16bc02c0f38911e59a6b0324f29507b1a9fc90fded46fcd2ba59c9ec4777efca2d1b528d7454056b08fd735a99599684123f5a2d1c084edd8d176cd047
+  checksum: c0186b00afb6f53a49a7dd375b9a58e8a992d5efc602d5443b773c26662d0a7ef8ada054f5b1b7d9762dde29de7ac550e607df2f1b7df1d3d6b749a247d35e2f
   languageName: node
   linkType: hard
 
-"@material-ui/lab@npm:^5.0.0-alpha.3":
-  version: 5.0.0-alpha.3
-  resolution: "@material-ui/lab@npm:5.0.0-alpha.3"
+"@material-ui/lab@npm:^5.0.0-alpha.5":
+  version: 5.0.0-alpha.5
+  resolution: "@material-ui/lab@npm:5.0.0-alpha.5"
   dependencies:
     "@babel/runtime": ^7.4.4
     "@material-ui/utils": ^5.0.0-alpha.1
@@ -1878,7 +1878,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 3d716c46715644d34929e5a7d40ddff65acbd172b38fa831ade3e200485cfd5ff261d2aed7841b7567ba7ed1a3db9be4630fe59f75e322a0bcd6d6d5d7572d57
+  checksum: a98366d1c0ce3916c76f68150fe9ac482414e1b88f429755a9a112ffbb7a170d00ac4f3e91e66b7acac31344462ea67b11aebd1cc2424cf2b283a659357c8b77
   languageName: node
   linkType: hard
 
@@ -2128,9 +2128,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:^5.11.1":
-  version: 5.11.1
-  resolution: "@testing-library/jest-dom@npm:5.11.1"
+"@testing-library/jest-dom@npm:^5.11.2":
+  version: 5.11.2
+  resolution: "@testing-library/jest-dom@npm:5.11.2"
   dependencies:
     "@babel/runtime": ^7.9.2
     "@types/testing-library__jest-dom": ^5.9.1
@@ -2142,7 +2142,7 @@ __metadata:
     jest-matcher-utils: ^25.1.0
     lodash: ^4.17.15
     redent: ^3.0.0
-  checksum: 15151fde17fc75dacc1a8c065cf23495286afd6605dc3ec39ef54d41b8880b689036976f0f0efd0c8f1cc2ee99bc2ce5d487fdb7cd3e2da9f6b27574684fca72
+  checksum: 21b7cca436e24bb7cd9240eab63819d6fc5076fd5617b5114da420e69c08026ad09e6ce921a980fd6fa05ba167a4c764db967315735a511b585563e6544dc0e0
   languageName: node
   linkType: hard
 
@@ -2159,14 +2159,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/user-event@npm:^12.0.15":
-  version: 12.0.15
-  resolution: "@testing-library/user-event@npm:12.0.15"
+"@testing-library/user-event@npm:^12.0.17":
+  version: 12.0.17
+  resolution: "@testing-library/user-event@npm:12.0.17"
   dependencies:
     "@babel/runtime": ^7.10.2
   peerDependencies:
     "@testing-library/dom": ">=7.21.4"
-  checksum: 1909a4d91a9b4a13e8ac43eed6faa96b3c073f136e1a0e6a61b3ff0625691017ce2128a504fae49640e39f910a807cedbb0b82bd6043a3e1a22e9201d654f919
+  checksum: f852045a53c50d4068e7bfcc098f19ba8087a83cc45797cff2572e7ce9b8be43c35a04622fc45fb0b69fbd7d768aff92f5bd7241d65e370b6c2e08de48202871
   languageName: node
   linkType: hard
 
@@ -4182,18 +4182,18 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": ^5.14.0
     "@fortawesome/free-solid-svg-icons": ^5.14.0
     "@fortawesome/react-fontawesome": ^0.1.11
-    "@material-ui/core": ^5.0.0-alpha.4
-    "@material-ui/lab": ^5.0.0-alpha.3
-    "@testing-library/jest-dom": ^5.11.1
+    "@material-ui/core": ^5.0.0-alpha.5
+    "@material-ui/lab": ^5.0.0-alpha.5
+    "@testing-library/jest-dom": ^5.11.2
     "@testing-library/react": ^10.4.7
-    "@testing-library/user-event": ^12.0.15
+    "@testing-library/user-event": ^12.0.17
     babel-plugin-relay: ^10.0.1
     graphql: ^15.3.0
-    history: 5
+    history: 5.0.0
     material-ui-popup-state: ^1.6.1
-    react: experimental
-    react-dom: experimental
-    react-relay: experimental
+    react: ^0.0.0-experimental-ede917064
+    react-dom: ^0.0.0-experimental-ede917064
+    react-relay: ^0.0.0-experimental-8058ef82
     react-router: ^6.0.0-beta.0
     react-router-dom: ^6.0.0-beta.0
     react-scripts: 3.4.1
@@ -7120,7 +7120,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"history@npm:5":
+"history@npm:5.0.0":
   version: 5.0.0
   resolution: "history@npm:5.0.0"
   dependencies:
@@ -12017,16 +12017,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-dom@npm:experimental":
-  version: 0.0.0-experimental-4c8c98ab9
-  resolution: "react-dom@npm:0.0.0-experimental-4c8c98ab9"
+"react-dom@npm:^0.0.0-experimental-ede917064":
+  version: 0.0.0-fec00a869
+  resolution: "react-dom@npm:0.0.0-fec00a869"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    scheduler: 0.0.0-experimental-4c8c98ab9
+    prop-types: ^15.6.2
+    scheduler: 0.0.0-fec00a869
   peerDependencies:
-    react: 0.0.0-experimental-4c8c98ab9
-  checksum: cbc15c14b3267820f47c0f2b8c4a0dded213a069cf53b5ee6a73053af7f0cf6319596d50c7c01828f104b021e6cde87c83406a1ee00f6a696e7f49189a082e04
+    react: 0.0.0-fec00a869
+  checksum: 070b9d6217f396bbc58b7dad3f028e299e90a7d7b6ca4aa5f9eb088c6d8f2f08a3f45c9f1d4536a9a93368df24ff3568021e6307856e90afaf8a018267ba681a
   languageName: node
   linkType: hard
 
@@ -12044,18 +12045,10 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-relay@npm:experimental":
-  version: 0.0.0-experimental-8058ef82
-  resolution: "react-relay@npm:0.0.0-experimental-8058ef82"
-  dependencies:
-    "@babel/runtime": ^7.0.0
-    fbjs: ^1.0.0
-    nullthrows: ^1.1.1
-    relay-runtime: 10.0.1
-    scheduler: ^0.19.1
-  peerDependencies:
-    react: ^16.9.0
-  checksum: 64d8920c84157bff25f0cd7c0842041ecb471bb46dba31a1d775203f061082478c31ee236223ca73d384a88d3e659fde34b46104176321a2b6926cb0826b7ab7
+"react-relay@npm:^0.0.0-experimental-8058ef82":
+  version: 0.0.0
+  resolution: "react-relay@npm:0.0.0"
+  checksum: 4ffab2d064b99b36071875e14cb2eb2e8b59c9d9566c739eff8407e382c3b08f9d4f5046d1abee38bb8ac210a83c8923a2e6adf88e7aa8c30cd4ab0283250150
   languageName: node
   linkType: hard
 
@@ -12171,13 +12164,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react@npm:experimental":
-  version: 0.0.0-experimental-4c8c98ab9
-  resolution: "react@npm:0.0.0-experimental-4c8c98ab9"
+"react@npm:^0.0.0-experimental-ede917064":
+  version: 0.0.0-fec00a869
+  resolution: "react@npm:0.0.0-fec00a869"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-  checksum: 0b5b6b909b728604b4dc2d2ea86ded3aa6fea5f7a875a3f6edf0d0501337c04cb19244dbafed8b83c52ce4434b52646b57b83c5d330cf824aa4892c287577c1c
+    prop-types: ^15.6.2
+    scheduler: 0.0.0-fec00a869
+  checksum: 0be8559c2071497cd1142d87dae0d77d1dd9a32debe92773d845b5c73d8591edf05e238628b9b8460fa96609b2a2cb86d2495a32d8b78b1a312943e8478e5844
   languageName: node
   linkType: hard
 
@@ -12893,23 +12888,13 @@ resolve@1.15.0:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.0.0-experimental-4c8c98ab9":
-  version: 0.0.0-experimental-4c8c98ab9
-  resolution: "scheduler@npm:0.0.0-experimental-4c8c98ab9"
+"scheduler@npm:0.0.0-fec00a869":
+  version: 0.0.0-fec00a869
+  resolution: "scheduler@npm:0.0.0-fec00a869"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-  checksum: 1e6e7f40a7d7745a6912d1d7a73fc60d58949b41a321e174464c3821235a96a56e2d9d18f76e76c2118142b899b406c2795391dec807e074efb64282eaf21f89
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.19.1":
-  version: 0.19.1
-  resolution: "scheduler@npm:0.19.1"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: 804f990b9f370cca6d42b65f3cba2cc2bfed4973ee5623bed1ea36a6627842db8c891e2e5ac003f06f9ee892d1d3396921e27fa077346caf0213af05776e8dee
+  checksum: 497faf1fcf7220e7e666203c896588b1a26be8b814a9a208b745b5a70a3f025bfcccf59c73d96c7b2fd79c51bc49f63fda17e18a51ec29a92448a85056bd901a
   languageName: node
   linkType: hard
 
