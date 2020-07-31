@@ -49,6 +49,35 @@ export function CreateRound(props) {
 
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
+  const sharedUpdater = (store, previousEdge, serverEdge) => {
+    const connectionRecord = ConnectionHandler.getConnection(
+      store.getRoot(),
+      "RoundsList_round_rounds"
+    );
+    if (!connectionRecord) {
+      console.log("connection not found");
+      return;
+    }
+
+    const existingEdges = connectionRecord.getLinkedRecords("edges").map(e => e.getLinkedRecord("node").getValue("id"));
+    if (existingEdges.includes(serverEdge.getLinkedRecord("node").getValue("id"))) {
+      console.log("node already in connection")
+      return;
+    }
+
+    const newEdge = ConnectionHandler.buildConnectionEdge(
+      store,
+      connectionRecord,
+      serverEdge,
+    );
+
+    ConnectionHandler.insertEdgeBefore(
+      connectionRecord,
+      newEdge,
+      previousEdge
+    );
+  }
+
   const onSubmit = useCallback(
     event => {
       event.preventDefault();
@@ -59,14 +88,7 @@ export function CreateRound(props) {
             setStartNumberError(response.round_create.startNumberError);
           } else {
             setStartNumberError(null);
-
-            startTransition(() => {
-              if (location.state?.oldPathname) {
-                navigate(location.state?.oldPathname);
-              } else {
-                navigate("/rounds");
-              }
-            });
+            setStartNumber('');
           }
         },
         onError: error => {
@@ -76,39 +98,44 @@ export function CreateRound(props) {
         variables: {
           startNumber: parseInt(startNumber)
         },
-        updater: (store) => {
-          const connectionRecord = ConnectionHandler.getConnection(
-            store.getRoot(),
-            "RoundsList_round_rounds"
+        optimisticUpdater: (store) => {
+          // TODO FIXME strange UI updates as subscription gets received
+
+          // https://github.com/facebook/relay/commit/c988815ff9b1b4dd236c83413c55b352bbae0266
+          // https://github.com/facebook/relay/issues/2077
+
+          const roundId = 'client:newRound';
+          const roundNode = store.create(roundId, 'Round');
+          roundNode.setValue(roundId, 'id');
+
+          const studentId = 'client:newStudent';
+          const studentNode = store.create(studentId, 'Student');
+          studentNode.setValue(studentId, 'id');
+          studentNode.setValue(startNumber, 'startNumber');
+
+          //roundNode.setValue("now", 'time');
+
+          // TODO get me
+          //roundNode.setValue("SD", 'createdBy');
+
+          roundNode.setLinkedRecord(studentNode, 'student');
+
+          // Create a new edge that contains the newly created Todo Item
+          const newEdge = store.create(
+            'client:newEdge',
+            'RoundEdge',
           );
-          if (!connectionRecord) {
-            console.log("connection not found");
-            return;
-          }
+          newEdge.setLinkedRecord(roundNode, 'node');
 
-
+          sharedUpdater(store, null, newEdge)
+        },
+        updater: (store) => {
           const payload = store.getRootField("round_create");
 
           const previousEdge = payload.getLinkedRecord('previous_edge');
           const serverEdge = payload.getLinkedRecord('round_edge');
 
-          const existingEdges = connectionRecord.getLinkedRecords("edges").map(e => e.getLinkedRecord("node").getValue("id"));
-          if (existingEdges.includes(serverEdge.getLinkedRecord("node").getValue("id"))) {
-            console.log("node already in connection")
-            return;
-          }
-
-          const newEdge = ConnectionHandler.buildConnectionEdge(
-            store,
-            connectionRecord,
-            serverEdge,
-          );
-
-          ConnectionHandler.insertEdgeBefore(
-            connectionRecord,
-            newEdge,
-            previousEdge
-          );
+          sharedUpdater(store, previousEdge, serverEdge)
         }
       })
     },
