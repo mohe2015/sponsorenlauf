@@ -4254,7 +4254,7 @@ __metadata:
     material-ui-popup-state: ^1.6.1
     react: ^0.0.0-experimental-ede917064
     react-dom: ^0.0.0-experimental-ede917064
-    react-relay: ^0.0.0-experimental-8058ef82
+    react-relay: experimental
     react-router: ^6.0.0-beta.0
     react-router-dom: ^6.0.0-beta.0
     react-scripts: 3.4.1
@@ -12086,10 +12086,18 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-relay@npm:^0.0.0-experimental-8058ef82":
-  version: 0.0.0
-  resolution: "react-relay@npm:0.0.0"
-  checksum: 4ffab2d064b99b36071875e14cb2eb2e8b59c9d9566c739eff8407e382c3b08f9d4f5046d1abee38bb8ac210a83c8923a2e6adf88e7aa8c30cd4ab0283250150
+"react-relay@npm:experimental":
+  version: 0.0.0-experimental-8058ef82
+  resolution: "react-relay@npm:0.0.0-experimental-8058ef82"
+  dependencies:
+    "@babel/runtime": ^7.0.0
+    fbjs: ^1.0.0
+    nullthrows: ^1.1.1
+    relay-runtime: 10.0.1
+    scheduler: ^0.19.1
+  peerDependencies:
+    react: ^16.9.0
+  checksum: 64d8920c84157bff25f0cd7c0842041ecb471bb46dba31a1d775203f061082478c31ee236223ca73d384a88d3e659fde34b46104176321a2b6926cb0826b7ab7
   languageName: node
   linkType: hard
 
@@ -12936,6 +12944,16 @@ resolve@1.1.7:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: 497faf1fcf7220e7e666203c896588b1a26be8b814a9a208b745b5a70a3f025bfcccf59c73d96c7b2fd79c51bc49f63fda17e18a51ec29a92448a85056bd901a
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.19.1":
+  version: 0.19.1
+  resolution: "scheduler@npm:0.19.1"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+  checksum: 804f990b9f370cca6d42b65f3cba2cc2bfed4973ee5623bed1ea36a6627842db8c891e2e5ac003f06f9ee892d1d3396921e27fa077346caf0213af05776e8dee
   languageName: node
   linkType: hard
 
