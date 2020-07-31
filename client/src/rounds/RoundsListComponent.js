@@ -1,38 +1,38 @@
 import React, { useMemo } from "react";
 import { usePaginationFragment, useSubscription } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
-import { UserRow } from './UserRow'
+import { RoundRow } from './RoundRow'
 import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { ConnectionHandler } from 'react-relay';
 
-export function UsersListComponent(props) {
+export function RoundsListComponent(props) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
   const {data, hasNext, loadNext, isLoadingNext} = usePaginationFragment(
     graphql`
-      fragment UsersListComponent_user on Query
-      @refetchable(queryName: "UsersListPaginationQuery") {
-        users(first: $count, after: $cursor)
-        @connection(key: "UsersList_user_users") {
+      fragment RoundsListComponent_round on Query
+      @refetchable(queryName: "RoundsListPaginationQuery") {
+        rounds(first: $count, after: $cursor)
+        @connection(key: "RoundsList_round_rounds") {
           edges {
             node {
               id
-              ...UserRow_user
+              ...RoundRow_round
             }
           }
         }
       }
     `,
-    props.users
+    props.rounds
   );
   const subscriptionConfig = useMemo(() => ({
     subscription: graphql`
-    subscription UsersListComponentSubscription {
-      subscribeUsers {
-        user_edge {
+    subscription RoundsListComponentSubscription {
+      subscribeRounds {
+        round_edge {
           cursor
           node {
             id
@@ -55,15 +55,15 @@ export function UsersListComponent(props) {
     updater: (store) => {
       const connectionRecord = ConnectionHandler.getConnection(
         store.getRoot(),
-        "UsersList_user_users"
+        "RoundsList_round_rounds"
       );
       if (!connectionRecord) {
         return;
       }
-      const payload = store.getRootField("subscribeUsers");
+      const payload = store.getRootField("subscribeRounds");
 
       const previousEdge = payload.getLinkedRecord('previous_edge');
-      const serverEdge = payload.getLinkedRecord('user_edge');
+      const serverEdge = payload.getLinkedRecord('round_edge');
 
       const newEdge = ConnectionHandler.buildConnectionEdge(
         store,
@@ -81,10 +81,10 @@ export function UsersListComponent(props) {
   useSubscription(subscriptionConfig);
 
   return (<>
-      {(data.users?.edges ?? []).map(edge => {
+      {(data.rounds?.edges ?? []).map(edge => {
         const node = edge.node;
         return (
-          <UserRow key={node.id} user={node} />
+          <RoundRow key={node.id} round={node} />
         );
       })}
       { hasNext ? <TableRow>

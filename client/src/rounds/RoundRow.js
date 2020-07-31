@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
 
-export function LoadingUserRow(props) {
+export function LoadingRoundRow(props) {
   return (
     <TableRow>
       <TableCell component="th" scope="row">
@@ -32,16 +32,16 @@ export function LoadingUserRow(props) {
   )
 }
 
-export function UserRow(props) {
+export function RoundRow(props) {
   const data = useFragment(
     graphql`
-    fragment UserRow_user on User {
+    fragment RoundRow_round on Round {
       id
       name
       role
     }
     `,
-    props.user,
+    props.round,
   );
 
   return (

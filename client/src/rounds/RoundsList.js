@@ -1,6 +1,6 @@
 import React from "react";
-import { UsersListQuery } from './UsersListQuery';
-import { LoadingUserRow } from './UserRow';
+import { RoundsListQuery } from './RoundsListQuery';
+import { LoadingRoundRow } from './RoundRow';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -16,10 +16,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link as RouterLink } from 'react-router-dom';
 
-export function UsersList(props) {
+export function RoundsList(props) {
   return (
     <Container maxWidth="sm">
-    <IconButton component={RouterLink} to="/users/create">
+    <IconButton component={RouterLink} to="/rounds/create">
       <FontAwesomeIcon icon={faPlus} />
       <Typography variant="button" noWrap>
         <Box component="span" ml={1}>
@@ -28,7 +28,7 @@ export function UsersList(props) {
       </Typography>
     </IconButton>
   <TableContainer component={Paper}>
-    <Table aria-label="table of users">
+    <Table aria-label="table of rounds">
       <TableHead>
         <TableRow>
           <TableCell>Name</TableCell>
@@ -38,7 +38,7 @@ export function UsersList(props) {
       </TableHead>
       <TableBody>
 
-  {props.loading ? [...Array(25)].map((e, i) => <LoadingUserRow key={i} />) : <UsersListQuery /> }
+  {props.loading ? [...Array(25)].map((e, i) => <LoadingRoundRow key={i} />) : <RoundsListQuery /> }
   
   </TableBody>
         </Table>
