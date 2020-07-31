@@ -1895,7 +1895,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/core@npm:^5.0.0-alpha.5":
+"@material-ui/core@npm:next":
   version: 5.0.0-alpha.5
   resolution: "@material-ui/core@npm:5.0.0-alpha.5"
   dependencies:
@@ -4243,7 +4243,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": ^5.14.0
     "@fortawesome/free-solid-svg-icons": ^5.14.0
     "@fortawesome/react-fontawesome": ^0.1.11
-    "@material-ui/core": ^5.0.0-alpha.5
+    "@material-ui/core": next
     "@material-ui/lab": ^5.0.0-alpha.5
     "@testing-library/jest-dom": ^5.11.2
     "@testing-library/react": ^10.4.7
@@ -4252,8 +4252,8 @@ __metadata:
     graphql: ^15.3.0
     history: 5.0.0
     material-ui-popup-state: ^1.6.1
-    react: ^0.0.0-experimental-ede917064
-    react-dom: ^0.0.0-experimental-ede917064
+    react: experimental
+    react-dom: experimental
     react-relay: experimental
     react-router: ^6.0.0-beta.0
     react-router-dom: ^6.0.0-beta.0
@@ -12058,17 +12058,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^0.0.0-experimental-ede917064":
-  version: 0.0.0-fec00a869
-  resolution: "react-dom@npm:0.0.0-fec00a869"
+"react-dom@npm:experimental":
+  version: 0.0.0-experimental-3d0895557
+  resolution: "react-dom@npm:0.0.0-experimental-3d0895557"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    prop-types: ^15.6.2
-    scheduler: 0.0.0-fec00a869
+    scheduler: 0.0.0-experimental-3d0895557
   peerDependencies:
-    react: 0.0.0-fec00a869
-  checksum: 070b9d6217f396bbc58b7dad3f028e299e90a7d7b6ca4aa5f9eb088c6d8f2f08a3f45c9f1d4536a9a93368df24ff3568021e6307856e90afaf8a018267ba681a
+    react: 0.0.0-experimental-3d0895557
+  checksum: 5e2e30c5ebc49a13635b7eb434e4f946e8785df6076b8dde7c586d64b34012adfc55a4964e9de2ae17c5f85755792b7c22873b8212df4f97837b827c0fc15bdf
   languageName: node
   linkType: hard
 
@@ -12213,15 +12212,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react@npm:^0.0.0-experimental-ede917064":
-  version: 0.0.0-fec00a869
-  resolution: "react@npm:0.0.0-fec00a869"
+"react@npm:experimental":
+  version: 0.0.0-experimental-3d0895557
+  resolution: "react@npm:0.0.0-experimental-3d0895557"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    prop-types: ^15.6.2
-    scheduler: 0.0.0-fec00a869
-  checksum: 0be8559c2071497cd1142d87dae0d77d1dd9a32debe92773d845b5c73d8591edf05e238628b9b8460fa96609b2a2cb86d2495a32d8b78b1a312943e8478e5844
+  checksum: 38b6dd46f9c491a5e92e2c34721ea86093ef6bbb8edd868f4bbcdf8a75711ba65f6b5011bc05ea6a1ff0ec5f5a885095122a889aaad5f71f581b079f5447b467
   languageName: node
   linkType: hard
 
@@ -12937,13 +12934,13 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.0.0-fec00a869":
-  version: 0.0.0-fec00a869
-  resolution: "scheduler@npm:0.0.0-fec00a869"
+"scheduler@npm:0.0.0-experimental-3d0895557":
+  version: 0.0.0-experimental-3d0895557
+  resolution: "scheduler@npm:0.0.0-experimental-3d0895557"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-  checksum: 497faf1fcf7220e7e666203c896588b1a26be8b814a9a208b745b5a70a3f025bfcccf59c73d96c7b2fd79c51bc49f63fda17e18a51ec29a92448a85056bd901a
+  checksum: 06f2ebf44a5fd5ee96237b634ed4a9120e231dac528e3a69be93a87868496c5fe5f00f3ef41a29a2ddc1ad076bbe84baee4935deb1109c8adff3f1965c1f0752
   languageName: node
   linkType: hard
 

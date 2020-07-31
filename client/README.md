@@ -1,11 +1,6 @@
-npx create-react-app@next client3
-cd client3
-yarn add relay-runtime react-relay@experimental
-yarn add --dev relay-compiler graphql babel-plugin-relay
-yarn add react@experimental react-dom@experimental
-yarn add --dev relay-config
-yarn add @material-ui/core@next
-yarn add @fortawesome/fontawesome-svg-core  @fortawesome/free-solid-svg-icons @fortawesome/free-brands-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/react-fontawesome
+npx create-react-app@next client
+cd client
+yarn add react-relay@experimental react@experimental react-dom@experimental @material-ui/core@next
 
 https://wanago.io/2019/09/16/bug-proofing-our-application-with-error-boundaries-and-the-strict-mode/
 https://reactjs.org/docs/strict-mode.html
