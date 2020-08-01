@@ -53,7 +53,6 @@ export function CreateRound(props) {
       "UserRoundsList_round_rounds",
       {
         orderBy: { id: 'desc' },
-
       }
     );
     if (!connectionRecord) {
@@ -100,7 +99,7 @@ export function CreateRound(props) {
         variables: {
           startNumber: parseInt(startNumber)
         },
-        optimisticUpdater: (store) => {
+        /*optimisticUpdater: (store) => {
           // TODO FIXME strange UI updates as subscription gets received
 
           // https://github.com/facebook/relay/commit/c988815ff9b1b4dd236c83413c55b352bbae0266
@@ -133,7 +132,7 @@ export function CreateRound(props) {
           newEdge.setLinkedRecord(roundNode, 'node');
 
           sharedUpdater(store, null, newEdge)
-        },
+        },*/
         updater: (store) => {
           const payload = store.getRootField("round_create");
 

@@ -8,6 +8,18 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
+import Collapse from '@material-ui/core/Collapse';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 0),
+  },
+}));
 
 export function LoadingRoundRow(props) {
   return (
@@ -33,6 +45,8 @@ export function LoadingRoundRow(props) {
 }
 
 export function RoundRow(props) {
+  const classes = useStyles();
+
   const data = useFragment(
     graphql`
     fragment RoundRow_round on Round {
@@ -50,9 +64,11 @@ export function RoundRow(props) {
   );
 
   return (
+    <Collapse in={true} appear={true}>
     <TableRow>
       <TableCell component="th" scope="row">
-        {data.student.startNumber}
+        
+          {data.student.startNumber}
       </TableCell>
       <TableCell>{data.time}</TableCell>
       <TableCell align="right">
@@ -67,5 +83,6 @@ export function RoundRow(props) {
         </ControlledTooltip>
       </TableCell>
     </TableRow>
+    </Collapse>
   );
 }

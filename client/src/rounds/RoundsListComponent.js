@@ -60,7 +60,10 @@ export function RoundsListComponent(props) {
     updater: (store) => {
       const connectionRecord = ConnectionHandler.getConnection(
         store.getRoot(),
-        "RoundsList_round_rounds"
+        "RoundsList_round_rounds",
+        {
+          orderBy: { id: 'desc' },
+        }
       );
       if (!connectionRecord) {
         return;
