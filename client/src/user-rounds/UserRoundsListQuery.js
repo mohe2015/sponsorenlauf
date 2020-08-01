@@ -6,8 +6,8 @@ import { UserRoundsListComponent } from './UserRoundsListComponent';
 export function UserRoundsListQuery() {
   const data = useLazyLoadQuery(
     graphql`
-query RoundsListQuery($count: Int!, $cursor: String) {
-  ...RoundsListComponent_round
+query UserRoundsListQuery($count: Int!, $cursor: String) {
+  ...UserRoundsListComponent_round
 }
   `,
   {count: 25},

@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { usePaginationFragment, useSubscription } from 'react-relay/hooks';
+import { usePaginationFragment } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { RoundRow } from './../rounds/RoundRow'
 import { unstable_useTransition as useTransition } from 'react';
@@ -13,10 +13,10 @@ export function UserRoundsListComponent(props) {
 
   const {data, hasPrevious, loadPrevious, isLoadingPrevious} = usePaginationFragment(
     graphql`
-      fragment RoundsListComponent_round on Query
-      @refetchable(queryName: "RoundsListPaginationQuery") {
+      fragment UserRoundsListComponent_round on Query
+      @refetchable(queryName: "UserRoundsListPaginationQuery") {
         rounds(last: $count, before: $cursor)
-        @connection(key: "RoundsList_round_rounds") {
+        @connection(key: "UserRoundsList_round_rounds") {
           edges {
             node {
               id
@@ -28,67 +28,6 @@ export function UserRoundsListComponent(props) {
     `,
     props.rounds
   );
-  const subscriptionConfig = useMemo(() => ({
-    subscription: graphql`
-    subscription RoundsListComponentSubscription {
-      subscribeRounds {
-        round_edge {
-          cursor
-          node {
-            id
-            student {
-              startNumber
-            }
-            time
-            createdBy {
-              name
-            }
-          }
-        }
-      }
-    }`,
-    variables: {},
-    onCompleted: () => {
-      console.log("onCompleted")
-    },
-    onError: error => {
-      console.log("onError", error)
-    },
-    onNext: response => {
-      console.log("onNext", response)
-    },
-    updater: (store) => {
-      const connectionRecord = ConnectionHandler.getConnection(
-        store.getRoot(),
-        "RoundsList_round_rounds"
-      );
-      if (!connectionRecord) {
-        return;
-      }
-      const payload = store.getRootField("subscribeRounds");
-
-      const previousEdge = payload.getLinkedRecord('previous_edge');
-      const serverEdge = payload.getLinkedRecord('round_edge');
-
-      const existingEdges = connectionRecord.getLinkedRecords("edges").map(e => e.getLinkedRecord("node").getValue("id"));
-      if (existingEdges.includes(serverEdge.getLinkedRecord("node").getValue("id"))) {
-        console.log("node already in connection")
-        return;
-      }
-
-      const newEdge = ConnectionHandler.buildConnectionEdge(
-        store,
-        connectionRecord,
-        serverEdge,
-      );
-
-      ConnectionHandler.insertEdgeBefore(
-        connectionRecord,
-        newEdge,
-        previousEdge
-      );
-    }
-  }), [])
 
   return (<>
       {(data.rounds?.edges ?? []).map(edge => {
