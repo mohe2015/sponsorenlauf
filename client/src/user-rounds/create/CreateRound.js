@@ -50,7 +50,11 @@ export function CreateRound(props) {
   const sharedUpdater = (store, previousEdge, serverEdge) => {
     const connectionRecord = ConnectionHandler.getConnection(
       store.getRoot(),
-      "UserRoundsList_round_rounds"
+      "UserRoundsList_round_rounds",
+      {
+        orderBy: { id: 'desc' },
+
+      }
     );
     if (!connectionRecord) {
       console.log("connection not found");
