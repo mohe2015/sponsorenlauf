@@ -46,7 +46,14 @@ declare global {
   }
 }
 
-const db = new PrismaClient();
+const db = new PrismaClient({
+  log: [
+    {
+      emit: 'event',
+      level: 'query',
+    }
+  ]
+});
 const pubsub = new PubSub();
 let nextCleanupCheck = new Date();
 

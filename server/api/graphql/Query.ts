@@ -47,12 +47,16 @@ schema.queryType({
 
     t.connection("rounds", {
       type: "Round",
-      disableForwardPagination: true,
+      disableBackwardPagination: true,
+      additionalArgs: {
+        filter: schema.arg({ type: "RoundWhereInput", required: true }),
+      },
       resolve: async (root, args, ctx, info) => {
         let result = await ctx.db.round.findMany({
           orderBy: {
             id: 'desc'
           },
+          where: args.filter,
           take: args.last + 1,
           cursor: args.before === null ? undefined : {
             id: args.before,
