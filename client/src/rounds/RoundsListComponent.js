@@ -98,7 +98,7 @@ export function RoundsListComponent(props) {
           <RoundRow key={node.id} round={node} />
         );
       })}
-      { hasPrevious ? <TableRow>
+      { hasNext ? <TableRow>
         <TableCell component="th" scope="row" colSpan={4}>
           <LoadingButton fullWidth={true} pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {
                 startTransition(() => {

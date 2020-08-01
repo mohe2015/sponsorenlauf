@@ -33,6 +33,12 @@ settings.change({
       credentials: true,
       methods: "POST",
       origin: ["http://localhost:3000", "http://localhost:5000"]
+    },
+    playground: {
+      enabled: true,
+      settings: {
+        "request.credentials": "include",
+      }
     }
   }
 });

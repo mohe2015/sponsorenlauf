@@ -49,22 +49,18 @@ schema.queryType({
       type: "Round",
       disableBackwardPagination: true,
       additionalArgs: {
-        filter: schema.arg({ type: "RoundWhereInput", required: true }),
+        filter: schema.arg({ type: "RoundWhereInput", required: false }),
+        orderBy: schema.arg({ type: "RoundOrderByInput" }),
       },
       resolve: async (root, args, ctx, info) => {
         let result = await ctx.db.round.findMany({
-          orderBy: {
-            id: 'desc'
-          },
+          orderBy: args.orderBy,
           where: args.filter,
           take: args.last + 1,
-          cursor: args.before === null ? undefined : {
-            id: args.before,
-          },
+          cursor: args.after,
         })
         let pageInfo = {
-          hasNextPage: false,
-          hasPreviousPage: result.length == args.last + 1,
+          hasNextPage: result.length == args.last + 1,
           startCursor: result[0].id,
           endCursor: result[args.last - 1].id,
         };
