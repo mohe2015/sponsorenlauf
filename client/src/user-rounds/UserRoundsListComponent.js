@@ -15,7 +15,7 @@ export function UserRoundsListComponent(props) {
     graphql`
       fragment UserRoundsListComponent_round on Query
       @refetchable(queryName: "UserRoundsListPaginationQuery") {
-        rounds(first: $count, after: $cursor)
+        rounds(first: $count, after: $cursor, orderBy: { id: desc })
         @connection(key: "UserRoundsList_round_rounds") {
           edges {
             node {
