@@ -55,14 +55,14 @@ schema.queryType({
       resolve: async (root, args, ctx, info) => {
         let result = await ctx.db.round.findMany({
           orderBy: args.orderBy,
-          where: args.filter,
-          take: args.last + 1,
-          cursor: args.after,
+          where: args.filter === null ? undefined : args.filter,
+          take: args.first + 1,
+          cursor: args.after === null ? undefined : args.after,
         })
         let pageInfo = {
-          hasNextPage: result.length == args.last + 1,
+          hasNextPage: result.length == args.first + 1,
           startCursor: result[0].id,
-          endCursor: result[args.last - 1].id,
+          endCursor: result[args.first - 1].id,
         };
         result.pop();
         return {
