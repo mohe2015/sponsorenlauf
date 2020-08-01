@@ -9,12 +9,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Container from "@material-ui/core/Container";
-import { CreateRound } from "./create/CreateRound";
 
 export function RoundsList(props) {
   return (
     <Container maxWidth="sm">
-    <CreateRound />
   <TableContainer component={Paper}>
     <Table aria-label="table of rounds">
       <TableHead>
