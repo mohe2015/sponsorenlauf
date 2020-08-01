@@ -173,6 +173,8 @@ export function CreateUser(props) {
               id="demo-simple-select"
               value={role}
               onChange={e => setRole(e.target.value)}
+              helperText={roleError}
+              error={roleError !== null}
               >
               <MenuItem value={"ADMIN"}>Admin</MenuItem>
               <MenuItem value={"TEACHER"}>Rundenzähler</MenuItem>

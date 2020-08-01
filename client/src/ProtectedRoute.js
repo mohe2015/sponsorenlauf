@@ -1,5 +1,5 @@
-import React, {Element} from 'react';
-import { Switch, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { Route, Navigate } from 'react-router-dom';
 
 export const ProtectedRoute = ({ children, ...rest }) => {
     // TODO FIXME this only works when a rerender happens on navigation

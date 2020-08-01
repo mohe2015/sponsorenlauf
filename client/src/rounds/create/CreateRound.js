@@ -1,12 +1,12 @@
 import React from 'react';
 import { useMutation } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
-import { useState, useCallback, unstable_useTransition as useTransition } from 'react';
+import { useState, useCallback } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import Alert from '@material-ui/lab/Alert';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ConnectionHandler } from 'react-relay';
 import Box from '@material-ui/core/Box';
 
@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function CreateRound(props) {
   const classes = useStyles();
-  const navigate = useNavigate();
   const location = useLocation();
 
   const [round_create, isCreateOneRoundPending] = useMutation(graphql`
@@ -46,8 +45,6 @@ export function CreateRound(props) {
 
   const [startNumber, setStartNumber] = useState('');
   const [startNumberError, setStartNumberError] = useState(null);
-
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
   const sharedUpdater = (store, previousEdge, serverEdge) => {
     const connectionRecord = ConnectionHandler.getConnection(
@@ -139,7 +136,7 @@ export function CreateRound(props) {
         }
       })
     },
-    [startNumber, round_create, navigate, startTransition, location]
+    [startNumber, round_create]
   );
 
     return (
@@ -175,7 +172,7 @@ export function CreateRound(props) {
                 color="primary"
                 size="large"
                 className={classes.submit}
-                pending={isCreateOneRoundPending || isPending}
+                pending={isCreateOneRoundPending}
               >
                 +
               </LoadingButton>
