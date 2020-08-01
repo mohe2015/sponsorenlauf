@@ -33,6 +33,7 @@ export function CreateRound(props) {
           cursor
           node {
             id
+            ...RoundRow_round
           }
         }
       }
@@ -110,12 +111,15 @@ export function CreateRound(props) {
           studentNode.setValue(studentId, 'id');
           studentNode.setValue(startNumber, 'startNumber');
 
-          //roundNode.setValue("now", 'time');
+          roundNode.setValue("now", 'time');
 
-          // TODO get me
-          //roundNode.setValue("SD", 'createdBy');
+          const userId = 'client:newUser';
+          const userNode = store.create(userId, 'User');
+          userNode.setValue(userId, 'id');
+          userNode.setValue("Test", 'name');
 
           roundNode.setLinkedRecord(studentNode, 'student');
+          roundNode.setLinkedRecord(userNode, 'createdBy');
 
           // Create a new edge that contains the newly created Todo Item
           const newEdge = store.create(
