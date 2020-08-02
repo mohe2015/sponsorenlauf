@@ -10,6 +10,7 @@ import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
 import { useConfirm } from 'material-ui-confirm';
 import { useCallback } from 'react';
+import { ConnectionHandler } from 'react-relay';
 
 export function LoadingUserRow(props) {
   return (
@@ -71,7 +72,7 @@ export function UserRow(props) {
             id: data.id
           },
           updater: (store) => {
-            /*const connectionRecord = ConnectionHandler.getConnection(
+            const connectionRecord = ConnectionHandler.getConnection(
               store.getRoot(),
               "UsersList_user_users"
             );
@@ -79,22 +80,15 @@ export function UserRow(props) {
               console.log("connection not found");
               return;
             }
-            const payload = store.getRootField("user_create");
 
-            const previousEdge = payload.getLinkedRecord('previous_edge');
-            const serverEdge = payload.getLinkedRecord('user_edge');
+            const payload = store.getRootField("deleteOneUser");
 
-            const newEdge = ConnectionHandler.buildConnectionEdge(
-              store,
+            const id = payload.getValue('id');
+
+            ConnectionHandler.deleteNode(
               connectionRecord,
-              serverEdge,
+              id,
             );
-
-            ConnectionHandler.insertEdgeAfter(
-              connectionRecord,
-              newEdge,
-              previousEdge
-            );*/
           }
         })
       })
