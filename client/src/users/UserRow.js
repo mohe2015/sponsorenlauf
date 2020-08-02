@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
+import { useConfirm } from 'material-ui-confirm';
 
 export function LoadingUserRow(props) {
   return (
@@ -19,7 +20,6 @@ export function LoadingUserRow(props) {
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
           <IconButton>
-
             <Typography variant="button" noWrap>
               <Box component="span" display={{ xs: 'none', md: 'block' }}>
               Löschen
@@ -43,6 +43,7 @@ export function UserRow(props) {
     `,
     props.user,
   );
+  const confirm = useConfirm();
 
   return (
     <TableRow>
@@ -52,7 +53,18 @@ export function UserRow(props) {
       <TableCell>{data.role}</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
-          <IconButton>
+          <IconButton onClick={() => {
+            confirm({
+              title: 'Schüler ' + data.name + ' löschen?',
+              description: 'Möchtest du den Schüler ' + data.name + ' wirklich löschen? Dies kann nicht rückgängig gemacht werden!',
+              confirmationText: 'Löschen',
+              cancellationText: 'Abbrechen',
+            })
+            .then(() => { 
+              // DELETE
+
+             });
+          }}>
             
             <Typography variant="button" noWrap>
               <Box component="span" display={{ xs: 'none', md: 'block' }}>

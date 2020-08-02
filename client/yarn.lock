@@ -4251,6 +4251,7 @@ __metadata:
     babel-plugin-relay: ^10.0.1
     graphql: ^15.3.0
     history: 5.0.0
+    material-ui-confirm: ^2.1.1
     material-ui-popup-state: ^1.6.1
     react: experimental
     react-dom: experimental
@@ -9394,6 +9395,17 @@ fsevents@^1.2.7:
   dependencies:
     object-visit: ^1.0.0
   checksum: 9e85e6d802183927229d9ad04d70a0e0c7225451994605674d3ed4e4a21f817b4d9aba42a775e98078ffe47cf67df44a50eb07f965f14afead5015c8692503bd
+  languageName: node
+  linkType: hard
+
+"material-ui-confirm@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "material-ui-confirm@npm:2.1.1"
+  peerDependencies:
+    "@material-ui/core": ">= 3.0.0"
+    react: ^16.8.0
+    react-dom: ^16.8.0
+  checksum: d650ecc1da0ab095e2254c761859de1c8b0a4ca6c4636d4ebce702ac7d584981184b35218075560077eb72f9277f3a0b1172805263e156d3b1dad17740c4de62
   languageName: node
   linkType: hard
 

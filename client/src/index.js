@@ -6,13 +6,16 @@ import * as serviceWorker from './serviceWorker';
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
 import RelayEnvironment from './RelayEnvironment'
 import { BrowserRouter as Router } from "react-router-dom";
+import { ConfirmProvider } from 'material-ui-confirm';
 
 ReactDOM.unstable_createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RelayEnvironmentProvider environment={RelayEnvironment}>
+      <ConfirmProvider>
         <Router>
           <App />
         </Router>
+      </ConfirmProvider>
     </RelayEnvironmentProvider>
   </React.StrictMode>
 );
