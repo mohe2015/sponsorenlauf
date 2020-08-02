@@ -12,13 +12,6 @@ schema.queryType({
       },
     });
 
-    t.crud.runners({
-      alias: "jojo",
-      pagination: true,
-      filtering: true,
-      ordering: true,
-    })
-
     // https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
     // TODO FIXME https://nexus.js.org/docs/plugin-connection
     // currentIndex needs to be provided for pagination information

@@ -1,5 +1,5 @@
 import React from "react";
-import { useFragment } from 'react-relay/hooks';
+import { useFragment, useMutation } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
 import { useConfirm } from 'material-ui-confirm';
+import { useCallback } from 'react';
 
 export function LoadingUserRow(props) {
   return (
@@ -44,6 +45,65 @@ export function UserRow(props) {
     props.user,
   );
   const confirm = useConfirm();
+  const [deleteUser, isDeleteUserPending] = useMutation(graphql`
+  mutation UserRowDeleteUserMutation($id: String!) {
+    deleteOneUser(where: { id: $id }) {
+      id
+    }
+  }
+  `);
+
+  const deleteUserCallback = useCallback(
+    event => {
+      confirm({
+        title: 'Schüler ' + data.name + ' löschen?',
+        description: 'Möchtest du den Schüler ' + data.name + ' wirklich löschen? Dies kann nicht rückgängig gemacht werden!',
+        confirmationText: 'Löschen',
+        cancellationText: 'Abbrechen',
+      })
+      .then(() => {
+        deleteUser({
+          onCompleted: response => { },
+          onError: error => {
+            alert(error); // TODO FIXME
+          },
+          variables: {
+            id: data.id
+          },
+          updater: (store) => {
+            /*const connectionRecord = ConnectionHandler.getConnection(
+              store.getRoot(),
+              "UsersList_user_users"
+            );
+            if (!connectionRecord) {
+              console.log("connection not found");
+              return;
+            }
+            const payload = store.getRootField("user_create");
+
+            const previousEdge = payload.getLinkedRecord('previous_edge');
+            const serverEdge = payload.getLinkedRecord('user_edge');
+
+            const newEdge = ConnectionHandler.buildConnectionEdge(
+              store,
+              connectionRecord,
+              serverEdge,
+            );
+
+            ConnectionHandler.insertEdgeAfter(
+              connectionRecord,
+              newEdge,
+              previousEdge
+            );*/
+          }
+        })
+      })
+      .catch(() => {
+        // do nothing
+      })
+    },
+    [deleteUser, data]
+  );
 
   return (
     <TableRow>
@@ -53,19 +113,7 @@ export function UserRow(props) {
       <TableCell>{data.role}</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
-          <IconButton onClick={() => {
-            confirm({
-              title: 'Schüler ' + data.name + ' löschen?',
-              description: 'Möchtest du den Schüler ' + data.name + ' wirklich löschen? Dies kann nicht rückgängig gemacht werden!',
-              confirmationText: 'Löschen',
-              cancellationText: 'Abbrechen',
-            })
-            .then(() => { 
-              // DELETE
-
-             });
-          }}>
-            
+          <IconButton onClick={deleteUserCallback}>
             <Typography variant="button" noWrap>
               <Box component="span" display={{ xs: 'none', md: 'block' }}>
               Löschen

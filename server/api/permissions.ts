@@ -23,6 +23,7 @@ export const permissions = shield({
       runner_create: rules.isUserWithRole(["ADMIN"]),
       login: allow,
       round_create: rules.isUserWithRole(["ADMIN", "TEACHER"]),
+      deleteOneUser: rules.isUserWithRole(["ADMIN"]),
     },
     Subscription: {
       subscribeRounds: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
@@ -40,7 +41,6 @@ export const permissions = shield({
     PageInfo: allow,
     QueryRunners_Connection: allow,
     RoundConnection: allow,
-    
     QueryUsers_Connection: allow,
     RoundEdge: allow,
     RunnerEdge: allow,
