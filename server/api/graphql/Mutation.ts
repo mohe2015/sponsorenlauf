@@ -125,9 +125,9 @@ schema.mutationType({
         });
         let output = {
           __typename: "CreateRoundMutationOutput",
-          previous_edge: Buffer.from("arrayconnection:" + (await context.db.round.count() - 2)).toString('base64'),
+          previous_edge: null,
           round_edge: {
-            cursor: Buffer.from("cursor:" + (await context.db.round.count() - 1)).toString('base64'),
+            cursor: round.id,
             node: {
               ...round,
             }

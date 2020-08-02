@@ -52,7 +52,8 @@ export function RoundRow(props) {
   return (
     <TableRow>
       <TableCell component="th" scope="row">
-        {data.student.startNumber}
+        
+          {data.student.startNumber}
       </TableCell>
       <TableCell>{data.time}</TableCell>
       <TableCell align="right">

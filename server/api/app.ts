@@ -33,6 +33,12 @@ settings.change({
       credentials: true,
       methods: "POST",
       origin: ["http://localhost:3000", "http://localhost:5000"]
+    },
+    playground: {
+      enabled: true,
+      settings: {
+        "request.credentials": "include",
+      }
     }
   }
 });
@@ -46,7 +52,14 @@ declare global {
   }
 }
 
-const db = new PrismaClient();
+const db = new PrismaClient({
+  log: [
+    {
+      emit: 'event',
+      level: 'query',
+    }
+  ]
+});
 const pubsub = new PubSub();
 let nextCleanupCheck = new Date();
 

@@ -70,7 +70,7 @@ export function CreateRunner(props) {
   const [grade, setGrade] = useState(0);
 
   const [nameError, setNameError] = useState(null);
-  const [clazzError, setClazzError] = useState(null);
+  const [clazzError] = useState(null);
   const [gradeError, setGradeError] = useState(null);
 
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });

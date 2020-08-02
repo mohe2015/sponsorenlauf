@@ -12,6 +12,7 @@ import { faRunning } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import { faCircle } from '@fortawesome/free-regular-svg-icons'
+import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { Menu, MenuItem } from "@material-ui/core";
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { Suspense } from 'react';
@@ -91,6 +92,7 @@ export function MyAppBar() {
   const [startUsersTransition, isUsersPending] = useTransition({ timeoutMs: 30000 });
   const [startRunnersTransition, isRunnersPending] = useTransition({ timeoutMs: 30000 });
   const [startRoundsTransition, isRoundsPending] = useTransition({ timeoutMs: 30000 });
+  const [startUserRoundsTransition, isUserRoundsPending] = useTransition({ timeoutMs: 30000 });
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -148,6 +150,23 @@ export function MyAppBar() {
               <FontAwesomeIcon style={{ fontSize: 24 }} icon={faCircle} />
               <Typography variant="button" noWrap>
                 <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Runden</Box>
+              </Typography>
+            </LoadingButton>
+          </ControlledTooltip>
+
+          <ControlledTooltip title="Rundenzählung">
+            <LoadingButton
+            variant="contained"
+            color="primary"
+            disableElevation
+            pending={isUserRoundsPending} onClick={() => {
+                startUserRoundsTransition(() => {
+                  navigate("/user-rounds")
+                });
+              }}>
+              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faEdit} />
+              <Typography variant="button" noWrap>
+                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Rundenzählung</Box>
               </Typography>
             </LoadingButton>
           </ControlledTooltip>

@@ -44,7 +44,7 @@ function fetchQuery(
       console.log("error, new environment");
       createEnvironment();
     }
-    if (isMutation && operation.name == "LoginMutation") {
+    if (isMutation && operation.name === "LoginMutation") {
       console.log("login, new environment");
       createEnvironment();
     }

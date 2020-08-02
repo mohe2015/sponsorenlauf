@@ -36,20 +36,42 @@ schema.queryType({
       }
     });
 
+    // https://relay.dev/graphql/connections.htm
+    // You may order the edges however your business logic dictates,
+    // and may determine the ordering based upon additional arguments
+    // not covered by this specification. But the ordering must be
+    // consistent from page to page, and importantly, The ordering
+    // of edges should be the same when using first/after as when
+    // using last/before, all other arguments being equal. It should
+    // not be reversed when using last/before.
+
     t.connection("rounds", {
       type: "Round",
-      disableForwardPagination: true,
-      resolve: (root, args, ctx, info) => {
-        return connectionFromPromisedArray(ctx.db.round.findMany({
-          orderBy: {
-            id: 'desc'
-          }
-        }), args);
+      disableBackwardPagination: true,
+      additionalArgs: {
+        filter: schema.arg({ type: "RoundWhereInput", required: false }),
+        orderBy: schema.arg({ type: "RoundOrderByInput" }),
       },
-      extendConnection(t) {
-        t.int("totalCount", {
-          resolve: (source, args, ctx) => ctx.db.round.count(args),
+      resolve: async (root, args, ctx, info) => {
+        let result = await ctx.db.round.findMany({
+          orderBy: args.orderBy,
+          where: args.filter === null ? undefined : args.filter,
+          take: args.first + 1,
+          cursor: args.after === null ? undefined : args.after,
         })
+        let pageInfo = {
+          hasNextPage: result.length == args.first + 1,
+          startCursor: result[0].id,
+          endCursor: result[args.first - 1].id,
+        };
+        result.pop();
+        return {
+          pageInfo,
+          edges: result.map(e => { return {
+            cursor: e.id,
+            node: e,
+          }})
+        }
       }
     });
 

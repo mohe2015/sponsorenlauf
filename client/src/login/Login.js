@@ -116,10 +116,6 @@ export function Login(props) {
           username,
           password
         },
-        updater: store => {
-          console.log("invalidate store")
-          store.invalidateStore();
-        }
       })
     },
     [username, password, login, navigate, startTransition, location, updateErrorBoundary]
