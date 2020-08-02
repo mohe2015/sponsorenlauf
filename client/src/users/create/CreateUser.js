@@ -51,7 +51,9 @@ export function CreateUser(props) {
     graphql`
   query CreateUserFindUserQuery($id: String) {
     user(where: { id: $id }) {
-      ...UserRow_user
+      id
+      name
+      role
     }
   }
     `,
@@ -86,8 +88,8 @@ export function CreateUser(props) {
   }
   `);
 
-  const [username, setUsername] = useState('');
-  const [role, setRole] = useState('');
+  const [username, setUsername] = useState(id ? data.user.name : '');
+  const [role, setRole] = useState(id ? data.user.role : '');
 
   const [usernameError, setUsernameError] = useState(null);
   const [roleError, setRoleError] = useState(null);
