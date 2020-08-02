@@ -80,6 +80,10 @@ schema.queryType({
         })
       }
     })
+    t.crud.user({
+      type: "User"
+    })
+
 
     t.field("node", {
       type: "Node",

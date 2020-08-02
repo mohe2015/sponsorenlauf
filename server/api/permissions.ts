@@ -17,6 +17,7 @@ export const permissions = shield({
       runners: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       rounds: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       users: rules.isUserWithRole(["ADMIN"]),
+      user:  rules.isUserWithRole(["ADMIN"]),
     },
     Mutation: {
       user_create: rules.isUserWithRole(["ADMIN"]),

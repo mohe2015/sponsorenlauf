@@ -27,6 +27,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/users">
                 <Route path="/create" element={<CreateUser />} />
+                <Route path="/edit/:id" element={<CreateUser />} />
                 <Route path="*" element={<UsersList />} />
               </Route>
               <Route path="/runners">

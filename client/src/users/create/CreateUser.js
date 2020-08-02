@@ -12,12 +12,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import Alert from '@material-ui/lab/Alert';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import FormHelperText from '@material-ui/core/FormHelperText'
 import { ConnectionHandler } from 'react-relay';
+import { useLazyLoadQuery } from 'react-relay/hooks';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,6 +45,24 @@ export function CreateUser(props) {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
+  let { id } = useParams();
+
+  const data = useLazyLoadQuery(
+    graphql`
+  query CreateUserFindUserQuery($id: String) {
+    user(where: { id: $id }) {
+      ...UserRow_user
+    }
+  }
+    `,
+    {id},
+    {
+      fetchPolicy: "store-or-network",
+      networkCacheConfig: {
+        force: false
+      },
+      skip: id === null,
+    })
 
   const [user_create, isCreateOneUserPending] = useMutation(graphql`
   mutation CreateUserMutation($username: String!, $role: UserRole!) {
@@ -143,7 +163,7 @@ export function CreateUser(props) {
           <FontAwesomeIcon icon={faPlus} />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Nutzer hinzufügen
+          Nutzer {id ? "bearbeiten" : "hinzufügen"}
         </Typography>
 
         <form className={classes.form} noValidate onSubmit={onSubmit}>
@@ -166,20 +186,19 @@ export function CreateUser(props) {
             helperText={usernameError}
             error={usernameError !== null}
           />
-          <FormControl variant="outlined" fullWidth>
+          <FormControl variant="outlined" fullWidth error={roleError !== null}>
             <InputLabel id="demo-simple-select-label">Rolle</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={role}
-              onChange={e => setRole(e.target.value)}
-              helperText={roleError}
-              error={roleError !== null}
+              onChange={e => setRole(e.target.value)}              
               >
               <MenuItem value={"ADMIN"}>Admin</MenuItem>
               <MenuItem value={"TEACHER"}>Rundenzähler</MenuItem>
               <MenuItem value={"VIEWER"}>Anzeiger</MenuItem>
             </Select>
+            <FormHelperText>{roleError}</FormHelperText>
           </FormControl>
           <LoadingButton
             type="submit"
@@ -189,7 +208,7 @@ export function CreateUser(props) {
             className={classes.submit}
             pending={isCreateOneUserPending || isPending}
           >
-            Nutzer hinzufügen
+            Nutzer {id ? "bearbeiten" : "hinzufügen"}
           </LoadingButton>
         </form>
       </div>

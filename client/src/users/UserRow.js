@@ -106,6 +106,15 @@ export function UserRow(props) {
       </TableCell>
       <TableCell>{data.role}</TableCell>
       <TableCell align="right">
+        <ControlledTooltip title="Bearbeiten">
+          <IconButton>
+            <Typography variant="button" noWrap>
+              <Box component="span" display={{ xs: 'none', md: 'block' }}>
+              Bearbeiten
+              </Box>
+            </Typography>
+          </IconButton>
+        </ControlledTooltip>
         <ControlledTooltip title="Löschen">
           <IconButton onClick={deleteUserCallback}>
             <Typography variant="button" noWrap>
