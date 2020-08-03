@@ -74,6 +74,14 @@ export function CreateUser(props) {
   }
   `);
 
+  const [updateUser, isUpdateUserPending] = useMutation(graphql`
+  mutation CreateUserMutation($id: String, $username: String!, $role: UserRole!) {
+    upsertOneUser(where: { id: $id }, create: { name: $username, role: $role }, update: { name: $username, role: $role }) {
+      id
+    }
+  }
+  `);
+
   const [username, setUsername] = useState(id ? data.user.name : '');
   const [role, setRole] = useState(id ? data.user.role : '');
 
