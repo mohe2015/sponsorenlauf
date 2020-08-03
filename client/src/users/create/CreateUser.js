@@ -67,11 +67,23 @@ export function CreateUser(props) {
     })
 
   const [user_create, isCreateOneUserPending] = useMutation(graphql`
-  mutation CreateUserCreateMutation($id: String, $username: String!, $role: UserRole!) {
+  mutation CreateUserCreateMutation($username: String!, $role: UserRole!) {
     user_create(data: { name: $username, role: $role }) {
-      id
-      name
-      role
+      __typename
+      ... on CreateUserMutationOutput {
+        user_edge {
+          cursor
+          node {
+            id
+            name
+            role
+          }
+        }
+      }
+      ... on CreateOneUserMutationError {
+        usernameError
+        roleError
+      }
     }
   }
   `);
