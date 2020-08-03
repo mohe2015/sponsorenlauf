@@ -1,6 +1,5 @@
 import { schema } from "nexus";
 import { decode } from "../relay-tools-custom";
-import { connectionFromPromisedArray } from "graphql-relay";
 
 schema.queryType({
   definition(t) {
@@ -20,7 +19,7 @@ schema.queryType({
       type: "Runner",
       disableBackwardPagination: true,
       resolve: (root, args, ctx, info) => {
-        return connectionFromPromisedArray(ctx.db.runner.findMany(), args);
+        //return connectionFromPromisedArray(ctx.db.runner.findMany(), args);
       },
       extendConnection(t) {
         t.int("totalCount", {
@@ -72,7 +71,7 @@ schema.queryType({
       type: "User",
       disableBackwardPagination: true,
       resolve: (root, args, ctx, info) => {
-        return connectionFromPromisedArray(ctx.db.user.findMany(), args);
+        //return connectionFromPromisedArray(ctx.db.user.findMany(), args);
       },
       extendConnection(t) {
         t.int("totalCount", {

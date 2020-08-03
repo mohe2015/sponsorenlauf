@@ -74,7 +74,14 @@ schema.mutationType({
     t.crud.deleteOneUser();
     t.crud.upsertOneUser({
       type: "User",
-      
+      computedInputs: {
+        password: (params) => {
+          return "test";
+        },
+        createdRounds: (params) => {
+          return [];
+        }
+      }
     })
 
     t.field("runner_create", {
