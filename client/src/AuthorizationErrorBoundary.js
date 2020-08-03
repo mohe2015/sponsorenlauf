@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import { Login } from './login/Login';
 
 export class AuthorizationErrorBoundary extends React.Component {
+
   constructor(props) {
     console.log("ErrorBoundary()")
 
