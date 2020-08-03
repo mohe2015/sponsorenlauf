@@ -52,7 +52,7 @@ async function main() {
     console.log(data);
     await db.runner.create({
       data: {
-        startNumber: i++,
+        //startNumber: i++,
         name: data["Name"],
         clazz: data["Klasse"],
         grade: Number(data["Jahrgang"]),
