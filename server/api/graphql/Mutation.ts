@@ -81,8 +81,10 @@ schema.mutationType({
         createdRounds: (params) => {
           return [];
         },
-
       }
+    })
+    t.crud.updateOneUser({
+      type: "User"
     })
 
     t.field("runner_create", {
