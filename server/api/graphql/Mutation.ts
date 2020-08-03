@@ -1,49 +1,20 @@
-import { schema, log } from "nexus";
+import { schema } from "nexus";
 import { hashSync, compare } from "bcrypt";
-import { sign, Secret } from "jsonwebtoken";
-import { AuthenticationError } from "../errors";
-import { connect } from "http2";
-import { connectionPlugin } from '@nexus/schema'
 let crypto = require('crypto');
 
-schema.inputObjectType({
-  name: "CreateOneUserInput",
-  nonNullDefaults: { output: false, input: false },
-  definition(t) {
-    t.string("name", { nullable: false })
-    t.field("role", { type: "UserRole", nullable: false })
-  }
-})
-
-schema.inputObjectType({
-  name: "CreateRunnerInput",
-  nonNullDefaults: { output: false, input: false },
-  definition(t) {
-    t.string("name", { nullable: false })
-    t.string("clazz", { nullable: false })
-    t.int("grade", { nullable: false })
-  }
-})
-
-schema.inputObjectType({
-  name: "CreateRoundInput",
-  nonNullDefaults: { output: false, input: false },
-  definition(t) {
-    t.int("startNumber", { nullable: false })
-  }
-})
+//     const hashedPassword = await hash("admin", 10);
 
 schema.mutationType({
   definition(t) {
 
-    t.field("user_create", {
+    t.field("createOneUser", {
       type: "CreateOneUserMutationResponse",
       nullable: false,
-      args: { data: schema.arg({type: "CreateOneUserInput", nullable: false}) },
+      args: { data: schema.arg({type: "UserCreateInput", nullable: false}) },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.user.create({
           data: {
-            password: "hi",
+            password: "",
             ...args.data
           }
         });
@@ -58,9 +29,48 @@ schema.mutationType({
 
         let output = {
           __typename: "CreateUserMutationOutput",
-          previous_edge: Buffer.from("arrayconnection:" + (await context.db.user.count() - 2)).toString('base64'),
+          previous_edge: null,
           user_edge: {
-            cursor: Buffer.from("cursor:" + (await context.db.user.count() - 1)).toString('base64'),
+            cursor: user.id,
+            node: {
+              ...user,
+            }
+          }
+        };
+        context.pubsub.publish("USERS", output);
+        return output;
+      }
+    });
+
+    t.field("updateOneUser", {
+      type: "CreateOneUserMutationResponse",
+      nullable: false,
+      args: { 
+        data: schema.arg({type: "UserUpdateInput", nullable: false}),
+        where: schema.arg({type: "UserWhereUniqueInput", nullable: false}),
+      },
+      resolve: async (_parent, args, context, info) => {
+        let user = await context.db.user.update({
+          where: args.where,
+          data: {
+            password: "",
+            ...args.data
+          }
+        });
+
+        if (!user) {
+          return {
+            __typename: "CreateOneUserMutationError",
+            usernameError: "Nutzername nicht gefunden!",
+            roleError: null,
+          }
+        }
+
+        let output = {
+          __typename: "CreateUserMutationOutput",
+          previous_edge: null,
+          user_edge: {
+            cursor: user.id,
             node: {
               ...user,
             }
@@ -72,31 +82,23 @@ schema.mutationType({
     });
 
     t.crud.deleteOneUser();
-    t.crud.upsertOneUser({
+
+    t.crud.createOneUser({
       type: "User",
-      computedInputs: {
-        password: (params) => {
-          return "test";
-        },
-        createdRounds: (params) => {
-          return [];
-        },
-      }
+      alias: "_hidden_we_need_the_types_createOneUser"
     })
     t.crud.updateOneUser({
-      type: "User"
+      type: "User",
+      alias: "_hidden_we_need_the_types_updateOneUser"
     })
 
-    t.field("runner_create", {
+    t.field("createOneRunner", {
       type: "CreateRunnerMutationResponse",
       nullable: false,
-      args: { data: schema.arg({type: "CreateRunnerInput", nullable: false}) },
+      args: { data: schema.arg({type: "RunnerCreateInput", nullable: false}) },
       resolve: async (_parent, args, context, info) => {
         let runner = await context.db.runner.create({
-          data: {
-            startNumber: await context.db.runner.count(), // TODO FIXME HACK
-            ...args.data
-          }
+          data: args.data
         });
 
         if (!runner) {
@@ -109,9 +111,9 @@ schema.mutationType({
 
         return {
           __typename: "CreateRunnerMutationOutput",
-          previous_edge: Buffer.from("arrayconnection:" + (await context.db.runner.count() - 2)).toString('base64'),
+          previous_edge: null,
           runner_edge: {
-            cursor: Buffer.from("arrayconnection:" + (await context.db.runner.count() - 1)).toString('base64'),
+            cursor: runner.id,
             node: {
               ...runner,
             }
@@ -120,23 +122,19 @@ schema.mutationType({
       }
     });
 
-    t.crud.createOneRound({
-      type: "Round",
-      computedInputs: {
-        createdBy: (params) => {
-          return {
-            connect: {
-              id: params.ctx.user?.id
-            }
-          }
-        },
-      }
+    t.crud.createOneRunner({
+      type: "Runner",
+      alias: "_hidden_we_need_the_types_createOneRunner"
+    })
+    t.crud.updateOneRunner({
+      type: "Runner",
+      alias: "_hidden_we_need_the_types_updateOneRunner"
     })
 
-    t.field("round_create", {
+    t.field("createOneRound", {
       type: "CreateRoundMutationResponse",
       nullable: false,
-      args: { data: schema.arg({type: "CreateRoundInput", nullable: false}) },
+      args: { data: schema.arg({type: "RoundCreateInput", nullable: false}) },
       resolve: async (parent, args, context) => {
         const round = await context.db.round.create({
           data: {
@@ -166,6 +164,15 @@ schema.mutationType({
         return output;
       },
     });
+
+    t.crud.createOneRound({
+      type: "Round",
+      alias: "_hidden_we_need_the_types_createOneRound"
+    })
+    t.crud.updateOneRound({
+      type: "Round",
+      alias: "_hidden_we_need_the_types_updateOneRound"
+    })
 
     t.field("login", {
       type: "LoginMutationResponse",

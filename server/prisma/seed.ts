@@ -47,12 +47,10 @@ async function main() {
     a["Klasse"].localeCompare(b["Klasse"])
   );
 
-  let i = 0;
   await asyncForEach(records, async (data: any, index: number) => {
     console.log(data);
     await db.runner.create({
       data: {
-        //startNumber: i++,
         name: data["Name"],
         clazz: data["Klasse"],
         grade: Number(data["Jahrgang"]),
