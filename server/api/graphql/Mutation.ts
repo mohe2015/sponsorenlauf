@@ -81,7 +81,7 @@ schema.mutationType({
         createdRounds: (params) => {
           return [];
         },
-        
+
       }
     })
 
@@ -117,6 +117,19 @@ schema.mutationType({
         };
       }
     });
+
+    t.crud.createOneRound({
+      type: "Round",
+      computedInputs: {
+        createdBy: (params) => {
+          return {
+            connect: {
+              id: params.ctx.user?.id
+            }
+          }
+        },
+      }
+    })
 
     t.field("round_create", {
       type: "CreateRoundMutationResponse",
