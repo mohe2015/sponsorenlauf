@@ -18,8 +18,26 @@ schema.queryType({
     t.connection("runners", {
       type: "Runner",
       disableBackwardPagination: true,
-      resolve: (root, args, ctx, info) => {
-        //return connectionFromPromisedArray(ctx.db.runner.findMany(), args);
+      resolve: async (root, args, ctx, info) => {
+        let result = await ctx.db.runner.findMany({
+          take: args.first + 1,
+          cursor: args.after ? { id: args.after } : undefined,
+        })
+        let pageInfo = {
+          hasNextPage: result.length == args.first + 1,
+          startCursor: result.length == 0 ? null : result[0].id,
+          endCursor: result.length == 0 ? null : (result.length <= args.first ? result[result.length - 1].id : result[args.first - 1].id),
+        };
+        if (result.length == args.first + 1) {
+          result.pop();
+        }
+        return {
+          pageInfo,
+          edges: result.map(e => { return {
+            cursor: e.id,
+            node: e,
+          }})
+        }
       },
       extendConnection(t) {
         t.int("totalCount", {
@@ -49,14 +67,16 @@ schema.queryType({
           orderBy: args.orderBy,
           where: args.filter === null ? undefined : args.filter,
           take: args.first + 1,
-          cursor: args.after === null ? undefined : args.after,
+          cursor: args.after ? { id: args.after } : undefined,
         })
         let pageInfo = {
           hasNextPage: result.length == args.first + 1,
-          startCursor: result[0].id,
-          endCursor: result[args.first - 1].id,
+          startCursor: result.length == 0 ? null : result[0].id,
+          endCursor: result.length == 0 ? null : (result.length <= args.first ? result[result.length - 1].id : result[args.first - 1].id),
         };
-        result.pop();
+        if (result.length == args.first + 1) {
+          result.pop();
+        }
         return {
           pageInfo,
           edges: result.map(e => { return {
@@ -70,8 +90,27 @@ schema.queryType({
     t.connection("users", {
       type: "User",
       disableBackwardPagination: true,
-      resolve: (root, args, ctx, info) => {
-        //return connectionFromPromisedArray(ctx.db.user.findMany(), args);
+      resolve: async (root, args, ctx, info) => {
+        let result = await ctx.db.user.findMany({
+          take: args.first + 1,
+          cursor: args.after ? { id: args.after } : undefined,
+        })
+        console.log(result)
+        let pageInfo = {
+          hasNextPage: result.length == args.first + 1,
+          startCursor: result.length == 0 ? null : result[0].id,
+          endCursor: result.length == 0 ? null : (result.length <= args.first ? result[result.length - 1].id : result[args.first - 1].id),
+        };
+        if (result.length == args.first + 1) {
+          result.pop();
+        }
+        return {
+          pageInfo,
+          edges: result.map(e => { return {
+            cursor: e.id,
+            node: e,
+          }})
+        }
       },
       extendConnection(t) {
         t.int("totalCount", {
@@ -79,10 +118,10 @@ schema.queryType({
         })
       }
     })
+
     t.crud.user({
       type: "User"
     })
-
 
     t.field("node", {
       type: "Node",
