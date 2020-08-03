@@ -42,7 +42,7 @@ export function CreateRunner(props) {
 
   const [runner_create, IsCreateRunnerPending] = useMutation(graphql`
   mutation CreateRunnerMutation($name: String!, $clazz: String!, $grade: Int!) {
-    runner_create(data: { name: $name, clazz: $clazz, grade: $grade }) {
+    createOneRunner(data: { name: $name, clazz: $clazz, grade: $grade }) {
       __typename
       ... on CreateRunnerMutationOutput {
         previous_edge
@@ -120,7 +120,7 @@ export function CreateRunner(props) {
           if (!connectionRecord) {
             return;
           }
-          const payload = store.getRootField("runner_create");
+          const payload = store.getRootField("createOneRunner");
 
           const previousEdge = payload.getLinkedRecord('previous_edge');
           const serverEdge = payload.getLinkedRecord('runner_edge');

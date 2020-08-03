@@ -68,10 +68,10 @@ export function CreateUser(props) {
 
   const [user_create, isCreateOneUserPending] = useMutation(graphql`
   mutation CreateUserCreateMutation($username: String!, $role: UserRole!) {
-    user_create(data: { name: $username, role: $role }) {
+    createOneUser(data: { name: $username, role: $role }) {
       __typename
-      ... on CreateUserMutationOutput {
-        user_edge {
+      ... on UserMutationOutput {
+        edge {
           cursor
           node {
             id
@@ -80,7 +80,7 @@ export function CreateUser(props) {
           }
         }
       }
-      ... on CreateOneUserMutationError {
+      ... on UserMutationError {
         usernameError
         roleError
       }
@@ -92,8 +92,8 @@ export function CreateUser(props) {
   mutation CreateUserUpdateMutation($id: String, $username: String!, $role: UserRole!) {
     updateOneUser(where: { id: $id }, data: { name: $username, role: $role }) {
       __typename
-      ... on CreateUserMutationOutput {
-        user_edge {
+      ... on UserMutationOutput {
+        edge {
           cursor
           node {
             id
@@ -102,7 +102,7 @@ export function CreateUser(props) {
           }
         }
       }
-      ... on CreateOneUserMutationError {
+      ... on UserMutationError {
         usernameError
         roleError
       }
@@ -158,10 +158,10 @@ export function CreateUser(props) {
             console.log("connection not found");
             return;
           }
-          const payload = store.getRootField("user_create");
+          const payload = store.getRootField("createOneUser");
 
           const previousEdge = payload.getLinkedRecord('previous_edge');
-          const serverEdge = payload.getLinkedRecord('user_edge');
+          const serverEdge = payload.getLinkedRecord('edge');
 
           const newEdge = ConnectionHandler.buildConnectionEdge(
             store,

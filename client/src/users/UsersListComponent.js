@@ -32,7 +32,7 @@ export function UsersListComponent(props) {
     subscription: graphql`
     subscription UsersListComponentSubscription {
       subscribeUsers {
-        user_edge {
+        edge {
           cursor
           node {
             id

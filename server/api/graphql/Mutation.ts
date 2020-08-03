@@ -8,29 +8,29 @@ schema.mutationType({
   definition(t) {
 
     t.field("createOneUser", {
-      type: "CreateOneUserMutationResponse",
+      type: "UserMutationResponse",
       nullable: false,
       args: { data: schema.arg({type: "UserCreateInput", nullable: false}) },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.user.create({
           data: {
+            ...args.data,
             password: "",
-            ...args.data
           }
         });
 
         if (!user) {
           return {
-            __typename: "CreateOneUserMutationError",
+            __typename: "UserMutationError",
             usernameError: "Nutzername nicht gefunden!",
             roleError: null,
           }
         }
 
         let output = {
-          __typename: "CreateUserMutationOutput",
+          __typename: "UserMutationOutput",
           previous_edge: null,
-          user_edge: {
+          edge: {
             cursor: user.id,
             node: {
               ...user,
@@ -43,7 +43,7 @@ schema.mutationType({
     });
 
     t.field("updateOneUser", {
-      type: "CreateOneUserMutationResponse",
+      type: "UserMutationResponse",
       nullable: false,
       args: { 
         data: schema.arg({type: "UserUpdateInput", nullable: false}),
@@ -60,16 +60,16 @@ schema.mutationType({
 
         if (!user) {
           return {
-            __typename: "CreateOneUserMutationError",
+            __typename: "UserMutationError",
             usernameError: "Nutzername nicht gefunden!",
             roleError: null,
           }
         }
 
         let output = {
-          __typename: "CreateUserMutationOutput",
+          __typename: "UserMutationOutput",
           previous_edge: null,
-          user_edge: {
+          edge: {
             cursor: user.id,
             node: {
               ...user,
@@ -85,11 +85,21 @@ schema.mutationType({
 
     t.crud.createOneUser({
       type: "User",
-      alias: "_hidden_we_need_the_types_createOneUser"
+      alias: "_hidden_we_need_the_types_createOneUser",
+      computedInputs: {
+        password: (args) => {
+          return ""
+        }
+      }
     })
     t.crud.updateOneUser({
       type: "User",
-      alias: "_hidden_we_need_the_types_updateOneUser"
+      alias: "_hidden_we_need_the_types_updateOneUser",
+      computedInputs: {
+        password: (args) => {
+          return ""
+        }
+      }
     })
 
     t.field("createOneRunner", {
@@ -138,14 +148,10 @@ schema.mutationType({
       resolve: async (parent, args, context) => {
         const round = await context.db.round.create({
           data: {
-            student: {
-              connect: {
-                startNumber: args.data.startNumber,
-              },
-            },
+            ...args.data,
             createdBy: {
               connect: {
-                id: context.user.id!,
+                id: context.user?.id,
               },
             },
           },
@@ -167,7 +173,12 @@ schema.mutationType({
 
     t.crud.createOneRound({
       type: "Round",
-      alias: "_hidden_we_need_the_types_createOneRound"
+      alias: "_hidden_we_need_the_types_createOneRound",
+      computedInputs: {
+        createdBy: (args) => {
+          return args.ctx.user
+        }
+      }
     })
     t.crud.updateOneRound({
       type: "Round",
