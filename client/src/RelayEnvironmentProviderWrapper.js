@@ -6,14 +6,14 @@ import { RelayEnvironmentProvider } from 'react-relay/hooks';
 export const AuthContext = React.createContext(null);
 
 export const useAuthContext = () => {
-  const [relayEnvironment, setRelayEnvironment] = React.useState(createEnvironment());
+  const [relay, setRelay] = React.useState(createEnvironment());
 
   const resetEnvironment = React.useCallback(() => {
-    setRelayEnvironment(createEnvironment());
+    setRelay(createEnvironment());
   }, [])
 
   return {
-    relayEnvironment,
+    relay,
     user: null,
     resetEnvironment
   }
@@ -21,10 +21,10 @@ export const useAuthContext = () => {
 
 export function RelayEnvironmentWrapper({ children }) {
   const {
-    relayEnvironment
+    relay
   } = useContext(AuthContext);
   return (
-    <RelayEnvironmentProvider environment={relayEnvironment}>
+    <RelayEnvironmentProvider environment={relay.environment}>
        {children}
     </RelayEnvironmentProvider>
   );
