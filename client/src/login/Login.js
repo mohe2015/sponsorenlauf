@@ -97,6 +97,7 @@ export function Login(props) {
 
             startTransition(() => {
               if (updateErrorBoundary) {
+                console.log("updateErrorBoundary")
                 updateErrorBoundary((prevState) => { return {error: null, id: prevState.id + 1}})
               } else {
                 if (location.state?.oldPathname) {

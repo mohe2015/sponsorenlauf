@@ -72,6 +72,10 @@ schema.mutationType({
     });
 
     t.crud.deleteOneUser();
+    t.crud.upsertOneUser({
+      type: "User",
+      
+    })
 
     t.field("runner_create", {
       type: "CreateRunnerMutationResponse",

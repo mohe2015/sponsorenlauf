@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { usePaginationFragment } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { RoundRow } from './../rounds/RoundRow'
@@ -6,7 +6,6 @@ import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import { ConnectionHandler } from 'react-relay';
 
 export function UserRoundsListComponent(props) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
