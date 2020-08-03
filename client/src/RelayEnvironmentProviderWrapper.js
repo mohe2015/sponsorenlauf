@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import RelayModernEnvironment from 'relay-runtime/lib/store/RelayModernEnvironment';
 
 export const AuthContext = React.createContext({
@@ -9,12 +9,26 @@ export const AuthContext = React.createContext({
   }
 });
 
+export const useAuthContext = () => {
+  const [relayEnvironment, setRelayEnvironment] = React.useState(null);
+
+  const resetEnvironment = React.useCallback(() => {
+    setRelayEnvironment(null);
+  }, [])
+
+  return {
+    relayEnvironment,
+    user: null,
+    resetEnvironment
+  }
+}
+
 function RelayEnvironmentWrapper({ children }) {
   const {
-    state: { relay },
-  } = useAuthContext();
+    state: { relayEnvironment },
+  } = useAuthContext(AuthContext);
   return (
-    <RelayEnvironmentProvider environment={relay}>
+    <RelayEnvironmentProvider environment={relayEnvironment}>
        {children}
     </RelayEnvironmentProvider>
   );
