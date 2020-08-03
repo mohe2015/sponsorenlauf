@@ -25,6 +25,7 @@ export const permissions = shield({
       login: allow,
       createOneRound: rules.isUserWithRole(["ADMIN", "TEACHER"]),
       deleteOneUser: rules.isUserWithRole(["ADMIN"]),
+      updateOneUser: rules.isUserWithRole(["ADMIN"]),
     },
     Subscription: {
       subscribeRounds: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
@@ -50,9 +51,10 @@ export const permissions = shield({
     CreateRoundMutationOutput: allow,
     LoginMutationError: allow,
     UserMutationOutput: allow,
-    CreateOneUserMutationError: allow,
+    UserMutationError: allow,
     CreateRunnerMutationError: allow,
     CreateRunnerMutationOutput: allow,
+
   },
   options: {
     fallbackRule: deny,

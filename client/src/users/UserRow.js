@@ -11,6 +11,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { useConfirm } from 'material-ui-confirm';
 import { useCallback } from 'react';
 import { ConnectionHandler } from 'react-relay';
+import { useNavigate } from "react-router"
 
 export function LoadingUserRow(props) {
   return (
@@ -99,6 +100,19 @@ export function UserRow(props) {
     [deleteUser, data, confirm]
   );
 
+  const navigate = useNavigate();
+
+  const updateUserCallback = useCallback(
+    event => {
+      navigate("/users/edit/" + data.id, {
+        state: {
+          data
+        }
+      })
+    },
+    []
+  );
+
   return (
     <TableRow>
       <TableCell component="th" scope="row">
@@ -107,7 +121,7 @@ export function UserRow(props) {
       <TableCell>{data.role}</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Bearbeiten">
-          <IconButton>
+          <IconButton onClick={updateUserCallback}>
             <Typography variant="button" noWrap>
               <Box component="span" display={{ xs: 'none', md: 'block' }}>
               Bearbeiten
