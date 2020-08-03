@@ -96,7 +96,7 @@ export function UserRow(props) {
         // do nothing
       })
     },
-    [deleteUser, data]
+    [deleteUser, data, confirm]
   );
 
   return (

@@ -9,6 +9,7 @@ export const useAuthContext = () => {
   const [relay, setRelay] = React.useState(createEnvironment());
 
   const resetEnvironment = React.useCallback(() => {
+    console.log("resetEnvironment")
     setRelay(createEnvironment());
   }, [])
 

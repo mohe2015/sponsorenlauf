@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { useMutation } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { useState, useCallback, unstable_useTransition as useTransition } from 'react';
@@ -16,6 +16,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import Alert from '@material-ui/lab/Alert';
 import { useNavigate, useLocation } from "react-router-dom";
+import { AuthContext } from './../RelayEnvironmentProviderWrapper'
 
 const LoginMutation = graphql`
 mutation LoginMutation($username: String!, $password: String!) {
@@ -68,6 +69,10 @@ const useStyles = makeStyles((theme) => ({
 export function Login(props) {
   const { updateErrorBoundary } = props;
 
+  const {
+    resetEnvironment
+  } = useContext(AuthContext);
+
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
@@ -99,7 +104,7 @@ export function Login(props) {
               if (updateErrorBoundary) {
                 console.log("updateErrorBoundary")
 
-                
+                resetEnvironment();
 
                 updateErrorBoundary((prevState) => { return {error: null, id: prevState.id + 1}})
               } else {
@@ -122,7 +127,7 @@ export function Login(props) {
         },
       })
     },
-    [username, password, login, navigate, startTransition, location, updateErrorBoundary]
+    [resetEnvironment, username, password, login, navigate, startTransition, location, updateErrorBoundary]
   );
 
     return (

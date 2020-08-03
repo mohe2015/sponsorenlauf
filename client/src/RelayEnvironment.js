@@ -38,12 +38,10 @@ function fetchQuery(cache) {
         cache.set(queryID, variables, json);
       }
       if (json.data === null && json.errors) {
-        console.log("error, new environment");
-        createEnvironment();
+        console.log("error, NEXT MESSAGE HAS TO BE NEW ENVIRONMENT");
       }
       if (isMutation && operation.name === "LoginMutation") {
-        console.log("login, new environment");
-        createEnvironment();
+        console.log("login, NEXT MESSAGE HAS TO BE NEW ENVIRONMENT");
       }
 
       return json;
