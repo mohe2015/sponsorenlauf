@@ -1922,7 +1922,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/lab@npm:^5.0.0-alpha.5":
+"@material-ui/lab@npm:next":
   version: 5.0.0-alpha.5
   resolution: "@material-ui/lab@npm:5.0.0-alpha.5"
   dependencies:
@@ -2220,14 +2220,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/user-event@npm:^12.0.17":
-  version: 12.0.17
-  resolution: "@testing-library/user-event@npm:12.0.17"
+"@testing-library/user-event@npm:^12.1.0":
+  version: 12.1.0
+  resolution: "@testing-library/user-event@npm:12.1.0"
   dependencies:
     "@babel/runtime": ^7.10.2
   peerDependencies:
     "@testing-library/dom": ">=7.21.4"
-  checksum: f852045a53c50d4068e7bfcc098f19ba8087a83cc45797cff2572e7ce9b8be43c35a04622fc45fb0b69fbd7d768aff92f5bd7241d65e370b6c2e08de48202871
+  checksum: afd4f8d340e84d5ebb811c693d155ec4d3df99cee8934ba4841b4afcb775237c7f1dfe8e67a3c77b92c1d0ff8d9899314a4a0d588d3c84f66b3a62754e31acff
   languageName: node
   linkType: hard
 
@@ -4244,10 +4244,10 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": ^5.14.0
     "@fortawesome/react-fontawesome": ^0.1.11
     "@material-ui/core": next
-    "@material-ui/lab": ^5.0.0-alpha.5
+    "@material-ui/lab": next
     "@testing-library/jest-dom": ^5.11.2
     "@testing-library/react": ^10.4.7
-    "@testing-library/user-event": ^12.0.17
+    "@testing-library/user-event": ^12.1.0
     babel-plugin-relay: ^10.0.1
     graphql: ^15.3.0
     history: 5.0.0

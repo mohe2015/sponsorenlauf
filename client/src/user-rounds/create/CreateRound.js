@@ -26,7 +26,7 @@ export function CreateRound(props) {
 
   const [round_create, isCreateOneRoundPending] = useMutation(graphql`
   mutation CreateRoundMutation($startNumber: Int!) {
-    round_create(data: { startNumber: $startNumber }) {
+    createOneRound(data: { student: { connect: { startNumber: $startNumber }}}) {
       __typename
       ... on CreateRoundMutationOutput {
         round_edge {
@@ -134,7 +134,7 @@ export function CreateRound(props) {
           sharedUpdater(store, null, newEdge)
         },*/
         updater: (store) => {
-          const payload = store.getRootField("round_create");
+          const payload = store.getRootField("createOneRound");
 
           const previousEdge = payload.getLinkedRecord('previous_edge');
           const serverEdge = payload.getLinkedRecord('round_edge');

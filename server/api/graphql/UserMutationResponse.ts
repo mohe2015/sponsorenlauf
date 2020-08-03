@@ -1,7 +1,7 @@
 import { schema } from "nexus";
 
 schema.objectType({
-  name: "CreateOneUserMutationError",
+  name: "UserMutationError",
   definition(t) {
     t.string("usernameError");
     t.string("roleError");
@@ -9,19 +9,19 @@ schema.objectType({
 });
 
 schema.objectType({
-  name: "CreateUserMutationOutput",
+  name: "UserMutationOutput",
   definition(t) {
     t.field("previous_edge", {type: "String"})
-    t.field("user_edge", {type: "UserEdge"})
+    t.field("edge", {type: "UserEdge"})
   }
 })
 
 schema.unionType({
-  name: "CreateOneUserMutationResponse",
+  name: "UserMutationResponse",
   definition(t) {
     t.members(
-      "CreateUserMutationOutput",
-      "CreateOneUserMutationError"
+      "UserMutationOutput",
+      "UserMutationError"
     )
     // @ts-expect-error
     t.resolveType((item) => item.__typename);

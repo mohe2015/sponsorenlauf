@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p pkg-config zlib openssl nodejs
+#! nix-shell -i bash -p pkg-config zlib openssl nodejs cargo
 
 #yarn # install all packages, so the node_modules folder is available
 

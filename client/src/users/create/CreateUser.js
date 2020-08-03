@@ -67,11 +67,11 @@ export function CreateUser(props) {
     })
 
   const [user_create, isCreateOneUserPending] = useMutation(graphql`
-  mutation CreateUserMutation($username: String!, $role: UserRole!) {
-    user_create(data: { name: $username, role: $role }) {
+  mutation CreateUserCreateMutation($username: String!, $role: UserRole!) {
+    createOneUser(data: { name: $username, role: $role }) {
       __typename
-      ... on CreateUserMutationOutput {
-        user_edge {
+      ... on UserMutationOutput {
+        edge {
           cursor
           node {
             id
@@ -80,7 +80,29 @@ export function CreateUser(props) {
           }
         }
       }
-      ... on CreateOneUserMutationError {
+      ... on UserMutationError {
+        usernameError
+        roleError
+      }
+    }
+  }
+  `);
+
+  const [updateUser, isUpdateUserPending] = useMutation(graphql`
+  mutation CreateUserUpdateMutation($id: String, $username: String!, $role: UserRole!) {
+    updateOneUser(where: { id: $id }, data: { name: $username, role: $role }) {
+      __typename
+      ... on UserMutationOutput {
+        edge {
+          cursor
+          node {
+            id
+            name
+            role
+          }
+        }
+      }
+      ... on UserMutationError {
         usernameError
         roleError
       }
@@ -100,61 +122,108 @@ export function CreateUser(props) {
     event => {
       event.preventDefault();
 
-      user_create({
-        onCompleted: response => {
-          if (response.user_create.__typename === "CreateUserMutationError") {
-            setUsernameError(response.user_create.usernameError);
-            setRoleError(response.user_create.roleError);
-          } else {
-            setUsernameError(null);
-            setRoleError(null);
+      if (id) {
+        updateUser({
+          onCompleted: response => {
+            if (response.updateOneUser.__typename === "CreateUserMutationError") {
+              setUsernameError(response.updateOneUser.usernameError);
+              setRoleError(response.updateOneUser.roleError);
+            } else {
+              setUsernameError(null);
+              setRoleError(null);
 
-            startTransition(() => {
-              if (location.state?.oldPathname) {
-                navigate(location.state?.oldPathname);
-              } else {
-                navigate("/users");
-              }
-            });
+              startTransition(() => {
+                if (location.state?.oldPathname) {
+                  navigate(location.state?.oldPathname);
+                } else {
+                  navigate("/users");
+                }
+              });
+            }
+          },
+          onError: error => {
+            console.log(error);
+            alert(error); // TODO FIXME
+          },
+          variables: {
+            id,
+            username,
+            role
+          },
+          /*updater: (store) => {
+            const payload = store.getRootField("updateOneUser");
+
+            const serverEdge = payload.getLinkedRecord('edge');
+            const newRecord = serverEdge.getLinkedRecord('node');
+            console.log(newRecord.getDataID())
+            console.log(newRecord.id)
+
+            const oldRecord = store.get(newRecord.getDataID());
+            if (oldRecord) {
+              oldRecord.copyFieldsFrom(newRecord);
+            }
+            else {
+              store.create()
+            }
+          }*/
+        })
+      } else {
+        user_create({
+          onCompleted: response => {
+            if (response.createOneUser.__typename === "CreateUserMutationError") {
+              setUsernameError(response.createOneUser.usernameError);
+              setRoleError(response.createOneUser.roleError);
+            } else {
+              setUsernameError(null);
+              setRoleError(null);
+
+              startTransition(() => {
+                if (location.state?.oldPathname) {
+                  navigate(location.state?.oldPathname);
+                } else {
+                  navigate("/users");
+                }
+              });
+            }
+          },
+          onError: error => {
+            console.log(error);
+            alert(error); // TODO FIXME
+          },
+          variables: {
+            username,
+            role
+          },
+          updater: (store) => {
+            const connectionRecord = ConnectionHandler.getConnection(
+              store.getRoot(),
+              "UsersList_user_users"
+            );
+            if (!connectionRecord) {
+              console.log("connection not found");
+              return;
+            }
+            const payload = store.getRootField("createOneUser");
+
+            const previousEdge = payload.getLinkedRecord('previous_edge');
+            const serverEdge = payload.getLinkedRecord('edge');
+
+            const newEdge = ConnectionHandler.buildConnectionEdge(
+              store,
+              connectionRecord,
+              serverEdge,
+            );
+
+            ConnectionHandler.insertEdgeAfter(
+              connectionRecord,
+              newEdge,
+              previousEdge
+            );
           }
-        },
-        onError: error => {
-          console.log(error);
-          alert(error); // TODO FIXME
-        },
-        variables: {
-          username,
-          role
-        },
-        updater: (store) => {
-          const connectionRecord = ConnectionHandler.getConnection(
-            store.getRoot(),
-            "UsersList_user_users"
-          );
-          if (!connectionRecord) {
-            console.log("connection not found");
-            return;
-          }
-          const payload = store.getRootField("user_create");
-
-          const previousEdge = payload.getLinkedRecord('previous_edge');
-          const serverEdge = payload.getLinkedRecord('user_edge');
-
-          const newEdge = ConnectionHandler.buildConnectionEdge(
-            store,
-            connectionRecord,
-            serverEdge,
-          );
-
-          ConnectionHandler.insertEdgeAfter(
-            connectionRecord,
-            newEdge,
-            previousEdge
-          );
-        }
-      })
+        })
+      }
     },
-    [username, role, user_create, navigate, startTransition, location]
+    [id, username, role, user_create, navigate, startTransition, location]
   );
 
     return (
