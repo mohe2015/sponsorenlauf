@@ -13,14 +13,17 @@ import { CreateUser } from './users/create/CreateUser';
 import { CreateRunner } from './runners/create/CreateRunner';
 import { NotFound } from './NotFound';
 import { ProtectedRoute } from './ProtectedRoute';
+import { AuthContext, useAuthContext, RelayEnvironmentWrapper } from './RelayEnvironmentProviderWrapper'
 
 // authorizationerrorboundary
 // which passes state update function down to login children
 // login can then update the error state
 
 function App() {
+  let auth = useAuthContext();
   return (
-    <React.Fragment>
+    <AuthContext.Provider value={auth}>
+      <RelayEnvironmentWrapper>
       <CssBaseline />
           <Routes>
             <ProtectedRoute path="*" element={<MyAppBar />}>
@@ -44,7 +47,8 @@ function App() {
             </ProtectedRoute>
             <Route path="/login" element={<Login />} />
           </Routes>
-    </React.Fragment>
+      </RelayEnvironmentWrapper>
+    </AuthContext.Provider>
   );
 }
 
