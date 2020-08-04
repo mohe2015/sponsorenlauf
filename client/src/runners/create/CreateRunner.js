@@ -50,7 +50,7 @@ export function CreateRunner(props) {
           cursor
           node {
             id
-            startNumber
+            identifier
             name
             clazz
             grade

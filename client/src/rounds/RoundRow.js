@@ -38,7 +38,7 @@ export function RoundRow(props) {
     fragment RoundRow_round on Round {
       id
       student {
-        startNumber
+        identifier
       }
       time
       createdBy {

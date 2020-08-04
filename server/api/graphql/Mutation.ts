@@ -86,7 +86,7 @@ schema.mutationType({
       type: "User",
       alias: "_hidden_we_need_the_types_createOneUser",
       computedInputs: {
-        password: (args) => {
+        hashedPassword: (args) => {
           return ""
         }
       }
@@ -95,7 +95,7 @@ schema.mutationType({
       type: "User",
       alias: "_hidden_we_need_the_types_updateOneUser",
       computedInputs: {
-        password: (args) => {
+        hashedPassword: (args) => {
           return ""
         }
       }

@@ -49,8 +49,8 @@ export function CreateUser(props) {
 
   const data = useLazyLoadQuery(
     graphql`
-  query CreateUserFindUserQuery($id: String) {
-    user(where: { id: $id }) {
+  query CreateUserFindUserQuery($identifier: Int!) {
+    user(where: { identifier: $identifier }) {
       id
       name
       role
@@ -89,8 +89,8 @@ export function CreateUser(props) {
   `);
 
   const [updateUser, isUpdateUserPending] = useMutation(graphql`
-  mutation CreateUserUpdateMutation($id: String, $username: String!, $role: UserRole!) {
-    updateOneUser(where: { id: $id }, data: { name: $username, role: $role }) {
+  mutation CreateUserUpdateMutation($identifier: Int!, $username: String!, $role: UserRole!) {
+    updateOneUser(where: { identifier: $identifier }, data: { name: $username, role: $role }) {
       __typename
       ... on UserMutationOutput {
         edge {

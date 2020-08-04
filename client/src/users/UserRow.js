@@ -48,8 +48,8 @@ export function UserRow(props) {
   );
   const confirm = useConfirm();
   const [deleteUser, isDeleteUserPending] = useMutation(graphql`
-  mutation UserRowDeleteUserMutation($id: String!) {
-    deleteOneUser(where: { id: $id }) {
+  mutation UserRowDeleteUserMutation($identifier: Int!) {
+    deleteOneUser(where: { identifier: $identifier }) {
       id
     }
   }
