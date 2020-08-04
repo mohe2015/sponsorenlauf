@@ -1,10 +1,19 @@
+datasource postgresql {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// postgresql://postgres:postgres@localhost:5432/myapp
+// docker run --detach --publish 5432:5432 -e POSTGRES_PASSWORD=postgres --name postgres postgres:10.12
+
 generator prisma_client {
   provider = "prisma-client-js"
 }
 
-datasource postgresql {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+enum UserRole {
+  ADMIN
+  TEACHER
+  VIEWER
 }
 
 model User {
@@ -19,6 +28,8 @@ model User {
 model Runner {
   identifier  Int     @id @default(autoincrement())
   name        String  @unique
+  // maybe also password so they can login
+  // then they may be like a user
   clazz       String
   grade       Int
   rounds      Round[]

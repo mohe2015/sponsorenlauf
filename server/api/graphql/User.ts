@@ -8,7 +8,7 @@ schema.enumType({
   description: "The users role",
 });
 
-export const User = schema.objectType({
+schema.objectType({
   name: "User",
   definition(t) {
     t.implements(Node);
@@ -22,15 +22,8 @@ export const User = schema.objectType({
     });
     t.model.identifier();
     t.model.name();
-    t.model.hashedPassword();
-    t.field("password", {
-      type: "String",
-      nullable: true,
-      resolve: async (parent, args, context, info) => {
-        return null
-      }
-    })
+    t.model.password();
     t.model.role();
     t.model.createdRounds({ type: "Round" });
   },
-}).value.rootTyping;
+});
