@@ -6,7 +6,6 @@ schema.objectType({
   definition(t) {
     t.implements(Node);
     t.model.id();
-    t.model.startNumber();
     t.model.name();
     t.model.clazz();
     t.model.grade();
