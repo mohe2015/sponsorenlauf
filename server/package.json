@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup": "prisma migrate save --experimental && prisma migrate up --experimental && cd prisma && ts-node seed.ts",
+    "setup": "prisma migrate save --experimental && prisma migrate up --experimental && prisma generate && cd prisma && ts-node seed.ts",
     "studio": "prisma studio --experimental",
     "dev": "LOG=trace APP_SECRET=test nexus dev",
     "build": "nexus build",
