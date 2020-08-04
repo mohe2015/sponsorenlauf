@@ -2500,7 +2500,7 @@ nexus-plugin-subscriptions@0.2.0:
     lodash "4.17.19"
     subscriptions-transport-ws "0.9.17"
 
-nexus@^0.26.0-next.14:
+nexus@^0.26.0-next.15:
   version "0.26.0-next.15"
   resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.26.0-next.15.tgz#ce584a16f75781fec118194ebbd933b8cf09a661"
   integrity sha512-/MsygYzU6XiGMm4KV2NO/CeyANt8kzehMtzHF3IU43AFNXnk9mzVDyqPGUIWNG/lP5HsfBZpFW4JieeUl9NyVA==
