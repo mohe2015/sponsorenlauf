@@ -51,6 +51,31 @@
           "model": "User",
           "field": "id"
         },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "id"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "id"
+        },
         "directive": "id"
       }
     },
@@ -75,7 +100,7 @@
     {
       "tag": "CreateField",
       "model": "User",
-      "field": "hashedPassword",
+      "field": "password",
       "type": "String",
       "arity": "Required"
     },
@@ -119,6 +144,31 @@
           "model": "Runner",
           "field": "id"
         },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Runner",
+          "field": "id"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Runner",
+          "field": "id"
+        },
         "directive": "id"
       }
     },
@@ -128,6 +178,17 @@
       "field": "startNumber",
       "type": "Int",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Runner",
+          "field": "startNumber"
+        },
+        "directive": "unique"
+      }
     },
     {
       "tag": "CreateDirective",
@@ -153,17 +214,6 @@
       },
       "argument": "",
       "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Runner",
-          "field": "startNumber"
-        },
-        "directive": "unique"
-      }
     },
     {
       "tag": "CreateField",
@@ -223,38 +273,6 @@
           "model": "Round",
           "field": "id"
         },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Round",
-      "field": "studentId",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Round",
-      "field": "createdById",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Round",
-      "field": "time",
-      "type": "DateTime",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Round",
-          "field": "time"
-        },
         "directive": "default"
       }
     },
@@ -265,12 +283,76 @@
         "path": {
           "tag": "Field",
           "model": "Round",
-          "field": "time"
+          "field": "id"
         },
         "directive": "default"
       },
       "argument": "",
-      "value": "now()"
+      "value": "cuid()"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Round",
+          "field": "id"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateField",
+      "model": "Round",
+      "field": "student",
+      "type": "Runner",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Round",
+          "field": "student"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Round",
+          "field": "student"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[studentId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Round",
+          "field": "student"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Round",
+      "field": "studentId",
+      "type": "String",
+      "arity": "Required"
     },
     {
       "tag": "CreateField",
@@ -321,8 +403,15 @@
     {
       "tag": "CreateField",
       "model": "Round",
-      "field": "student",
-      "type": "Runner",
+      "field": "createdById",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Round",
+      "field": "time",
+      "type": "DateTime",
       "arity": "Required"
     },
     {
@@ -331,9 +420,9 @@
         "path": {
           "tag": "Field",
           "model": "Round",
-          "field": "student"
+          "field": "time"
         },
-        "directive": "relation"
+        "directive": "default"
       }
     },
     {
@@ -343,26 +432,12 @@
         "path": {
           "tag": "Field",
           "model": "Round",
-          "field": "student"
+          "field": "time"
         },
-        "directive": "relation"
+        "directive": "default"
       },
-      "argument": "fields",
-      "value": "[studentId]"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Round",
-          "field": "student"
-        },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
+      "argument": "",
+      "value": "now()"
     },
     {
       "tag": "CreateModel",
@@ -385,20 +460,6 @@
         },
         "directive": "id"
       }
-    },
-    {
-      "tag": "CreateField",
-      "model": "UserSession",
-      "field": "userId",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "UserSession",
-      "field": "validUntil",
-      "type": "DateTime",
-      "arity": "Required"
     },
     {
       "tag": "CreateField",
@@ -445,6 +506,20 @@
       },
       "argument": "references",
       "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "UserSession",
+      "field": "userId",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "UserSession",
+      "field": "validUntil",
+      "type": "DateTime",
+      "arity": "Required"
     }
   ]
 }

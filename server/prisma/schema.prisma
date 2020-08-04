@@ -10,7 +10,7 @@ datasource postgresql {
 model User {
   id              String        @id
   name            String        @unique
-  hashedPassword  String
+  password        String
   role            UserRole
   createdRounds   Round[]
   currentSessions UserSession[]
