@@ -40,7 +40,7 @@
       "tag": "CreateField",
       "model": "User",
       "field": "id",
-      "type": "String",
+      "type": "Int",
       "arity": "Required"
     },
     {
@@ -53,6 +53,31 @@
         },
         "directive": "id"
       }
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "id"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "id"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "autoincrement()"
     },
     {
       "tag": "CreateField",
@@ -108,7 +133,7 @@
       "tag": "CreateField",
       "model": "Runner",
       "field": "id",
-      "type": "String",
+      "type": "Int",
       "arity": "Required"
     },
     {
@@ -123,19 +148,12 @@
       }
     },
     {
-      "tag": "CreateField",
-      "model": "Runner",
-      "field": "startNumber",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
       "tag": "CreateDirective",
       "location": {
         "path": {
           "tag": "Field",
           "model": "Runner",
-          "field": "startNumber"
+          "field": "id"
         },
         "directive": "default"
       }
@@ -147,23 +165,12 @@
         "path": {
           "tag": "Field",
           "model": "Runner",
-          "field": "startNumber"
+          "field": "id"
         },
         "directive": "default"
       },
       "argument": "",
       "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Runner",
-          "field": "startNumber"
-        },
-        "directive": "unique"
-      }
     },
     {
       "tag": "CreateField",
@@ -212,7 +219,7 @@
       "tag": "CreateField",
       "model": "Round",
       "field": "id",
-      "type": "String",
+      "type": "Int",
       "arity": "Required"
     },
     {
@@ -227,17 +234,42 @@
       }
     },
     {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Round",
+          "field": "id"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Round",
+          "field": "id"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "autoincrement()"
+    },
+    {
       "tag": "CreateField",
       "model": "Round",
       "field": "studentId",
-      "type": "String",
+      "type": "Int",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
       "model": "Round",
       "field": "createdById",
-      "type": "String",
+      "type": "Int",
       "arity": "Required"
     },
     {
@@ -372,7 +404,7 @@
       "tag": "CreateField",
       "model": "UserSession",
       "field": "id",
-      "type": "String",
+      "type": "Int",
       "arity": "Required"
     },
     {
@@ -387,18 +419,68 @@
       }
     },
     {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "UserSession",
+          "field": "id"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "UserSession",
+          "field": "id"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "autoincrement()"
+    },
+    {
       "tag": "CreateField",
       "model": "UserSession",
       "field": "userId",
-      "type": "String",
+      "type": "Int",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
       "model": "UserSession",
-      "field": "validUntil",
+      "field": "createdAt",
       "type": "DateTime",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "UserSession",
+          "field": "createdAt"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "UserSession",
+          "field": "createdAt"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "now()"
     },
     {
       "tag": "CreateField",

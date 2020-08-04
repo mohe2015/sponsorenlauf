@@ -8,7 +8,7 @@ datasource postgresql {
 }
 
 model User {
-  id              String        @id
+  id              Int           @id @default(autoincrement())
   name            String        @unique
   hashedPassword  String
   role            UserRole
@@ -17,8 +17,7 @@ model User {
 }
 
 model Runner {
-  id          String  @id
-  startNumber Int     @default(autoincrement()) @unique
+  id          Int     @id @default(autoincrement())
   name        String  @unique
   clazz       String
   grade       Int
@@ -26,18 +25,18 @@ model Runner {
 }
 
 model Round {
-  id          String   @id
-  studentId   String
-  createdById String
+  id          Int      @id @default(autoincrement())
+  studentId   Int
+  createdById Int
   time        DateTime @default(now())
   createdBy   User     @relation(fields: [createdById], references: [id])
   student     Runner   @relation(fields: [studentId], references: [id])
 }
 
 model UserSession {
-  id         String   @id
-  userId     String
-  validUntil DateTime
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  createdAt  DateTime @default(now())
   user       User     @relation(fields: [userId], references: [id])
 }
 

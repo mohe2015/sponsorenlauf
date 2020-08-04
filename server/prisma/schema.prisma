@@ -26,8 +26,8 @@ model Runner {
 
 model Round {
   id          Int      @id @default(autoincrement())
-  studentId   String
-  createdById String
+  studentId   Int
+  createdById Int
   time        DateTime @default(now())
   createdBy   User     @relation(fields: [createdById], references: [id])
   student     Runner   @relation(fields: [studentId], references: [id])
@@ -35,7 +35,7 @@ model Round {
 
 model UserSession {
   id         Int      @id @default(autoincrement())
-  userId     String
+  userId     Int
   createdAt  DateTime @default(now())
   user       User     @relation(fields: [userId], references: [id])
 }
