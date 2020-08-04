@@ -1,0 +1,47 @@
+generator prisma_client {
+  provider = "prisma-client-js"
+}
+
+datasource postgresql {
+  provider = "postgresql"
+  url = "***"
+}
+
+model User {
+  identifier      Int           @id @default(autoincrement())
+  name            String        @unique
+  hashedPassword  String
+  role            UserRole
+  createdRounds   Round[]
+  currentSessions UserSession[]
+}
+
+model Runner {
+  identifier  Int     @id @default(autoincrement())
+  name        String  @unique
+  clazz       String
+  grade       Int
+  rounds      Round[]
+}
+
+model Round {
+  identifier  Int      @id @default(autoincrement())
+  studentId   Int
+  createdById Int
+  time        DateTime @default(now())
+  createdBy   User     @relation(fields: [createdById], references: [identifier])
+  student     Runner   @relation(fields: [studentId], references: [identifier])
+}
+
+model UserSession {
+  id         String   @id
+  userId     Int
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [identifier])
+}
+
+enum UserRole {
+  ADMIN
+  TEACHER
+  VIEWER
+}

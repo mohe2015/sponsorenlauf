@@ -243,18 +243,14 @@ schema.mutationType({
 
         const id = crypto.randomBytes(32).toString("hex");
 
-        let validUntil = new Date();
-        validUntil.setHours(validUntil.getHours() + 8);
-
         let userSession = await context.db.userSession.create({
           data: {
             id,
             user: {
               connect: {
-                id: user.id
+                identifier: user.identifier
               },
             },
-            validUntil,
           }
         })
 

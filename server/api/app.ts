@@ -104,12 +104,16 @@ async function createContext(cookie: string | null, response: Response | null) {
   
   if (nextCleanupCheck.getTime() < Date.now()) {
     nextCleanupCheck = new Date();
-    nextCleanupCheck.setHours(nextCleanupCheck.getMinutes() + 1); // TODO FIXME TEST
+    nextCleanupCheck.setHours(nextCleanupCheck.getMinutes() + 10);
     log.info("session cleanup start")
+
+    let tooOld = new Date();
+    tooOld.setHours(tooOld.getHours() - 16);
+
     let result = await db.userSession.deleteMany({
       where: {
-        validUntil: {
-          lt: new Date()
+        createdAt: {
+          lt: tooOld
         }
       }
     })
@@ -128,7 +132,10 @@ async function createContext(cookie: string | null, response: Response | null) {
         }
       })
 
-      if (userSession && userSession.validUntil.getTime() > Date.now()) {
+      let tooOld = new Date();
+      tooOld.setHours(tooOld.getHours() - 8);
+
+      if (userSession && userSession.createdAt.getTime() > tooOld.getTime()) {
         return {
           user: userSession?.user,
           pubsub,
