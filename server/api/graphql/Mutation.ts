@@ -1,6 +1,5 @@
 import { schema } from "nexus";
 import { hash, compare } from "bcrypt";
-import { NexusGenFieldTypes } from 'typegen-nexus'
 let crypto = require('crypto');
 
 schema.mutationType({
@@ -14,7 +13,7 @@ schema.mutationType({
         let user = await context.db.user.create({
           data: {
             ...args.data,
-            hashedPassword: "",
+            password: "",
           }
         });
 
@@ -53,7 +52,7 @@ schema.mutationType({
           where: args.where,
           data: {
             ...args.data,
-            hashedPassword: undefined,
+            password: undefined,
           }
         });
 
@@ -107,9 +106,9 @@ schema.mutationType({
       resolve: async (parent, args, context, info) => {
         let usersWithoutPassword = await context.db.user.findMany({
           where: {
-            hashedPassword: ""
+            password: ""
           }
-        }) as NexusGenFieldTypes['User'][]
+        })
 
         for (let user of usersWithoutPassword) {
           user.password = crypto.randomBytes(32).toString("hex");
@@ -120,7 +119,7 @@ schema.mutationType({
             },
             data: {
               // @ts-expect-error
-              hashedPassword: await hash(user.password, 10),
+              password: await hash(user.password, 10),
             }
           })
         }
@@ -231,8 +230,8 @@ schema.mutationType({
             passwordError: null,
           }
         }
-        // @ts-expect-error
-        const passwordValid: boolean = await compare(password, user.hashedPassword);
+        // @ts-ignore
+        const passwordValid: boolean = await compare(password, user.password);
         if (!passwordValid) {
           return {
             __typename: "LoginMutationError",
