@@ -26,6 +26,7 @@ export const permissions = shield({
       createOneRound: rules.isUserWithRole(["ADMIN", "TEACHER"]),
       deleteOneUser: rules.isUserWithRole(["ADMIN"]),
       updateOneUser: rules.isUserWithRole(["ADMIN"]),
+      generatePasswords: rules.isUserWithRole(["ADMIN"]),
     },
     Subscription: {
       subscribeRounds: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),

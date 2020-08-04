@@ -1,8 +1,6 @@
 import { schema } from "nexus";
-import { hashSync, compare } from "bcrypt";
+import { hash, compare } from "bcrypt";
 let crypto = require('crypto');
-
-//     const hashedPassword = await hash("admin", 10);
 
 schema.mutationType({
   definition(t) {
@@ -53,8 +51,8 @@ schema.mutationType({
         let user = await context.db.user.update({
           where: args.where,
           data: {
-            password: "",
-            ...args.data
+            ...args.data,
+            password: undefined,
           }
         });
 
@@ -99,6 +97,34 @@ schema.mutationType({
         password: (args) => {
           return ""
         }
+      }
+    })
+
+    t.field("generatePasswords", {
+      type: "User",
+      list: true,
+      resolve: async (parent, args, context, info) => {
+        let usersWithoutPassword = await context.db.user.findMany({
+          where: {
+            password: ""
+          }
+        })
+
+        for (let user of usersWithoutPassword) {
+          user.password = crypto.randomBytes(32).toString("hex");
+
+          await context.db.user.update({
+            where: {
+              id: user.id
+            },
+            data: {
+              // @ts-expect-error
+              password: await hash(user.password, 10),
+            }
+          })
+        }
+
+        return usersWithoutPassword
       }
     })
 
