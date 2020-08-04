@@ -30,7 +30,7 @@ async function main() {
       data: {
         name: "admin",
         // @ts-ignore
-        password: hashedPassword,
+        hashedPassword,
         role: "ADMIN",
       },
     });
