@@ -4,13 +4,16 @@ import { decode, encode } from "../relay-tools-custom";
 export const Node = schema.interfaceType({
   name: "Node",
   definition(t) {
-    t.resolveType(({ id }) => decode(id).__typename as any);
+    t.resolveType((source, context, info) => {
+      console.log(source)
+      return decode(source.id).__typename as any;
+    })
     t.string("id", {
       description: "CUID for a resource",
       nullable: false,
-      resolve: ({ id }, args, ctx, { parentType }) => {
+      resolve: (parent, args, ctx, { parentType }) => {
         console.log(parentType);
-        return encode(id, parentType.name);
+        return encode(parent.identifier + "", parentType.name);
       },
     });
   },
