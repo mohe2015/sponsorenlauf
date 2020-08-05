@@ -103,10 +103,10 @@
     lodash "^4.17.15"
     strip-ansi "^6.0.0"
 
-"@nexus/schema@^0.15.0-next.1":
-  version "0.15.0-next.1"
-  resolved "https://registry.yarnpkg.com/@nexus/schema/-/schema-0.15.0-next.1.tgz#39def5322a6cc821914a9f2dee40e1333257e9f8"
-  integrity sha512-PBml7hY5DgqTEEEk9jwczUvBcyMtX9HKR8qfbU1tc+kZ+8uRodnSOatMqN6Haz6QuZhkZBLw4gh2gnpOUYWjPw==
+"@nexus/schema@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@nexus/schema/-/schema-0.15.0.tgz#4f444417a1163a09d732e5b3b203f22780f4ae63"
+  integrity sha512-Q3JYHlxvQ24z5vGfDbEOT7Q+zIFYvnuPv14jNdQ/KCRk6YQODPD/nSQilfFJW+9CBIhZhWZACjbeALRKFLCwjg==
   dependencies:
     iterall "^1.2.2"
     tslib "^1.9.3"
@@ -2501,12 +2501,12 @@ nexus-plugin-subscriptions@0.2.0:
     subscriptions-transport-ws "0.9.17"
 
 nexus@^0.26.0-next.15:
-  version "0.26.0-next.15"
-  resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.26.0-next.15.tgz#ce584a16f75781fec118194ebbd933b8cf09a661"
-  integrity sha512-/MsygYzU6XiGMm4KV2NO/CeyANt8kzehMtzHF3IU43AFNXnk9mzVDyqPGUIWNG/lP5HsfBZpFW4JieeUl9NyVA==
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.26.1.tgz#817329a987a858cb27ee4fd3c8526284bf5b793c"
+  integrity sha512-UFTJRGQJLSlxorWnKE2uLJbOq9kpoXFhswlA4sILMwwObtNVMByk1TSUYjDAsZVDxVLY9zCWpXVn/YlF8gEH/g==
   dependencies:
     "@nexus/logger" "^0.2.0"
-    "@nexus/schema" "^0.15.0-next.1"
+    "@nexus/schema" "^0.15.0"
     "@types/express" "^4.17.7"
     "@types/node-fetch" "^2.5.5"
     "@types/prompts" "^2.0.3"
