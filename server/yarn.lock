@@ -2471,7 +2471,7 @@ new-github-issue-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/new-github-issue-url/-/new-github-issue-url-0.2.1.tgz#e17be1f665a92de465926603e44b9f8685630c1d"
   integrity sha512-md4cGoxuT4T4d/HDOXbrUHkTKrp/vp+m3aOA7XXVYwNsUNMK49g3SQicTSeV5GIz/5QVGAeYRAOlyp9OvlgsYA==
 
-nexus-plugin-prisma@^0.17.0-next.7:
+nexus-plugin-prisma@^0.17.0:
   version "0.17.0"
   resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.17.0.tgz#0c33faa808225256afa82827a64cd99396bf0e97"
   integrity sha512-HsfYjYciW+ITqVOqWaFC6O0V6tNxv/Y5VqttJKmgR8zzm3vi3Bwnfye8nldscmkyro1wuSzABGf61/oxInxM8w==
@@ -2506,7 +2506,7 @@ nexus-plugin-subscriptions@0.2.0:
     lodash "4.17.19"
     subscriptions-transport-ws "0.9.17"
 
-nexus@^0.26.0-next.15:
+nexus@^0.26.1:
   version "0.26.1"
   resolved "https://registry.yarnpkg.com/nexus/-/nexus-0.26.1.tgz#817329a987a858cb27ee4fd3c8526284bf5b793c"
   integrity sha512-UFTJRGQJLSlxorWnKE2uLJbOq9kpoXFhswlA4sILMwwObtNVMByk1TSUYjDAsZVDxVLY9zCWpXVn/YlF8gEH/g==
