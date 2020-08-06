@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import RelayModernEnvironment from 'relay-runtime/lib/store/RelayModernEnvironment';
 import { createEnvironment } from './RelayEnvironment'
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
 

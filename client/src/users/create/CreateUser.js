@@ -150,22 +150,6 @@ export function CreateUser(props) {
             username,
             role
           },
-          /*updater: (store) => {
-            const payload = store.getRootField("updateOneUser");
-
-            const serverEdge = payload.getLinkedRecord('edge');
-            const newRecord = serverEdge.getLinkedRecord('node');
-            console.log(newRecord.getDataID())
-            console.log(newRecord.id)
-
-            const oldRecord = store.get(newRecord.getDataID());
-            if (oldRecord) {
-              oldRecord.copyFieldsFrom(newRecord);
-            }
-            else {
-              store.create()
-            }
-          }*/
         })
       } else {
         user_create({
@@ -223,7 +207,7 @@ export function CreateUser(props) {
         })
       }
     },
-    [id, username, role, user_create, navigate, startTransition, location]
+    [updateUser, id, username, role, user_create, navigate, startTransition, location]
   );
 
     return (
@@ -277,7 +261,7 @@ export function CreateUser(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            pending={isCreateOneUserPending || isPending}
+            pending={isCreateOneUserPending || isUpdateUserPending || isPending}
           >
             Nutzer {id ? "bearbeiten" : "hinzufügen"}
           </LoadingButton>

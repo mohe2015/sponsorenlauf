@@ -1,5 +1,6 @@
 import React from "react";
 import { useFragment, useMutation } from 'react-relay/hooks';
+import { unstable_useTransition as useTransition } from 'react';
 import graphql from "babel-plugin-relay/macro";
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -40,6 +41,8 @@ export function LoadingUserRow(props) {
 }
 
 export function UserRow(props) {
+  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+
   const data = useFragment(
     graphql`
     fragment UserRow_user on User {
@@ -108,14 +111,15 @@ export function UserRow(props) {
 
   const updateUserCallback = useCallback(
     event => {
-      // TODO useTransition
-      navigate("/users/edit/" + data.id, {
-        state: {
-          data
-        }
+      startTransition(() => {
+        navigate("/users/edit/" + data.id, {
+          state: {
+            data
+          }
+        })
       })
     },
-    []
+    [data, navigate, startTransition]
   );
 
   return (
@@ -128,7 +132,7 @@ export function UserRow(props) {
         <ControlledTooltip title="Bearbeiten">
           <LoadingButton
             disableElevation
-            pending={false} onClick={updateUserCallback}>
+            pending={isPending} onClick={updateUserCallback}>
               <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPen} />
               <Typography variant="button" noWrap>
                 <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Bearbeiten</Box>
