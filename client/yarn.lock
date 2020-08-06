@@ -2207,16 +2207,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:^10.4.7":
-  version: 10.4.7
-  resolution: "@testing-library/react@npm:10.4.7"
+"@testing-library/react@npm:^10.4.8":
+  version: 10.4.8
+  resolution: "@testing-library/react@npm:10.4.8"
   dependencies:
     "@babel/runtime": ^7.10.3
     "@testing-library/dom": ^7.17.1
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: 2e640e25219886afbaa363a9bac81d2c29317c40ef3d8fb7c5b620e90872fa2671ef313f0fc7e3dab1b9eb3ed5c9b7c628b3a04abb1106d60dbab146a9fc0aa1
+  checksum: 8e725f094be47651b852a356e7fff9bcde2ab665c8ba7b0d9ef8e2140dd1158c8b58d4fcbebd4f5d03e32cff34c4c035a4d5a761903f1c908bebc2fe6abc8ec2
   languageName: node
   linkType: hard
 
@@ -4246,7 +4246,7 @@ __metadata:
     "@material-ui/core": next
     "@material-ui/lab": next
     "@testing-library/jest-dom": ^5.11.2
-    "@testing-library/react": ^10.4.7
+    "@testing-library/react": ^10.4.8
     "@testing-library/user-event": ^12.1.0
     babel-plugin-relay: ^10.0.1
     graphql: ^15.3.0
