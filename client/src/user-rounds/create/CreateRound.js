@@ -49,7 +49,7 @@ function ShowRunnerName(props) {
     })
 
     return (
-      <>{data.runner?.name}</>
+      <>{data.runner ? data.runner.name : "Nicht gefunden"}</>
     );
 }
 
@@ -207,9 +207,9 @@ export function CreateRound(props) {
                 <FormHelperText id="component-error-text">
                   {startNumberError}
                   {startNumber !== "" ?
-                  <Suspense fallback={<>loading...</>}>
-                    <ShowRunnerName startNumber={startNumber}></ShowRunnerName>
-                  </Suspense>: <></>}
+                  <Suspense fallback={<>Wird geladen...</>}>
+                    <ShowRunnerName startNumber={startNumber} />
+                  </Suspense>: <>-</>}
                 </FormHelperText>
               </FormControl>
             </Box>
