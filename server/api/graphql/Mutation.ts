@@ -245,6 +245,8 @@ schema.mutationType({
       },
     });
 
+    t.crud.deleteOneRound();
+
     t.crud.createOneRound({
       type: "Round",
       alias: "_hidden_we_need_the_types_createOneRound",

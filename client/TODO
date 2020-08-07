@@ -1,23 +1,7 @@
-TODO FIXME cursors of mutation response edges
-TODO idempotent mutations
-
-
-rückgängig + Verlauf
-add field valid to round? (so undo redo possible)
-strikthrough for visual indication?
-
 Mindestrundenzeit
-
 
 Design:
 
 in users list add number of rounds and allow sorting
 [Ergebnis (Ehrung)
 Ergebnis alle (für Sponsoring)]
-
-rounds list which is ordered by time
-with subscription
-[aktueller Stand]
-
-add round with list of added rounds by current user
-

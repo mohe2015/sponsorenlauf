@@ -1,7 +1,7 @@
 import React from "react";
 import { usePaginationFragment } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
-import { RoundRow } from './../rounds/RoundRow'
+import { UserRoundRow } from './UserRoundRow'
 import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import TableCell from '@material-ui/core/TableCell';
@@ -19,7 +19,7 @@ export function UserRoundsListComponent(props) {
           edges {
             node {
               id
-              ...RoundRow_round
+              ...UserRoundRow_round
             }
           }
         }
@@ -32,7 +32,7 @@ export function UserRoundsListComponent(props) {
       {(data.rounds?.edges ?? []).map(edge => {
         const node = edge.node;
         return (
-          <RoundRow key={node.id} round={node} />
+          <UserRoundRow key={node.id} round={node} />
         );
       })}
       { hasNext ? <TableRow>
