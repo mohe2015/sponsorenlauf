@@ -1974,7 +1974,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/system@npm:^5.0.0-alpha.1":
+"@material-ui/system@npm:^5.0.0-alpha.1, @material-ui/system@npm:next":
   version: 5.0.0-alpha.1
   resolution: "@material-ui/system@npm:5.0.0-alpha.1"
   dependencies:
@@ -4245,6 +4245,7 @@ __metadata:
     "@fortawesome/react-fontawesome": ^0.1.11
     "@material-ui/core": next
     "@material-ui/lab": next
+    "@material-ui/system": next
     "@testing-library/jest-dom": ^5.11.2
     "@testing-library/react": ^10.4.8
     "@testing-library/user-event": ^12.1.0
