@@ -125,7 +125,7 @@ export function CreateUser(props) {
       if (id) {
         updateUser({
           onCompleted: response => {
-            if (response.updateOneUser.__typename === "CreateUserMutationError") {
+            if (response.updateOneUser.__typename === "UserMutationError") {
               setUsernameError(response.updateOneUser.usernameError);
               setRoleError(response.updateOneUser.roleError);
             } else {
@@ -154,7 +154,7 @@ export function CreateUser(props) {
       } else {
         user_create({
           onCompleted: response => {
-            if (response.createOneUser.__typename === "CreateUserMutationError") {
+            if (response.createOneUser.__typename === "UserMutationError") {
               setUsernameError(response.createOneUser.usernameError);
               setRoleError(response.createOneUser.roleError);
             } else {

@@ -129,7 +129,7 @@ schema.mutationType({
     })
 
     t.field("createOneRunner", {
-      type: "CreateRunnerMutationResponse",
+      type: "RunnerMutationResponse",
       nullable: false,
       args: { data: schema.arg({type: "RunnerCreateInput", nullable: false}) },
       resolve: async (_parent, args, context, info) => {
@@ -139,14 +139,14 @@ schema.mutationType({
 
         if (!runner) {
           return {
-            __typename: "CreateRunnerMutationError",
-            usernameError: "Nutzername nicht gefunden!",
-            roleError: null,
+            __typename: "RunnerMutationError",
+            nameError: "Fehler bei Erstellung!",
+            gradeError: null,
           }
         }
 
         return {
-          __typename: "CreateRunnerMutationOutput",
+          __typename: "RunnerMutationOutput",
           previous_edge: null,
           runner_edge: {
             cursor: runner.id,
@@ -155,6 +155,44 @@ schema.mutationType({
             }
           }
         };
+      }
+    });
+
+    t.field("updateOneRunner", {
+      type: "RunnerMutationResponse",
+      nullable: false,
+      args: { 
+        data: schema.arg({type: "RunnerUpdateInput", nullable: false}),
+        where: schema.arg({type: "RunnerWhereUniqueInput", nullable: false}),
+      },
+      resolve: async (_parent, args, context, info) => {
+        let user = await context.db.runner.update({
+          where: args.where,
+          data: {
+            ...args.data,
+          }
+        });
+
+        if (!user) {
+          return {
+            __typename: "RunnerMutationError",
+            nameError: "Fehler bei Aktualisierung!",
+            gradeError: null,
+          }
+        }
+
+        let output = {
+          __typename: "RunnerMutationOutput",
+          previous_edge: null,
+          edge: {
+            cursor: user.id,
+            node: {
+              ...user,
+            }
+          }
+        };
+        context.pubsub.publish("RUNNERS", output);
+        return output;
       }
     });
 

@@ -12,8 +12,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import Alert from '@material-ui/lab/Alert';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import FormHelperText from '@material-ui/core/FormHelperText'
 import { ConnectionHandler } from 'react-relay';
+import { useLazyLoadQuery } from 'react-relay/hooks';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,14 +45,36 @@ export function CreateRunner(props) {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
+  let { id } = useParams();
+
+  const data = useLazyLoadQuery(
+    graphql`
+  query CreateRunnerFindRunnerQuery($id: String) {
+    runner(where: { id: $id }) {
+      id
+      startNumber
+      name
+      clazz
+      grade
+    }
+  }
+    `,
+    {id},
+    {
+      fetchPolicy: "store-or-network",
+      networkCacheConfig: {
+        force: false
+      },
+      skip: id === null,
+    })
 
   const [runner_create, IsCreateRunnerPending] = useMutation(graphql`
   mutation CreateRunnerMutation($name: String!, $clazz: String!, $grade: Int!) {
     createOneRunner(data: { name: $name, clazz: $clazz, grade: $grade }) {
       __typename
-      ... on CreateRunnerMutationOutput {
+      ... on RunnerMutationOutput {
         previous_edge
-        runner_edge {
+        edge {
           cursor
           node {
             id
@@ -57,17 +85,42 @@ export function CreateRunner(props) {
           }
         }
       }
-      ... on CreateRunnerMutationError {
-        usernameError
-        roleError
+      ... on RunnerMutationError {
+        nameError
+        gradeError
       }
     }
   }
   `);
 
-  const [name, setName] = useState('');
-  const [clazz, setClazz] = useState('');
-  const [grade, setGrade] = useState(0);
+  const [updateRunner, isUpdateRunnerPending] = useMutation(graphql`
+  mutation CreateRunnerUpdateMutation($id: String, $name: String!, $clazz: String!, $grade: Int!) {
+    updateOneRunner(where: { id: $id }, data: { name: $name, clazz: $clazz, grade: $grade }) {
+      __typename
+      ... on RunnerMutationOutput {
+        previous_edge
+        edge {
+          cursor
+          node {
+            id
+            startNumber
+            name
+            clazz
+            grade
+          }
+        }
+      }
+      ... on RunnerMutationError {
+        nameError
+        gradeError
+      }
+    }
+  }
+  `);
+
+  const [name, setName] = useState(id ? data.runner.name : '');
+  const [clazz, setClazz] = useState(id ? data.runner.clazz : '');
+  const [grade, setGrade] = useState(id ? data.runner.grade : '');
 
   const [nameError, setNameError] = useState(null);
   const [clazzError] = useState(null);
@@ -79,68 +132,100 @@ export function CreateRunner(props) {
     event => {
       event.preventDefault();
 
-      runner_create({
-        onCompleted: response => {
-          if (response.runner_create.__typename === "CreateRunnerMutationError") {
-            setNameError(response.runner_create.nameError);
-            setGradeError(response.runner_create.gradeError);
-          } else {
-            setNameError(null);
-            setGradeError(null);
+      if (id) {
+        updateRunner({
+          onCompleted: response => {
+            if (response.updateOneRunner.__typename === "RunnerMutationError") {
+              setNameError(response.updateOneRunner.nameError);
+              setGradeError(response.updateOneRunner.gradeError);
+            } else {
+              setNameError(null);
+              setGradeError(null);
 
-            startTransition(() => {
-              if (location.state?.oldPathname) {
-                navigate(location.state?.oldPathname);
-              } else {
-                navigate("/runners");
-              }
-            });
+              startTransition(() => {
+                if (location.state?.oldPathname) {
+                  navigate(location.state?.oldPathname);
+                } else {
+                  navigate("/runners");
+                }
+              });
+            }
+          },
+          onError: error => {
+            console.log(error);
+            alert(error); // TODO FIXME
+          },
+          variables: {
+            id,
+            name,
+            clazz,
+            grade
+          },
+        })
+      } else {
+        runner_create({
+          onCompleted: response => {
+            if (response.runner_create.__typename === "RunnerMutationError") {
+              setNameError(response.runner_create.nameError);
+              setGradeError(response.runner_create.gradeError);
+            } else {
+              setNameError(null);
+              setGradeError(null);
+
+              startTransition(() => {
+                if (location.state?.oldPathname) {
+                  navigate(location.state?.oldPathname);
+                } else {
+                  navigate("/runners");
+                }
+              });
+            }
+          },
+          onError: error => {
+            console.log(error);
+            alert(error); // TODO FIXME
+          },
+          variables: {
+            name,
+            clazz,
+            grade: parseInt(grade)
+          },
+          updater: (store) => {
+            //console.log(store)
+            //console.log(store.__recordSource._proxies)
+
+            //console.log(store.getRoot());
+            //console.log(ConnectionHandler);
+            // TODO FIXME error response
+            const connectionRecord = ConnectionHandler.getConnection(
+              store.getRoot(),
+              "RunnersList_runner_runners"
+            );
+            if (!connectionRecord) {
+              return;
+            }
+            const payload = store.getRootField("createOneRunner");
+
+            const previousEdge = payload.getLinkedRecord('previous_edge');
+            const serverEdge = payload.getLinkedRecord('edge');
+
+            //console.log(connectionRecord);
+            //console.log(newUserRecord);
+
+            const newEdge = ConnectionHandler.buildConnectionEdge(
+              store,
+              connectionRecord,
+              serverEdge,
+            );
+
+            ConnectionHandler.insertEdgeAfter(
+              connectionRecord,
+              newEdge,
+              previousEdge
+            );
           }
-        },
-        onError: error => {
-          console.log(error);
-          alert(error); // TODO FIXME
-        },
-        variables: {
-          name,
-          clazz,
-          grade: parseInt(grade)
-        },
-        updater: (store) => {
-          //console.log(store)
-          //console.log(store.__recordSource._proxies)
-
-          //console.log(store.getRoot());
-          //console.log(ConnectionHandler);
-          // TODO FIXME error response
-          const connectionRecord = ConnectionHandler.getConnection(
-            store.getRoot(),
-            "RunnersList_runner_runners"
-          );
-          if (!connectionRecord) {
-            return;
-          }
-          const payload = store.getRootField("createOneRunner");
-
-          const previousEdge = payload.getLinkedRecord('previous_edge');
-          const serverEdge = payload.getLinkedRecord('runner_edge');
-
-          //console.log(connectionRecord);
-          //console.log(newUserRecord);
-
-          const newEdge = ConnectionHandler.buildConnectionEdge(
-            store,
-            connectionRecord,
-            serverEdge,
-          );
-
-          ConnectionHandler.insertEdgeAfter(
-            connectionRecord,
-            newEdge,
-            previousEdge
-          );
-        }
-      })
+        })
+      }
     },
     [name, clazz, grade, runner_create, navigate, startTransition, location]
   );

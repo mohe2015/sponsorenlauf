@@ -123,6 +123,10 @@ schema.queryType({
       type: "User"
     })
 
+    t.crud.runner({
+      type: "Runner"
+    })
+
     t.field("node", {
       type: "Node",
       args: { id: schema.idArg({ required: true }) },

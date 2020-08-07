@@ -112,6 +112,21 @@ export function RunnerRow(props) {
     [deleteRunner, data, confirm]
   );
 
+  const navigate = useNavigate();
+
+  const updateRunnerCallback = useCallback(
+    event => {
+      startTransition(() => {
+        navigate("/runners/edit/" + data.id, {
+          state: {
+            data
+          }
+        })
+      })
+    },
+    [data, navigate, startTransition]
+  );
+
   return (
     <TableRow>
       <TableCell component="th" scope="row" align="right">
@@ -121,8 +136,18 @@ export function RunnerRow(props) {
       <TableCell>{data.clazz}</TableCell>
       <TableCell align="right">{data.grade}</TableCell>
       <TableCell align="right">
-        
-      <ControlledTooltip title="Löschen">
+        <ControlledTooltip title="Bearbeiten">
+          <LoadingButton
+            disableElevation
+            pending={isPending} onClick={updateRunnerCallback}>
+              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPen} />
+              <Typography variant="button" noWrap>
+                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Bearbeiten</Box>
+              </Typography>
+          </LoadingButton>
+        </ControlledTooltip>
+
+        <ControlledTooltip title="Löschen">
           <LoadingButton
             disableElevation
             pending={isDeleteRunnerPending} onClick={deleteRunnerCallback}>

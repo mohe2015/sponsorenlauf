@@ -35,6 +35,7 @@ function App() {
               </Route>
               <Route path="/runners">
                 <Route path="/create" element={<CreateRunner />} />
+                <Route path="/edit/:id" element={<CreateRunner />} />
                 <Route path="*" element={<RunnersList />} />
               </Route>
               <Route path="/rounds">

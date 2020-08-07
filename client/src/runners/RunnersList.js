@@ -18,7 +18,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 export function RunnersList(props) {
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
     <IconButton component={RouterLink} to="/runners/create">
       <FontAwesomeIcon icon={faPlus} />
       <Typography variant="button" noWrap>
