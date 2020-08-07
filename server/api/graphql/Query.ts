@@ -87,6 +87,11 @@ schema.queryType({
       }
     });
 
+    t.crud.rounds({
+      alias: "_hidden_rounds",
+      filtering: true,
+    })
+
     t.connection("users", {
       type: "User",
       disableBackwardPagination: true,
