@@ -171,10 +171,12 @@ export function CreateRound(props) {
         updater: (store) => {
           const payload = store.getRootField("createOneRound");
 
-          const previousEdge = payload.getLinkedRecord('previous_edge');
-          const serverEdge = payload.getLinkedRecord('round_edge');
+          if (payload.getValue('__typename') === "CreateRoundMutationOutput") {
+            const previousEdge = payload.getLinkedRecord('previous_edge');
+            const serverEdge = payload.getLinkedRecord('round_edge');
 
-          sharedUpdater(store, previousEdge, serverEdge)
+            sharedUpdater(store, previousEdge, serverEdge)
+          }
         }
       })
     },
@@ -200,16 +202,16 @@ export function CreateRound(props) {
                   autoFocus
                   value={startNumber}
                   required
-                  onChange={e => setStartNumber(e.target.value)}
+                  onChange={e => { setStartNumber(e.target.value); setStartNumberError(null) }}
                   label="Startnummer"
                   aria-describedby="component-error-text"
                 />
                 <FormHelperText id="component-error-text">
-                  {startNumberError}
-                  {startNumber !== "" ?
+                  {startNumberError !== null ? startNumberError :
+                  (startNumber !== "" ?
                   <Suspense fallback={<>Wird geladen...</>}>
                     <ShowRunnerName startNumber={startNumber} />
-                  </Suspense>: <>-</>}
+                  </Suspense>: <>-</>)}
                 </FormHelperText>
               </FormControl>
             </Box>
