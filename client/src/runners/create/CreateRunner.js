@@ -13,11 +13,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import Alert from '@material-ui/lab/Alert';
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import FormHelperText from '@material-ui/core/FormHelperText'
 import { ConnectionHandler } from 'react-relay';
 import { useLazyLoadQuery } from 'react-relay/hooks';
 
@@ -227,7 +222,7 @@ export function CreateRunner(props) {
         })
       }
     },
-    [name, clazz, grade, runner_create, navigate, startTransition, location]
+    [id, updateRunner, name, clazz, grade, runner_create, navigate, startTransition, location]
   );
 
     return (
@@ -298,7 +293,7 @@ export function CreateRunner(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            pending={IsCreateRunnerPending || isPending}
+            pending={IsCreateRunnerPending || isUpdateRunnerPending || isPending}
           >
             Läufer hinzufügen
           </LoadingButton>

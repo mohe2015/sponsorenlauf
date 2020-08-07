@@ -212,28 +212,36 @@ schema.mutationType({
       nullable: false,
       args: { data: schema.arg({type: "RoundCreateInput", nullable: false}) },
       resolve: async (parent, args, context) => {
-        const round = await context.db.round.create({
-          data: {
-            ...args.data,
-            createdBy: {
-              connect: {
-                id: context.user?.id,
+        try {
+          const round = await context.db.round.create({
+            data: {
+              ...args.data,
+              createdBy: {
+                connect: {
+                  id: context.user?.id,
+                },
               },
             },
-          },
-        });
-        let output = {
-          __typename: "CreateRoundMutationOutput",
-          previous_edge: null,
-          round_edge: {
-            cursor: round.id,
-            node: {
-              ...round,
+          });
+          let output = {
+            __typename: "CreateRoundMutationOutput",
+            previous_edge: null,
+            round_edge: {
+              cursor: round.id,
+              node: {
+                ...round,
+              }
             }
+          };
+          context.pubsub.publish("ROUNDS", output);
+          return output;
+        } catch (error) {
+          console.log(error);
+          return {
+            __typename: "CreateRoundMutationError",
+            startNumberError: "Läufer mit dieser Startnummer nicht gefunden!"
           }
-        };
-        context.pubsub.publish("ROUNDS", output);
-        return output;
+        }
       },
     });
 

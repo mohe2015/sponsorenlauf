@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useMutation } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { useState, useCallback } from 'react';
@@ -9,6 +9,13 @@ import Alert from '@material-ui/lab/Alert';
 import { useLocation } from "react-router-dom";
 import { ConnectionHandler } from 'react-relay';
 import Box from '@material-ui/core/Box';
+import { useLazyLoadQuery } from 'react-relay/hooks';
+import FilledInput from '@material-ui/core/FilledInput';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -19,6 +26,33 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 0),
   },
 }));
+
+function ShowRunnerName(props) {
+  const data = useLazyLoadQuery(
+    graphql`
+  query CreateRoundFindRunnerQuery($startNumber: Int) {
+    runner(where: { startNumber: $startNumber }) {
+      id
+      startNumber
+      name
+      clazz
+      grade
+    }
+  }
+    `,
+    {startNumber: parseInt(props.startNumber)},
+    {
+      fetchPolicy: "store-or-network",
+      networkCacheConfig: {
+        force: false
+      },
+      skip: props.startNumber == "",
+    })
+
+    return (
+      <>{data.runner?.name}</>
+    );
+}
 
 export function CreateRound(props) {
   const classes = useStyles();
@@ -155,23 +189,29 @@ export function CreateRound(props) {
 
           <Box display="flex">
             <Box flexGrow={1} pr={1}>
-                <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="startNumber"
-                label="Startnummer"
-                name="startNumber"
-                type="number"
-                autoComplete="off"
-                autoFocus
-                value={startNumber}
-                onChange={e => setStartNumber(e.target.value)}
-                helperText={startNumberError}
-                error={startNumberError !== null}
-              />
+              <FormControl variant="outlined" margin="normal" fullWidth error={startNumberError !== null}>
+                <InputLabel htmlFor="startNumber">Startnummer</InputLabel>
+                <OutlinedInput
+                  id="startNumber"
+                  name="startNumber"
+                  type="number"
+                  autoComplete="off"
+                  autoFocus
+                  value={startNumber}
+                  required
+                  onChange={e => setStartNumber(e.target.value)}
+                  label="Startnummer"
+                  aria-describedby="component-error-text"
+                />
+                <FormHelperText  id="component-error-text">
+                  {startNumberError}
+                  <Suspense fallback={<>loading...</>}>
+                    <ShowRunnerName startNumber={startNumber}></ShowRunnerName>
+                  </Suspense>
+                </FormHelperText>
+              </FormControl>
             </Box>
+            
             <Box>
               <LoadingButton
                 type="submit"
