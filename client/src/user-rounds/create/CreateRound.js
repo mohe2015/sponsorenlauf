@@ -46,7 +46,6 @@ function ShowRunnerName(props) {
       networkCacheConfig: {
         force: false
       },
-      skip: props.startNumber == "",
     })
 
     return (
@@ -55,6 +54,8 @@ function ShowRunnerName(props) {
 }
 
 export function CreateRound(props) {
+  console.log("pupp", props);
+
   const classes = useStyles();
   const location = useLocation();
 
@@ -203,11 +204,12 @@ export function CreateRound(props) {
                   label="Startnummer"
                   aria-describedby="component-error-text"
                 />
-                <FormHelperText  id="component-error-text">
+                <FormHelperText id="component-error-text">
                   {startNumberError}
+                  {startNumber !== "" ?
                   <Suspense fallback={<>loading...</>}>
                     <ShowRunnerName startNumber={startNumber}></ShowRunnerName>
-                  </Suspense>
+                  </Suspense>: <></>}
                 </FormHelperText>
               </FormControl>
             </Box>
