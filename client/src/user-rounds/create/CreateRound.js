@@ -24,7 +24,7 @@ export function CreateRound(props) {
   const classes = useStyles();
   const location = useLocation();
 
-  const [round_create, isCreateOneRoundPending] = useMutation(graphql`
+  const [createOneRound, isCreateOneRoundPending] = useMutation(graphql`
   mutation CreateRoundMutation($startNumber: Int!) {
     createOneRound(data: { student: { connect: { startNumber: $startNumber }}}) {
       __typename
@@ -83,10 +83,10 @@ export function CreateRound(props) {
     event => {
       event.preventDefault();
 
-      round_create({
+      createOneRound({
         onCompleted: response => {
-          if (response.round_create.__typename === "CreateRoundMutationError") {
-            setStartNumberError(response.round_create.startNumberError);
+          if (response.createOneRound.__typename === "CreateRoundMutationError") {
+            setStartNumberError(response.createOneRound.startNumberError);
           } else {
             setStartNumberError(null);
             setStartNumber('');
@@ -143,7 +143,7 @@ export function CreateRound(props) {
         }
       })
     },
-    [startNumber, round_create]
+    [startNumber, createOneRound]
   );
 
     return (
