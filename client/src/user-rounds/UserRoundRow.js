@@ -44,6 +44,7 @@ export function UserRoundRow(props) {
       id
       student {
         startNumber
+        name
       }
       time
       createdBy {
@@ -66,8 +67,8 @@ export function UserRoundRow(props) {
   const deleteRoundCallback = useCallback(
     event => {
       confirm({
-        title: 'Runde von ' + data.name + ' löschen?',
-        description: 'Möchtest du die Runde von ' + data.name + ' wirklich löschen? Dies kann nicht rückgängig gemacht werden!',
+        title: 'Runde von ' + data.student.startNumber + " (" + data.student.name + ') löschen?',
+        description: 'Möchtest du die Runde von ' + data.student.startNumber + " (" + data.student.name + ') wirklich löschen? Dies kann nicht rückgängig gemacht werden!',
         confirmationText: 'Löschen',
         cancellationText: 'Abbrechen',
       })
@@ -83,7 +84,10 @@ export function UserRoundRow(props) {
           updater: (store) => {
             const connectionRecord = ConnectionHandler.getConnection(
               store.getRoot(),
-              "RoundsList_round_rounds"
+              "UserRoundsList_round_rounds",
+              {
+                orderBy: { id: 'desc' },
+              }
             );
             if (!connectionRecord) {
               console.log("connection not found");

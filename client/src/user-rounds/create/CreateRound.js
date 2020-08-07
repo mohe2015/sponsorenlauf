@@ -65,7 +65,7 @@ export function CreateRound(props) {
           cursor
           node {
             id
-            ...RoundRow_round
+            ...UserRoundRow_round
           }
         }
       }
@@ -189,7 +189,7 @@ export function CreateRound(props) {
 
           <Box display="flex">
             <Box flexGrow={1} pr={1}>
-              <FormControl variant="outlined" margin="normal" fullWidth error={startNumberError !== null}>
+              <FormControl disabled={isCreateOneRoundPending} variant="outlined" margin="normal" fullWidth error={startNumberError !== null}>
                 <InputLabel htmlFor="startNumber">Startnummer</InputLabel>
                 <OutlinedInput
                   id="startNumber"
