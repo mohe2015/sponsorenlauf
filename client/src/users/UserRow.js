@@ -65,8 +65,8 @@ export function UserRow(props) {
   const deleteUserCallback = useCallback(
     event => {
       confirm({
-        title: 'Schüler ' + data.name + ' löschen?',
-        description: 'Möchtest du den Schüler ' + data.name + ' wirklich löschen? Dies kann nicht rückgängig gemacht werden!',
+        title: 'Nutzer ' + data.name + ' löschen?',
+        description: 'Möchtest du den Nutzer ' + data.name + ' wirklich löschen? Dies kann nicht rückgängig gemacht werden!',
         confirmationText: 'Löschen',
         cancellationText: 'Abbrechen',
       })
@@ -146,7 +146,7 @@ export function UserRow(props) {
             pending={isDeleteUserPending} onClick={deleteUserCallback}>
               <FontAwesomeIcon style={{ fontSize: 24 }} icon={faTrash} />
               <Typography variant="button" noWrap>
-                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Löschen"></Box>
+                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Löschen</Box>
               </Typography>
           </LoadingButton>
         </ControlledTooltip>

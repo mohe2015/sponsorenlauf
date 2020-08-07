@@ -1,5 +1,6 @@
 import React from "react";
-import { useFragment } from 'react-relay/hooks';
+import { useFragment, useMutation } from 'react-relay/hooks';
+import { unstable_useTransition as useTransition } from 'react';
 import graphql from "babel-plugin-relay/macro";
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -8,6 +9,14 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
+import { useConfirm } from 'material-ui-confirm';
+import { useCallback } from 'react';
+import { ConnectionHandler } from 'react-relay';
+import { useNavigate } from "react-router"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import LoadingButton from '@material-ui/lab/LoadingButton';
 
 export function LoadingRunnerRow(props) {
   return (
@@ -35,6 +44,8 @@ export function LoadingRunnerRow(props) {
 }
 
 export function RunnerRow(props) {
+  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+
   const data = useFragment(
     graphql`
     fragment RunnerRow_runner on Runner {
@@ -47,6 +58,59 @@ export function RunnerRow(props) {
     `,
     props.runner,
   );
+  const confirm = useConfirm();
+  const [deleteRunner, isDeleteRunnerPending] = useMutation(graphql`
+  mutation RunnerRowDeleteRunnerMutation($id: String!) {
+    deleteOneRunner(where: { id: $id }) {
+      id
+    }
+  }
+  `);
+
+  const deleteRunnerCallback = useCallback(
+    event => {
+      confirm({
+        title: 'Läufer ' + data.name + ' löschen?',
+        description: 'Möchtest du den Läufer ' + data.name + ' wirklich löschen? Dies kann nicht rückgängig gemacht werden!',
+        confirmationText: 'Löschen',
+        cancellationText: 'Abbrechen',
+      })
+      .then(() => {
+        deleteRunner({
+          onCompleted: response => { },
+          onError: error => {
+            alert(error); // TODO FIXME
+          },
+          variables: {
+            id: data.id
+          },
+          updater: (store) => {
+            const connectionRecord = ConnectionHandler.getConnection(
+              store.getRoot(),
+              "RunnersList_runner_runners"
+            );
+            if (!connectionRecord) {
+              console.log("connection not found");
+              return;
+            }
+
+            const payload = store.getRootField("deleteOneRunner");
+
+            const id = payload.getValue('id');
+
+            ConnectionHandler.deleteNode(
+              connectionRecord,
+              id,
+            );
+          }
+        })
+      })
+      .catch(() => {
+        // do nothing
+      })
+    },
+    [deleteRunner, data, confirm]
+  );
 
   return (
     <TableRow>
@@ -57,14 +121,16 @@ export function RunnerRow(props) {
       <TableCell>{data.clazz}</TableCell>
       <TableCell align="right">{data.grade}</TableCell>
       <TableCell align="right">
-        <ControlledTooltip title="Löschen">
-          <IconButton>
-            <Typography variant="button" noWrap>
-              <Box component="span" display={{ xs: 'none', md: 'block' }}>
-              Löschen
-              </Box>
-            </Typography>
-          </IconButton>
+        
+      <ControlledTooltip title="Löschen">
+          <LoadingButton
+            disableElevation
+            pending={isDeleteRunnerPending} onClick={deleteRunnerCallback}>
+              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faTrash} />
+              <Typography variant="button" noWrap>
+                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Löschen</Box>
+              </Typography>
+          </LoadingButton>
         </ControlledTooltip>
       </TableCell>
     </TableRow>

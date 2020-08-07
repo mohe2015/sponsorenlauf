@@ -158,6 +158,8 @@ schema.mutationType({
       }
     });
 
+    t.crud.deleteOneRunner();
+
     t.crud.createOneRunner({
       type: "Runner",
       alias: "_hidden_we_need_the_types_createOneRunner"
