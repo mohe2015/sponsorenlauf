@@ -35,6 +35,7 @@ export function RunnersList(props) {
           <TableCell>Name</TableCell>
           <TableCell>Klasse</TableCell>
           <TableCell align="right">Jahrgang</TableCell>
+          <TableCell align="right">Rundenzahl</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

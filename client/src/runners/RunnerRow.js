@@ -27,6 +27,7 @@ export function LoadingRunnerRow(props) {
       <TableCell><Skeleton variant="text" /></TableCell>
       <TableCell><Skeleton variant="text" /></TableCell>
       <TableCell align="right"><Skeleton variant="text" /></TableCell>
+      <TableCell align="right"><Skeleton variant="text" /></TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
           <IconButton>
@@ -54,6 +55,7 @@ export function RunnerRow(props) {
       name
       clazz
       grade
+      roundCount
     }
     `,
     props.runner,
@@ -135,6 +137,7 @@ export function RunnerRow(props) {
       <TableCell>{data.name}</TableCell>
       <TableCell>{data.clazz}</TableCell>
       <TableCell align="right">{data.grade}</TableCell>
+      <TableCell align="right">{data.roundCount}</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Bearbeiten">
           <LoadingButton
