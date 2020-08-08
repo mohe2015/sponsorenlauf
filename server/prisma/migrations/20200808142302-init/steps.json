@@ -262,22 +262,6 @@
       "arity": "Required"
     },
     {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Model",
-          "model": "Runner",
-          "arguments": [
-            {
-              "name": "",
-              "value": "[roundCount, id]"
-            }
-          ]
-        },
-        "directive": "index"
-      }
-    },
-    {
       "tag": "CreateModel",
       "model": "Round"
     },

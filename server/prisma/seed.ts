@@ -17,6 +17,8 @@ async function main() {
 
   const db = new PrismaClient();
 
+  db.$executeRaw`CREATE INDEX IF NOT EXISTS "Runner_roundCount_id" ON "Runner" ( "roundCount" DESC, "id" ASC );`;
+
   if (
     !(await db.user.findOne({
       where: {

@@ -14,15 +14,6 @@ schema.objectType({
       ordering: true,
       type: "Round",
     });
-    t.int("roundCount", {
-      nullable: false,
-      resolve: async (root, args, ctx, info) => {
-        return ctx.db.round.count({
-          where: {
-            student: root
-          }
-        })
-      }
-    })
+    t.model.roundCount();
   },
 });

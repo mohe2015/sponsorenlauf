@@ -5,56 +5,9 @@ EXPLAIN ANALYZE
 psql --db sponsorenlauf -XqAt -f explain.sql > analyze.json
 https://dalibo.github.io/pev2/#/
 
-SELECT "Runner".name, COUNT("Round".id) as roundCount FROM "Runner" LEFT JOIN "Round" on "Runner".id = "Round"."studentId" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' GROUP BY "Runner".id ORDER BY roundCount DESC, "Runner".id ASC LIMIT 25;
- Limit  (cost=968.75..968.82 rows=25 width=47) (actual time=16.422..16.425 rows=25 loops=1)
-   ->  Sort  (cost=968.75..971.25 rows=999 width=47) (actual time=16.421..16.422 rows=25 loops=1)
-         Sort Key: (count("Round".id)) DESC, "Runner".id
-         Sort Method: top-N heapsort  Memory: 31kB
-         ->  HashAggregate  (cost=930.57..940.56 rows=999 width=47) (actual time=16.001..16.174 rows=999 loops=1)
-               Group Key: "Runner".id
-               ->  Hash Right Join  (cost=37.98..792.90 rows=27534 width=66) (actual time=0.697..10.347 rows=27534 loops=1)
-                     Hash Cond: ("Round"."studentId" = "Runner".id)
-                     ->  Seq Scan on "Round"  (cost=0.00..682.34 rows=27534 width=54) (actual time=0.004..2.574 rows=27534 loops=1)
-                     ->  Hash  (cost=25.49..25.49 rows=999 width=39) (actual time=0.674..0.674 rows=999 loops=1)
-                           Buckets: 1024  Batches: 1  Memory Usage: 79kB
-                           ->  Seq Scan on "Runner"  (cost=0.00..25.49 rows=999 width=39) (actual time=0.011..0.434 rows=999 loops=1)
-                                 Filter: (id > 'ckdlmkrac31231f1gq65owfd1g'::text)
- Planning Time: 0.519 ms
- Execution Time: 16.482 ms
-(15 rows)
-
-
-SELECT "Runner".name, COUNT(*) as roundCount FROM "Round", "Runner" WHERE "Round"."studentId" = "Runner"."id" AND "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' GROUP BY "studentId", "Runner".name, "Runner".id ORDER BY roundCount DESC, "Runner".id ASC LIMIT 25;
- Limit  (cost=1037.59..1037.65 rows=25 width=74) (actual time=23.846..23.848 rows=25 loops=1)
-   ->  Sort  (cost=1037.59..1040.09 rows=999 width=74) (actual time=23.844..23.845 rows=25 loops=1)
-         Sort Key: (count(*)) DESC, "Runner".id
-         Sort Method: top-N heapsort  Memory: 31kB
-         ->  HashAggregate  (cost=999.41..1009.40 rows=999 width=74) (actual time=23.302..23.517 rows=999 loops=1)
-               Group Key: "Round"."studentId", "Runner".id
-               ->  Hash Join  (cost=37.98..792.90 rows=27534 width=66) (actual time=1.113..13.262 rows=27534 loops=1)
-                     Hash Cond: ("Round"."studentId" = "Runner".id)
-                     ->  Seq Scan on "Round"  (cost=0.00..682.34 rows=27534 width=27) (actual time=0.017..3.486 rows=27534 loops=1)
-                     ->  Hash  (cost=25.49..25.49 rows=999 width=39) (actual time=1.073..1.073 rows=999 loops=1)
-                           Buckets: 1024  Batches: 1  Memory Usage: 79kB
-                           ->  Seq Scan on "Runner"  (cost=0.00..25.49 rows=999 width=39) (actual time=0.011..0.648 rows=999 loops=1)
-                                 Filter: (id > 'ckdlmkrac31231f1gq65owfd1g'::text)
- Planning Time: 0.910 ms
- Execution Time: 24.043 ms
-(15 rows)
-
-SELECT * FROM "Runner" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' ORDER BY "Runner"."roundCount" DESC, "Runner".id ASC LIMIT 25;
- Limit  (cost=52.68..52.74 rows=25 width=55) (actual time=1.536..1.545 rows=25 loops=1)
-   ->  Sort  (cost=52.68..55.18 rows=999 width=55) (actual time=1.534..1.538 rows=25 loops=1)
-         Sort Key: "roundCount" DESC, id
-         Sort Method: top-N heapsort  Memory: 31kB
-         ->  Seq Scan on "Runner"  (cost=0.00..24.49 rows=999 width=55) (actual time=0.018..0.884 rows=999 loops=1)
-               Filter: (id > 'ckdlmkrac31231f1gq65owfd1g'::text)
- Planning Time: 0.266 ms
- Execution Time: 1.585 ms
-(8 rows)
-
 CREATE INDEX "Runner_roundCount_id" ON "Runner" ( "roundCount" DESC, "id" ASC );
 
+SELECT * FROM "Runner" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' ORDER BY "Runner"."roundCount" DESC, "Runner".id ASC LIMIT 25;
  Limit  (cost=0.28..2.81 rows=25 width=55) (actual time=0.128..0.160 rows=25 loops=1)
    ->  Index Scan using "Runner_roundCount_id" on "Runner"  (cost=0.28..101.75 rows=999 width=55) (actual time=0.126..0.153 rows=25 loops=1)
          Index Cond: (id > 'ckdlmkrac31231f1gq65owfd1g'::text)
