@@ -36,7 +36,6 @@ model Runner {
   grade       Int
   rounds      Round[]
   roundCount  Int
-  @@index([roundCount, id])
 }
 
 model Round {
