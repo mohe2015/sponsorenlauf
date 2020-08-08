@@ -47,9 +47,18 @@ async function main() {
     a["Klasse"].localeCompare(b["Klasse"])
   );
 
-  let queries = records.flatMap((data: any) => {
-    let array = Array().fill(
-      db.round.create({
+  await asyncForEach(records, async (data: any) => {
+    console.log(data)
+    await db.runner.create({
+      data: {
+        name: data["Name"],
+        clazz: data["Klasse"],
+        grade: Number(data["Jahrgang"]),
+      }
+    })
+
+    for (let i = 0; i < Math.floor(Math.random() * (50 - 5 + 1) + 5); i++) {
+      await db.round.create({
         data: {
           student: {
             connect: {
@@ -63,22 +72,8 @@ async function main() {
           },
         }
       })
-    );
-
-    array.unshift(db.runner.create({
-      data: {
-        name: data["Name"],
-        clazz: data["Klasse"],
-        grade: Number(data["Jahrgang"]),
-      }
-    }));
-
-    console.log(array.length)
-  
-    return array;
+    }
   })
-
-  await db.$transaction(queries)
 
   await db.$disconnect();
 }

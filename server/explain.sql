@@ -1,0 +1,1 @@
+EXPLAIN (ANALYZE, COSTS, VERBOSE, BUFFERS, FORMAT JSON) SELECT "Runner".name, COUNT("Round".id) as roundCount FROM "Runner" LEFT JOIN "Round" on "Runner".id = "Round"."studentId" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' GROUP BY "Runner".id ORDER BY roundCount DESC LIMIT 25;

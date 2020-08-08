@@ -1,10 +1,57 @@
-ANALYZE
+ANALYZE;
 
-SELECT "Runner".name, COUNT("Round".id) FROM "Runner" LEFT JOIN "Round" on "Runner".id = "Round"."studentId" GROUP BY "Runner".id;
+SELECT "Runner".name, COUNT("Round".id) as roundCount FROM "Runner" LEFT JOIN "Round" on "Runner".id = "Round"."studentId" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' GROUP BY "Runner".id ORDER BY roundCount DESC LIMIT 25;
 
 
 EXPLAIN ANALYZE 
 
-
-
+psql --db sponsorenlauf -XqAt -f explain.sql > analyze.json
 https://dalibo.github.io/pev2/#/
+
+SELECT "Runner".name, COUNT("Round".id) as roundCount FROM "Runner" LEFT JOIN "Round" on "Runner".id = "Round"."studentId" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' GROUP BY "Runner".id ORDER BY roundCount DESC, "Runner".id ASC LIMIT 25;
+ Limit  (cost=425.73..425.79 rows=25 width=46) (actual time=7.004..7.007 rows=25 loops=1)
+   ->  Sort  (cost=425.73..427.22 rows=599 width=46) (actual time=7.002..7.003 rows=25 loops=1)
+         Sort Key: (count("Round".id)) DESC, "Runner".id
+         Sort Method: top-N heapsort  Memory: 30kB
+         ->  HashAggregate  (cost=402.83..408.82 rows=599 width=46) (actual time=6.735..6.821 rows=597 loops=1)
+               Group Key: "Runner".id
+               ->  Hash Right Join  (cost=30.98..365.66 rows=7435 width=64) (actual time=2.822..5.225 rows=7439 loops=1)
+                     Hash Cond: ("Round"."studentId" = "Runner".id)
+                     ->  Seq Scan on "Round"  (cost=0.00..302.00 rows=12400 width=52) (actual time=0.005..1.250 rows=12400 loops=1)
+                     ->  Hash  (cost=23.49..23.49 rows=599 width=38) (actual time=1.399..1.399 rows=597 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 50kB
+                           ->  Seq Scan on "Runner"  (cost=0.00..23.49 rows=599 width=38) (actual time=0.393..1.058 rows=597 loops=1)
+                                 Filter: (id > 'ckdlmkrac31231f1gq65owfd1g'::text)
+                                 Rows Removed by Filter: 402
+ Planning Time: 1.006 ms
+ Execution Time: 7.092 ms
+(16 rows)
+
+
+SELECT "Runner".name, COUNT(*) as roundCount FROM "Round", "Runner" WHERE "Round"."studentId" = "Runner"."id" AND "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' GROUP BY "studentId", "Runner".name, "Runner".id ORDER BY roundCount DESC, "Runner".id ASC LIMIT 25;
+ Limit  (cost=459.60..459.66 rows=25 width=72) (actual time=7.858..7.861 rows=25 loops=1)
+   ->  Sort  (cost=459.60..462.10 rows=999 width=72) (actual time=7.856..7.857 rows=25 loops=1)
+         Sort Key: (count(*)) DESC, "Runner".id
+         Sort Method: top-N heapsort  Memory: 31kB
+         ->  HashAggregate  (cost=421.42..431.41 rows=999 width=72) (actual time=7.566..7.667 rows=597 loops=1)
+               Group Key: "Round"."studentId", "Runner".id
+               ->  Hash Join  (cost=30.98..365.66 rows=7435 width=64) (actual time=2.964..5.464 rows=7439 loops=1)
+                     Hash Cond: ("Round"."studentId" = "Runner".id)
+                     ->  Seq Scan on "Round"  (cost=0.00..302.00 rows=12400 width=26) (actual time=0.016..1.382 rows=12400 loops=1)
+                     ->  Hash  (cost=23.49..23.49 rows=599 width=38) (actual time=1.423..1.423 rows=597 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 50kB
+                           ->  Seq Scan on "Runner"  (cost=0.00..23.49 rows=599 width=38) (actual time=0.356..1.024 rows=597 loops=1)
+                                 Filter: (id > 'ckdlmkrac31231f1gq65owfd1g'::text)
+                                 Rows Removed by Filter: 402
+ Planning Time: 1.082 ms
+ Execution Time: 7.952 ms
+(16 rows)
+
+
+SELECT * FROM "Runner" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' ORDER BY "Runner".id ASC LIMIT 25;
+ Limit  (cost=0.28..1.96 rows=25 width=50) (actual time=0.100..0.116 rows=25 loops=1)
+   ->  Index Scan using "Runner_pkey" on "Runner"  (cost=0.28..40.76 rows=599 width=50) (actual time=0.098..0.109 rows=25 loops=1)
+         Index Cond: (id > 'ckdlmkrac31231f1gq65owfd1g'::text)
+ Planning Time: 0.242 ms
+ Execution Time: 0.157 ms
+(5 rows)
