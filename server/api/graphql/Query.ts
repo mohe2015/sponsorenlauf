@@ -1,6 +1,16 @@
 import { schema } from "nexus";
 import { decode } from "../relay-tools-custom";
 
+schema.extendInputType({
+  type: "RunnerOrderByInput",
+  definition(t) {
+    t.field("roundCount", {
+      type: "SortOrder",
+      nullable: true,
+    })
+  }
+})
+
 schema.queryType({
   definition(t) {
     t.field("me", {
@@ -11,6 +21,7 @@ schema.queryType({
       },
     });
 
+
     // https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
     // TODO FIXME https://nexus.js.org/docs/plugin-connection
     // currentIndex needs to be provided for pagination information
@@ -18,25 +29,37 @@ schema.queryType({
     t.connection("runners", {
       type: "Runner",
       disableBackwardPagination: true,
+      additionalArgs: {
+        orderBy: schema.arg({ type: "RunnerOrderByInput" }),
+      },
       resolve: async (root, args, ctx, info) => {
-        let result = await ctx.db.runner.findMany({
-          take: args.first + 1,
-          cursor: args.after ? { id: args.after } : undefined,
-        })
-        let pageInfo = {
-          hasNextPage: result.length == args.first + 1,
-          startCursor: result.length == 0 ? null : result[0].id,
-          endCursor: result.length == 0 ? null : (result.length <= args.first ? result[result.length - 1].id : result[args.first - 1].id),
-        };
-        if (result.length == args.first + 1) {
-          result.pop();
-        }
-        return {
-          pageInfo,
-          edges: result.map(e => { return {
-            cursor: e.id,
-            node: e,
-          }})
+        if (args.orderBy.roundCount) {
+          let result = await ctx.db.runner.findMany({
+            orderBy: {
+              
+            }
+          })
+        } else {
+          let result = await ctx.db.runner.findMany({
+            orderBy: args.orderBy,
+            take: args.first + 1,
+            cursor: args.after ? { id: args.after } : undefined,
+          })
+          let pageInfo = {
+            hasNextPage: result.length == args.first + 1,
+            startCursor: result.length == 0 ? null : result[0].id,
+            endCursor: result.length == 0 ? null : (result.length <= args.first ? result[result.length - 1].id : result[args.first - 1].id),
+          };
+          if (result.length == args.first + 1) {
+            result.pop();
+          }
+          return {
+            pageInfo,
+            edges: result.map(e => { return {
+              cursor: e.id,
+              node: e,
+            }})
+          }
         }
       },
       extendConnection(t) {
@@ -45,6 +68,12 @@ schema.queryType({
         })
       }
     });
+
+    t.crud.runners({
+      alias: "_hidden_runners",
+      filtering: true,
+      ordering: true,
+    })
 
     // https://relay.dev/graphql/connections.htm
     // You may order the edges however your business logic dictates,
