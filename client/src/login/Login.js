@@ -18,21 +18,6 @@ import Alert from '@material-ui/lab/Alert';
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from './../RelayEnvironmentProviderWrapper'
 
-const LoginMutation = graphql`
-mutation LoginMutation($username: String!, $password: String!) {
-  login(name: $username, password: $password) {
-    __typename
-    ... on User {
-      id
-    }
-    ... on LoginMutationError {
-      usernameError
-      passwordError
-    }
-  }
-}
-`;
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -77,7 +62,20 @@ export function Login(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [login, isLoginPending] = useMutation(LoginMutation);
+  const [login, isLoginPending] = useMutation(graphql`
+  mutation LoginMutation($username: String!, $password: String!) {
+    login(name: $username, password: $password) {
+      __typename
+      ... on User {
+        id
+      }
+      ... on LoginMutationError {
+        usernameError
+        passwordError
+      }
+    }
+  }
+  `);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

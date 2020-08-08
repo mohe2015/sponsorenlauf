@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -22,6 +22,9 @@ import { useNavigate } from "react-router-dom";
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import { AuthorizationErrorBoundary } from './AuthorizationErrorBoundary';
 import { LoadingContext } from './LoadingContext';
+import { useMutation } from 'react-relay/hooks';
+import { AuthContext } from './RelayEnvironmentProviderWrapper'
+import graphql from "babel-plugin-relay/macro";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -32,6 +35,19 @@ const useStyles = makeStyles((theme) =>
 );
 
 function AccountButton() {
+  const {
+    resetEnvironment
+  } = useContext(AuthContext);
+
+  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+
+  const navigate = useNavigate();
+
+  const [logout, isLogoutPending] = useMutation(graphql`
+  mutation MyAppBarLogoutMutation {
+    logout
+  }
+  `);
  /* const data = useLazyLoadQuery(
     graphql`
 query MyAppBarQuery {
@@ -69,7 +85,21 @@ query MyAppBarQuery {
                 horizontal: 'center',
               }}
             >
-              <MenuItem onClick={popupState.close}>Abmelden</MenuItem>
+              <MenuItem onClick={e => {
+                popupState.close();
+                logout({
+                  onCompleted: response => {
+                    resetEnvironment();
+
+                    startTransition(() => {
+                      navigate("/login");
+                    });
+                  },
+                  onError: error => {
+                    alert(error); // TODO FIXME
+                  },
+                })
+              }}>Abmelden</MenuItem>
             </Menu>
         </React.Fragment>
       )}

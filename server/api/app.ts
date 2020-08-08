@@ -7,13 +7,11 @@ import { PrismaClient, User } from "nexus-plugin-prisma/client";
 import { PubSub } from "graphql-subscriptions";
 import { subscriptions } from "nexus-plugin-subscriptions";
 import { permissions } from "./permissions";
-import { verify, Secret } from "jsonwebtoken";
-import cors from "cors";
 import { formatErrors } from "./errors";
-import { Request } from "nexus/dist/runtime/schema/schema";
 import { ConnectionContext } from "subscriptions-transport-ws";
 import * as http from "http";
 import { parse as parseCookie } from "cookie";
+import cookieParser from 'cookie-parser';
 
 //settings.current.server.playground.path NO
 
@@ -91,6 +89,8 @@ use(
 );
 
 server.express.use(formatErrors);
+
+server.express.use(cookieParser())
 
 // @ts-expect-error
 schema.addToContext(async ({req, res}) => {

@@ -24,6 +24,7 @@ export const permissions = shield({
       createOneUser: rules.isUserWithRole(["ADMIN"]),
       createOneRunner: rules.isUserWithRole(["ADMIN"]),
       login: allow,
+      logout: allow,
       createOneRound: rules.isUserWithRole(["ADMIN", "TEACHER"]),
       deleteOneUser: rules.isUserWithRole(["ADMIN"]),
       updateOneUser: rules.isUserWithRole(["ADMIN"]),

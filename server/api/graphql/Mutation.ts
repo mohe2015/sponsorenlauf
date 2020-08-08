@@ -324,5 +324,31 @@ schema.mutationType({
         };
       },
     });
+
+    t.field("logout", {
+      type: "Boolean",
+      resolve: async (_parent, args, context) => {
+        let userSession = await context.db.userSession.delete({
+          where: {
+            // @ts-expect-error
+            id: context.req.cookies.id
+          }
+        })
+
+        // @ts-expect-error
+        context.response.clearCookie('id', {
+          httpOnly: true,
+          sameSite: "strict",
+          // secure: true, // TODO FIXME
+        })
+        // @ts-expect-error
+        context.response.clearCookie('logged-in', {
+          sameSite: "strict",
+          // secure: true, // TODO FIXME
+        })
+
+        return !!userSession
+      },
+    });
   },
 });
