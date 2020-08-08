@@ -3,12 +3,12 @@ import { useFragment } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import ControlledTooltip from "../ControlledTooltip";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
-import ReactTimeAgo from 'react-time-ago'
+import TimeAgo from 'react-timeago';
+import germanStrings from 'react-timeago/lib/language-strings/de'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
+
+const formatter = buildFormatter(germanStrings)
 
 export function LoadingRoundRow(props) {
   return (
@@ -48,7 +48,7 @@ export function RoundRow(props) {
       <TableCell>
           {data.student.name}
       </TableCell>
-      <TableCell><ReactTimeAgo date={data.time} locale="de" /></TableCell>
+      <TableCell><TimeAgo date={data.time} formatter={formatter} /></TableCell>
     </TableRow>
   );
 }

@@ -4,7 +4,6 @@ import graphql from "babel-plugin-relay/macro";
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import ControlledTooltip from "../ControlledTooltip";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -14,6 +13,11 @@ import { ConnectionHandler } from 'react-relay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
+import TimeAgo from 'react-timeago';
+import germanStrings from 'react-timeago/lib/language-strings/de'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
+
+const formatter = buildFormatter(germanStrings)
 
 export function LoadingRoundRow(props) {
   return (
@@ -122,7 +126,7 @@ export function UserRoundRow(props) {
       <TableCell>
           {data.student.name}
       </TableCell>
-      <TableCell>{data.time}</TableCell>
+      <TableCell><TimeAgo date={data.time} formatter={formatter} /></TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
           <LoadingButton
