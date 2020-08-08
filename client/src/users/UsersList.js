@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useContext } from "react";
 import { UsersListQuery } from './UsersListQuery';
 import { LoadingUserRow } from './UserRow';
 import Table from '@material-ui/core/Table';
@@ -15,8 +15,11 @@ import Box from "@material-ui/core/Box";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link as RouterLink } from 'react-router-dom';
+import { LoadingContext } from '../LoadingContext'
 
 export function UsersList(props) {
+  const loading = useContext(LoadingContext)
+
   return (
     <Container maxWidth="sm">
     <IconButton component={RouterLink} to="/users/create">
@@ -38,9 +41,10 @@ export function UsersList(props) {
       </TableHead>
       <TableBody>
 
-      <Suspense unstable_avoidThisFallback={true} fallback={[...Array(25)].map((e, i) => <LoadingUserRow key={i} />)}>
+      { loading ?
+        [...Array(25)].map((e, i) => <LoadingUserRow key={i} />) :
         <UsersListQuery />
-      </Suspense>
+      }
 
   </TableBody>
         </Table>

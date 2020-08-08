@@ -21,6 +21,7 @@ import { unstable_useTransition as useTransition } from 'react';
 import { useNavigate } from "react-router-dom";
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import { AuthorizationErrorBoundary } from './AuthorizationErrorBoundary';
+import { LoadingContext } from './LoadingContext';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -177,11 +178,12 @@ export function MyAppBar() {
     </AppBar>
 
     <AuthorizationErrorBoundary>
-        <Suspense fallback={<div>Wird geladen...</div>}>
+      <Suspense fallback={<LoadingContext.Provider value={true}><Outlet /></LoadingContext.Provider>}>
+        <LoadingContext.Provider value={false}>
           <Outlet />
-        </Suspense>
+        </LoadingContext.Provider>
+      </Suspense>
     </AuthorizationErrorBoundary>
-
     </>
     );
 }

@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense, useContext } from "react";
 import { RunnersListQuery } from './RunnersListQuery';
 import { LoadingRunnerRow } from './RunnerRow';
 import Table from '@material-ui/core/Table';
@@ -18,15 +18,16 @@ import { Link as RouterLink } from 'react-router-dom';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { visuallyHidden } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
+import { LoadingContext } from '../LoadingContext'
 
 const useStyles = makeStyles({
   // TODO fix #20379.
   span: visuallyHidden,
 });
 
-
 export function RunnersList(props) {
   const classes = useStyles();
+  const loading = useContext(LoadingContext)
 
   const [orderBy, setOrderBy] = useState("id");
   const [order, setOrder] = useState("asc");
@@ -81,10 +82,7 @@ export function RunnersList(props) {
       </TableHead>
       <TableBody>
 
-      <Suspense unstable_avoidThisFallback={true} fallback={[...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />)}>
-        <RunnersListQuery orderByInput={{ [orderBy]: order }} />
-      </Suspense>
-
+    { loading ? [...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />) : <RunnersListQuery orderByInput={{ [orderBy]: order }} /> }
 
   </TableBody>
         </Table>
