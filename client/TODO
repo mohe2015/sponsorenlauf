@@ -1,3 +1,6 @@
 group by class [for preparing the numbers and for the results]
 
 countdown for starting
+
+TODO database fixing script which recalculates the rowCount
+honestly just using the slow query would have been easier... although still a custom query and this way a lot of places can just use orderBy etc. which probably would have also been annoying

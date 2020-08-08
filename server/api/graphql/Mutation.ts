@@ -1,6 +1,7 @@
 import { schema } from "nexus";
 import { hash, compare } from "bcrypt";
 let crypto = require('crypto');
+import cuid from 'cuid';
 
 schema.mutationType({
   definition(t) {
@@ -213,16 +214,11 @@ schema.mutationType({
       args: { data: schema.arg({type: "RoundCreateInput", nullable: false}) },
       resolve: async (parent, args, context) => {
         try {
-          const round = await context.db.round.create({
-            data: {
-              ...args.data,
-              createdBy: {
-                connect: {
-                  id: context.user?.id,
-                },
-              },
-            },
-          });
+          // this also returns the data
+          // WITH runner AS (SELECT 'm', id, 'ckdlqzxrm0001mlgqzd2jjf1l' FROM "Runner" WHERE "startNumber" = 337), inserted_rows AS (INSERT INTO "Round" (id, "studentId", "createdById") (SELECT * FROM runner) RETURNING *), updated AS (UPDATE "Runner" SET "roundCount" = "roundCount" + (SELECT COUNT(*) FROM inserted_rows) WHERE id = (SELECT id FROM runner) RETURNING *) SELECT * FROM inserted_rows, updated;
+
+          await context.db.$executeRaw`WITH runner AS (SELECT ${cuid()}, id, ${context.user?.id} FROM "Runner" WHERE "startNumber" = ${args.data.student.connect?.startNumber}), inserted_rows AS (INSERT INTO "Round" (id, "studentId", "createdById") (SELECT * FROM runner) RETURNING *) UPDATE "Runner" SET "roundCount" = "roundCount" + (SELECT COUNT(*) FROM inserted_rows) WHERE id = (SELECT id FROM runner);`
+
           let output = {
             __typename: "CreateRoundMutationOutput",
             previous_edge: null,
@@ -246,38 +242,13 @@ schema.mutationType({
     });
 
     t.field("deleteOneRound", {
-      type: "Round",
+      type: "Int",
       nullable: false,
       args: {
         where: schema.arg({type: "RoundWhereUniqueInput", nullable: false})
       },
       resolve: async (parent, args, context) => {
-       /* let round = await context.db.round.delete({
-          where: {
-            id: args.where.id;
-          }
-        })
-
-        let newCount = await context.db.round.count({
-          where: {
-            student: context.user
-          }
-        })
-
-        await context.db.runner.update({
-          where: {
-            id: round.studentId
-          },
-          data: {
-            roundCount: newCount;
-          }
-        })*/
-
-
-        //await context.db.$executeRaw``
-
-        // WITH deleted_rows AS (DELETE FROM "Round" WHERE id = 'ckdlqzxt90009mlgqv9dunua5' RETURNING *) UPDATE "Runner" SET "roundCount" = "roundCount" - (SELECT COUNT(*) FROM deleted_rows) WHERE id = (SELECT "studentId" FROM deleted_rows);
-
+        await context.db.$executeRaw`WITH deleted_rows AS (DELETE FROM "Round" WHERE id = ${args.where.id} RETURNING *) UPDATE "Runner" SET "roundCount" = "roundCount" - (SELECT COUNT(*) FROM deleted_rows) WHERE id = (SELECT "studentId" FROM deleted_rows);`
       }
     })
 

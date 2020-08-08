@@ -23,6 +23,7 @@
     "cookie": "^0.4.1",
     "cookie-parser": "^1.4.5",
     "csv-parse": "^4.11.1",
+    "cuid": "^2.1.8",
     "hijackresponse": "^4.0.0",
     "nexus": "^0.26.1",
     "nexus-plugin-prisma": "^0.17.0",
