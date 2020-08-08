@@ -33,29 +33,25 @@ schema.queryType({
         orderBy: schema.arg({ type: "RunnerOrderByInput" }),
       },
       resolve: async (root, args, ctx, info) => {
-        if (args.orderBy.roundCount) {
-          //ctx.db.$queryRaw`SELECT * FROM Runner `
-        } else {
-          let result = await ctx.db.runner.findMany({
-            orderBy: args.orderBy,
-            take: args.first + 1,
-            cursor: args.after ? { id: args.after } : undefined,
-          })
-          let pageInfo = {
-            hasNextPage: result.length == args.first + 1,
-            startCursor: result.length == 0 ? null : result[0].id,
-            endCursor: result.length == 0 ? null : (result.length <= args.first ? result[result.length - 1].id : result[args.first - 1].id),
-          };
-          if (result.length == args.first + 1) {
-            result.pop();
-          }
-          return {
-            pageInfo,
-            edges: result.map(e => { return {
-              cursor: e.id,
-              node: e,
-            }})
-          }
+        let result = await ctx.db.runner.findMany({
+          orderBy: args.orderBy,
+          take: args.first + 1,
+          cursor: args.after ? { id: args.after } : undefined,
+        })
+        let pageInfo = {
+          hasNextPage: result.length == args.first + 1,
+          startCursor: result.length == 0 ? null : result[0].id,
+          endCursor: result.length == 0 ? null : (result.length <= args.first ? result[result.length - 1].id : result[args.first - 1].id),
+        };
+        if (result.length == args.first + 1) {
+          result.pop();
+        }
+        return {
+          pageInfo,
+          edges: result.map(e => { return {
+            cursor: e.id,
+            node: e,
+          }})
         }
       },
       extendConnection(t) {
