@@ -38,7 +38,7 @@ export function UsersList(props) {
       </TableHead>
       <TableBody>
 
-      <Suspense fallback={[...Array(25)].map((e, i) => <LoadingUserRow key={i} />)}>
+      <Suspense unstable_avoidThisFallback={true} fallback={[...Array(25)].map((e, i) => <LoadingUserRow key={i} />)}>
         <UsersListQuery />
       </Suspense>
 

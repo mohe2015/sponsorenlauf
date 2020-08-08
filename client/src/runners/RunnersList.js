@@ -81,7 +81,7 @@ export function RunnersList(props) {
       </TableHead>
       <TableBody>
 
-      <Suspense fallback={[...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />)}>
+      <Suspense unstable_avoidThisFallback={true} fallback={[...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />)}>
         <RunnersListQuery orderByInput={{ [orderBy]: order }} />
       </Suspense>
 
