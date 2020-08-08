@@ -48,16 +48,20 @@ async function main() {
   );
 
   await asyncForEach(records, async (data: any) => {
+    let roundCount = Math.floor(Math.random() * (50 - 5 + 1) + 5);
+
     console.log(data)
+
     await db.runner.create({
       data: {
         name: data["Name"],
         clazz: data["Klasse"],
         grade: Number(data["Jahrgang"]),
-      }
+        roundCount,
+      },
     })
 
-    for (let i = 0; i < Math.floor(Math.random() * (50 - 5 + 1) + 5); i++) {
+    for (let i = 0; i < roundCount; i++) {
       await db.round.create({
         data: {
           student: {
