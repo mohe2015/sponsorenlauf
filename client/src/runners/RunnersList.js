@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState, Suspense } from "react";
 import { RunnersListQuery } from './RunnersListQuery';
 import { LoadingRunnerRow } from './RunnerRow';
 import Table from '@material-ui/core/Table';
@@ -42,6 +42,7 @@ export function RunnersList(props) {
   };
 
   return (
+
     <Container maxWidth="md">
     <IconButton component={RouterLink} to="/runners/create">
       <FontAwesomeIcon icon={faPlus} />
@@ -80,11 +81,15 @@ export function RunnersList(props) {
       </TableHead>
       <TableBody>
 
-      {props.loading ? [...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />) : <RunnersListQuery orderByInput={{ [orderBy]: order }} /> }
-  
+      <Suspense fallback={[...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />)}>
+        <RunnersListQuery orderByInput={{ [orderBy]: order }} />
+      </Suspense>
+
+
   </TableBody>
         </Table>
       </TableContainer>
       </Container>
+
   )
 }

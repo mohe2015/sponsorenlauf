@@ -24,30 +24,30 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <RelayEnvironmentWrapper>
-      <CssBaseline />
-          <Routes>
-            <ProtectedRoute path="*" element={<MyAppBar />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/users">
-                <Route path="/create" element={<CreateUser />} />
-                <Route path="/edit/:id" element={<CreateUser />} />
-                <Route path="*" element={<UsersList />} />
-              </Route>
-              <Route path="/runners">
-                <Route path="/create" element={<CreateRunner />} />
-                <Route path="/edit/:id" element={<CreateRunner />} />
-                <Route path="*" element={<RunnersList />} />
-              </Route>
-              <Route path="/rounds">
-                <Route path="*" element={<RoundsList />} />
-              </Route>
-              <Route path="/user-rounds">
-                <Route path="*" element={<UserRoundsList />} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
-            </ProtectedRoute>
-            <Route path="/login" element={<Login />} />
-          </Routes>
+        <CssBaseline />
+        <Routes>
+          <ProtectedRoute path="*" element={<MyAppBar />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/users">
+              <Route path="/create" element={<CreateUser />} />
+              <Route path="/edit/:id" element={<CreateUser />} />
+              <Route path="*" element={<UsersList />} />
+            </Route>
+            <Route path="/runners">
+              <Route path="/create" element={<CreateRunner />} />
+              <Route path="/edit/:id" element={<CreateRunner />} />
+              <Route path="*" element={<RunnersList />} />
+            </Route>
+            <Route path="/rounds">
+              <Route path="*" element={<RoundsList />} />
+            </Route>
+            <Route path="/user-rounds">
+              <Route path="*" element={<UserRoundsList />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </ProtectedRoute>
+          <Route path="/login" element={<Login />} />
+        </Routes>
       </RelayEnvironmentWrapper>
     </AuthContext.Provider>
   );

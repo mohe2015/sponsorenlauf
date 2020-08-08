@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { UsersListQuery } from './UsersListQuery';
 import { LoadingUserRow } from './UserRow';
 import Table from '@material-ui/core/Table';
@@ -38,8 +38,10 @@ export function UsersList(props) {
       </TableHead>
       <TableBody>
 
-  {props.loading ? [...Array(25)].map((e, i) => <LoadingUserRow key={i} />) : <UsersListQuery /> }
-  
+      <Suspense fallback={[...Array(25)].map((e, i) => <LoadingUserRow key={i} />)}>
+        <UsersListQuery />
+      </Suspense>
+
   </TableBody>
         </Table>
       </TableContainer>
