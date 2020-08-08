@@ -1,0 +1,10 @@
+ANALYZE
+
+SELECT "Runner".name, COUNT("Round".id) FROM "Runner" LEFT JOIN "Round" on "Runner".id = "Round"."studentId" GROUP BY "Runner".id;
+
+
+EXPLAIN ANALYZE 
+
+
+
+https://dalibo.github.io/pev2/#/

@@ -34,11 +34,7 @@ schema.queryType({
       },
       resolve: async (root, args, ctx, info) => {
         if (args.orderBy.roundCount) {
-          let result = await ctx.db.runner.findMany({
-            orderBy: {
-              
-            }
-          })
+          //ctx.db.$queryRaw`SELECT * FROM Runner `
         } else {
           let result = await ctx.db.runner.findMany({
             orderBy: args.orderBy,
