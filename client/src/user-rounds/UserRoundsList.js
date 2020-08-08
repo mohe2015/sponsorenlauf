@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { UserRoundsListQuery } from './UserRoundsListQuery';
 import { LoadingRoundRow } from './../rounds/RoundRow';
 import Table from '@material-ui/core/Table';
@@ -10,8 +10,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Container from "@material-ui/core/Container";
 import { CreateRound } from "./create/CreateRound";
+import { LoadingContext } from '../LoadingContext'
 
 export function UserRoundsList(props) {
+  const loading = useContext(LoadingContext)
+
   return (
     <Container maxWidth="sm">
     <CreateRound />
@@ -26,7 +29,7 @@ export function UserRoundsList(props) {
       </TableHead>
       <TableBody>
 
-  {props.loading ? [...Array(25)].map((e, i) => <LoadingRoundRow key={i} />) : <UserRoundsListQuery /> }
+  {loading ? [...Array(25)].map((e, i) => <LoadingRoundRow key={i} />) : <UserRoundsListQuery /> }
   
   </TableBody>
         </Table>
