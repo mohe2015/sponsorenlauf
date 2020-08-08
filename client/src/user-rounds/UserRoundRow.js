@@ -18,9 +18,10 @@ import LoadingButton from '@material-ui/lab/LoadingButton';
 export function LoadingRoundRow(props) {
   return (
     <TableRow>
-      <TableCell component="th" scope="row">
+      <TableCell>
         <Skeleton variant="text" />
       </TableCell>
+      <TableCell><Skeleton variant="text" /></TableCell>
       <TableCell><Skeleton variant="text" /></TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
@@ -115,8 +116,11 @@ export function UserRoundRow(props) {
 
   return (
     <TableRow>
-      <TableCell component="th" scope="row">
+      <TableCell>
           {data.student.startNumber}
+      </TableCell>
+      <TableCell>
+          {data.student.name}
       </TableCell>
       <TableCell>{data.time}</TableCell>
       <TableCell align="right">

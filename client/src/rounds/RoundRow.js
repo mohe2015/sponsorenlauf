@@ -12,9 +12,10 @@ import Skeleton from '@material-ui/lab/Skeleton';
 export function LoadingRoundRow(props) {
   return (
     <TableRow>
-      <TableCell component="th" scope="row">
+      <TableCell>
         <Skeleton variant="text" />
       </TableCell>
+      <TableCell><Skeleton variant="text" /></TableCell>
       <TableCell><Skeleton variant="text" /></TableCell>
     </TableRow>
   )
@@ -27,6 +28,7 @@ export function RoundRow(props) {
       id
       student {
         startNumber
+        name
       }
       time
       createdBy {
@@ -39,8 +41,11 @@ export function RoundRow(props) {
 
   return (
     <TableRow>
-      <TableCell component="th" scope="row">
+      <TableCell>
           {data.student.startNumber}
+      </TableCell>
+      <TableCell>
+          {data.student.name}
       </TableCell>
       <TableCell>{data.time}</TableCell>
     </TableRow>

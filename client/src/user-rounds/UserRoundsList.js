@@ -16,7 +16,7 @@ export function UserRoundsList(props) {
   const loading = useContext(LoadingContext)
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
     <CreateRound />
   <TableContainer component={Paper}>
     <Table aria-label="table of rounds">

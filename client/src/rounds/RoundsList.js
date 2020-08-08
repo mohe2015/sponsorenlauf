@@ -21,6 +21,7 @@ export function RoundsList(props) {
       <TableHead>
         <TableRow>
           <TableCell>Startnummer</TableCell>
+          <TableCell>Name</TableCell>
           <TableCell>Zeit</TableCell>
         </TableRow>
       </TableHead>
