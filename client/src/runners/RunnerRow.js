@@ -20,24 +20,35 @@ import LoadingButton from '@material-ui/lab/LoadingButton';
 
 export function LoadingRunnerRow(props) {
   return (
-    <TableRow>
+      <TableRow>
       <TableCell component="th" scope="row" align="right">
-      <Skeleton variant="text" />
+        <Skeleton variant="text" />
       </TableCell>
       <TableCell><Skeleton variant="text" /></TableCell>
       <TableCell><Skeleton variant="text" /></TableCell>
       <TableCell align="right"><Skeleton variant="text" /></TableCell>
       <TableCell align="right"><Skeleton variant="text" /></TableCell>
       <TableCell align="right">
-        <ControlledTooltip title="Löschen">
-          <IconButton>
+        <ControlledTooltip title="Bearbeiten">
+          <LoadingButton
+            disableElevation
+            disabled={true}>
+              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPen} />
+              <Typography variant="button" noWrap>
+                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Bearbeiten</Box>
+              </Typography>
+          </LoadingButton>
+        </ControlledTooltip>
 
-            <Typography variant="button" noWrap>
-              <Box component="span" display={{ xs: 'none', md: 'block' }}>
-              Löschen
-              </Box>
-            </Typography>
-          </IconButton>
+        <ControlledTooltip title="Löschen">
+          <LoadingButton
+            disableElevation
+            disabled={true}>
+              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faTrash} />
+              <Typography variant="button" noWrap>
+                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Löschen</Box>
+              </Typography>
+          </LoadingButton>
         </ControlledTooltip>
       </TableCell>
     </TableRow>

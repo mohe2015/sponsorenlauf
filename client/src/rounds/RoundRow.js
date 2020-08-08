@@ -18,8 +18,7 @@ export function LoadingRoundRow(props) {
       <TableCell><Skeleton variant="text" /></TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
-          <IconButton>
-
+          <IconButton disabled={true}>
             <Typography variant="button" noWrap>
               <Box component="span" display={{ xs: 'none', md: 'block' }}>
               Löschen
@@ -52,7 +51,6 @@ export function RoundRow(props) {
   return (
     <TableRow>
       <TableCell component="th" scope="row">
-        
           {data.student.startNumber}
       </TableCell>
       <TableCell>{data.time}</TableCell>
