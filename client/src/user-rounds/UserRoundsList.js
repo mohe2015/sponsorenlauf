@@ -23,6 +23,7 @@ export function UserRoundsList(props) {
       <TableHead>
         <TableRow>
           <TableCell>Startnummer</TableCell>
+          <TableCell>Name</TableCell>
           <TableCell>Zeit</TableCell>
           <TableCell align="right">Aktionen</TableCell>
         </TableRow>
