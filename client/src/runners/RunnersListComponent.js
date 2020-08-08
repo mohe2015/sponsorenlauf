@@ -14,7 +14,7 @@ export function RunnersListComponent(props) {
     graphql`
       fragment RunnersListComponent_runner on Query
       @refetchable(queryName: "RunnersListPaginationQuery") {
-        runners(first: $count, after: $cursor)
+        runners(first: $count, after: $cursor, orderBy: $orderBy)
         @connection(key: "RunnersList_runner_runners") {
           edges {
             node {

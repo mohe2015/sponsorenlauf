@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 export function RunnersList(props) {
   const classes = useStyles();
 
-  const [orderBy, setOrderBy] = useState("startNumber");
+  const [orderBy, setOrderBy] = useState("id");
   const [order, setOrder] = useState("asc");
 
   const handleRequestSort = (event, property) => {
@@ -36,7 +36,6 @@ export function RunnersList(props) {
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
 
   const createSortHandler = (property) => (event) => {
     handleRequestSort(event, property);
@@ -81,7 +80,7 @@ export function RunnersList(props) {
       </TableHead>
       <TableBody>
 
-      {props.loading ? [...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />) : <RunnersListQuery /> }
+      {props.loading ? [...Array(25)].map((e, i) => <LoadingRunnerRow key={i} />) : <RunnersListQuery orderByInput={{ [orderBy]: order }} /> }
   
   </TableBody>
         </Table>

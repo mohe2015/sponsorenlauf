@@ -3,14 +3,17 @@ import { useLazyLoadQuery } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { RunnersListComponent } from './RunnersListComponent';
 
-export function RunnersListQuery() {
+export function RunnersListQuery(props) {
   const data = useLazyLoadQuery(
     graphql`
-query RunnersListQuery($count: Int!, $cursor: String) {
+query RunnersListQuery($count: Int!, $cursor: String, $orderBy: RunnerOrderByInput!) {
   ...RunnersListComponent_runner
 }
   `,
-  {count: 25},
+  {
+    count: 25,
+    orderBy: props.orderByInput
+  },
   {
     fetchPolicy: "store-or-network",
     networkCacheConfig: {
