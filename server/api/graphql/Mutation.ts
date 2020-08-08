@@ -245,7 +245,46 @@ schema.mutationType({
       },
     });
 
-    t.crud.deleteOneRound();
+    t.field("deleteOneRound", {
+      type: "Round",
+      nullable: false,
+      args: {
+        where: schema.arg({type: "RoundWhereUniqueInput", nullable: false})
+      },
+      resolve: async (parent, args, context) => {
+       /* let round = await context.db.round.delete({
+          where: {
+            id: args.where.id;
+          }
+        })
+
+        let newCount = await context.db.round.count({
+          where: {
+            student: context.user
+          }
+        })
+
+        await context.db.runner.update({
+          where: {
+            id: round.studentId
+          },
+          data: {
+            roundCount: newCount;
+          }
+        })*/
+
+
+        //await context.db.$executeRaw``
+
+        // WITH deleted_rows AS (DELETE FROM "Round" WHERE id = 'ckdlqzxt90009mlgqv9dunua5' RETURNING *) UPDATE "Runner" SET "roundCount" = "roundCount" - (SELECT COUNT(*) FROM deleted_rows) WHERE id = (SELECT "studentId" FROM deleted_rows);
+
+      }
+    })
+
+    t.crud.deleteOneRound({
+      type: "Round",
+      alias: "_hidden_deelteOneRound"
+    });
 
     t.crud.createOneRound({
       type: "Round",
