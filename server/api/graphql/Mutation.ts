@@ -2,6 +2,7 @@ import { schema } from "nexus";
 import { hash, compare } from "bcrypt";
 let crypto = require('crypto');
 import cuid from 'cuid';
+import { flatten, unflatten } from 'flat';
 
 import { RoundGetPayload } from '@prisma/client'
 
@@ -220,7 +221,7 @@ schema.mutationType({
       args: { data: schema.arg({type: "RoundCreateInput", nullable: false}) },
       resolve: async (parent, args, context) => {
         try {
-          let roundWithRunner = await context.db.$queryRaw<RoundWithRunner>`WITH runner AS (SELECT ${cuid()}, id, ${context.user?.id} FROM "Runner" WHERE "startNumber" = ${args.data.student.connect?.startNumber}), inserted_rows AS (INSERT INTO "Round" (id, "studentId", "createdById") (SELECT * FROM runner) RETURNING *), updated AS (UPDATE "Runner" SET "roundCount" = "roundCount" + (SELECT COUNT(*) FROM inserted_rows) WHERE id = (SELECT id FROM runner) RETURNING *) SELECT * FROM inserted_rows, updated;`
+          let roundWithRunner = await context.db.$queryRaw<RoundWithRunner>`WITH runner AS (SELECT ${cuid()}, id, ${context.user?.id} FROM "Runner" WHERE "startNumber" = ${args.data.student.connect?.startNumber}), inserted_rows AS (INSERT INTO "Round" (id, "studentId", "createdById") (SELECT * FROM runner) RETURNING *), updated AS (UPDATE "Runner" SET "roundCount" = "roundCount" + (SELECT COUNT(*) FROM inserted_rows) WHERE id = (SELECT id FROM runner) RETURNING *) SELECT "Round".*, "Runner".* FROM inserted_rows, updated;`
 
           console.log(roundWithRunner.time)
           console.log(roundWithRunner.student.name)
@@ -249,17 +250,22 @@ schema.mutationType({
 
     t.field("deleteOneRound", {
       type: "Round",
-      nullable: false,
+      nullable: true,
       args: {
         where: schema.arg({type: "RoundWhereUniqueInput", nullable: false})
       },
       resolve: async (parent, args, context) => {
-        let roundWithRunner = await context.db.$queryRaw<RoundWithRunner>`WITH deleted_round AS (DELETE FROM "Round" WHERE id = ${args.where.id} RETURNING *), updated_runner AS (UPDATE "Runner" SET "roundCount" = "roundCount" - (SELECT COUNT(*) FROM deleted_round) WHERE id = (SELECT "studentId" FROM deleted_round) RETURNING *) SELECT * FROM deleted_round, updated_runner;`
-      
-        console.log(roundWithRunner.time)
-        console.log(roundWithRunner.student.name)
+        let roundWithRunner = await context.db.$queryRaw<object[]>`WITH deleted_round AS (DELETE FROM "Round" WHERE id = ${args.where.id} RETURNING *), updated_runner AS (UPDATE "Runner" SET "roundCount" = "roundCount" - (SELECT COUNT(*) FROM deleted_round) WHERE id = (SELECT "studentId" FROM deleted_round) RETURNING *) SELECT "Round".*, "Runner".* FROM deleted_round, updated_runner;`
 
-        return roundWithRunner;
+        //let dbResponse = await context.db.$queryRaw<RoundWithRunner[]>`SELECT "Round".id AS "id", "Runner".id AS "studentId", "Runner".id AS "student.id" FROM "Round", "Runner" LIMIT 1;`
+        if (roundWithRunner.length == 1) {
+          let unflattened = unflatten(roundWithRunner[0], {
+            object: false,
+          }) as RoundWithRunner
+          return unflattened
+        } else {
+          return null
+        }
       }
     })
 

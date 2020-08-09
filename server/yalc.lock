@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "flat": {
+      "signature": "5fb2d3c3a8dac27db96dde4523789130",
+      "file": true,
+      "replaced": "^5.0.2"
+    }
+  }
+}
