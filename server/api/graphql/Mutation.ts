@@ -255,7 +255,7 @@ schema.mutationType({
         where: schema.arg({type: "RoundWhereUniqueInput", nullable: false})
       },
       resolve: async (parent, args, context) => {
-        let fail = await context.db.round.findOne({
+        let fail = await context.db.round.delete({
           where: args.where,
           include: {
             student: true,
