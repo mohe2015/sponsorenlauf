@@ -1411,7 +1411,7 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@material-ui/core@next":
+"@material-ui/core@^5.0.0-alpha.5":
   version "5.0.0-alpha.5"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-5.0.0-alpha.5.tgz#eb7fb1a41431167450323fdde6f96bfe195815e5"
   integrity sha512-2yErP3Y7TjBWB/LiE5/ruE5rznktTyxelM/dMAaFBRexN8Y4RW/v9TNKjNvSvzNgIMp8ocQH/ilkx7mHm6FYVA==
@@ -1429,7 +1429,7 @@
     react-is "^16.8.0"
     react-transition-group "^4.4.0"
 
-"@material-ui/lab@next":
+"@material-ui/lab@^5.0.0-alpha.5":
   version "5.0.0-alpha.5"
   resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-5.0.0-alpha.5.tgz#41a4ca63482bf2e72c1985f324893efb768ce8c3"
   integrity sha512-2ufKb2pekKSj4o0pce7L0nRRYN1hL8IQnfjPcoCIE5xVOEX/aqLxOofbHssYO7fNh8dbrgJLkFe5mN6KyB1ZqA==
@@ -9135,7 +9135,7 @@ react-dev-utils@^10.2.1:
     strip-ansi "6.0.0"
     text-table "0.2.0"
 
-react-dom@experimental:
+react-dom@^0.0.0-experimental-f77c7b9d7:
   version "0.0.0-experimental-f77c7b9d7"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-0.0.0-experimental-f77c7b9d7.tgz#1e6efbeb8520d1b6f244837be87d1e51e1cdd107"
   integrity sha512-PD2/RrECWX2rlmE+h6qFF0stpwjPkrCZ6T9ePGzCPV7KpuoJRDBO1PU5fLoCjSTPE9SsoFc6f6usuY1EMkbhng==
@@ -9154,7 +9154,7 @@ react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1, react-i
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-relay@experimental:
+react-relay@^0.0.0-experimental-8058ef82:
   version "0.0.0-experimental-8058ef82"
   resolved "https://registry.yarnpkg.com/react-relay/-/react-relay-0.0.0-experimental-8058ef82.tgz#16b9ce15ee9563a30ef69563773d6933464bf630"
   integrity sha512-YZy/k397brMlOxxdxgA1i8LMFCEB4PgHk2pFw4vSa2cd/9PmKDnlPbYp6Y6u6aW7FY/mybn5qSwjwF8vnxJhIQ==
@@ -9165,7 +9165,7 @@ react-relay@experimental:
     relay-runtime "10.0.1"
     scheduler "^0.19.1"
 
-react-router-dom@next:
+react-router-dom@^6.0.0-beta.0:
   version "6.0.0-beta.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.0.0-beta.0.tgz#9dcc8555365f22f7fbd09f26b6b82543f3eb97d6"
   integrity sha512-36yNNGMT8RB9FRPL9nKJi6HKDkgOakU+o/2hHpSzR6e37gN70MpOU6QQlmif4oAWWBwjyGc3ZNOMFCsFuHUY5w==
@@ -9173,7 +9173,7 @@ react-router-dom@next:
     prop-types "^15.7.2"
     react-router "6.0.0-beta.0"
 
-react-router@6.0.0-beta.0, react-router@next:
+react-router@6.0.0-beta.0, react-router@^6.0.0-beta.0:
   version "6.0.0-beta.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.0.0-beta.0.tgz#3e11f39b6ded4412c2fed9e4f989dd4c8156724d"
   integrity sha512-VgMdfpVcmFQki/LZuLh8E/MNACekDetz4xqft+a6fBZvvJnVqKbLqebF7hyoawGrV1HcO5tVaUang2Og4W2j1Q==
@@ -9255,7 +9255,7 @@ react-transition-group@^4.4.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@experimental:
+react@^0.0.0-experimental-f77c7b9d7:
   version "0.0.0-experimental-f77c7b9d7"
   resolved "https://registry.yarnpkg.com/react/-/react-0.0.0-experimental-f77c7b9d7.tgz#24beef9c87e519d3c5f464762d532f08d63ce229"
   integrity sha512-eZAnAbmYQoScvxzAmGYGv83us/imQkh+zjiMeqkFxSUahnvl9PmQJ6jDBQF9ErpgJsxWga7164YFkv/0SA8rjQ==
