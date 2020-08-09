@@ -3,6 +3,12 @@ import { hash, compare } from "bcrypt";
 let crypto = require('crypto');
 import cuid from 'cuid';
 
+import { RoundGetPayload } from '@prisma/client'
+
+type RoundWithRunner = RoundGetPayload<{
+  include: { student: true }
+}>
+
 schema.mutationType({
   definition(t) {
 
@@ -209,23 +215,23 @@ schema.mutationType({
     })
 
     t.field("createOneRound", {
-      type: "CreateRoundMutationResponse",
+      type: "Round",
       nullable: false,
       args: { data: schema.arg({type: "RoundCreateInput", nullable: false}) },
       resolve: async (parent, args, context) => {
         try {
-          // this also returns the data
-          // WITH runner AS (SELECT 'm', id, 'ckdlqzxrm0001mlgqzd2jjf1l' FROM "Runner" WHERE "startNumber" = 337), inserted_rows AS (INSERT INTO "Round" (id, "studentId", "createdById") (SELECT * FROM runner) RETURNING *), updated AS (UPDATE "Runner" SET "roundCount" = "roundCount" + (SELECT COUNT(*) FROM inserted_rows) WHERE id = (SELECT id FROM runner) RETURNING *) SELECT * FROM inserted_rows, updated;
+          let roundWithRunner = await context.db.$queryRaw<RoundWithRunner>`WITH runner AS (SELECT ${cuid()}, id, ${context.user?.id} FROM "Runner" WHERE "startNumber" = ${args.data.student.connect?.startNumber}), inserted_rows AS (INSERT INTO "Round" (id, "studentId", "createdById") (SELECT * FROM runner) RETURNING *), updated AS (UPDATE "Runner" SET "roundCount" = "roundCount" + (SELECT COUNT(*) FROM inserted_rows) WHERE id = (SELECT id FROM runner) RETURNING *) SELECT * FROM inserted_rows, updated;`
 
-          await context.db.$executeRaw`WITH runner AS (SELECT ${cuid()}, id, ${context.user?.id} FROM "Runner" WHERE "startNumber" = ${args.data.student.connect?.startNumber}), inserted_rows AS (INSERT INTO "Round" (id, "studentId", "createdById") (SELECT * FROM runner) RETURNING *) UPDATE "Runner" SET "roundCount" = "roundCount" + (SELECT COUNT(*) FROM inserted_rows) WHERE id = (SELECT id FROM runner);`
+          console.log(roundWithRunner.time)
+          console.log(roundWithRunner.student.name)
 
           let output = {
             __typename: "CreateRoundMutationOutput",
             previous_edge: null,
             round_edge: {
-              cursor: round.id,
+              cursor: roundWithRunner.id,
               node: {
-                ...round,
+                ...roundWithRunner,
               }
             }
           };
@@ -242,13 +248,18 @@ schema.mutationType({
     });
 
     t.field("deleteOneRound", {
-      type: "Int",
+      type: "Round",
       nullable: false,
       args: {
         where: schema.arg({type: "RoundWhereUniqueInput", nullable: false})
       },
       resolve: async (parent, args, context) => {
-        await context.db.$executeRaw`WITH deleted_rows AS (DELETE FROM "Round" WHERE id = ${args.where.id} RETURNING *) UPDATE "Runner" SET "roundCount" = "roundCount" - (SELECT COUNT(*) FROM deleted_rows) WHERE id = (SELECT "studentId" FROM deleted_rows);`
+        let roundWithRunner = await context.db.$queryRaw<RoundWithRunner>`WITH deleted_round AS (DELETE FROM "Round" WHERE id = ${args.where.id} RETURNING *), updated_runner AS (UPDATE "Runner" SET "roundCount" = "roundCount" - (SELECT COUNT(*) FROM deleted_round) WHERE id = (SELECT "studentId" FROM deleted_round) RETURNING *) SELECT * FROM deleted_round, updated_runner;`
+      
+        console.log(roundWithRunner.time)
+        console.log(roundWithRunner.student.name)
+
+        return roundWithRunner;
       }
     })
 
