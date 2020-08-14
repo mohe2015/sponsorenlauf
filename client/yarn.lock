@@ -1463,13 +1463,12 @@
     prop-types "^15.7.2"
 
 "@material-ui/system@^5.0.0-alpha.1", "@material-ui/system@next":
-  version "5.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-5.0.0-alpha.1.tgz#83980bb8bcb7e20ce1db744ed471f93529786f5e"
-  integrity sha512-6wbmqGdN/j407rp1HXMzMG/DH83vclG05mWmP3/J/6PBH4jZp1/mNqRgHNljl8NEJK+vRXQmAccXK8aRBeelHQ==
+  version "5.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-5.0.0-alpha.6.tgz#475467435d03e9bc2fcdab63b60eba5212d559bf"
+  integrity sha512-vpkQ4OWWVlwm2mIlxmTD6cIE9iQmeb8XXDPPXgEaaegWQ0/LF/4hZ5usWFrx6YeL/2CZBjRhOh0GRW6NBVZGyA==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/utils" "^5.0.0-alpha.1"
-    csstype "^2.5.2"
     prop-types "^15.7.2"
 
 "@material-ui/types@^4.1.1":
