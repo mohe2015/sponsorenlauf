@@ -223,6 +223,14 @@ schema.mutationType({
         try {
           let roundWithRunner = await context.db.$queryRaw<RoundWithRunner>`WITH runner AS (SELECT ${cuid()}, id, ${context.user?.id} FROM "Runner" WHERE "startNumber" = ${args.data.student.connect?.startNumber}), inserted_rows AS (INSERT INTO "Round" (id, "studentId", "createdById") (SELECT * FROM runner) RETURNING *), updated AS (UPDATE "Runner" SET "roundCount" = "roundCount" + (SELECT COUNT(*) FROM inserted_rows) WHERE id = (SELECT id FROM runner) RETURNING *) SELECT "Round".*, "Runner".* FROM inserted_rows, updated;`
 
+/*
+BEGIN;
+INSERT INTO Round (id, studentId, createdById) VALUES ("randomb", (SELECT id FROM Runner WHERE startNumber = 10), "cke02y6nl0001kdgql8gif4bg");
+UPDATE Runner SET roundCount = roundCount + 1 WHERE id = (SELECT id FROM Runner WHERE startNumber = 10);
+SELECT Round.id AS `Round.id`, Round.studentId AS `Round.studentId`, Round.createdById AS `Round.createdById`, Round.time AS `Round.time`, Runner.id AS `Runner.id`, Runner.startNumber AS `Runner.startNumber`, Runner.name AS `Runner.name`, Runner.clazz AS `Runner.clazz`, Runner.grade as `Runner.grade`, Runner.roundCount AS `Runner.roundCount` FROM Round, Runner WHERE Runner.id = (SELECT id FROM Runner WHERE startNumber = 10) AND Round.id = "randomb";
+COMMIT;
+*/
+
           console.log(roundWithRunner.time)
           console.log(roundWithRunner.student.name)
 
