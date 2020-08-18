@@ -5,6 +5,11 @@
       "signature": "5fb2d3c3a8dac27db96dde4523789130",
       "file": true,
       "replaced": "^5.0.2"
+    },
+    "nexus-plugin-prisma": {
+      "signature": "49f18824f6ab9ee22905c6b5aa0aacc7",
+      "file": true,
+      "replaced": "^0.17.0"
     }
   }
 }
