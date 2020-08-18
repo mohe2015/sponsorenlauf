@@ -216,7 +216,7 @@ schema.mutationType({
     })
 
     t.field("createOneRound", {
-      type: "Round",
+      type: "CreateRoundMutationResponse",
       nullable: false,
       args: { data: schema.arg({type: "RoundCreateInput", nullable: false}) },
       resolve: async (parent, args, context) => {
