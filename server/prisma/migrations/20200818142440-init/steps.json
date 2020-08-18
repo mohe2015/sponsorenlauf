@@ -12,22 +12,22 @@
     },
     {
       "tag": "CreateSource",
-      "source": "postgresql"
+      "source": "mysql"
     },
     {
       "tag": "CreateArgument",
       "location": {
         "tag": "Source",
-        "source": "postgresql"
+        "source": "mysql"
       },
       "argument": "provider",
-      "value": "\"postgresql\""
+      "value": "\"mysql\""
     },
     {
       "tag": "CreateArgument",
       "location": {
         "tag": "Source",
-        "source": "postgresql"
+        "source": "mysql"
       },
       "argument": "url",
       "value": "\"***\""
@@ -260,6 +260,31 @@
       "field": "roundCount",
       "type": "Int",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Runner",
+          "field": "roundCount"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Runner",
+          "field": "roundCount"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "0"
     },
     {
       "tag": "CreateModel",
