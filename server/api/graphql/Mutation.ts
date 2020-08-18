@@ -228,7 +228,7 @@ schema.mutationType({
           // TODO FIXME this is supposed to be an transaction but there is no support in prisma and I think none of these should fail
           await context.db.$executeRaw`INSERT INTO Round (id, studentId, createdById) VALUES (${thecuid}, (SELECT id FROM Runner WHERE startNumber = ${startNumber}), ${createdById});`
           await context.db.$executeRaw`UPDATE Runner SET roundCount = roundCount + 1 WHERE id = (SELECT id FROM Runner WHERE startNumber = ${startNumber});`
-          let result = await context.db.$queryRaw<object[]>`SELECT Round.id AS "Round.id", Round.studentId AS "Round.studentId", Round.createdById AS "Round.createdById", Round.time AS "Round.time", Runner.id AS "Runner.id", Runner.startNumber AS "Runner.startNumber", Runner.name AS "Runner.name", Runner.clazz AS "Runner.clazz", Runner.grade as "Runner.grade", Runner.roundCount AS "Runner.roundCount" FROM Round, Runner WHERE Runner.id = (SELECT id FROM Runner WHERE startNumber = ${startNumber}) AND Round.id = ${thecuid};`
+          let result = await context.db.$queryRaw<object[]>`SELECT Round.id, Round.studentId, Round.createdById, Round.time, Runner.id AS "Runner.id", Runner.startNumber AS "Runner.startNumber", Runner.name AS "Runner.name", Runner.clazz AS "Runner.clazz", Runner.grade as "Runner.grade", Runner.roundCount AS "Runner.roundCount" FROM Round, Runner WHERE Runner.id = (SELECT id FROM Runner WHERE startNumber = ${startNumber}) AND Round.id = ${thecuid};`
       
           let roundWithRunner = unflatten(result[0], {
             object: false,

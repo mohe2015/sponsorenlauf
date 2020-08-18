@@ -7,7 +7,7 @@
       "replaced": "^5.0.2"
     },
     "nexus-plugin-prisma": {
-      "signature": "49f18824f6ab9ee22905c6b5aa0aacc7",
+      "signature": "fcffabbc8ee59b7af96c1e1e78427f3b",
       "file": true,
       "replaced": "^0.17.0"
     }
