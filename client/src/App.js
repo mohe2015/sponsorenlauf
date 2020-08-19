@@ -14,7 +14,8 @@ import { CreateRunnerContainer } from './runners/create/CreateRunner';
 import { NotFound } from './NotFound';
 import { ProtectedRoute } from './ProtectedRoute';
 import { AuthContext, useAuthContext, RelayEnvironmentWrapper } from './RelayEnvironmentProviderWrapper'
-
+import Snackbar from '@material-ui/core/Snackbar';
+import Fade from '@material-ui/core/Fade';
 
 // authorizationerrorboundary
 // which passes state update function down to login children
@@ -28,6 +29,13 @@ function App() {
     <AuthContext.Provider value={auth}>
       <RelayEnvironmentWrapper>
         <CssBaseline />
+
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={pendingLocation}
+          message="Wird geladen..."
+        />
+
         <Routes>
           <ProtectedRoute path="*" element={<MyAppBar />}>
             <Route path="/" element={<Home />} />
