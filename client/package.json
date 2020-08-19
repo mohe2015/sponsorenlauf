@@ -22,7 +22,7 @@
     "react-dom": "^0.0.0-experimental-94c0244ba",
     "react-relay": "^0.0.0-experimental-183bdd28",
     "react-router-dom": "^0.0.0-experimental-ffd8c7d0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "3.4.3",
     "react-timeago": "^4.4.0",
     "relay-runtime": "^10.0.1",
     "subscriptions-transport-ws": "^0.9.17"
