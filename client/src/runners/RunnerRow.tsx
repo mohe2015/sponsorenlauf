@@ -1,5 +1,6 @@
 import React from "react";
 import { useFragment, useMutation } from 'react-relay/hooks';
+// @ts-expect-error
 import { unstable_useTransition as useTransition } from 'react';
 import graphql from "babel-plugin-relay/macro";
 import TableCell from '@material-ui/core/TableCell';
@@ -11,14 +12,16 @@ import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
 import { useConfirm } from 'material-ui-confirm';
 import { useCallback } from 'react';
+// @ts-expect-error
 import { ConnectionHandler } from 'react-relay';
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
+import { RunnerRow_runner } from '../__generated__/RunnerRow_runner.graphql'
 
-export function LoadingRunnerRow(props) {
+export function LoadingRunnerRow(props: any) {
   return (
       <TableRow>
       <TableCell component="th" scope="row" align="right">
@@ -55,10 +58,10 @@ export function LoadingRunnerRow(props) {
   )
 }
 
-export function RunnerRow(props) {
+export function RunnerRow(props: any) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
-  const data = useFragment(
+  const data: RunnerRow_runner = useFragment(
     graphql`
     fragment RunnerRow_runner on Runner {
       id
@@ -71,6 +74,7 @@ export function RunnerRow(props) {
     `,
     props.runner,
   );
+
   const confirm = useConfirm();
   const [deleteRunner, isDeleteRunnerPending] = useMutation(graphql`
   mutation RunnerRowDeleteRunnerMutation($id: String!) {
@@ -93,10 +97,12 @@ export function RunnerRow(props) {
           onCompleted: (response, errors) => {
             if (errors !== null) {
               console.log(errors)
+              // @ts-expect-error
               alert("Fehler: " + errors.map(e => e.message).join(", "))
             }
           },
           onError: error => {
+            // @ts-expect-error
             alert(error); // TODO FIXME
           },
           variables: {
@@ -113,6 +119,10 @@ export function RunnerRow(props) {
             }
 
             const payload = store.getRootField("deleteOneRunner");
+
+            if (!payload) {
+              throw new Error("deleteOneRunner not found")
+            }
 
             const id = payload.getValue('id');
 
