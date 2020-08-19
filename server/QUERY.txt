@@ -5,6 +5,10 @@ EXPLAIN ANALYZE
 psql --db sponsorenlauf -XqAt -f explain.sql > analyze.json
 https://dalibo.github.io/pev2/#/
 
+
+# important
+CREATE INDEX "Round_studentId" ON "Round" ( "studentId" );
+
 CREATE INDEX "Runner_roundCount_id" ON "Runner" ( "roundCount" DESC, "id" ASC );
 
 SELECT * FROM "Runner" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' ORDER BY "Runner"."roundCount" DESC, "Runner".id ASC LIMIT 25;
@@ -14,3 +18,6 @@ SELECT * FROM "Runner" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' ORDER BY
  Planning Time: 0.564 ms
  Execution Time: 0.215 ms
 (5 rows)
+
+
+

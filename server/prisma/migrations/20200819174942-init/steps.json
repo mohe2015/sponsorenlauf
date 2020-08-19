@@ -12,22 +12,22 @@
     },
     {
       "tag": "CreateSource",
-      "source": "mysql"
+      "source": "postgresql"
     },
     {
       "tag": "CreateArgument",
       "location": {
         "tag": "Source",
-        "source": "mysql"
+        "source": "postgresql"
       },
       "argument": "provider",
-      "value": "\"mysql\""
+      "value": "\"postgresql\""
     },
     {
       "tag": "CreateArgument",
       "location": {
         "tag": "Source",
-        "source": "mysql"
+        "source": "postgresql"
       },
       "argument": "url",
       "value": "\"***\""
