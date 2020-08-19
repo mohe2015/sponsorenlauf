@@ -228,11 +228,13 @@ schema.mutationType({
 
           // TODO FIXME this is supposed to be an transaction but there is no support in prisma and I think none of these should fail
           
-          await context.db.$executeRaw`INSERT INTO Round (id, studentId, createdById) VALUES (${thecuid}, (SELECT id FROM Runner WHERE startNumber = ${startNumber}), ${createdById});`
+          await context.db.$executeRaw`INSERT INTO "Round" (id, "studentId", "createdById") VALUES (${thecuid}, (SELECT id FROM "Runner" WHERE "startNumber" = ${startNumber}), ${createdById});`
 
           // technically the select id could have a race condition and not find the runner any more. but then updating doesnt matter
-          await context.db.$executeRaw`UPDATE Runner SET roundCount = roundCount + 1 WHERE id = (SELECT id FROM Runner WHERE startNumber = ${startNumber});`
-          let result = await context.db.$queryRaw<object[]>`SELECT Round.id, Round.studentId, Round.createdById, Round.time, Runner.id AS "Runner.id", Runner.startNumber AS "Runner.startNumber", Runner.name AS "Runner.name", Runner.clazz AS "Runner.clazz", Runner.grade as "Runner.grade", Runner.roundCount AS "Runner.roundCount" FROM Round, Runner WHERE Runner.id = (SELECT id FROM Runner WHERE startNumber = ${startNumber}) AND Round.id = ${thecuid};`
+          await context.db.$executeRaw`UPDATE "Runner" SET "roundCount" = "roundCount" + 1 WHERE id = (SELECT id FROM "Runner" WHERE "startNumber" = ${startNumber});`
+          
+          // TODO FIXME replace with normal select?
+          let result = await context.db.$queryRaw<object[]>`SELECT "Round".id, "Round"."studentId", "Round"."createdById", "Round".time, "Runner".id AS "Runner.id", "Runner"."startNumber" AS "Runner.startNumber", "Runner".name AS "Runner.name", "Runner".clazz AS "Runner.clazz", "Runner".grade as "Runner.grade", "Runner"."roundCount" AS "Runner.roundCount" FROM "Round", "Runner" WHERE "Runner".id = (SELECT id FROM "Runner" WHERE "startNumber" = ${startNumber}) AND "Round".id = ${thecuid};`
       
           let roundWithRunner = unflatten(result[0], {
             object: false,
@@ -272,7 +274,7 @@ schema.mutationType({
       },
       resolve: async (parent, args, context) => {
         let round = await context.db.round.delete(args)
-        await context.db.$executeRaw`UPDATE Runner SET roundCount = roundCount - 1 WHERE id = ${round.studentId};`
+        await context.db.$executeRaw`UPDATE "Runner" SET "roundCount" = "roundCount" - 1 WHERE id = ${round.studentId};`
         
         // TODO FIXME subscriptions
 
