@@ -266,29 +266,20 @@ schema.mutationType({
         where: schema.arg({type: "RoundWhereUniqueInput", nullable: false})
       },
       resolve: async (parent, args, context) => {
-        let fail = await context.db.round.delete({
-          where: args.where,
-          include: {
-            student: true,
-            createdBy: true,
-          }
-        })
-        console.log(fail)
+       
 
         
+          // TODO FIXME
         
-        
-       // let roundWithRunner = await context.db.$queryRaw<object[]>`WITH deleted_round AS (DELETE FROM "Round" WHERE id = ${args.where.id} RETURNING "Round".*), updated_runner AS (UPDATE "Runner" SET "roundCount" = "roundCount" - (SELECT COUNT(*) FROM deleted_round) WHERE id = (SELECT "studentId" FROM deleted_round) RETURNING "Runner".*) SELECT deleted_round.id AS "id", deleted_round."studentId" AS "studentId", deleted_round."createdById" AS "createdById", deleted_round.time AS "time", updated_runner.id AS "student.id", updated_runner."startNumber" AS "student.startNumber", updated_runner.name AS "student.name", updated_runner.clazz AS "student.clazz", updated_runner.grade AS "student.grade", updated_runner."roundCount" AS "student.roundCount" FROM deleted_round, updated_runner;`
-       // if (roundWithRunner.length == 1) {
-       //   let unflattened = unflatten(roundWithRunner[0], {
-      //      object: false,
-      //    }) as RoundWithRunner
-     //     unflattened.time = new Date(unflattened.time)
-     //     console.log(unflattened)
-          return fail
-    //    } else {
-    //      return null
-     //   }
+        let roundWithRunner = await context.db.$queryRaw<object[]>`WITH deleted_round AS (DELETE FROM "Round" WHERE id = ${args.where.id} RETURNING "Round".*), updated_runner AS (UPDATE "Runner" SET "roundCount" = "roundCount" - (SELECT COUNT(*) FROM deleted_round) WHERE id = (SELECT "studentId" FROM deleted_round) RETURNING "Runner".*) SELECT deleted_round.id AS "id", deleted_round."studentId" AS "studentId", deleted_round."createdById" AS "createdById", deleted_round.time AS "time", updated_runner.id AS "student.id", updated_runner."startNumber" AS "student.startNumber", updated_runner.name AS "student.name", updated_runner.clazz AS "student.clazz", updated_runner.grade AS "student.grade", updated_runner."roundCount" AS "student.roundCount" FROM deleted_round, updated_runner;`
+        if (roundWithRunner.length == 1) {
+          let unflattened = unflatten(roundWithRunner[0], {
+            object: false,
+          }) as RoundWithRunner
+          unflattened.time = new Date(unflattened.time)
+          console.log(unflattened)
+          return unflattened;
+        }
       }
     })
 
