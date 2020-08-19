@@ -8,7 +8,7 @@ import { RunnersList } from './runners/RunnersList'
 import { RoundsList } from './rounds/RoundsList';
 import { UserRoundsList } from './user-rounds/UserRoundsList';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Routes, Route, useBlocker, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocationPending } from 'react-router-dom';
 import { CreateUserContainer } from './users/create/CreateUser';
 import { CreateRunnerContainer } from './runners/create/CreateRunner';
 import { NotFound } from './NotFound';
@@ -22,6 +22,7 @@ import { AuthContext, useAuthContext, RelayEnvironmentWrapper } from './RelayEnv
 
 function App() {
   let auth = useAuthContext();
+  let pendingLocation = useLocationPending();
 
   return (
     <AuthContext.Provider value={auth}>

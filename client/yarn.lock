@@ -6163,6 +6163,13 @@ iterall@^1.2.1:
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.3.0.tgz#afcb08492e2915cbd8a0884eb93a8c94d0d72fea"
   integrity sha512-QZ9qOMdF+QLHxy1QIpUHUU1D5pS2CG2P69LF6L6CPjPYA/XMOmKV3PZpawHoAjHNyB0swdVTRxdYT4tbBbxqwg==
 
+javascript-time-ago@^2.0.13:
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/javascript-time-ago/-/javascript-time-ago-2.0.13.tgz#aa11f80887ce044f851a78c8761861e436ed0954"
+  integrity sha512-zH+obXUQ4vlc9UlERFe637rNJQaVYLizwODUfGzYN/cNW/owkk5wzb327gAfEXFpI4yhFcStEaoqoJtMGAmrAg==
+  dependencies:
+    relative-time-format "^0.1.3"
+
 jest-changed-files@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-24.9.0.tgz#08d8c15eb79a7fa3fc98269bc14b451ee82f8039"
@@ -9164,18 +9171,18 @@ react-relay@^0.0.0-experimental-183bdd28:
     relay-runtime "10.0.1"
     scheduler "^0.19.1"
 
-react-router-dom@^6.0.0-beta.0:
-  version "6.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.0.0-beta.0.tgz#9dcc8555365f22f7fbd09f26b6b82543f3eb97d6"
-  integrity sha512-36yNNGMT8RB9FRPL9nKJi6HKDkgOakU+o/2hHpSzR6e37gN70MpOU6QQlmif4oAWWBwjyGc3ZNOMFCsFuHUY5w==
+react-router-dom@^0.0.0-experimental-ffd8c7d0:
+  version "0.0.0-experimental-ffd8c7d0"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-0.0.0-experimental-ffd8c7d0.tgz#8742c2c7dbbc01237ea2fb97005ec3ace4be6937"
+  integrity sha512-tu8XLvu7ZpOeCP6xO4lNGzf+Iy9G8ElsiU/UlC/T4gb5ZbfxB/IAfZIKSzgqn8+Oh/dGca+1Xr1HZbKrib2Hfw==
   dependencies:
     prop-types "^15.7.2"
-    react-router "6.0.0-beta.0"
+    react-router "0.0.0-experimental-ffd8c7d0"
 
-react-router@6.0.0-beta.0:
-  version "6.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.0.0-beta.0.tgz#3e11f39b6ded4412c2fed9e4f989dd4c8156724d"
-  integrity sha512-VgMdfpVcmFQki/LZuLh8E/MNACekDetz4xqft+a6fBZvvJnVqKbLqebF7hyoawGrV1HcO5tVaUang2Og4W2j1Q==
+react-router@0.0.0-experimental-ffd8c7d0:
+  version "0.0.0-experimental-ffd8c7d0"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-0.0.0-experimental-ffd8c7d0.tgz#ccc6187d554a4082bc503ad392318d407ea652ac"
+  integrity sha512-DMEkLwdFfpKnPaQi2M739iIW4erffoAF/fkbxE8j9c/uIqyX+Sy632DEGt8UsoCJEGNfrkaIUFmNqfTSz2JBzA==
   dependencies:
     prop-types "^15.7.2"
 
@@ -9444,6 +9451,11 @@ relateurl@^0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
+
+relative-time-format@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/relative-time-format/-/relative-time-format-0.1.3.tgz#d50f49d13f97c7f801afba600b1a4a0890755df2"
+  integrity sha512-0O6i4fKjsx8qhz57zorG+LrIDnF9pSvP5s7H9R1Nb5nSqih5dvRyKzNKs6MxhL3bv4iwsz4DuDwAyw+c47QFIA==
 
 relay-compiler@^10.0.1:
   version "10.0.1"
