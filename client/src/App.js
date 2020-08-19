@@ -9,8 +9,8 @@ import { RoundsList } from './rounds/RoundsList';
 import { UserRoundsList } from './user-rounds/UserRoundsList';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Routes, Route } from 'react-router-dom';
-import { CreateUser } from './users/create/CreateUser';
-import { CreateRunner } from './runners/create/CreateRunner';
+import { CreateUserContainer } from './users/create/CreateUser';
+import { CreateRunnerContainer } from './runners/create/CreateRunner';
 import { NotFound } from './NotFound';
 import { ProtectedRoute } from './ProtectedRoute';
 import { AuthContext, useAuthContext, RelayEnvironmentWrapper } from './RelayEnvironmentProviderWrapper'
@@ -29,13 +29,13 @@ function App() {
           <ProtectedRoute path="*" element={<MyAppBar />}>
             <Route path="/" element={<Home />} />
             <Route path="/users">
-              <Route path="/create" element={<CreateUser />} />
-              <Route path="/edit/:id" element={<CreateUser />} />
+              <Route path="/create" element={<CreateUserContainer />} />
+              <Route path="/edit/:id" element={<CreateUserContainer />} />
               <Route path="*" element={<UsersList />} />
             </Route>
             <Route path="/runners">
-              <Route path="/create" element={<CreateRunner />} />
-              <Route path="/edit/:id" element={<CreateRunner />} />
+              <Route path="/create" element={<CreateRunnerContainer />} />
+              <Route path="/edit/:id" element={<CreateRunnerContainer />} />
               <Route path="*" element={<RunnersList />} />
             </Route>
             <Route path="/rounds">

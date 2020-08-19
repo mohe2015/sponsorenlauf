@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useMutation } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { useState, useCallback, unstable_useTransition as useTransition } from 'react';
@@ -15,6 +15,7 @@ import Alert from '@material-ui/lab/Alert';
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { ConnectionHandler } from 'react-relay';
 import { useLazyLoadQuery } from 'react-relay/hooks';
+import { LoadingContext } from '../../LoadingContext'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,6 +36,16 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+
+export function CreateRunnerContainer(props) {
+  const loading = useContext(LoadingContext)
+
+  if (loading) {
+    return <div>Wird geladen...</div>
+  } else {
+    return <CreateRunner />
+  }
+}
 
 export function CreateRunner(props) {
   const classes = useStyles();

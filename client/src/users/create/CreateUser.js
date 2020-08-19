@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useMutation } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { useState, useCallback, unstable_useTransition as useTransition } from 'react';
@@ -20,6 +20,7 @@ import Select from '@material-ui/core/Select';
 import FormHelperText from '@material-ui/core/FormHelperText'
 import { ConnectionHandler } from 'react-relay';
 import { useLazyLoadQuery } from 'react-relay/hooks';
+import { LoadingContext } from '../../LoadingContext'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,6 +41,16 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+
+export function CreateUserContainer(props) {
+  const loading = useContext(LoadingContext)
+
+  if (loading) {
+    return <div>Wird geladen...</div>
+  } else {
+    return <CreateUser />
+  }
+}
 
 export function CreateUser(props) {
   const classes = useStyles();

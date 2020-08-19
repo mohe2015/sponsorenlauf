@@ -51,8 +51,6 @@ function ShowRunnerName(props) {
 }
 
 export function CreateRound(props) {
-  console.log("pupp", props);
-
   const classes = useStyles();
   const location = useLocation();
 
