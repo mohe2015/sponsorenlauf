@@ -306,7 +306,7 @@ export function CreateRunner(props) {
             className={classes.submit}
             pending={IsCreateRunnerPending || isUpdateRunnerPending || isPending}
           >
-            Läufer hinzufügen
+            Läufer {id ? "bearbeiten" : "hinzufügen"}
           </LoadingButton>
         </form>
       </div>

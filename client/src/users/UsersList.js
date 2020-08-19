@@ -16,20 +16,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link as RouterLink } from 'react-router-dom';
 import { LoadingContext } from '../LoadingContext'
+import { useNavigate } from "react-router-dom"
+import { unstable_useTransition as useTransition } from 'react';
+import { useCallback } from 'react';
+import LoadingButton from '@material-ui/lab/LoadingButton';
 
 export function UsersList(props) {
   const loading = useContext(LoadingContext)
+  const navigate = useNavigate();
+  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+
+  const createUser = useCallback(event => {
+      startTransition(() => {
+        navigate("/users/create")
+      })
+    },
+    [navigate, startTransition]
+  );
 
   return (
     <Container maxWidth="sm">
-    <IconButton component={RouterLink} to="/users/create">
-      <FontAwesomeIcon icon={faPlus} />
-      <Typography variant="button" noWrap>
-        <Box component="span" ml={1}>
-          Nutzer erstellen
-        </Box>
-      </Typography>
-    </IconButton>
+      <LoadingButton
+        disableElevation
+        pending={isPending} onClick={createUser}>
+        <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPlus} />
+        <Typography variant="button" noWrap>
+          <Box component="span" ml={1}>
+            Nutzer erstellen
+          </Box>
+        </Typography>
+      </LoadingButton>
   <TableContainer component={Paper}>
     <Table aria-label="table of users">
       <TableHead>

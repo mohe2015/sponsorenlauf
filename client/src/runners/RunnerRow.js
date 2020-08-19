@@ -90,7 +90,12 @@ export function RunnerRow(props) {
       })
       .then(() => {
         deleteRunner({
-          onCompleted: response => { },
+          onCompleted: (response, errors) => {
+            if (errors.length > 0) {
+              console.log(errors)
+              alert("Fehler: " + errors.map(e => e.message).join(", "))
+            }
+           },
           onError: error => {
             alert(error); // TODO FIXME
           },

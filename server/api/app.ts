@@ -18,6 +18,8 @@ import cookieParser from 'cookie-parser';
 //settings.current.server.host
 //settings.current.server.path
 
+
+
 settings.change({
   schema: {
     nullable: {
@@ -87,8 +89,8 @@ server.express.use(formatErrors);
 
 server.express.use(cookieParser())
 
-// @ts-expect-error
 schema.addToContext(async ({req, res}) => {
+  // @ts-expect-error
   return await createContext(req.headers.cookie || null, res);
 });
 

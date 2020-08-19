@@ -19,6 +19,10 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { visuallyHidden } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import { LoadingContext } from '../LoadingContext'
+import { useNavigate } from "react-router-dom"
+import { unstable_useTransition as useTransition } from 'react';
+import { useCallback } from 'react';
+import LoadingButton from '@material-ui/lab/LoadingButton';
 
 const useStyles = makeStyles({
   // TODO fix #20379.
@@ -28,6 +32,16 @@ const useStyles = makeStyles({
 export function RunnersList(props) {
   const classes = useStyles();
   const loading = useContext(LoadingContext)
+  const navigate = useNavigate();
+  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+
+  const createRunner = useCallback(event => {
+      startTransition(() => {
+        navigate("/runners/create")
+      })
+    },
+    [navigate, startTransition]
+  );
 
   const [orderBy, setOrderBy] = useState("id");
   const [order, setOrder] = useState("asc");
@@ -45,14 +59,16 @@ export function RunnersList(props) {
   return (
 
     <Container maxWidth="md">
-    <IconButton component={RouterLink} to="/runners/create">
-      <FontAwesomeIcon icon={faPlus} />
-      <Typography variant="button" noWrap>
-        <Box component="span" ml={1}>
-          Läufer erstellen
-        </Box>
-      </Typography>
-    </IconButton>
+    <LoadingButton
+        disableElevation
+        pending={isPending} onClick={createRunner}>
+        <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPlus} />
+        <Typography variant="button" noWrap>
+          <Box component="span" ml={1}>
+            Läufer erstellen
+          </Box>
+        </Typography>
+      </LoadingButton>
   <TableContainer component={Paper}>
     <Table aria-label="Liste der Läufer">
       <TableHead>
