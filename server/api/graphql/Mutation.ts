@@ -5,6 +5,7 @@ import cuid from 'cuid';
 import { flatten, unflatten } from 'flat';
 
 import { RoundGetPayload } from '@prisma/client'
+import { Round } from "nexus-plugin-prisma/client";
 
 type RoundWithRunner = RoundGetPayload<{
   include: { student: true }
@@ -228,17 +229,18 @@ schema.mutationType({
           // TODO FIXME this is supposed to be an transaction but there is no support in prisma and I think none of these should fail
           
           await context.db.$executeRaw`INSERT INTO Round (id, studentId, createdById) VALUES (${thecuid}, (SELECT id FROM Runner WHERE startNumber = ${startNumber}), ${createdById});`
+
+          // technically the select id could have a race condition and not find the runner any more. but then updating doesnt matter
           await context.db.$executeRaw`UPDATE Runner SET roundCount = roundCount + 1 WHERE id = (SELECT id FROM Runner WHERE startNumber = ${startNumber});`
           let result = await context.db.$queryRaw<object[]>`SELECT Round.id, Round.studentId, Round.createdById, Round.time, Runner.id AS "Runner.id", Runner.startNumber AS "Runner.startNumber", Runner.name AS "Runner.name", Runner.clazz AS "Runner.clazz", Runner.grade as "Runner.grade", Runner.roundCount AS "Runner.roundCount" FROM Round, Runner WHERE Runner.id = (SELECT id FROM Runner WHERE startNumber = ${startNumber}) AND Round.id = ${thecuid};`
       
           let roundWithRunner = unflatten(result[0], {
             object: false,
           }) as RoundWithRunner
-          console.log(roundWithRunner.time)
-          roundWithRunner.time = new Date(roundWithRunner.time)
-          console.log(roundWithRunner.time)
 
           console.log(roundWithRunner)
+
+          // TODO FIXME subscriptions
 
           let output = {
             __typename: "CreateRoundMutationOutput",
@@ -269,20 +271,12 @@ schema.mutationType({
         where: schema.arg({type: "RoundWhereUniqueInput", nullable: false})
       },
       resolve: async (parent, args, context) => {
-       
+        let round = await context.db.round.delete(args)
+        await context.db.$executeRaw`UPDATE Runner SET roundCount = roundCount - 1 WHERE id = ${round.studentId};`
+        
+        // TODO FIXME subscriptions
 
-        
-          // TODO FIXME
-        
-        let roundWithRunner = await context.db.$queryRaw<object[]>`WITH deleted_round AS (DELETE FROM "Round" WHERE id = ${args.where.id} RETURNING "Round".*), updated_runner AS (UPDATE "Runner" SET "roundCount" = "roundCount" - (SELECT COUNT(*) FROM deleted_round) WHERE id = (SELECT "studentId" FROM deleted_round) RETURNING "Runner".*) SELECT deleted_round.id AS "id", deleted_round."studentId" AS "studentId", deleted_round."createdById" AS "createdById", deleted_round.time AS "time", updated_runner.id AS "student.id", updated_runner."startNumber" AS "student.startNumber", updated_runner.name AS "student.name", updated_runner.clazz AS "student.clazz", updated_runner.grade AS "student.grade", updated_runner."roundCount" AS "student.roundCount" FROM deleted_round, updated_runner;`
-        if (roundWithRunner.length == 1) {
-          let unflattened = unflatten(roundWithRunner[0], {
-            object: false,
-          }) as RoundWithRunner
-          unflattened.time = new Date(unflattened.time)
-          console.log(unflattened)
-          return unflattened;
-        }
+        return round
       }
     })
 
