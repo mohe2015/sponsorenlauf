@@ -240,7 +240,7 @@ schema.mutationType({
           let output = {
             __typename: "CreateRoundMutationOutput",
             previous_edge: null,
-            round_edge: {
+            edge: {
               cursor: roundWithRunner.id,
               node: {
                 ...roundWithRunner,

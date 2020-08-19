@@ -32,17 +32,11 @@ export function RoundsListComponent(props) {
     subscription: graphql`
     subscription RoundsListComponentSubscription {
       subscribeRounds {
-        round_edge {
+        edge {
           cursor
           node {
             id
-            student {
-              startNumber
-            }
-            time
-            createdBy {
-              name
-            }
+            ...RoundRow_round
           }
         }
       }
@@ -71,13 +65,13 @@ export function RoundsListComponent(props) {
       const payload = store.getRootField("subscribeRounds");
 
       const previousEdge = payload.getLinkedRecord('previous_edge');
-      const serverEdge = payload.getLinkedRecord('round_edge');
+      const serverEdge = payload.getLinkedRecord('edge');
 
-      const existingEdges = connectionRecord.getLinkedRecords("edges").map(e => e.getLinkedRecord("node").getValue("id"));
-      if (existingEdges.includes(serverEdge.getLinkedRecord("node").getValue("id"))) {
-        console.log("node already in connection")
-        return;
-      }
+      //const existingEdges = connectionRecord.getLinkedRecords("edges").map(e => e.getLinkedRecord("node").getValue("id"));
+      //if (existingEdges.includes(serverEdge.getLinkedRecord("node").getValue("id"))) {
+      //  console.log("node already in connection")
+      //  return;
+      //}
 
       const newEdge = ConnectionHandler.buildConnectionEdge(
         store,

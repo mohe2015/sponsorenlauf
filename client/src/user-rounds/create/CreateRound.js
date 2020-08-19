@@ -59,7 +59,7 @@ export function CreateRound(props) {
     createOneRound(data: { student: { connect: { startNumber: $startNumber }}}) {
       __typename
       ... on CreateRoundMutationOutput {
-        round_edge {
+        edge {
           cursor
           node {
             id
@@ -173,7 +173,7 @@ export function CreateRound(props) {
 
           if (payload.getValue('__typename') === "CreateRoundMutationOutput") {
             const previousEdge = payload.getLinkedRecord('previous_edge');
-            const serverEdge = payload.getLinkedRecord('round_edge');
+            const serverEdge = payload.getLinkedRecord('edge');
 
             sharedUpdater(store, previousEdge, serverEdge)
           }
