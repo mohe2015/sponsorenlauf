@@ -161,6 +161,7 @@
     ]
   },
   "babel": {
+    "plugins": ["transform-es2015-modules-commonjs", ["relay", { "artifactDirectory": "./src/__generated__" }]],
     "presets": [
       "react-app"
     ]
