@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.9.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
     "@fortawesome/free-regular-svg-icons": "^5.14.0",
@@ -161,7 +162,15 @@
     ]
   },
   "babel": {
-    "plugins": ["transform-es2015-modules-commonjs", ["relay", { "artifactDirectory": "./src/__generated__" }]],
+    "plugins": [
+      "@babel/plugin-transform-modules-commonjs",
+      [
+        "relay",
+        {
+          "artifactDirectory": "./src/__generated__"
+        }
+      ]
+    ],
     "presets": [
       "react-app"
     ]
