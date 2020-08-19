@@ -8,12 +8,13 @@ import { RunnersList } from './runners/RunnersList'
 import { RoundsList } from './rounds/RoundsList';
 import { UserRoundsList } from './user-rounds/UserRoundsList';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useBlocker, useNavigate } from 'react-router-dom';
 import { CreateUserContainer } from './users/create/CreateUser';
 import { CreateRunnerContainer } from './runners/create/CreateRunner';
 import { NotFound } from './NotFound';
 import { ProtectedRoute } from './ProtectedRoute';
 import { AuthContext, useAuthContext, RelayEnvironmentWrapper } from './RelayEnvironmentProviderWrapper'
+
 
 // authorizationerrorboundary
 // which passes state update function down to login children
@@ -21,6 +22,7 @@ import { AuthContext, useAuthContext, RelayEnvironmentWrapper } from './RelayEnv
 
 function App() {
   let auth = useAuthContext();
+
   return (
     <AuthContext.Provider value={auth}>
       <RelayEnvironmentWrapper>
