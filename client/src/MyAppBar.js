@@ -147,7 +147,9 @@ export function MyAppBar() {
   const navigate = useNavigate();
 
   return (<>
-  <AppBar position="static">
+    <AuthorizationErrorBoundary>
+    
+    <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" noWrap className={classes.grow}>
           Sponsorenlauf
@@ -221,20 +223,20 @@ export function MyAppBar() {
             </LoadingButton>
           </ControlledTooltip>
 
-          <Suspense fallback={<LoadingAccountButton />}>
-            <AccountButton />
-          </Suspense>
+            <Suspense fallback={<LoadingAccountButton />}>
+              <AccountButton />
+            </Suspense>
 
         </div>
       </Toolbar>
     </AppBar>
 
-    <AuthorizationErrorBoundary>
       <Suspense fallback={<LoadingContext.Provider value={true}><Outlet /></LoadingContext.Provider>}>
         <LoadingContext.Provider value={false}>
           <Outlet />
         </LoadingContext.Provider>
       </Suspense>
+      
     </AuthorizationErrorBoundary>
     </>
     );
