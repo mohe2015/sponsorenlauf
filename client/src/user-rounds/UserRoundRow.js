@@ -49,11 +49,13 @@ export function UserRoundRow(props) {
     fragment UserRoundRow_round on Round {
       id
       student {
+        id
         startNumber
         name
       }
       time
       createdBy {
+        id
         name
       }
     }
