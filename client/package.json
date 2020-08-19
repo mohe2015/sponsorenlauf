@@ -14,6 +14,7 @@
     "@testing-library/jest-dom": "^5.11.2",
     "@testing-library/react": "^10.4.8",
     "@testing-library/user-event": "^12.1.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "history": "5.0.0",
     "javascript-time-ago": "^2.0.13",
     "material-ui-confirm": "^2.1.1",
