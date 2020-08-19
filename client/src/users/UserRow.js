@@ -85,7 +85,7 @@ export function UserRow(props) {
       .then(() => {
         deleteUser({
           onCompleted: (response, errors) => {
-            if (errors.length > 0) {
+            if (errors !== null) {
               console.log(errors)
               alert("Fehler: " + errors.map(e => e.message).join(", "))
             }

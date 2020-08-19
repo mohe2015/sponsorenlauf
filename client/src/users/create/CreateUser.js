@@ -136,7 +136,7 @@ export function CreateUser(props) {
       if (id) {
         updateUser({
           onCompleted: (response, errors) => {
-            if (errors.length > 0) {
+            if (errors !== null) {
               console.log(errors)
               alert("Fehler: " + errors.map(e => e.message).join(", "))
             } else {
@@ -170,7 +170,7 @@ export function CreateUser(props) {
       } else {
         user_create({
           onCompleted: (response, errors) => {
-            if (errors.length > 0) {
+            if (errors !== null) {
               console.log(errors)
               alert("Fehler: " + errors.map(e => e.message).join(", "))
             } else {

@@ -141,7 +141,7 @@ export function CreateRunner(props) {
       if (id) {
         updateRunner({
           onCompleted: (response, errors) => {
-            if (errors.length > 0) {
+            if (errors !== null) {
               console.log(errors)
               alert("Fehler: " + errors.map(e => e.message).join(", "))
             } else {
@@ -176,7 +176,7 @@ export function CreateRunner(props) {
       } else {
         runner_create({
           onCompleted: (response, errors) => {
-            if (errors.length > 0) {
+            if (errors !== null) {
               console.log(errors)
               alert("Fehler: " + errors.map(e => e.message).join(", "))
             } else {
