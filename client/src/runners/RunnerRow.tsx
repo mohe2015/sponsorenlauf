@@ -19,7 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
-import { RunnerRow_runner } from '../__generated__/RunnerRow_runner.graphql'
+import { RunnerRow_runner$key } from '../__generated__/RunnerRow_runner.graphql'
 
 export function LoadingRunnerRow(props: any) {
   return (
@@ -61,7 +61,7 @@ export function LoadingRunnerRow(props: any) {
 export function RunnerRow(props: any) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
-  const data: RunnerRow_runner = useFragment(
+  const data = useFragment<RunnerRow_runner$key>(
     graphql`
     fragment RunnerRow_runner on Runner {
       id
