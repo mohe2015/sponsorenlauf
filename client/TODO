@@ -2,4 +2,7 @@ group by class [for preparing the numbers and for the results]
 
 countdown for starting
 
+TODO FIXME deleting doesnt decrement row count?
 TODO database fixing script which recalculates the rowCount
+
+get back typescript

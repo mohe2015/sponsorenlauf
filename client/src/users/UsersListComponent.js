@@ -18,6 +18,7 @@ export function UsersListComponent(props) {
         users(first: $count, after: $cursor)
         @connection(key: "UsersList_user_users") {
           edges {
+            cursor
             node {
               id
               ...UserRow_user
@@ -36,8 +37,7 @@ export function UsersListComponent(props) {
           cursor
           node {
             id
-            name
-            role
+            ...UserRow_user
           }
         }
       }
@@ -62,8 +62,8 @@ export function UsersListComponent(props) {
       }
       const payload = store.getRootField("subscribeUsers");
 
-      const previousEdge = payload.getLinkedRecord('previous_edge');
-      const serverEdge = payload.getLinkedRecord('user_edge');
+      //const previousEdge = payload.getLinkedRecord('previous_edge');
+      const serverEdge = payload.getLinkedRecord('edge');
 
       const newEdge = ConnectionHandler.buildConnectionEdge(
         store,
@@ -74,7 +74,7 @@ export function UsersListComponent(props) {
       ConnectionHandler.insertEdgeAfter(
         connectionRecord,
         newEdge,
-        previousEdge
+       // previousEdge
       );
     }
   }), [])
