@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 export function RunnersListComponent(props) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
-  const {data, hasNext, loadNext, isLoadingNext, refetch} = usePaginationFragment(
+  const {data, hasNext, loadNext, isLoadingNext} = usePaginationFragment(
     graphql`
       fragment RunnersListComponent_runner on Query
       @refetchable(queryName: "RunnersListPaginationQuery") {

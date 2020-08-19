@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import { AuthorizationErrorBoundary } from './AuthorizationErrorBoundary';
 import { LoadingContext } from './LoadingContext';
-import { useMutation } from 'react-relay/hooks';
+import { useMutation, useLazyLoadQuery } from 'react-relay/hooks';
 import { AuthContext } from './RelayEnvironmentProviderWrapper'
 import graphql from "babel-plugin-relay/macro";
 
@@ -48,7 +48,8 @@ function AccountButton() {
     logout
   }
   `);
- /* const data = useLazyLoadQuery(
+ 
+  const data = useLazyLoadQuery(
     graphql`
 query MyAppBarQuery {
   me {
@@ -58,7 +59,7 @@ query MyAppBarQuery {
 }
   `,
   null,
-  {fetchPolicy: "store-and-network"})*/
+  {fetchPolicy: "store-and-network"})
 
   return (
     <PopupState variant="popover" popupId="demo-popup-menu">
@@ -70,7 +71,7 @@ query MyAppBarQuery {
               <FontAwesomeIcon icon={faUser} />
               <Typography variant="button" noWrap>
                 <Box pl={0.5} component="span" display={{ xs: 'none', md: 'block' }}> 
-                Blub
+                  {data.me.name}
                 </Box>
               </Typography>
             </IconButton>
@@ -86,10 +87,10 @@ query MyAppBarQuery {
               }}
             >
               <MenuItem onClick={e => {
-                popupState.close();
                 logout({
                   onCompleted: (response, errors) => {
                     resetEnvironment();
+                    popupState.close();
 
                     if (errors !== null) {
                       console.log(errors)
@@ -104,7 +105,20 @@ query MyAppBarQuery {
                     alert(error); // TODO FIXME
                   },
                 })
-              }}>Abmelden</MenuItem>
+              }}>
+
+              <LoadingButton
+                disableElevation
+                pending={isLogoutPending || isPending} onClick={() => 1}>
+                <Typography variant="button" noWrap>
+                  <Box component="span" ml={1}>
+                    Abmelden
+                  </Box>
+                </Typography>
+              </LoadingButton>
+
+
+              </MenuItem>
             </Menu>
         </React.Fragment>
       )}
@@ -207,7 +221,10 @@ export function MyAppBar() {
             </LoadingButton>
           </ControlledTooltip>
 
-          <AccountButton />
+          <Suspense fallback={<LoadingAccountButton />}>
+            <AccountButton />
+          </Suspense>
+
         </div>
       </Toolbar>
     </AppBar>
