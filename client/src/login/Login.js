@@ -90,30 +90,35 @@ export function Login(props) {
       event.preventDefault();
 
       login({
-        onCompleted: response => {
-          if (response.login.__typename === "LoginMutationError") {
-            setUsernameError(response.login.usernameError);
-            setPasswordError(response.login.passwordError);
+        onCompleted: (response, errors) => {
+          if (errors.length > 0) {
+            console.log(errors)
+            alert("Fehler: " + errors.map(e => e.message).join(", "))
           } else {
-            setUsernameError(null);
-            setPasswordError(null);
-
-            startTransition(() => {
-              if (updateErrorBoundary) {
-                console.log("updateErrorBoundary")
-
-                resetEnvironment();
-
-                updateErrorBoundary((prevState) => { return {error: null, id: prevState.id + 1}})
-              } else {
-                if (location.state?.oldPathname) {
-                  console.log("Redirecting to ", location.state?.oldPathname)
-                  navigate(location.state?.oldPathname);
+            if (response.login.__typename === "LoginMutationError") {
+              setUsernameError(response.login.usernameError);
+              setPasswordError(response.login.passwordError);
+            } else {
+              setUsernameError(null);
+              setPasswordError(null);
+  
+              startTransition(() => {
+                if (updateErrorBoundary) {
+                  console.log("updateErrorBoundary")
+  
+                  resetEnvironment();
+  
+                  updateErrorBoundary((prevState) => { return {error: null, id: prevState.id + 1}})
                 } else {
-                  navigate("/");
+                  if (location.state?.oldPathname) {
+                    console.log("Redirecting to ", location.state?.oldPathname)
+                    navigate(location.state?.oldPathname);
+                  } else {
+                    navigate("/");
+                  }
                 }
-              }
-            });
+              });
+            }
           }
         },
         onError: error => {

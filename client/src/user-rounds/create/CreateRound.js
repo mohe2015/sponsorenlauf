@@ -114,12 +114,17 @@ export function CreateRound(props) {
       event.preventDefault();
 
       createOneRound({
-        onCompleted: response => {
-          if (response.createOneRound.__typename === "CreateRoundMutationError") {
-            setStartNumberError(response.createOneRound.startNumberError);
+        onCompleted: (response, errors) => {
+          if (errors.length > 0) {
+            console.log(errors)
+            alert("Fehler: " + errors.map(e => e.message).join(", "))
           } else {
-            setStartNumberError(null);
-            setStartNumber('');
+            if (response.createOneRound.__typename === "CreateRoundMutationError") {
+              setStartNumberError(response.createOneRound.startNumberError);
+            } else {
+              setStartNumberError(null);
+              setStartNumber('');
+            }
           }
         },
         onError: error => {

@@ -135,21 +135,26 @@ export function CreateUser(props) {
 
       if (id) {
         updateUser({
-          onCompleted: response => {
-            if (response.updateOneUser.__typename === "UserMutationError") {
-              setUsernameError(response.updateOneUser.usernameError);
-              setRoleError(response.updateOneUser.roleError);
+          onCompleted: (response, errors) => {
+            if (errors.length > 0) {
+              console.log(errors)
+              alert("Fehler: " + errors.map(e => e.message).join(", "))
             } else {
-              setUsernameError(null);
-              setRoleError(null);
+              if (response.updateOneUser.__typename === "UserMutationError") {
+                setUsernameError(response.updateOneUser.usernameError);
+                setRoleError(response.updateOneUser.roleError);
+              } else {
+                setUsernameError(null);
+                setRoleError(null);
 
-              startTransition(() => {
-                if (location.state?.oldPathname) {
-                  navigate(location.state?.oldPathname);
-                } else {
-                  navigate("/users");
-                }
-              });
+                startTransition(() => {
+                  if (location.state?.oldPathname) {
+                    navigate(location.state?.oldPathname);
+                  } else {
+                    navigate("/users");
+                  }
+                });
+              }
             }
           },
           onError: error => {
@@ -164,21 +169,26 @@ export function CreateUser(props) {
         })
       } else {
         user_create({
-          onCompleted: response => {
-            if (response.createOneUser.__typename === "UserMutationError") {
-              setUsernameError(response.createOneUser.usernameError);
-              setRoleError(response.createOneUser.roleError);
+          onCompleted: (response, errors) => {
+            if (errors.length > 0) {
+              console.log(errors)
+              alert("Fehler: " + errors.map(e => e.message).join(", "))
             } else {
-              setUsernameError(null);
-              setRoleError(null);
+              if (response.createOneUser.__typename === "UserMutationError") {
+                setUsernameError(response.createOneUser.usernameError);
+                setRoleError(response.createOneUser.roleError);
+              } else {
+                setUsernameError(null);
+                setRoleError(null);
 
-              startTransition(() => {
-                if (location.state?.oldPathname) {
-                  navigate(location.state?.oldPathname);
-                } else {
-                  navigate("/users");
-                }
-              });
+                startTransition(() => {
+                  if (location.state?.oldPathname) {
+                    navigate(location.state?.oldPathname);
+                  } else {
+                    navigate("/users");
+                  }
+                });
+              }
             }
           },
           onError: error => {

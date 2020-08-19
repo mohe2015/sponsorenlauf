@@ -88,13 +88,18 @@ query MyAppBarQuery {
               <MenuItem onClick={e => {
                 popupState.close();
                 logout({
-                  onCompleted: response => {
+                  onCompleted: (response, errors) => {
                     resetEnvironment();
 
-                    startTransition(() => {
-                      navigate("/login");
-                    });
-                  },
+                    if (errors.length > 0) {
+                      console.log(errors)
+                      alert("Fehler: " + errors.map(e => e.message).join(", "))
+                    } else {
+                      startTransition(() => {
+                        navigate("/login");
+                      });
+                    }
+                   },
                   onError: error => {
                     alert(error); // TODO FIXME
                   },

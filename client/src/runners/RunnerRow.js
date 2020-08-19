@@ -95,7 +95,7 @@ export function RunnerRow(props) {
               console.log(errors)
               alert("Fehler: " + errors.map(e => e.message).join(", "))
             }
-           },
+          },
           onError: error => {
             alert(error); // TODO FIXME
           },

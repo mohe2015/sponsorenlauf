@@ -140,21 +140,26 @@ export function CreateRunner(props) {
 
       if (id) {
         updateRunner({
-          onCompleted: response => {
-            if (response.updateOneRunner.__typename === "RunnerMutationError") {
-              setNameError(response.updateOneRunner.nameError);
-              setGradeError(response.updateOneRunner.gradeError);
+          onCompleted: (response, errors) => {
+            if (errors.length > 0) {
+              console.log(errors)
+              alert("Fehler: " + errors.map(e => e.message).join(", "))
             } else {
-              setNameError(null);
-              setGradeError(null);
+              if (response.updateOneRunner.__typename === "RunnerMutationError") {
+                setNameError(response.updateOneRunner.nameError);
+                setGradeError(response.updateOneRunner.gradeError);
+              } else {
+                setNameError(null);
+                setGradeError(null);
 
-              startTransition(() => {
-                if (location.state?.oldPathname) {
-                  navigate(location.state?.oldPathname);
-                } else {
-                  navigate("/runners");
-                }
-              });
+                startTransition(() => {
+                  if (location.state?.oldPathname) {
+                    navigate(location.state?.oldPathname);
+                  } else {
+                    navigate("/runners");
+                  }
+                });
+              }
             }
           },
           onError: error => {
@@ -170,21 +175,26 @@ export function CreateRunner(props) {
         })
       } else {
         runner_create({
-          onCompleted: response => {
-            if (response.runner_create.__typename === "RunnerMutationError") {
-              setNameError(response.runner_create.nameError);
-              setGradeError(response.runner_create.gradeError);
+          onCompleted: (response, errors) => {
+            if (errors.length > 0) {
+              console.log(errors)
+              alert("Fehler: " + errors.map(e => e.message).join(", "))
             } else {
-              setNameError(null);
-              setGradeError(null);
+              if (response.runner_create.__typename === "RunnerMutationError") {
+                setNameError(response.runner_create.nameError);
+                setGradeError(response.runner_create.gradeError);
+              } else {
+                setNameError(null);
+                setGradeError(null);
 
-              startTransition(() => {
-                if (location.state?.oldPathname) {
-                  navigate(location.state?.oldPathname);
-                } else {
-                  navigate("/runners");
-                }
-              });
+                startTransition(() => {
+                  if (location.state?.oldPathname) {
+                    navigate(location.state?.oldPathname);
+                  } else {
+                    navigate("/runners");
+                  }
+                });
+              }
             }
           },
           onError: error => {
