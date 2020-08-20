@@ -1,6 +1,5 @@
 import React from "react";
 import { useFragment, useMutation } from 'react-relay/hooks';
-// @ts-expect-error
 import { unstable_useTransition as useTransition } from 'react';
 import graphql from "babel-plugin-relay/macro";
 import TableCell from '@material-ui/core/TableCell';
@@ -11,8 +10,7 @@ import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
 import { useConfirm } from 'material-ui-confirm';
 import { useCallback } from 'react';
-// @ts-expect-error
-import { ConnectionHandler } from 'react-relay';
+import { ConnectionHandler } from 'relay-runtime';
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'

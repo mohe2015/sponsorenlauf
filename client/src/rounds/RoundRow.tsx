@@ -5,7 +5,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Skeleton from '@material-ui/lab/Skeleton';
 import TimeAgo from 'react-timeago';
+// @ts-expect-error
 import germanStrings from 'react-timeago/lib/language-strings/de'
+// @ts-expect-error
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 
 const formatter = buildFormatter(germanStrings)
