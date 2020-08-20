@@ -19,6 +19,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from '../RelayEnvironmentProviderWrapper'
 import { LoginMutation } from '../__generated__/LoginMutation.graphql';
 import { AuthorizationErrorBoundaryState } from '../AuthorizationErrorBoundary';
+import { Location } from 'history';
+
+interface LocationStateType {
+  oldPathname: string,
+  errorMessage: string
+}
 
 function Copyright() {
   return (
@@ -66,7 +72,7 @@ export function Login(props: LoginProps) {
 
   const classes = useStyles();
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation() as Location<LocationStateType | null>;
 
   const [login, isLoginPending] = useMutation<LoginMutation>(graphql`
   mutation LoginMutation($username: String!, $password: String!) {
