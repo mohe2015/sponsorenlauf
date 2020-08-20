@@ -3,7 +3,7 @@ import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import { Login } from './login/Login';
 
-type AuthorizationErrorBoundaryState = {
+export type AuthorizationErrorBoundaryState = {
   error: Error|null,
   id: number,
 }
@@ -26,7 +26,7 @@ export class AuthorizationErrorBoundary extends React.Component<{children: React
     console.log("errorToElement")
 
     if (error.extensions?.code === "UNAUTHENTICATED") {
-      return <Login key={index} updateErrorBoundary={(state: AuthorizationErrorBoundaryState) => { this.setState(state) }} />;
+      return <Login key={index} updateErrorBoundary={(stateFunction: ((previousState: AuthorizationErrorBoundaryState) => AuthorizationErrorBoundaryState)) => { this.setState(stateFunction) }} />;
     } else if (error.extensions?.code === "FORBIDDEN") {
       return  <Alert key={index} variant="filled" severity="error">
                 {error.message}

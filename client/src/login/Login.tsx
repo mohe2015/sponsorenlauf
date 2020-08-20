@@ -17,6 +17,8 @@ import LoadingButton from '@material-ui/lab/LoadingButton';
 import Alert from '@material-ui/lab/Alert';
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from '../RelayEnvironmentProviderWrapper'
+import { LoginMutation } from '../__generated__/LoginMutation.graphql';
+import { AuthorizationErrorBoundaryState } from '../AuthorizationErrorBoundary';
 
 function Copyright() {
   return (
@@ -51,7 +53,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Login(props) {
+interface LoginProps {
+  updateErrorBoundary?: (fun: (previousState: AuthorizationErrorBoundaryState) => AuthorizationErrorBoundaryState) => any
+}
+
+export function Login(props: LoginProps) {
   const { updateErrorBoundary } = props;
 
   const {
@@ -62,7 +68,7 @@ export function Login(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [login, isLoginPending] = useMutation(graphql`
+  const [login, isLoginPending] = useMutation<LoginMutation>(graphql`
   mutation LoginMutation($username: String!, $password: String!) {
     login(name: $username, password: $password) {
       __typename
@@ -80,8 +86,8 @@ export function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const [usernameError, setUsernameError] = useState(null);
-  const [passwordError, setPasswordError] = useState(null);
+  const [usernameError, setUsernameError] = useState<string|null>(null);
+  const [passwordError, setPasswordError] = useState<string|null>(null);
 
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
@@ -108,7 +114,7 @@ export function Login(props) {
   
                   resetEnvironment();
   
-                  updateErrorBoundary((prevState) => { return {error: null, id: prevState.id + 1}})
+                  updateErrorBoundary((prevState: AuthorizationErrorBoundaryState) => { return {error: null, id: prevState.id + 1}})
                 } else {
                   if (location.state?.oldPathname) {
                     console.log("Redirecting to ", location.state?.oldPathname)

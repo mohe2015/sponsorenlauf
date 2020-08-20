@@ -11,7 +11,7 @@ import de from 'javascript-time-ago/locale/de'
 
 JavascriptTimeAgo.addLocale(de)
 
-ReactDOM.unstable_createRoot(document.getElementById('root')).render(
+ReactDOM.unstable_createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
       <ConfirmProvider>
         <Router>

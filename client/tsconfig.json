@@ -22,7 +22,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react",
-    "types": ["react/experimental"]
+    "types": ["react/experimental", "react-dom/experimental"]
   },
   "include": [
     "types.d.ts",
