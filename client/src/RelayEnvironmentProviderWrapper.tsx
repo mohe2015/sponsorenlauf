@@ -1,8 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, ReactNode } from 'react';
 import { createEnvironment } from './RelayEnvironment'
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
+import RelayModernEnvironment from 'relay-runtime/lib/store/RelayModernEnvironment';
+import RelayQueryResponseCache from 'relay-runtime/lib/network/RelayQueryResponseCache';
 
-export const AuthContext = React.createContext(null);
+type AuthContextProps = {
+  relay: { cache: RelayQueryResponseCache, environment: RelayModernEnvironment },
+  user: null,
+  resetEnvironment: () => void
+}
+
+export const AuthContext = React.createContext<AuthContextProps>(undefined!);
 
 export const useAuthContext = () => {
   const [relay, setRelay] = React.useState(createEnvironment());
@@ -19,7 +27,7 @@ export const useAuthContext = () => {
   }
 }
 
-export function RelayEnvironmentWrapper({ children }) {
+export function RelayEnvironmentWrapper({ children }: {children: ReactNode}) {
   const {
     relay
   } = useContext(AuthContext);

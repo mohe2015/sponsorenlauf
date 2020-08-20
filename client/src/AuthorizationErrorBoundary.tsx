@@ -1,28 +1,32 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import { Login } from './login/Login';
 
-export class AuthorizationErrorBoundary extends React.Component {
+type AuthorizationErrorBoundaryState = {
+  error: Error|null,
+  id: number,
+}
 
-  constructor(props) {
-    console.log("ErrorBoundary()")
+export class AuthorizationErrorBoundary extends React.Component<{children: ReactNode}, AuthorizationErrorBoundaryState> {
 
+  constructor(props: { children: React.ReactNode }) {
     super(props);
+    console.log("ErrorBoundary()")
     this.state = { error: null, id: 0 };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
     console.log("componentDidCatch")
 
     this.setState((prevState) => { return {error, id: prevState.id + 1}});
   }
 
-  errorToElement = (error, index) => {
+  errorToElement = (error: { extensions: { code: string; }; message: {} | null | undefined; }, index: number) => {
     console.log("errorToElement")
 
     if (error.extensions?.code === "UNAUTHENTICATED") {
-      return <Login key={index} updateErrorBoundary={(state) => { this.setState(state) }} />;
+      return <Login key={index} updateErrorBoundary={(state: AuthorizationErrorBoundaryState) => { this.setState(state) }} />;
     } else if (error.extensions?.code === "FORBIDDEN") {
       return  <Alert key={index} variant="filled" severity="error">
                 {error.message}
@@ -59,7 +63,9 @@ export class AuthorizationErrorBoundary extends React.Component {
       if (this.state.error.name === "RelayNetwork") {
         return (
           <React.Fragment>
-            {this.state.error.source.errors.map(this.errorToElement)}
+            {
+              // @ts-expect-error
+            this.state.error.source.errors.map(this.errorToElement)}
           </React.Fragment>
         )
       } else {
