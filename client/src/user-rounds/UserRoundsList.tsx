@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { UserRoundsListQuery } from './UserRoundsListQuery';
-import { LoadingRoundRow } from './../rounds/RoundRow';
+import { LoadingRoundRow } from '../rounds/RoundRow';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
