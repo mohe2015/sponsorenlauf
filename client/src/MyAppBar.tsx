@@ -25,6 +25,7 @@ import { LoadingContext } from './LoadingContext';
 import { useMutation, useLazyLoadQuery } from 'react-relay/hooks';
 import { AuthContext } from './RelayEnvironmentProviderWrapper'
 import graphql from "babel-plugin-relay/macro";
+import { MyAppBarQuery } from "./__generated__/MyAppBarQuery.graphql";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -49,7 +50,7 @@ function AccountButton() {
   }
   `);
  
-  const data = useLazyLoadQuery(
+  const data = useLazyLoadQuery<MyAppBarQuery>(
     graphql`
 query MyAppBarQuery {
   me {
@@ -58,7 +59,7 @@ query MyAppBarQuery {
   }
 }
   `,
-  null,
+  {},
   {fetchPolicy: "store-and-network"})
 
   return (
@@ -88,6 +89,7 @@ query MyAppBarQuery {
             >
               <MenuItem onClick={e => {
                 logout({
+                  variables: {},
                   onCompleted: (response, errors) => {
                     resetEnvironment();
                     popupState.close();
@@ -100,7 +102,7 @@ query MyAppBarQuery {
                         navigate("/login");
                       });
                     }
-                   },
+                  },
                   onError: error => {
                     alert(error); // TODO FIXME
                   },
