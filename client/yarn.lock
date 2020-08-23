@@ -1582,7 +1582,7 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@material-ui/core@^5.0.0-alpha.6":
+"@material-ui/core@^5.0.0-alpha.7":
   version "5.0.0-alpha.7"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-5.0.0-alpha.7.tgz#b812b5d33fbfae1296a23e2c6a806a54a8b2208b"
   integrity sha512-2YYcwbPU0t/oiwV9Pd+XYR4iDTJ34uCs906KWeFHdAFQTNBiuCGsdlCMcIpHqFbLFEOSPjfSL7/k5GtZyYMDXA==
@@ -1600,7 +1600,7 @@
     react-is "^16.8.0"
     react-transition-group "^4.4.0"
 
-"@material-ui/lab@^5.0.0-alpha.6":
+"@material-ui/lab@^5.0.0-alpha.7":
   version "5.0.0-alpha.7"
   resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-5.0.0-alpha.7.tgz#d599bc511be75b98bcddfa7694054b0b6860495a"
   integrity sha512-8DIx6mwlLZXdxFvHVdnUDPFDTdijYOyL9lIvW/imtXGqGyfnYFiMhoZHCrb+gGwD+X7hRIGOo54MIO8+PIQHXA==
