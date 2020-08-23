@@ -2,11 +2,12 @@ import React from "react";
 import { useLazyLoadQuery } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { RoundsListComponent } from './RoundsListComponent';
+import { RoundsListQueryListQuery } from "../__generated__/RoundsListQueryListQuery.graphql";
 
 export function RoundsListQuery() {
-  const data = useLazyLoadQuery(
+  const data = useLazyLoadQuery<RoundsListQueryListQuery>(
     graphql`
-query RoundsListQuery($count: Int!, $cursor: String) {
+query RoundsListQueryListQuery($count: Int!, $cursor: String) {
   ...RoundsListComponent_round
 }
   `,

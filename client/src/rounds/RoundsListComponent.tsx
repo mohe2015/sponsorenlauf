@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { ConnectionHandler, OperationType, GraphQLSubscriptionConfig, RecordSourceSelectorProxy } from "relay-runtime";
 import { RoundsListComponent_round$key } from "../__generated__/RoundsListComponent_round.graphql";
-import { RoundsListComponentSubscriptionResponse } from "../__generated__/RoundsListComponentSubscription.graphql";
+import { RoundsListComponentSubscriptionResponse, RoundsListComponentSubscription } from "../__generated__/RoundsListComponentSubscription.graphql";
 
 export function RoundsListComponent({ rounds }: { rounds: RoundsListComponent_round$key }) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
@@ -30,7 +30,7 @@ export function RoundsListComponent({ rounds }: { rounds: RoundsListComponent_ro
     `,
     rounds
   );
-  const subscriptionConfig: GraphQLSubscriptionConfig<OperationType> = useMemo(() => ({
+  const subscriptionConfig: GraphQLSubscriptionConfig<RoundsListComponentSubscription> = useMemo(() => ({
     subscription: graphql`
     subscription RoundsListComponentSubscription {
       subscribeRounds {
@@ -53,7 +53,7 @@ export function RoundsListComponent({ rounds }: { rounds: RoundsListComponent_ro
     onNext: response => {
       console.log("onNext", response)
     },
-    updater: (store: RecordSourceSelectorProxy<RoundsListComponentSubscriptionResponse>) => {
+    updater: (store) => {
       const connectionRecord = ConnectionHandler.getConnection(
         store.getRoot(),
         "RoundsList_round_rounds",
@@ -66,7 +66,7 @@ export function RoundsListComponent({ rounds }: { rounds: RoundsListComponent_ro
       }
       const payload = store.getRootField("subscribeRounds");
 
-      const previousEdge = payload.getLinkedRecord('previous_edge');
+      //const previousEdge = payload.getLinkedRecord('previous_edge');
       const serverEdge = payload.getLinkedRecord('edge');
 
       //const existingEdges = connectionRecord.getLinkedRecords("edges").map(e => e.getLinkedRecord("node").getValue("id"));
@@ -84,14 +84,15 @@ export function RoundsListComponent({ rounds }: { rounds: RoundsListComponent_ro
       ConnectionHandler.insertEdgeBefore(
         connectionRecord,
         newEdge,
-        previousEdge
+        //previousEdge
       );
     }
   }), [])
-  useSubscription(subscriptionConfig);
+  useSubscription<RoundsListComponentSubscription>(subscriptionConfig);
 
   return (<>
-      {(data.rounds?.edges ?? []).map(edge => {
+      {(data.rounds.edges ?? []).map(edge => {
+        // @ts-expect-error
         const node = edge.node;
         return (
           <RoundRow key={node.id} round={node} />

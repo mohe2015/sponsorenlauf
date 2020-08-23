@@ -13,9 +13,10 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import Alert from '@material-ui/lab/Alert';
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { ConnectionHandler } from 'react-relay';
 import { useLazyLoadQuery } from 'react-relay/hooks';
 import { LoadingContext } from '../../LoadingContext'
+import { CreateRunnerFindRunnerQuery } from '../../__generated__/CreateRunnerFindRunnerQuery.graphql';
+import { CreateRunnerUpdateMutation } from '../../__generated__/CreateRunnerUpdateMutation.graphql';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function CreateRunnerContainer(props) {
+export function CreateRunnerContainer() {
   const loading = useContext(LoadingContext)
 
   if (loading) {
@@ -47,13 +48,13 @@ export function CreateRunnerContainer(props) {
   }
 }
 
-export function CreateRunner(props) {
+export function CreateRunner() {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
   let { id } = useParams();
 
-  const data = useLazyLoadQuery(
+  const data = useLazyLoadQuery<CreateRunnerFindRunnerQuery>(
     graphql`
   query CreateRunnerFindRunnerQuery($id: String) {
     runner(where: { id: $id }) {
@@ -71,6 +72,7 @@ export function CreateRunner(props) {
       networkCacheConfig: {
         force: false
       },
+      // @ts-expect-error
       skip: id === null,
     })
 
@@ -99,7 +101,7 @@ export function CreateRunner(props) {
   }
   `);
 
-  const [updateRunner, isUpdateRunnerPending] = useMutation(graphql`
+  const [updateRunner, isUpdateRunnerPending] = useMutation<CreateRunnerUpdateMutation>(graphql`
   mutation CreateRunnerUpdateMutation($id: String, $name: String!, $clazz: String!, $grade: Int!) {
     updateOneRunner(where: { id: $id }, data: { name: $name, clazz: $clazz, grade: $grade }) {
       __typename
@@ -124,13 +126,13 @@ export function CreateRunner(props) {
   }
   `);
 
-  const [name, setName] = useState(id ? data.runner.name : '');
-  const [clazz, setClazz] = useState(id ? data.runner.clazz : '');
-  const [grade, setGrade] = useState(id ? data.runner.grade : '');
+  const [name, setName] = useState(id ? data.runner?.name : '');
+  const [clazz, setClazz] = useState(id ? data.runner?.clazz : '');
+  const [grade, setGrade] = useState(id ? data.runner?.grade : '');
 
-  const [nameError, setNameError] = useState(null);
-  const [clazzError] = useState(null);
-  const [gradeError, setGradeError] = useState(null);
+  const [nameError, setNameError] = useState<string|null>(null);
+  const [clazzError] = useState<string|null>(null);
+  const [gradeError, setGradeError] = useState<string|null>(null);
 
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
