@@ -1,9 +1,10 @@
 // your-app-name/src/RelayEnvironment.js
-import { Environment, Network, QueryResponseCache, RecordSource, Store, Observable } from 'relay-runtime';
+import { Environment, Network, QueryResponseCache, RecordSource, Store, Observable, RequestParameters, Variables, CacheConfig, GraphQLResponse, Disposable, ObservableFromValue } from 'relay-runtime';
 import { SubscriptionClient } from 'subscriptions-transport-ws'
+import { RelayObservable } from 'relay-runtime/lib/network/RelayObservable';
 
-function fetchQuery(cache) {
-  return (operation, variables, cacheConfig) => {
+function fetchQuery(cache: QueryResponseCache) {
+  return (operation: RequestParameters, variables: Variables, cacheConfig: CacheConfig): ObservableFromValue<GraphQLResponse> => {
     const queryID = operation.text;
     const isMutation = operation.operationKind === 'mutation';
     const isQuery = operation.operationKind === 'query';
@@ -11,6 +12,7 @@ function fetchQuery(cache) {
 
     if (
       isQuery &&
+      queryID &&
       !forceFetch
     ) {
       let fromCache = cache.get(queryID, variables);
@@ -34,7 +36,7 @@ function fetchQuery(cache) {
       return response.json();
     }).then(json => {
       // Update cache on queries
-      if (isQuery && json) {
+      if (isQuery && queryID && json) {
         cache.set(queryID, variables, json);
       }
       if (json.data === null && json.errors) {
@@ -53,13 +55,14 @@ const subscriptionClient = new SubscriptionClient('ws://localhost:4000/graphql',
     reconnect: true,
 });
 
-const subscribe = (request, variables) => {
+const subscribe = (request: RequestParameters, variables: Variables): RelayObservable<GraphQLResponse> | Disposable => {
     const subscribeObservable = subscriptionClient.request({
-        query: request.text,
+        query: request.text === null ? undefined : request.text,
         operationName: request.name,
         variables,
     });
     // Important: Convert subscriptions-transport-ws observable type to Relay's
+    // @ts-expect-error
     return Observable.from(subscribeObservable);
 };
 

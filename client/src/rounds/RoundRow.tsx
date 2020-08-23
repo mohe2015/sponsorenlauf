@@ -9,10 +9,11 @@ import TimeAgo from 'react-timeago';
 import germanStrings from 'react-timeago/lib/language-strings/de'
 // @ts-expect-error
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
+import { RoundRow_round, RoundRow_round$key } from "../__generated__/RoundRow_round.graphql";
 
 const formatter = buildFormatter(germanStrings)
 
-export function LoadingRoundRow(props) {
+export function LoadingRoundRow() {
   return (
     <TableRow>
       <TableCell>
@@ -24,8 +25,8 @@ export function LoadingRoundRow(props) {
   )
 }
 
-export function RoundRow(props) {
-  const data = useFragment(
+export function RoundRow({ round }: { round: RoundRow_round$key }) {
+  const data = useFragment<RoundRow_round$key>(
     graphql`
     fragment RoundRow_round on Round {
       id
@@ -39,7 +40,7 @@ export function RoundRow(props) {
       }
     }
     `,
-    props.round,
+    round,
   );
 
   return (
