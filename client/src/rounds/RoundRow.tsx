@@ -4,7 +4,7 @@ import graphql from "babel-plugin-relay/macro";
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { RoundRow_round, RoundRow_round$key } from "../__generated__/RoundRow_round.graphql";
+import { RoundRow_round$key } from "../__generated__/RoundRow_round.graphql";
 
 export function LoadingRoundRow() {
   return (

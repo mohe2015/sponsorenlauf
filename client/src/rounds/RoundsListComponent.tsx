@@ -6,9 +6,9 @@ import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import { ConnectionHandler, OperationType, GraphQLSubscriptionConfig, RecordSourceSelectorProxy } from "relay-runtime";
+import { ConnectionHandler, GraphQLSubscriptionConfig } from "relay-runtime";
 import { RoundsListComponent_round$key } from "../__generated__/RoundsListComponent_round.graphql";
-import { RoundsListComponentSubscriptionResponse, RoundsListComponentSubscription } from "../__generated__/RoundsListComponentSubscription.graphql";
+import { RoundsListComponentSubscription } from "../__generated__/RoundsListComponentSubscription.graphql";
 
 export function RoundsListComponent({ rounds }: { rounds: RoundsListComponent_round$key }) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });

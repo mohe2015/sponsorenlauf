@@ -219,7 +219,7 @@ export function CreateUser() {
 
             if (payload.getValue("__typename") === "UserMutationOutput") {
 
-              const previousEdge = payload.getLinkedRecord('previous_edge');
+              //const previousEdge = payload.getLinkedRecord('previous_edge');
               const serverEdge = payload.getLinkedRecord('edge');
 
               const newEdge = ConnectionHandler.buildConnectionEdge(

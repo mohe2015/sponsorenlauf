@@ -19,8 +19,8 @@ import { CreateRunnerFindRunnerQuery } from '../../__generated__/CreateRunnerFin
 import { CreateRunnerUpdateMutation } from '../../__generated__/CreateRunnerUpdateMutation.graphql';
 import { LocationStateType } from '../../utils';
 import { Location } from 'history';
-import { CreateRunnerMutationResponse, CreateRunnerMutation } from '../../__generated__/CreateRunnerMutation.graphql';
-import { ConnectionHandler, RecordSourceSelectorProxy, SelectorStoreUpdater } from 'relay-runtime';
+import { CreateRunnerMutation } from '../../__generated__/CreateRunnerMutation.graphql';
+import { ConnectionHandler } from 'relay-runtime';
 import { UseMutationConfig } from 'react-relay/lib/relay-experimental/useMutation';
 
 const useStyles = makeStyles((theme) => ({
@@ -229,30 +229,25 @@ export function CreateRunner() {
             }
             const payload = store.getRootField("createOneRunner");
 
-            switch (payload.getValue("__typename")) {
-              case "RunnerMutationOutput": {
-                const previousEdge = payload.getLinkedRecord('previous_edge');
-                const serverEdge = payload.getLinkedRecord('edge');
-    
-                //console.log(connectionRecord);
-                //console.log(newUserRecord);
-    
-                const newEdge = ConnectionHandler.buildConnectionEdge(
-                  store,
-                  connectionRecord,
-                  serverEdge,
-                );
-    
-                ConnectionHandler.insertEdgeAfter(
-                  connectionRecord,
-                  // @ts-expect-error
-                  newEdge,
-                  previousEdge
-                );
-              }
-              default: {
+            if (payload.getValue("__typename") === "RunnerMutationOutput") {
+              const previousEdge = payload.getLinkedRecord('previous_edge');
+              const serverEdge = payload.getLinkedRecord('edge');
 
-              }
+              //console.log(connectionRecord);
+              //console.log(newUserRecord);
+
+              const newEdge = ConnectionHandler.buildConnectionEdge(
+                store,
+                connectionRecord,
+                serverEdge,
+              );
+
+              ConnectionHandler.insertEdgeAfter(
+                connectionRecord,
+                // @ts-expect-error
+                newEdge,
+                previousEdge
+              );
             }
           }
         };
