@@ -18,9 +18,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FormHelperText from '@material-ui/core/FormHelperText'
-import { ConnectionHandler } from 'react-relay';
 import { useLazyLoadQuery } from 'react-relay/hooks';
 import { LoadingContext } from '../../LoadingContext'
+import { CreateUserFindUserQuery } from '../../__generated__/CreateUserFindUserQuery.graphql';
+import { CreateUserUpdateMutation } from '../../__generated__/CreateUserUpdateMutation.graphql';
+import { LocationStateType } from '../../utils';
+import { Location } from 'history';
+import { UserRole } from '../../__generated__/UserRow_user.graphql';
+import { CreateUserCreateMutation } from '../../__generated__/CreateUserCreateMutation.graphql';
+import { ConnectionHandler } from 'relay-runtime';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function CreateUserContainer(props) {
+export function CreateUserContainer() {
   const loading = useContext(LoadingContext)
 
   if (loading) {
@@ -52,13 +58,13 @@ export function CreateUserContainer(props) {
   }
 }
 
-export function CreateUser(props) {
+export function CreateUser() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation() as Location<LocationStateType | null>;
   let { id } = useParams();
 
-  const data = useLazyLoadQuery(
+  const data = useLazyLoadQuery<CreateUserFindUserQuery>(
     graphql`
   query CreateUserFindUserQuery($id: String) {
     user(where: { id: $id }) {
@@ -74,10 +80,11 @@ export function CreateUser(props) {
       networkCacheConfig: {
         force: false
       },
+      // @ts-expect-error
       skip: id === null,
     })
 
-  const [user_create, isCreateOneUserPending] = useMutation(graphql`
+  const [user_create, isCreateOneUserPending] = useMutation<CreateUserCreateMutation>(graphql`
   mutation CreateUserCreateMutation($username: String!, $role: UserRole!) {
     createOneUser(data: { name: $username, role: $role }) {
       __typename
@@ -99,7 +106,7 @@ export function CreateUser(props) {
   }
   `);
 
-  const [updateUser, isUpdateUserPending] = useMutation(graphql`
+  const [updateUser, isUpdateUserPending] = useMutation<CreateUserUpdateMutation>(graphql`
   mutation CreateUserUpdateMutation($id: String, $username: String!, $role: UserRole!) {
     updateOneUser(where: { id: $id }, data: { name: $username, role: $role }) {
       __typename
@@ -121,11 +128,11 @@ export function CreateUser(props) {
   }
   `);
 
-  const [username, setUsername] = useState(id ? data.user.name : '');
-  const [role, setRole] = useState(id ? data.user.role : '');
+  const [username, setUsername] = useState(id ? data.user?.name : '');
+  const [role, setRole] = useState(id ? data.user?.role : '');
 
-  const [usernameError, setUsernameError] = useState(null);
-  const [roleError, setRoleError] = useState(null);
+  const [usernameError, setUsernameError] = useState<string|null>(null);
+  const [roleError, setRoleError] = useState<string|null>(null);
 
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
@@ -163,8 +170,8 @@ export function CreateUser(props) {
           },
           variables: {
             id,
-            username,
-            role
+            username: username!,
+            role: role as UserRole
           },
         })
       } else {
@@ -196,8 +203,8 @@ export function CreateUser(props) {
             alert(error); // TODO FIXME
           },
           variables: {
-            username,
-            role
+            username: username!,
+            role: role as UserRole
           },
           updater: (store) => {
             const connectionRecord = ConnectionHandler.getConnection(
@@ -210,20 +217,23 @@ export function CreateUser(props) {
             }
             const payload = store.getRootField("createOneUser");
 
-            const previousEdge = payload.getLinkedRecord('previous_edge');
-            const serverEdge = payload.getLinkedRecord('edge');
+            if (payload.getValue("__typename") === "UserMutationOutput") {
 
-            const newEdge = ConnectionHandler.buildConnectionEdge(
-              store,
-              connectionRecord,
-              serverEdge,
-            );
+              const previousEdge = payload.getLinkedRecord('previous_edge');
+              const serverEdge = payload.getLinkedRecord('edge');
 
-            ConnectionHandler.insertEdgeAfter(
-              connectionRecord,
-              newEdge,
-              previousEdge
-            );
+              const newEdge = ConnectionHandler.buildConnectionEdge(
+                store,
+                connectionRecord,
+                serverEdge,
+              );
+
+              ConnectionHandler.insertEdgeAfter(
+                connectionRecord,
+                newEdge!,
+                //previousEdge!
+              );
+            }
           }
         })
       }
@@ -268,7 +278,9 @@ export function CreateUser(props) {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={role}
-              onChange={e => setRole(e.target.value)}              
+              onChange={
+                // @ts-expect-error
+                e => setRole(e.target.value)}              
               >
               <MenuItem value={"ADMIN"}>Admin</MenuItem>
               <MenuItem value={"TEACHER"}>Rundenzähler</MenuItem>

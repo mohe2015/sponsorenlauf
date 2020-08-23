@@ -5,11 +5,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from "react-router-dom";
 import { ConfirmProvider } from 'material-ui-confirm';
-import JavascriptTimeAgo from 'javascript-time-ago'
-
-import de from 'javascript-time-ago/locale/de'
-
-JavascriptTimeAgo.addLocale(de)
 
 ReactDOM.unstable_createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

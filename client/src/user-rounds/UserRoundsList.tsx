@@ -12,7 +12,7 @@ import Container from "@material-ui/core/Container";
 import { CreateRound } from "./create/CreateRound";
 import { LoadingContext } from '../LoadingContext'
 
-export function UserRoundsList(props) {
+export function UserRoundsList() {
   const loading = useContext(LoadingContext)
 
   return (

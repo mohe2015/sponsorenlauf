@@ -6,8 +6,9 @@ import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import { UserRoundsListComponent_round$key } from "../__generated__/UserRoundsListComponent_round.graphql";
 
-export function UserRoundsListComponent(props) {
+export function UserRoundsListComponent({ rounds }: { rounds: UserRoundsListComponent_round$key }) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
   const {data, hasNext, loadNext, isLoadingNext} = usePaginationFragment(
@@ -25,12 +26,12 @@ export function UserRoundsListComponent(props) {
         }
       }
     `,
-    props.rounds
+    rounds
   );
 
   return (<>
       {(data.rounds?.edges ?? []).map(edge => {
-        const node = edge.node;
+        const node = edge!.node;
         return (
           <UserRoundRow key={node.id} round={node} />
         );

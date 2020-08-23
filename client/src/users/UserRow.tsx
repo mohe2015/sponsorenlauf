@@ -10,14 +10,13 @@ import Box from "@material-ui/core/Box";
 import Skeleton from '@material-ui/lab/Skeleton';
 import { useConfirm } from 'material-ui-confirm';
 import { useCallback } from 'react';
-import { ConnectionHandler } from 'react-relay';
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
 
-export function LoadingUserRow(props) {
+export function LoadingUserRow() {
   return (
     <TableRow>
       <TableCell component="th" scope="row">

@@ -4,14 +4,7 @@ import graphql from "babel-plugin-relay/macro";
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Skeleton from '@material-ui/lab/Skeleton';
-import TimeAgo from 'react-timeago';
-// @ts-expect-error
-import germanStrings from 'react-timeago/lib/language-strings/de'
-// @ts-expect-error
-import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import { RoundRow_round, RoundRow_round$key } from "../__generated__/RoundRow_round.graphql";
-
-const formatter = buildFormatter(germanStrings)
 
 export function LoadingRoundRow() {
   return (
@@ -51,7 +44,7 @@ export function RoundRow({ round }: { round: RoundRow_round$key }) {
       <TableCell>
           {data.student.name}
       </TableCell>
-      <TableCell><TimeAgo date={data.time} formatter={formatter} /></TableCell>
+      <TableCell>{data.time}</TableCell>
     </TableRow>
   );
 }

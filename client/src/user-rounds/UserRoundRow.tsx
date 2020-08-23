@@ -12,13 +12,11 @@ import { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
-import TimeAgo from 'react-timeago';
-import germanStrings from 'react-timeago/lib/language-strings/de'
-import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
+import { UserRoundRow_round$key } from "../__generated__/UserRoundRow_round.graphql";
+import { ConnectionHandler } from "relay-runtime";
+import { UserRoundRowDeleteRoundMutation } from "../__generated__/UserRoundRowDeleteRoundMutation.graphql";
 
-const formatter = buildFormatter(germanStrings)
-
-export function LoadingRoundRow(props) {
+export function LoadingRoundRow() {
   return (
     <TableRow>
       <TableCell>
@@ -42,7 +40,7 @@ export function LoadingRoundRow(props) {
   )
 }
 
-export function UserRoundRow(props) {
+export function UserRoundRow({ round }: { round: UserRoundRow_round$key }) {
   const data = useFragment(
     graphql`
     fragment UserRoundRow_round on Round {
@@ -59,11 +57,11 @@ export function UserRoundRow(props) {
       }
     }
     `,
-    props.round,
+    round,
   );
 
   const confirm = useConfirm();
-  const [deleteRound, isDeleteRoundPending] = useMutation(graphql`
+  const [deleteRound, isDeleteRoundPending] = useMutation<UserRoundRowDeleteRoundMutation>(graphql`
   mutation UserRoundRowDeleteRoundMutation($id: String!) {
     deleteOneRound(where: { id: $id }) {
       id
@@ -132,7 +130,7 @@ export function UserRoundRow(props) {
       <TableCell>
           {data.student.name}
       </TableCell>
-      <TableCell><TimeAgo date={data.time} formatter={formatter} /></TableCell>
+      <TableCell>{data.time}</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Löschen">
           <LoadingButton
