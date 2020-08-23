@@ -21,13 +21,14 @@ import { useNavigate } from "react-router-dom"
 import { unstable_useTransition as useTransition } from 'react';
 import { useCallback } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
+import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
 const useStyles = makeStyles({
   // TODO fix #20379.
-  span: visuallyHidden,
-});
+  span: visuallyHidden as CSSProperties
+,});
 
-export function RunnersList(props) {
+export function RunnersList() {
   const classes = useStyles();
   const loading = useContext(LoadingContext)
   const navigate = useNavigate();
@@ -42,15 +43,15 @@ export function RunnersList(props) {
   );
 
   const [orderBy, setOrderBy] = useState("id");
-  const [order, setOrder] = useState("asc");
+  const [order, setOrder] = useState<"asc" | "desc">("asc");
 
-  const handleRequestSort = (event, property) => {
+  const handleRequestSort = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, property: React.SetStateAction<string>) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
-  const createSortHandler = (property) => (event) => {
+  const createSortHandler = (property: string) => (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     handleRequestSort(event, property);
   };
 

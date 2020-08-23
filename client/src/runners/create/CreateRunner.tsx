@@ -245,12 +245,10 @@ export function CreateRunner() {
     
                 ConnectionHandler.insertEdgeAfter(
                   connectionRecord,
+                  // @ts-expect-error
                   newEdge,
                   previousEdge
                 );
-              }
-              case "RunnerMutationError": {
-                
               }
               default: {
 
@@ -322,7 +320,7 @@ export function CreateRunner() {
             autoComplete="off"
             autoFocus
             value={grade}
-            onChange={e => setGrade(e.target.value)}
+            onChange={e => setGrade(parseInt(e.target.value))}
             helperText={gradeError}
             error={gradeError !== null}
           />

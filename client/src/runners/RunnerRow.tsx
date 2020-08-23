@@ -17,6 +17,7 @@ import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import { RunnerRow_runner$key } from '../__generated__/RunnerRow_runner.graphql'
+import { RunnerRowDeleteRunnerMutation } from "../__generated__/RunnerRowDeleteRunnerMutation.graphql";
 
 export function LoadingRunnerRow(props: any) {
   return (
@@ -73,7 +74,7 @@ export function RunnerRow(props: any) {
   );
 
   const confirm = useConfirm();
-  const [deleteRunner, isDeleteRunnerPending] = useMutation(graphql`
+  const [deleteRunner, isDeleteRunnerPending] = useMutation<RunnerRowDeleteRunnerMutation>(graphql`
   mutation RunnerRowDeleteRunnerMutation($id: String!) {
     deleteOneRunner(where: { id: $id }) {
       id
@@ -94,12 +95,10 @@ export function RunnerRow(props: any) {
           onCompleted: (response, errors) => {
             if (errors !== null) {
               console.log(errors)
-              // @ts-expect-error
               alert("Fehler: " + errors.map(e => e.message).join(", "))
             }
           },
           onError: error => {
-            // @ts-expect-error
             alert(error); // TODO FIXME
           },
           variables: {
