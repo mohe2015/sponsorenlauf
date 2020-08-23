@@ -15,6 +15,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import LoadingButton from '@material-ui/lab/LoadingButton';
+import { UserRow_user$key } from "../__generated__/UserRow_user.graphql";
+import { ConnectionHandler } from "relay-runtime";
+import { UserRowDeleteUserMutation } from "../__generated__/UserRowDeleteUserMutation.graphql";
 
 export function LoadingUserRow() {
   return (
@@ -50,7 +53,7 @@ export function LoadingUserRow() {
   )
 }
 
-export function UserRow(props) {
+export function UserRow({ user }: { user: UserRow_user$key }) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
   const data = useFragment(
@@ -61,10 +64,10 @@ export function UserRow(props) {
       role
     }
     `,
-    props.user,
+    user,
   );
   const confirm = useConfirm();
-  const [deleteUser, isDeleteUserPending] = useMutation(graphql`
+  const [deleteUser, isDeleteUserPending] = useMutation<UserRowDeleteUserMutation>(graphql`
   mutation UserRowDeleteUserMutation($id: String!) {
     deleteOneUser(where: { id: $id }) {
       id

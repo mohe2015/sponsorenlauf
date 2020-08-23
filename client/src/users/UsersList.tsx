@@ -19,7 +19,7 @@ import { unstable_useTransition as useTransition } from 'react';
 import { useCallback } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 
-export function UsersList(props) {
+export function UsersList() {
   const loading = useContext(LoadingContext)
   const navigate = useNavigate();
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });

@@ -6,9 +6,11 @@ import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import { ConnectionHandler } from 'react-relay';
+import { UsersListComponent_user$key } from "../__generated__/UsersListComponent_user.graphql";
+import { ConnectionHandler, GraphQLSubscriptionConfig } from "relay-runtime";
+import { UsersListComponentSubscription } from "../__generated__/UsersListComponentSubscription.graphql";
 
-export function UsersListComponent(props) {
+export function UsersListComponent({ users }: { users: UsersListComponent_user$key }) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
   const {data, hasNext, loadNext, isLoadingNext} = usePaginationFragment(
@@ -27,9 +29,9 @@ export function UsersListComponent(props) {
         }
       }
     `,
-    props.users
+    users
   );
-  const subscriptionConfig = useMemo(() => ({
+  const subscriptionConfig: GraphQLSubscriptionConfig<UsersListComponentSubscription> = useMemo(() => ({
     subscription: graphql`
     subscription UsersListComponentSubscription {
       subscribeUsers {
@@ -73,7 +75,7 @@ export function UsersListComponent(props) {
 
       ConnectionHandler.insertEdgeAfter(
         connectionRecord,
-        newEdge,
+        newEdge!,
        // previousEdge
       );
     }
@@ -82,7 +84,7 @@ export function UsersListComponent(props) {
 
   return (<>
       {(data.users?.edges ?? []).map(edge => {
-        const node = edge.node;
+        const node = edge!.node;
         return (
           <UserRow key={node.id} user={node} />
         );

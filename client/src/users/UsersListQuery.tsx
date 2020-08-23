@@ -2,11 +2,12 @@ import React from "react";
 import { useLazyLoadQuery } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { UsersListComponent } from './UsersListComponent';
+import { UsersListQueryListQuery } from "../__generated__/UsersListQueryListQuery.graphql";
 
 export function UsersListQuery() {
-  const data = useLazyLoadQuery(
+  const data = useLazyLoadQuery<UsersListQueryListQuery>(
     graphql`
-query UsersListQuery($count: Int!, $cursor: String) {
+query UsersListQueryListQuery($count: Int!, $cursor: String) {
   ...UsersListComponent_user
 }
   `,
