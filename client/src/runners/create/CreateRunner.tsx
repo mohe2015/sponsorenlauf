@@ -17,6 +17,11 @@ import { useLazyLoadQuery } from 'react-relay/hooks';
 import { LoadingContext } from '../../LoadingContext'
 import { CreateRunnerFindRunnerQuery } from '../../__generated__/CreateRunnerFindRunnerQuery.graphql';
 import { CreateRunnerUpdateMutation } from '../../__generated__/CreateRunnerUpdateMutation.graphql';
+import { LocationStateType } from '../../utils';
+import { Location } from 'history';
+import { CreateRunnerMutationResponse, CreateRunnerMutation } from '../../__generated__/CreateRunnerMutation.graphql';
+import { ConnectionHandler, RecordSourceSelectorProxy, SelectorStoreUpdater } from 'relay-runtime';
+import { UseMutationConfig } from 'react-relay/lib/relay-experimental/useMutation';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -51,7 +56,7 @@ export function CreateRunnerContainer() {
 export function CreateRunner() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation() as Location<LocationStateType | null>;
   let { id } = useParams();
 
   const data = useLazyLoadQuery<CreateRunnerFindRunnerQuery>(
@@ -76,7 +81,7 @@ export function CreateRunner() {
       skip: id === null,
     })
 
-  const [runner_create, IsCreateRunnerPending] = useMutation(graphql`
+  const [runner_create, IsCreateRunnerPending] = useMutation<CreateRunnerMutation>(graphql`
   mutation CreateRunnerMutation($name: String!, $clazz: String!, $grade: Int!) {
     createOneRunner(data: { name: $name, clazz: $clazz, grade: $grade }) {
       __typename
@@ -128,7 +133,7 @@ export function CreateRunner() {
 
   const [name, setName] = useState(id ? data.runner?.name : '');
   const [clazz, setClazz] = useState(id ? data.runner?.clazz : '');
-  const [grade, setGrade] = useState(id ? data.runner?.grade : '');
+  const [grade, setGrade] = useState(id ? data.runner?.grade : 0);
 
   const [nameError, setNameError] = useState<string|null>(null);
   const [clazzError] = useState<string|null>(null);
@@ -170,21 +175,21 @@ export function CreateRunner() {
           },
           variables: {
             id,
-            name,
-            clazz,
-            grade
+            name: name!,
+            clazz: clazz!,
+            grade: grade!
           },
         })
       } else {
-        runner_create({
+        let config: UseMutationConfig<CreateRunnerMutation> = {
           onCompleted: (response, errors) => {
             if (errors !== null) {
               console.log(errors)
               alert("Fehler: " + errors.map(e => e.message).join(", "))
             } else {
-              if (response.runner_create.__typename === "RunnerMutationError") {
-                setNameError(response.runner_create.nameError);
-                setGradeError(response.runner_create.gradeError);
+              if (response.createOneRunner.__typename === "RunnerMutationError") {
+                setNameError(response.createOneRunner.nameError);
+                setGradeError(response.createOneRunner.gradeError);
               } else {
                 setNameError(null);
                 setGradeError(null);
@@ -204,9 +209,9 @@ export function CreateRunner() {
             alert(error); // TODO FIXME
           },
           variables: {
-            name,
-            clazz,
-            grade: parseInt(grade)
+            name: name!,
+            clazz: clazz!,
+            grade: grade!
           },
           updater: (store) => {
             //console.log(store)
@@ -224,25 +229,36 @@ export function CreateRunner() {
             }
             const payload = store.getRootField("createOneRunner");
 
-            const previousEdge = payload.getLinkedRecord('previous_edge');
-            const serverEdge = payload.getLinkedRecord('edge');
+            switch (payload.getValue("__typename")) {
+              case "RunnerMutationOutput": {
+                const previousEdge = payload.getLinkedRecord('previous_edge');
+                const serverEdge = payload.getLinkedRecord('edge');
+    
+                //console.log(connectionRecord);
+                //console.log(newUserRecord);
+    
+                const newEdge = ConnectionHandler.buildConnectionEdge(
+                  store,
+                  connectionRecord,
+                  serverEdge,
+                );
+    
+                ConnectionHandler.insertEdgeAfter(
+                  connectionRecord,
+                  newEdge,
+                  previousEdge
+                );
+              }
+              case "RunnerMutationError": {
+                
+              }
+              default: {
 
-            //console.log(connectionRecord);
-            //console.log(newUserRecord);
-
-            const newEdge = ConnectionHandler.buildConnectionEdge(
-              store,
-              connectionRecord,
-              serverEdge,
-            );
-
-            ConnectionHandler.insertEdgeAfter(
-              connectionRecord,
-              newEdge,
-              previousEdge
-            );
+              }
+            }
           }
-        })
+        };
+        runner_create(config);
       }
     },
     [id, updateRunner, name, clazz, grade, runner_create, navigate, startTransition, location]

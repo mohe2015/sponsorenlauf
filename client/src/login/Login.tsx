@@ -20,11 +20,8 @@ import { AuthContext } from '../RelayEnvironmentProviderWrapper'
 import { LoginMutation } from '../__generated__/LoginMutation.graphql';
 import { AuthorizationErrorBoundaryState } from '../AuthorizationErrorBoundary';
 import { Location } from 'history';
+import { LocationStateType } from '../utils';
 
-interface LocationStateType {
-  oldPathname: string,
-  errorMessage: string
-}
 
 function Copyright() {
   return (
