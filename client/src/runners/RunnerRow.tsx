@@ -19,7 +19,7 @@ import LoadingButton from '@material-ui/lab/LoadingButton';
 import { RunnerRow_runner$key } from '../__generated__/RunnerRow_runner.graphql'
 import { RunnerRowDeleteRunnerMutation } from "../__generated__/RunnerRowDeleteRunnerMutation.graphql";
 
-export function LoadingRunnerRow(props: any) {
+export function LoadingRunnerRow() {
   return (
       <TableRow>
       <TableCell component="th" scope="row" align="right">
@@ -56,7 +56,7 @@ export function LoadingRunnerRow(props: any) {
   )
 }
 
-export function RunnerRow(props: any) {
+export function RunnerRow({ runner }: { runner: RunnerRow_runner$key }) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
   const data = useFragment<RunnerRow_runner$key>(
@@ -70,7 +70,7 @@ export function RunnerRow(props: any) {
       roundCount
     }
     `,
-    props.runner,
+    runner,
   );
 
   const confirm = useConfirm();

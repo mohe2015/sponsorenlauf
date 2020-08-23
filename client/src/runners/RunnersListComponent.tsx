@@ -6,8 +6,9 @@ import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import { RunnersListComponent_runner$key } from "../__generated__/RunnersListComponent_runner.graphql";
 
-export function RunnersListComponent(props) {
+export function RunnersListComponent({ runners }: { runners: RunnersListComponent_runner$key }) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
   const {data, hasNext, loadNext, isLoadingNext} = usePaginationFragment(
@@ -25,12 +26,12 @@ export function RunnersListComponent(props) {
         }
       }
     `,
-    props.runners
+    runners
   );
 
   return (<>
     {(data.runners?.edges ?? []).map(edge => {
-      const node = edge.node;
+      const node = edge!.node;
       return (
         <RunnerRow key={node.id} runner={node} />
       );
