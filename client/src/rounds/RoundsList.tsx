@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Container from "@material-ui/core/Container";
 import { LoadingContext } from '../LoadingContext'
 
-export function RoundsList(props) {
+export function RoundsList() {
   const loading = useContext(LoadingContext)
 
   return (

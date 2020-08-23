@@ -6,9 +6,11 @@ import { unstable_useTransition as useTransition } from 'react';
 import LoadingButton from '@material-ui/lab/LoadingButton';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import { ConnectionHandler } from 'react-relay';
+import { ConnectionHandler, OperationType, GraphQLSubscriptionConfig, RecordSourceSelectorProxy } from "relay-runtime";
+import { RoundsListComponent_round$key } from "../__generated__/RoundsListComponent_round.graphql";
+import { RoundsListComponentSubscriptionResponse } from "../__generated__/RoundsListComponentSubscription.graphql";
 
-export function RoundsListComponent(props) {
+export function RoundsListComponent({ rounds }: { rounds: RoundsListComponent_round$key }) {
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
   const {data, hasNext, loadNext, isLoadingNext} = usePaginationFragment(
@@ -26,9 +28,9 @@ export function RoundsListComponent(props) {
         }
       }
     `,
-    props.rounds
+    rounds
   );
-  const subscriptionConfig = useMemo(() => ({
+  const subscriptionConfig: GraphQLSubscriptionConfig<OperationType> = useMemo(() => ({
     subscription: graphql`
     subscription RoundsListComponentSubscription {
       subscribeRounds {
@@ -51,7 +53,7 @@ export function RoundsListComponent(props) {
     onNext: response => {
       console.log("onNext", response)
     },
-    updater: (store) => {
+    updater: (store: RecordSourceSelectorProxy<RoundsListComponentSubscriptionResponse>) => {
       const connectionRecord = ConnectionHandler.getConnection(
         store.getRoot(),
         "RoundsList_round_rounds",
@@ -77,7 +79,7 @@ export function RoundsListComponent(props) {
         store,
         connectionRecord,
         serverEdge,
-      );
+      )!;
 
       ConnectionHandler.insertEdgeBefore(
         connectionRecord,
