@@ -203,7 +203,7 @@ export function CreateRound() {
                   type="number"
                   autoComplete="off"
                   autoFocus
-                  value={startNumber}
+                  value={startNumber === null ? "" : startNumber}
                   required
                   onChange={e => { setStartNumber(parseInt(e.target.value)); setStartNumberError(null) }}
                   label="Startnummer"
