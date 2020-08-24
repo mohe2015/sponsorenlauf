@@ -16,6 +16,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { AuthContext, useAuthContext, RelayEnvironmentWrapper } from './RelayEnvironmentProviderWrapper'
 import Snackbar from '@material-ui/core/Snackbar';
 import { ClassRunnersList } from './runners-by-class/ClassRunnersList';
+import { Countdown } from './countdown/Countdown'
 
 // authorizationerrorboundary
 // which passes state update function down to login children
@@ -49,6 +50,7 @@ function App() {
               <Route path="/edit/:id" element={<CreateRunnerContainer />} />
               <Route path="*" element={<RunnersList />} />
             </Route>
+            <Route path="/countdown" element={<Countdown />} />
             <Route path="/by-class-runners" element={<ClassRunnersList />} />
             <Route path="/rounds">
               <Route path="*" element={<RoundsList />} />
