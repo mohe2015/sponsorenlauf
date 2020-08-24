@@ -34,5 +34,8 @@
   },
   "devDependencies": {
     "typescript": "^4.0.2"
+  },
+  "resolutions": {
+    "typescript": "4.0.2"
   }
 }
