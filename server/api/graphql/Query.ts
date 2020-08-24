@@ -169,9 +169,11 @@ schema.queryType({
       list: true,
       resolve: async (root, args, context) => {
         let runners = await context.db.runner.findMany({
-          orderBy: {
+          orderBy: [{
             clazz: "asc",
-          },
+          }, {
+            startNumber: "asc",
+          }]
         })
         let initialValue: { [clazz: string]: Runner[]} = {};
         

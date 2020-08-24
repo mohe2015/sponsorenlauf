@@ -151,6 +151,7 @@ export function MyAppBar() {
   return (<>
     <AuthorizationErrorBoundary>
     
+    <Box displayPrint="none">
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" noWrap className={classes.grow}>
@@ -232,6 +233,7 @@ export function MyAppBar() {
         </div>
       </Toolbar>
     </AppBar>
+    </Box>
 
       <Suspense fallback={<LoadingContext.Provider value={true}><Outlet /></LoadingContext.Provider>}>
         <LoadingContext.Provider value={false}>

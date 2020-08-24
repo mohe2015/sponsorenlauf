@@ -17,8 +17,13 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   center_header: {
-    textAlign: "center"
+    textAlign: "center",
+    margin: 0,
   },
+  avoid_page_break: {
+   // pageBreakInside: "avoid",
+    breakInside: "avoid-page"
+  }
 }));
 
 export function ClassRunnersListComponent() {
@@ -47,11 +52,10 @@ export function ClassRunnersListComponent() {
   return (<>
     {data.runnersByClass.map(classWithRunners => {
       return (
-      <div key={classWithRunners.class}>
-        <h1 className={classes.center_header}>{classWithRunners.class}</h1>
+      <div className={classes.avoid_page_break} key={classWithRunners.class}>
         <Container maxWidth="md">
   <TableContainer component={Paper}>
-    <Table aria-label="Liste der Läufer">
+    <Table size="small" aria-label="Liste der Läufer">
       <TableHead>
         <TableRow>
           <TableCell align="right">Startnummer</TableCell>
