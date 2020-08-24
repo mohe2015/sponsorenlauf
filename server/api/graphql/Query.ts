@@ -175,7 +175,7 @@ schema.queryType({
         })
         let initialValue: { [clazz: string]: Runner[]} = {};
         
-        runners.reduce((accumulator, currentValue) => {
+        runners.reduce((accumulator: { [clazz: string]: Runner[]}, currentValue: Runner) => {
           (accumulator[currentValue.clazz] ??= []).push(currentValue)
           return accumulator
         }, initialValue)
