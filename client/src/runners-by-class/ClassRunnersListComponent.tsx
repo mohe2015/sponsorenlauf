@@ -12,8 +12,18 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Container from "@material-ui/core/Container";
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  center_header: {
+    textAlign: "center"
+  },
+}));
 
 export function ClassRunnersListComponent() {
+  const classes = useStyles();
+
   const data = useLazyLoadQuery<ClassRunnersListComponentRunnersByClassQuery>(
     graphql`
       query ClassRunnersListComponentRunnersByClassQuery {
@@ -36,9 +46,9 @@ export function ClassRunnersListComponent() {
 
   return (<>
     {data.runnersByClass.map(classWithRunners => {
-      return (<>
+      return (
       <div key={classWithRunners.class}>
-        <h1>{classWithRunners.class}</h1>
+        <h1 className={classes.center_header}>{classWithRunners.class}</h1>
         <Container maxWidth="md">
   <TableContainer component={Paper}>
     <Table aria-label="Liste der Läufer">
@@ -52,15 +62,13 @@ export function ClassRunnersListComponent() {
         </TableRow>
       </TableHead>
       <TableBody>
-        {classWithRunners.runners.map(runner => {
-          <ClassRunnerRow key={runner.id} runner={runner} />
-        })}
+        {classWithRunners.runners.map(runner => <ClassRunnerRow key={runner.id} runner={runner} />)}
   </TableBody>
         </Table>
       </TableContainer>
       </Container>
       </div>
-      </>
+      
       );
     })}
   </>
