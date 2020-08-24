@@ -32,5 +32,7 @@
     "nexus-plugin-shield": "^0.2.0",
     "nexus-plugin-subscriptions": "0.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  }
 }

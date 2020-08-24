@@ -1,5 +1,6 @@
 import { schema } from "nexus";
 import { decode } from "../relay-tools-custom";
+import { Runner } from "nexus-plugin-prisma/client";
 
 schema.extendInputType({
   type: "RunnerOrderByInput",
@@ -42,7 +43,7 @@ schema.queryType({
       additionalArgs: {
         orderBy: schema.arg({ type: "RunnerOrderByInput" }),
       },
-      resolve: async (root, args, ctx, info) => {
+      resolve: async (root, args, ctx) => {
         let result = await ctx.db.runner.findMany({
           orderBy: args.orderBy,
           take: args.first + 1,
@@ -93,7 +94,7 @@ schema.queryType({
         filter: schema.arg({ type: "RoundWhereInput", required: false }),
         orderBy: schema.arg({ type: "RoundOrderByInput" }),
       },
-      resolve: async (root, args, ctx, info) => {
+      resolve: async (root, args, ctx) => {
         let result = await ctx.db.round.findMany({
           orderBy: args.orderBy,
           where: args.filter === null ? undefined : args.filter,
@@ -126,7 +127,7 @@ schema.queryType({
     t.connection("users", {
       type: "User",
       disableBackwardPagination: true,
-      resolve: async (root, args, ctx, info) => {
+      resolve: async (root, args, ctx) => {
         let result = await ctx.db.user.findMany({
           take: args.first + 1,
           cursor: args.after ? { id: args.after } : undefined,
@@ -166,15 +167,28 @@ schema.queryType({
     t.field("runnersByClass", {
       type: "ClassRunners",
       list: true,
-      resolve: async (root, args, context, info) => {
+      resolve: async (root, args, context) => {
+        let runners = await context.db.runner.findMany({
+          orderBy: {
+            clazz: "asc",
+          },
+        })
+        let initialValue: { [clazz: string]: Runner[]} = {};
+        
+        runners.reduce((accumulator, currentValue) => {
+          (accumulator[currentValue.clazz] ??= []).push(currentValue)
+          return accumulator
+        }, initialValue)
 
+
+        return null;
       }
     })
 
     t.field("node", {
       type: "Node",
       args: { id: schema.idArg({ required: true }) },
-      resolve: (root, args, context, info) => {
+      resolve: (root, args, context) => {
         const { id, __typename } = decode(args.id);
         const objeto = __typename.charAt(0).toLowerCase() + __typename.slice(1); // from TitleCase to camelCase
         return {
