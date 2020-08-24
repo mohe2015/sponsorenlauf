@@ -11,6 +11,16 @@ schema.extendInputType({
   }
 })
 
+schema.objectType({
+  name: "ClassRunners",
+  definition(t) {
+    t.string("class")
+    t.list.field("runners", {
+      type: "Runner",
+    })
+  }
+})
+
 schema.queryType({
   definition(t) {
     t.field("me", {
@@ -151,6 +161,14 @@ schema.queryType({
 
     t.crud.runner({
       type: "Runner"
+    })
+
+    t.field("runnersByClass", {
+      type: "ClassRunners",
+      list: true,
+      resolve: async (root, args, context, info) => {
+
+      }
     })
 
     t.field("node", {
