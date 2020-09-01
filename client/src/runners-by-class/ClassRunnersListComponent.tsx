@@ -1,8 +1,7 @@
 import React from "react";
-import { useLazyLoadQuery, usePaginationFragment } from 'react-relay/hooks';
+import { useLazyLoadQuery } from 'react-relay/hooks';
 import graphql from "babel-plugin-relay/macro";
 import { ClassRunnerRow } from './ClassRunnerRow'
-import { unstable_useTransition as useTransition } from 'react';
 import { ClassRunnersListComponentRunnersByClassQuery } from "../__generated__/ClassRunnersListComponentRunnersByClassQuery.graphql";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,7 +11,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Container from "@material-ui/core/Container";
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
