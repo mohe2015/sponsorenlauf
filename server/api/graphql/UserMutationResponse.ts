@@ -4,14 +4,13 @@ schema.objectType({
   name: "UserMutationError",
   definition(t) {
     t.string("usernameError");
-    t.string("roleError");
+    t.string("roleError", { nullable: true });
   },
 });
 
 schema.objectType({
   name: "UserMutationOutput",
   definition(t) {
-    t.field("previous_edge", {type: "String"})
     t.field("edge", {type: "UserEdge"})
   }
 })

@@ -10,7 +10,6 @@ schema.objectType({
 schema.objectType({
   name: "CreateRoundMutationOutput",
   definition(t) {
-    t.field("previous_edge", {type: "String"})
     t.field("edge", {type: "RoundEdge"})
   }
 })

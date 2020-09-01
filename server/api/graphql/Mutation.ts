@@ -18,7 +18,7 @@ schema.mutationType({
       type: "UserMutationResponse",
       nullable: false,
       args: { data: schema.arg({type: "UserCreateInput", nullable: false}) },
-      resolve: async (_parent, args, context, info) => {
+      resolve: async (parent, args, context, info) => {
         let user = await context.db.user.create({
           data: {
             ...args.data,
@@ -36,7 +36,6 @@ schema.mutationType({
 
         let output = {
           __typename: "UserMutationOutput",
-          previous_edge: null,
           edge: {
             cursor: user.id,
             node: {
@@ -156,7 +155,6 @@ schema.mutationType({
 
         return {
           __typename: "RunnerMutationOutput",
-          previous_edge: null,
           edge: {
             cursor: runner.id,
             node: {
@@ -231,6 +229,7 @@ schema.mutationType({
           await context.db.$executeRaw`INSERT INTO "Round" (id, "studentId", "createdById") VALUES (${thecuid}, (SELECT id FROM "Runner" WHERE "startNumber" = ${startNumber}), ${createdById});`
 
           // technically the select id could have a race condition and not find the runner any more. but then updating doesnt matter
+          // CAN NOW BE DONE USING PRISMA
           await context.db.$executeRaw`UPDATE "Runner" SET "roundCount" = "roundCount" + 1 WHERE id = (SELECT id FROM "Runner" WHERE "startNumber" = ${startNumber});`
           
           // TODO FIXME replace with normal select?

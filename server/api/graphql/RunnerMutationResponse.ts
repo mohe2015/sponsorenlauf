@@ -4,14 +4,13 @@ schema.objectType({
   name: "RunnerMutationError",
   definition(t) {
     t.string("nameError");
-    t.string("gradeError");
+    t.string("gradeError", { nullable: true });
   },
 });
 
 schema.objectType({
   name: "RunnerMutationOutput",
   definition(t) {
-    t.field("previous_edge", {type: "String", nullable: true})
     t.field("edge", {type: "RunnerEdge"})
   }
 })
