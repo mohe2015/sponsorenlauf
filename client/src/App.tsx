@@ -8,6 +8,7 @@ import { RunnersList } from "./runners/RunnersList";
 import { RoundsList } from "./rounds/RoundsList";
 import { UserRoundsList } from "./user-rounds/UserRoundsList";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Routes, Route, useLocationPending } from "react-router-dom";
 import { CreateUserContainer } from "./users/create/CreateUser";
 import { CreateRunnerContainer } from "./runners/create/CreateRunner";
@@ -30,42 +31,54 @@ function App() {
   let auth = useAuthContext();
   let pendingLocation = useLocationPending();
 
+  const theme = React.useMemo(
+      () =>
+        createMuiTheme({
+          palette: {
+            type: 'dark',
+          },
+        }),
+      [],
+    );
+
   return (
     <AuthContext.Provider value={auth}>
       <RelayEnvironmentWrapper>
-        <CssBaseline />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
 
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={pendingLocation}
-          message="Wird geladen..."
-        />
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={pendingLocation}
+            message="Wird geladen..."
+          />
 
-        <Routes>
-          <ProtectedRoute path="*" element={<MyAppBar />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/users">
-              <Route path="/create" element={<CreateUserContainer />} />
-              <Route path="/edit/:id" element={<CreateUserContainer />} />
-              <Route path="*" element={<UsersList />} />
-            </Route>
-            <Route path="/runners">
-              <Route path="/create" element={<CreateRunnerContainer />} />
-              <Route path="/edit/:id" element={<CreateRunnerContainer />} />
-              <Route path="*" element={<RunnersList />} />
-            </Route>
-            <Route path="/countdown" element={<Countdown />} />
-            <Route path="/by-class-runners" element={<ClassRunnersList />} />
-            <Route path="/rounds">
-              <Route path="*" element={<RoundsList />} />
-            </Route>
-            <Route path="/user-rounds">
-              <Route path="*" element={<UserRoundsList />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </ProtectedRoute>
-          <Route path="/login" element={<Login />} />
-        </Routes>
+          <Routes>
+            <ProtectedRoute path="*" element={<MyAppBar />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/users">
+                <Route path="/create" element={<CreateUserContainer />} />
+                <Route path="/edit/:id" element={<CreateUserContainer />} />
+                <Route path="*" element={<UsersList />} />
+              </Route>
+              <Route path="/runners">
+                <Route path="/create" element={<CreateRunnerContainer />} />
+                <Route path="/edit/:id" element={<CreateRunnerContainer />} />
+                <Route path="*" element={<RunnersList />} />
+              </Route>
+              <Route path="/countdown" element={<Countdown />} />
+              <Route path="/by-class-runners" element={<ClassRunnersList />} />
+              <Route path="/rounds">
+                <Route path="*" element={<RoundsList />} />
+              </Route>
+              <Route path="/user-rounds">
+                <Route path="*" element={<UserRoundsList />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </ProtectedRoute>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </ThemeProvider>
       </RelayEnvironmentWrapper>
     </AuthContext.Provider>
   );
