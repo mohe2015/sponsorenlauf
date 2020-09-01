@@ -1,3 +1,5 @@
-default
 public
 scripts
+.yarn
+config
+src/__generated__/
