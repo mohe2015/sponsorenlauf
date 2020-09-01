@@ -37,7 +37,7 @@ export function RunnersListComponent({ runners }: { runners: RunnersListComponen
       );
     })}
     { hasNext ? <TableRow>
-      <TableCell component="th" scope="row" colSpan={5}>
+      <TableCell component="th" scope="row" colSpan={6}>
           <LoadingButton fullWidth={true} pending={isLoadingNext || isPending} variant="contained" color="primary" onClick={() => {
                 startTransition(() => {
                   loadNext(25)

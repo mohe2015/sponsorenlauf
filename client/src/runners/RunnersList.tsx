@@ -93,6 +93,7 @@ export function RunnersList() {
               ) : null}
             </TableSortLabel>
           </TableCell>
+          <TableCell align="right">Aktionen</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

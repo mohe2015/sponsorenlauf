@@ -157,7 +157,7 @@ schema.mutationType({
         return {
           __typename: "RunnerMutationOutput",
           previous_edge: null,
-          runner_edge: {
+          edge: {
             cursor: runner.id,
             node: {
               ...runner,
