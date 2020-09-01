@@ -108,7 +108,7 @@ export function CreateRunner() {
 
   const [updateRunner, isUpdateRunnerPending] = useMutation<CreateRunnerUpdateMutation>(graphql`
   mutation CreateRunnerUpdateMutation($id: String, $name: String!, $clazz: String!, $grade: Int!) {
-    updateOneRunner(where: { id: $id }, data: { name: $name, clazz: $clazz, grade: $grade }) {
+    updateOneRunner(where: { id: $id }, data: { name: { set: $name }, clazz: { set: $clazz }, grade: { set: $grade } }) {
       __typename
       ... on RunnerMutationOutput {
         previous_edge

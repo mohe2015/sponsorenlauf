@@ -8,7 +8,7 @@ datasource postgresql {
 
 generator prisma_client {
   provider = "prisma-client-js"
-  previewFeatures = ["transactionApi", "aggregateApi", "connectOrCreate", "distinct", "middlewares"]
+  previewFeatures = ["atomicNumberOperations", "transactionApi", "connectOrCreate", "insensitiveFilters"]
 }
 
 enum UserRole {
