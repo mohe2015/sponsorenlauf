@@ -5,5 +5,5 @@ module.exports = {
   language: "typescript",
   artifactDirectory: "./src/__generated__",
   extensions: ["js", "ts", "tsx"],
-  customScalars: { "DateTime": "String" }
-}
+  customScalars: { DateTime: "String" },
+};

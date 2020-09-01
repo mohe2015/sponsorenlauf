@@ -1,20 +1,20 @@
 import React from "react";
-import { useFragment, useMutation } from 'react-relay/hooks';
-import { unstable_useTransition as useTransition } from 'react';
+import { useFragment, useMutation } from "react-relay/hooks";
+import { unstable_useTransition as useTransition } from "react";
 import graphql from "babel-plugin-relay/macro";
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
 import ControlledTooltip from "../ControlledTooltip";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Skeleton from '@material-ui/lab/Skeleton';
-import { useConfirm } from 'material-ui-confirm';
-import { useCallback } from 'react';
-import { useNavigate } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen } from '@fortawesome/free-solid-svg-icons'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import LoadingButton from '@material-ui/lab/LoadingButton';
+import Skeleton from "@material-ui/lab/Skeleton";
+import { useConfirm } from "material-ui-confirm";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import LoadingButton from "@material-ui/lab/LoadingButton";
 import { UserRow_user$key } from "../__generated__/UserRow_user.graphql";
 import { ConnectionHandler } from "relay-runtime";
 import { UserRowDeleteUserMutation } from "../__generated__/UserRowDeleteUserMutation.graphql";
@@ -23,34 +23,44 @@ export function LoadingUserRow() {
   return (
     <TableRow>
       <TableCell component="th" scope="row">
-      <Skeleton variant="text" />
+        <Skeleton variant="text" />
       </TableCell>
-      <TableCell><Skeleton variant="text" /></TableCell>
+      <TableCell>
+        <Skeleton variant="text" />
+      </TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Bearbeiten">
-          <LoadingButton
-            disableElevation
-            disabled={true}>
-              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPen} />
-              <Typography variant="button" noWrap>
-                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Bearbeiten</Box>
-              </Typography>
+          <LoadingButton disableElevation disabled={true}>
+            <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPen} />
+            <Typography variant="button" noWrap>
+              <Box
+                ml={1}
+                component="span"
+                display={{ xs: "none", md: "block" }}
+              >
+                Bearbeiten
+              </Box>
+            </Typography>
           </LoadingButton>
         </ControlledTooltip>
 
         <ControlledTooltip title="Löschen">
-          <LoadingButton
-            disableElevation
-            disabled={true}>
-              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faTrash} />
-              <Typography variant="button" noWrap>
-                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Löschen</Box>
-              </Typography>
+          <LoadingButton disableElevation disabled={true}>
+            <FontAwesomeIcon style={{ fontSize: 24 }} icon={faTrash} />
+            <Typography variant="button" noWrap>
+              <Box
+                ml={1}
+                component="span"
+                display={{ xs: "none", md: "block" }}
+              >
+                Löschen
+              </Box>
+            </Typography>
           </LoadingButton>
         </ControlledTooltip>
       </TableCell>
     </TableRow>
-  )
+  );
 }
 
 export function UserRow({ user }: { user: UserRow_user$key }) {
@@ -58,69 +68,71 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
 
   const data = useFragment(
     graphql`
-    fragment UserRow_user on User {
-      id
-      name
-      role
-    }
+      fragment UserRow_user on User {
+        id
+        name
+        role
+      }
     `,
-    user,
+    user
   );
   const confirm = useConfirm();
-  const [deleteUser, isDeleteUserPending] = useMutation<UserRowDeleteUserMutation>(graphql`
-  mutation UserRowDeleteUserMutation($id: String!) {
-    deleteOneUser(where: { id: $id }) {
-      id
+  const [deleteUser, isDeleteUserPending] = useMutation<
+    UserRowDeleteUserMutation
+  >(graphql`
+    mutation UserRowDeleteUserMutation($id: String!) {
+      deleteOneUser(where: { id: $id }) {
+        id
+      }
     }
-  }
   `);
 
   const deleteUserCallback = useCallback(
-    event => {
+    (event) => {
       confirm({
-        title: 'Nutzer ' + data.name + ' löschen?',
-        description: 'Möchtest du den Nutzer ' + data.name + ' wirklich löschen? Dies kann nicht rückgängig gemacht werden!',
-        confirmationText: 'Löschen',
-        cancellationText: 'Abbrechen',
+        title: "Nutzer " + data.name + " löschen?",
+        description:
+          "Möchtest du den Nutzer " +
+          data.name +
+          " wirklich löschen? Dies kann nicht rückgängig gemacht werden!",
+        confirmationText: "Löschen",
+        cancellationText: "Abbrechen",
       })
-      .then(() => {
-        deleteUser({
-          onCompleted: (response, errors) => {
-            if (errors !== null) {
-              console.log(errors)
-              alert("Fehler: " + errors.map(e => e.message).join(", "))
-            }
-          },
-          onError: error => {
-            alert(error); // TODO FIXME
-          },
-          variables: {
-            id: data.id
-          },
-          updater: (store) => {
-            const connectionRecord = ConnectionHandler.getConnection(
-              store.getRoot(),
-              "UsersList_user_users"
-            );
-            if (!connectionRecord) {
-              console.log("connection not found");
-              return;
-            }
+        .then(() => {
+          deleteUser({
+            onCompleted: (response, errors) => {
+              if (errors !== null) {
+                console.log(errors);
+                alert("Fehler: " + errors.map((e) => e.message).join(", "));
+              }
+            },
+            onError: (error) => {
+              alert(error); // TODO FIXME
+            },
+            variables: {
+              id: data.id,
+            },
+            updater: (store) => {
+              const connectionRecord = ConnectionHandler.getConnection(
+                store.getRoot(),
+                "UsersList_user_users"
+              );
+              if (!connectionRecord) {
+                console.log("connection not found");
+                return;
+              }
 
-            const payload = store.getRootField("deleteOneUser");
+              const payload = store.getRootField("deleteOneUser");
 
-            const id = payload.getValue('id');
+              const id = payload.getValue("id");
 
-            ConnectionHandler.deleteNode(
-              connectionRecord,
-              id,
-            );
-          }
+              ConnectionHandler.deleteNode(connectionRecord, id);
+            },
+          });
         })
-      })
-      .catch(() => {
-        // do nothing
-      })
+        .catch(() => {
+          // do nothing
+        });
     },
     [deleteUser, data, confirm]
   );
@@ -128,14 +140,14 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
   const navigate = useNavigate();
 
   const updateUserCallback = useCallback(
-    event => {
+    (event) => {
       startTransition(() => {
         navigate("/users/edit/" + data.id, {
           state: {
-            data
-          }
-        })
-      })
+            data,
+          },
+        });
+      });
     },
     [data, navigate, startTransition]
   );
@@ -150,22 +162,38 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
         <ControlledTooltip title="Bearbeiten">
           <LoadingButton
             disableElevation
-            pending={isPending} onClick={updateUserCallback}>
-              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPen} />
-              <Typography variant="button" noWrap>
-                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Bearbeiten</Box>
-              </Typography>
+            pending={isPending}
+            onClick={updateUserCallback}
+          >
+            <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPen} />
+            <Typography variant="button" noWrap>
+              <Box
+                ml={1}
+                component="span"
+                display={{ xs: "none", md: "block" }}
+              >
+                Bearbeiten
+              </Box>
+            </Typography>
           </LoadingButton>
         </ControlledTooltip>
 
         <ControlledTooltip title="Löschen">
           <LoadingButton
             disableElevation
-            pending={isDeleteUserPending} onClick={deleteUserCallback}>
-              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faTrash} />
-              <Typography variant="button" noWrap>
-                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Löschen</Box>
-              </Typography>
+            pending={isDeleteUserPending}
+            onClick={deleteUserCallback}
+          >
+            <FontAwesomeIcon style={{ fontSize: 24 }} icon={faTrash} />
+            <Typography variant="button" noWrap>
+              <Box
+                ml={1}
+                component="span"
+                display={{ xs: "none", md: "block" }}
+              >
+                Löschen
+              </Box>
+            </Typography>
           </LoadingButton>
         </ControlledTooltip>
       </TableCell>

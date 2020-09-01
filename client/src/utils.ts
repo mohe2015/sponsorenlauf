@@ -1,4 +1,4 @@
 export interface LocationStateType {
-    oldPathname: string,
-    errorMessage: string
+  oldPathname: string;
+  errorMessage: string;
 }

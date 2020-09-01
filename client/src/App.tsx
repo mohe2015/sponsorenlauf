@@ -1,22 +1,26 @@
-import React from 'react';
-import './App.css';
-import { Login } from './login/Login';
-import { Home } from './Home';
-import { MyAppBar } from './MyAppBar';
-import { UsersList } from './users/UsersList'
-import { RunnersList } from './runners/RunnersList'
-import { RoundsList } from './rounds/RoundsList';
-import { UserRoundsList } from './user-rounds/UserRoundsList';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { Routes, Route, useLocationPending } from 'react-router-dom';
-import { CreateUserContainer } from './users/create/CreateUser';
-import { CreateRunnerContainer } from './runners/create/CreateRunner';
-import { NotFound } from './NotFound';
-import { ProtectedRoute } from './ProtectedRoute';
-import { AuthContext, useAuthContext, RelayEnvironmentWrapper } from './RelayEnvironmentProviderWrapper'
-import Snackbar from '@material-ui/core/Snackbar';
-import { ClassRunnersList } from './runners-by-class/ClassRunnersList';
-import { Countdown } from './countdown/Countdown'
+import React from "react";
+import "./App.css";
+import { Login } from "./login/Login";
+import { Home } from "./Home";
+import { MyAppBar } from "./MyAppBar";
+import { UsersList } from "./users/UsersList";
+import { RunnersList } from "./runners/RunnersList";
+import { RoundsList } from "./rounds/RoundsList";
+import { UserRoundsList } from "./user-rounds/UserRoundsList";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { Routes, Route, useLocationPending } from "react-router-dom";
+import { CreateUserContainer } from "./users/create/CreateUser";
+import { CreateRunnerContainer } from "./runners/create/CreateRunner";
+import { NotFound } from "./NotFound";
+import { ProtectedRoute } from "./ProtectedRoute";
+import {
+  AuthContext,
+  useAuthContext,
+  RelayEnvironmentWrapper,
+} from "./RelayEnvironmentProviderWrapper";
+import Snackbar from "@material-ui/core/Snackbar";
+import { ClassRunnersList } from "./runners-by-class/ClassRunnersList";
+import { Countdown } from "./countdown/Countdown";
 
 // authorizationerrorboundary
 // which passes state update function down to login children
@@ -32,7 +36,7 @@ function App() {
         <CssBaseline />
 
         <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={pendingLocation}
           message="Wird geladen..."
         />

@@ -2,17 +2,11 @@
   "compilerOptions": {
     "target": "es2015",
     "module": "es2015",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "strict": true,
     "rootDir": ".",
     "noEmit": true,
-    "typeRoots": [
-      "node_modules/@types",
-      "types"
-    ],
+    "typeRoots": ["node_modules/@types", "types"],
     "esModuleInterop": true,
     "allowJs": true,
     "skipLibCheck": true,
@@ -24,8 +18,5 @@
     "jsx": "react",
     "types": ["react/experimental", "react-dom/experimental"]
   },
-  "include": [
-    "types.d.ts",
-    ".",
-  ]
+  "include": ["types.d.ts", "."]
 }
