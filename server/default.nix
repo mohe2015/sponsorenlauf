@@ -1,5 +1,17 @@
 with import <nixpkgs> {};
-stdenv.mkDerivation {
-  name = "sponsorenlauf-dev-environment";
-  buildInputs = [ pkg-config zlib openssl nodejs ];
+let
+  prisma-engines = (callPackage ./prisma-engines.nix {});
+in
+mkShell {
+    buildInputs = [
+        yarn
+        nodejs
+        prisma-engines
+    ];
+    shellHook = ''
+        export PRISMA_MIGRATION_ENGINE_BINARY=${prisma-engines}/bin/migration-engine
+        export PRISMA_INTROSPECTION_ENGINE_BINARY=${prisma-engines}/bin/introspection-engine
+        export PRISMA_QUERY_ENGINE_BINARY=${prisma-engines}/bin/query-engine
+        export PRISMA_FMT_BINARY=${prisma-engines}/bin/prisma-fmt
+    '';
 }

@@ -1,5 +1,5 @@
-with import <nixpkgs> {};
-rustPlatform.buildRustPackage rec {
+{ stdenv, pkgs, pkg-config, openssl, zlib, lib }:
+pkgs.rustPlatform.buildRustPackage rec {
   pname = "prisma-engines";
   version = "2.6.0";
   
@@ -9,7 +9,7 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false; # would need some env variables from a file
 
-  src = fetchFromGitHub {
+  src = pkgs.fetchFromGitHub {
     owner = "mohe2015";
     repo = pname;
     rev = "fix-cargo-vendor";
