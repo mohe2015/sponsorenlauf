@@ -7,6 +7,8 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl zlib ];
 
+  doCheck = false; # would need some env variables from a file
+
   src = fetchFromGitHub {
     owner = "mohe2015";
     repo = pname;
