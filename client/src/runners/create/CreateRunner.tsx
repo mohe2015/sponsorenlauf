@@ -214,12 +214,6 @@ export function CreateRunner() {
             grade: grade!
           },
           updater: (store) => {
-            //console.log(store)
-            //console.log(store.__recordSource._proxies)
-
-            //console.log(store.getRoot());
-            //console.log(ConnectionHandler);
-            // TODO FIXME error response
             const connectionRecord = ConnectionHandler.getConnection(
               store.getRoot(),
               "RunnersList_runner_runners"
@@ -232,9 +226,6 @@ export function CreateRunner() {
             if (payload.getValue("__typename") === "RunnerMutationOutput") {
               const previousEdge = payload.getLinkedRecord('previous_edge');
               const serverEdge = payload.getLinkedRecord('edge');
-
-              //console.log(connectionRecord);
-              //console.log(newUserRecord);
 
               const newEdge = ConnectionHandler.buildConnectionEdge(
                 store,

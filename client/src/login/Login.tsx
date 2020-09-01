@@ -188,10 +188,6 @@ export function Login(props: LoginProps) {
             helperText={passwordError}
             error={passwordError !== null}
           />
-          {/*<FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />*/}
           <LoadingButton
             type="submit"
             fullWidth
@@ -208,11 +204,6 @@ export function Login(props: LoginProps) {
                 Passwort vergessen?
               </Link>
             </Grid>
-            {/*<Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>*/}
           </Grid>
         </form>
       </div>

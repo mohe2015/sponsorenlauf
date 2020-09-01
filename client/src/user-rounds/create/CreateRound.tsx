@@ -136,40 +136,6 @@ export function CreateRound() {
         variables: {
           startNumber: startNumber!
         },
-        /*optimisticUpdater: (store) => {
-          // TODO FIXME strange UI updates as subscription gets received
-
-          // https://github.com/facebook/relay/commit/c988815ff9b1b4dd236c83413c55b352bbae0266
-          // https://github.com/facebook/relay/issues/2077
-
-          const roundId = 'client:newRound';
-          const roundNode = store.create(roundId, 'Round');
-          roundNode.setValue(roundId, 'id');
-
-          const studentId = 'client:newStudent';
-          const studentNode = store.create(studentId, 'Student');
-          studentNode.setValue(studentId, 'id');
-          studentNode.setValue(startNumber, 'startNumber');
-
-          roundNode.setValue("now", 'time');
-
-          const userId = 'client:newUser';
-          const userNode = store.create(userId, 'User');
-          userNode.setValue(userId, 'id');
-          userNode.setValue("Test", 'name');
-
-          roundNode.setLinkedRecord(studentNode, 'student');
-          roundNode.setLinkedRecord(userNode, 'createdBy');
-
-          // Create a new edge that contains the newly created Todo Item
-          const newEdge = store.create(
-            'client:newEdge',
-            'RoundEdge',
-          );
-          newEdge.setLinkedRecord(roundNode, 'node');
-
-          sharedUpdater(store, null, newEdge)
-        },*/
         updater: (store) => {
           const payload = store.getRootField("createOneRound");
 

@@ -8,7 +8,7 @@ import Box from "@material-ui/core/Box";
 import ControlledTooltip from "./ControlledTooltip";
 import { Outlet } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRunning } from '@fortawesome/free-solid-svg-icons'
+import { faRunning, faList } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import { faCircle } from '@fortawesome/free-regular-svg-icons'
@@ -143,6 +143,7 @@ function LoadingAccountButton() {
 export function MyAppBar() {
   const [startUsersTransition, isUsersPending] = useTransition({ timeoutMs: 30000 });
   const [startRunnersTransition, isRunnersPending] = useTransition({ timeoutMs: 30000 });
+  const [startRunnersByClassTransition, isRunnersByClassPending] = useTransition({ timeoutMs: 30000 });
   const [startRoundsTransition, isRoundsPending] = useTransition({ timeoutMs: 30000 });
   const [startUserRoundsTransition, isUserRoundsPending] = useTransition({ timeoutMs: 30000 });
   const classes = useStyles();
@@ -170,7 +171,7 @@ export function MyAppBar() {
               }}>
               <FontAwesomeIcon style={{ fontSize: 24 }} icon={faUsers} />
               <Typography variant="button" noWrap>
-                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Nutzer</Box>
+                <Box ml={1} component="span" display={{ md: 'none', lg: 'block' }}>Nutzer</Box>
               </Typography>
             </LoadingButton>
           </ControlledTooltip>
@@ -187,7 +188,24 @@ export function MyAppBar() {
               }}>
               <FontAwesomeIcon style={{ fontSize: 24 }} icon={faRunning} />
               <Typography variant="button" noWrap>
-                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Läufer</Box>
+                <Box ml={1} component="span" display={{ md: 'none', lg: 'block' }}>Läufer</Box>
+              </Typography>
+            </LoadingButton>
+          </ControlledTooltip>
+
+          <ControlledTooltip title="Läuferliste">
+            <LoadingButton
+            variant="contained"
+            color="primary"
+            disableElevation
+            pending={isRunnersByClassPending} onClick={() => {
+                startRunnersByClassTransition(() => {
+                  navigate("/by-class-runners")
+                });
+              }}>
+              <FontAwesomeIcon style={{ fontSize: 24 }} icon={faList} />
+              <Typography variant="button" noWrap>
+                <Box ml={1} component="span" display={{ md: 'none', lg: 'block' }}>Läuferliste</Box>
               </Typography>
             </LoadingButton>
           </ControlledTooltip>
@@ -204,7 +222,7 @@ export function MyAppBar() {
               }}>
               <FontAwesomeIcon style={{ fontSize: 24 }} icon={faCircle} />
               <Typography variant="button" noWrap>
-                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Runden</Box>
+                <Box ml={1} component="span" display={{ md: 'none', lg: 'block' }}>Runden</Box>
               </Typography>
             </LoadingButton>
           </ControlledTooltip>
@@ -221,7 +239,7 @@ export function MyAppBar() {
               }}>
               <FontAwesomeIcon style={{ fontSize: 24 }} icon={faEdit} />
               <Typography variant="button" noWrap>
-                <Box ml={1} component="span" display={{ xs: 'none', md: 'block' }}>Rundenzählung</Box>
+                <Box ml={1} component="span" display={{ md: 'none', lg: 'block' }}>Rundenzählung</Box>
               </Typography>
             </LoadingButton>
           </ControlledTooltip>

@@ -1,4 +1,3 @@
-// your-app-name/src/RelayEnvironment.js
 import { Environment, Network, QueryResponseCache, RecordSource, Store, Observable, RequestParameters, Variables, CacheConfig, GraphQLResponse, Disposable, ObservableFromValue } from 'relay-runtime';
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { RelayObservable } from 'relay-runtime/lib/network/RelayObservable';

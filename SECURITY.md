@@ -14,7 +14,7 @@ currently being supported with security updates.
 Please report security vulnerabilites to Moritz.Hedtke@t-online.de.
 
 You can use PGP encryption if you want.
-My public key is at https://keys.openpgp.org/search?q=Moritz.Hedtke%40t-online.de.
+My public key is at https://keys.openpgp.org/search?q=1248D3E11D114A8575C989346794D45A488C2EDE.
 
 You can import it using: `gpg --keyserver keys.openpgp.org --recv-key 0x1248D3E11D114A8575C989346794D45A488C2EDE`
 

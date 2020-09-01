@@ -1,5 +1,5 @@
 # sponsorenlauf
-[WORK IN PROGRESS] Verwaltung eines Sponsorenlaufs
+Verwaltung eines Sponsorenlaufs
 
 ## Installation (for development)
 
