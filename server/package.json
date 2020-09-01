@@ -27,8 +27,8 @@
     "cuid": "^2.1.8",
     "flat": "^5.0.2",
     "hijackresponse": "^4.0.0",
-    "nexus": "^0.26.1",
-    "nexus-plugin-prisma": "^0.17.0",
+    "nexus": "0.27.0-next.5",
+    "nexus-plugin-prisma": "0.18.0-next.1",
     "nexus-plugin-shield": "^0.2.0",
     "nexus-plugin-subscriptions": "0.2.0"
   },
