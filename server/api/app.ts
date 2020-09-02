@@ -31,8 +31,8 @@ settings.change({
       settings: {
         "request.credentials": "include",
       }
-    }
-  }
+    },
+  },
 });
 
 declare global {

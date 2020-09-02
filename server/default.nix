@@ -7,6 +7,7 @@ mkShell {
         yarn
         nodejs
         prisma-engines
+        python3
         nodePackages.npm-check-updates
     ];
     shellHook = ''

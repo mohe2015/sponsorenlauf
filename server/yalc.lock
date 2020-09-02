@@ -10,6 +10,11 @@
       "signature": "fcffabbc8ee59b7af96c1e1e78427f3b",
       "file": true,
       "replaced": "^0.17.0"
+    },
+    "nexus": {
+      "signature": "857ae70a074b6a25d757aed3b0af2452",
+      "file": true,
+      "replaced": "^0.27.0-next.5"
     }
   }
 }
