@@ -3,15 +3,12 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ConfirmProvider } from "material-ui-confirm";
 
 ReactDOM.unstable_createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ConfirmProvider>
-      <Router>
-        <App />
-      </Router>
-    </ConfirmProvider>
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>
 );
 

@@ -22,6 +22,7 @@ import {
 import Snackbar from "@material-ui/core/Snackbar";
 import { ClassRunnersList } from "./runners-by-class/ClassRunnersList";
 import { Countdown } from "./countdown/Countdown";
+import { ConfirmProvider } from "material-ui-confirm";
 
 // authorizationerrorboundary
 // which passes state update function down to login children
@@ -45,39 +46,41 @@ function App() {
     <AuthContext.Provider value={auth}>
       <RelayEnvironmentWrapper>
         <ThemeProvider theme={theme}>
-          <CssBaseline />
+          <ConfirmProvider>
+            <CssBaseline />
 
-          <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            open={pendingLocation}
-            message="Wird geladen..."
-          />
+            <Snackbar
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              open={pendingLocation}
+              message="Wird geladen..."
+            />
 
-          <Routes>
-            <ProtectedRoute path="*" element={<MyAppBar />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/users">
-                <Route path="/create" element={<CreateUserContainer />} />
-                <Route path="/edit/:id" element={<CreateUserContainer />} />
-                <Route path="*" element={<UsersList />} />
-              </Route>
-              <Route path="/runners">
-                <Route path="/create" element={<CreateRunnerContainer />} />
-                <Route path="/edit/:id" element={<CreateRunnerContainer />} />
-                <Route path="*" element={<RunnersList />} />
-              </Route>
-              <Route path="/countdown" element={<Countdown />} />
-              <Route path="/by-class-runners" element={<ClassRunnersList />} />
-              <Route path="/rounds">
-                <Route path="*" element={<RoundsList />} />
-              </Route>
-              <Route path="/user-rounds">
-                <Route path="*" element={<UserRoundsList />} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
-            </ProtectedRoute>
-            <Route path="/login" element={<Login />} />
-          </Routes>
+            <Routes>
+              <ProtectedRoute path="*" element={<MyAppBar />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/users">
+                  <Route path="/create" element={<CreateUserContainer />} />
+                  <Route path="/edit/:id" element={<CreateUserContainer />} />
+                  <Route path="*" element={<UsersList />} />
+                </Route>
+                <Route path="/runners">
+                  <Route path="/create" element={<CreateRunnerContainer />} />
+                  <Route path="/edit/:id" element={<CreateRunnerContainer />} />
+                  <Route path="*" element={<RunnersList />} />
+                </Route>
+                <Route path="/countdown" element={<Countdown />} />
+                <Route path="/by-class-runners" element={<ClassRunnersList />} />
+                <Route path="/rounds">
+                  <Route path="*" element={<RoundsList />} />
+                </Route>
+                <Route path="/user-rounds">
+                  <Route path="*" element={<UserRoundsList />} />
+                </Route>
+                <Route path="*" element={<NotFound />} />
+              </ProtectedRoute>
+              <Route path="/login" element={<Login />} />
+            </Routes>
+            </ConfirmProvider>
         </ThemeProvider>
       </RelayEnvironmentWrapper>
     </AuthContext.Provider>
