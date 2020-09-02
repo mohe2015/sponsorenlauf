@@ -13,13 +13,6 @@ import * as http from "http";
 import { parse as parseCookie } from "cookie";
 import cookieParser from 'cookie-parser';
 
-//settings.current.server.playground.path NO
-
-//settings.current.server.host
-//settings.current.server.path
-
-
-
 settings.change({
   schema: {
     nullable: {
@@ -90,18 +83,16 @@ server.express.use(formatErrors);
 server.express.use(cookieParser())
 
 schema.addToContext(async ({req, res}) => {
-  // @ts-expect-error
   return await createContext(req.headers.cookie || null, res);
 });
 
-// https://github.com/graphql-nexus/nexus/issues/506
-async function createContext(cookie: string | null, response: Response | null) {
+async function createContext(cookie: string | null, response: import("/home/moritz/Documents/sponsorenlauf/server/node_modules/nexus/dist/runtime/schema/schema").Response | null) {
   // Added for debugging
   //await new Promise((r) => setTimeout(r, 3000));
   
   if (nextCleanupCheck.getTime() < Date.now()) {
     nextCleanupCheck = new Date();
-    nextCleanupCheck.setHours(nextCleanupCheck.getMinutes() + 1); // TODO FIXME TEST
+    nextCleanupCheck.setHours(nextCleanupCheck.getMinutes() + 1);
     log.info("session cleanup start")
     let result = await db.userSession.deleteMany({
       where: {

@@ -20,6 +20,7 @@ schema.mutationType({
       args: { data: schema.arg({type: "UserCreateInput", nullable: false}) },
       resolve: async (parent, args, context, info) => {
         let user = await context.db.user.create({
+          // @ts-expect-error
           data: {
             ...args.data,
             password: "",
@@ -57,7 +58,9 @@ schema.mutationType({
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.user.update({
+          // @ts-expect-error
           where: args.where,
+          // @ts-expect-error
           data: {
             ...args.data,
             password: undefined,
@@ -141,9 +144,8 @@ schema.mutationType({
       nullable: false,
       args: { data: schema.arg({type: "RunnerCreateInput", nullable: false}) },
       resolve: async (_parent, args, context, info) => {
-        let runner = await context.db.runner.create({
-          data: args.data
-        });
+        // @ts-expect-error
+        let runner = await context.db.runner.create(args);
 
         if (!runner) {
           return {
@@ -174,7 +176,9 @@ schema.mutationType({
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.runner.update({
+          // @ts-expect-error
           where: args.where,
+          // @ts-expect-error
           data: {
             ...args.data,
           }
@@ -272,6 +276,7 @@ schema.mutationType({
         where: schema.arg({type: "RoundWhereUniqueInput", nullable: false})
       },
       resolve: async (parent, args, context) => {
+        // @ts-expect-error
         let round = await context.db.round.delete(args)
         await context.db.$executeRaw`UPDATE "Runner" SET "roundCount" = "roundCount" - 1 WHERE id = ${round.studentId};`
         
