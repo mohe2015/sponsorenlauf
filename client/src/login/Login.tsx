@@ -16,7 +16,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import Alert from "@material-ui/lab/Alert";
 import { useNavigate, useLocation } from "react-router-dom";

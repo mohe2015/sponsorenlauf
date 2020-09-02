@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { LoadingContext } from "../LoadingContext";
 import { useNavigate } from "react-router-dom";
 import { unstable_useTransition as useTransition } from "react";

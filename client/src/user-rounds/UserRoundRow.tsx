@@ -10,7 +10,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { useConfirm } from "material-ui-confirm";
 import { useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import { UserRoundRow_round$key } from "../__generated__/UserRoundRow_round.graphql";
 import { ConnectionHandler } from "relay-runtime";

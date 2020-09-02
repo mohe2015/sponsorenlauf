@@ -8,7 +8,7 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-import { faStopwatch } from "@fortawesome/free-solid-svg-icons";
+import { faStopwatch } from "@fortawesome/free-solid-svg-icons/faStopwatch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
