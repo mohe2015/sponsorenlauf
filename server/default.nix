@@ -7,6 +7,7 @@ mkShell {
         yarn
         nodejs
         prisma-engines
+        nodePackages.npm-check-updates
     ];
     shellHook = ''
         export PRISMA_MIGRATION_ENGINE_BINARY=${prisma-engines}/bin/migration-engine
