@@ -1,6 +1,6 @@
 import { shield, rule, deny, not, and, or, allow } from "nexus-plugin-shield";
 import { UserRole } from "nexus-plugin-prisma/client";
-import { AuthenticationError, ForbiddenError } from "./errors";
+import { AuthenticationError, ForbiddenError } from "apollo-server-errors";
 
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
