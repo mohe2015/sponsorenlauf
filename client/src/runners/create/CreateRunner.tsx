@@ -97,7 +97,6 @@ export function CreateRunner() {
       createOneRunner(data: { name: $name, clazz: $clazz, grade: $grade }) {
         __typename
         ... on RunnerMutationOutput {
-          previous_edge
           edge {
             cursor
             node {
@@ -136,7 +135,6 @@ export function CreateRunner() {
       ) {
         __typename
         ... on RunnerMutationOutput {
-          previous_edge
           edge {
             cursor
             node {
