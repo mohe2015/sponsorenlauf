@@ -28,6 +28,9 @@ export function LoadingUserRow() {
       <TableCell>
         <Skeleton variant="text" />
       </TableCell>
+      <TableCell>
+        -
+      </TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Bearbeiten">
           <LoadingButton disableElevation disabled={true}>
@@ -158,6 +161,9 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
         {data.name}
       </TableCell>
       <TableCell>{data.role}</TableCell>
+      <TableCell>
+        -
+      </TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Bearbeiten">
           <LoadingButton

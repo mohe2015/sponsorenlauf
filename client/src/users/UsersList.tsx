@@ -49,6 +49,7 @@ export function UsersList() {
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>Rolle</TableCell>
+              <TableCell>Passwort</TableCell>
               <TableCell align="right">Aktionen</TableCell>
             </TableRow>
           </TableHead>
