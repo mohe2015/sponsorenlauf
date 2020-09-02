@@ -28,7 +28,7 @@ schema.queryType({
       type: "User",
       nullable: false,
       resolve: (parent, args, ctx) => {
-        return ctx.user;
+        return ctx.user!;
       },
     });
 
@@ -45,11 +45,13 @@ schema.queryType({
       },
       resolve: async (root, args, ctx) => {
         let result = await ctx.db.runner.findMany({
+          // @ts-expect-error
           orderBy: args.orderBy,
           take: args.first + 1,
           cursor: args.after ? { id: args.after } : undefined,
         })
         let pageInfo = {
+          hasPreviousPage: false, // TODO FIXME
           hasNextPage: result.length == args.first + 1,
           startCursor: result.length == 0 ? null : result[0].id,
           endCursor: result.length == 0 ? null : (result.length <= args.first ? result[result.length - 1].id : result[args.first - 1].id),
@@ -96,12 +98,15 @@ schema.queryType({
       },
       resolve: async (root, args, ctx) => {
         let result = await ctx.db.round.findMany({
+          // @ts-expect-error
           orderBy: args.orderBy,
+          // @ts-expect-error
           where: args.filter === null ? undefined : args.filter,
           take: args.first + 1,
           cursor: args.after ? { id: args.after } : undefined,
         })
         let pageInfo = {
+          hasPreviousPage: false, // TODO FIXME
           hasNextPage: result.length == args.first + 1,
           startCursor: result.length == 0 ? null : result[0].id,
           endCursor: result.length == 0 ? null : (result.length <= args.first ? result[result.length - 1].id : result[args.first - 1].id),
@@ -134,6 +139,7 @@ schema.queryType({
         })
         console.log(result)
         let pageInfo = {
+          hasPreviousPage: false, // TODO FIXME
           hasNextPage: result.length == args.first + 1,
           startCursor: result.length == 0 ? null : result[0].id,
           endCursor: result.length == 0 ? null : (result.length <= args.first ? result[result.length - 1].id : result[args.first - 1].id),

@@ -3637,12 +3637,7 @@ type-is@^1.6.16, type-is@~1.6.17, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typescript@3.9.x, typescript@4.0.2, typescript@~3.9.7:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.2.tgz#7ea7c88777c723c681e33bf7988be5d008d05ac2"
-  integrity sha512-e4ERvRV2wb+rRZ/IQeb3jm2VxBsirQLpQhdxplZ2MEzGvDkkMmPglecnNDfSUBivMjP93vRbngYYDQqQ/78bcQ==
-
-typescript@^4.1.0-dev.20200902:
+typescript@3.9.x, typescript@4.1.0-dev.20200902, typescript@~3.9.7:
   version "4.1.0-dev.20200902"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.0-dev.20200902.tgz#081c2f0d30921f04d0788fb9f1443a9c0db96f0f"
   integrity sha512-8PL84cgECn6JD+5SqQnZ85T42l5WM6NFXjBuW8PHo6DkT3gaRwxkEqcND7nnhSO5SkCvQwUmYrCPkynom0e6TA==
