@@ -1,4 +1,0 @@
-[submodule "server/nexus"]
-	path = server/nexus
-	url = git@github.com:mohe2015/nexus.git
-	branch = patch-1
