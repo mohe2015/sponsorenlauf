@@ -122,7 +122,7 @@ schema.mutationType({
         })
 
         for (let user of usersWithoutPassword) {
-          user.password = crypto.randomBytes(32).toString("hex");
+          user.password = crypto.randomBytes(8).toString("hex");
 
           await context.db.user.update({
             where: {

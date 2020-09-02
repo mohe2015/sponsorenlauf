@@ -18,6 +18,9 @@ import { useNavigate } from "react-router-dom";
 import { unstable_useTransition as useTransition } from "react";
 import { useCallback } from "react";
 import LoadingButton from "@material-ui/lab/LoadingButton";
+import { GenerateUserPasswords } from "./GenerateUserPasswords";
+import { UsersListComponent } from "./UsersListComponent";
+import { UsersListComponent_user$key } from "../__generated__/UsersListComponent_user.graphql";
 
 export function UsersList() {
   const loading = useContext(LoadingContext);
@@ -33,6 +36,9 @@ export function UsersList() {
     [navigate, startTransition]
   );
 
+  const generatedPasswords = false;
+  const data: UsersListComponent_user$key | null = null;
+
   return (
     <Container maxWidth="sm">
       <LoadingButton disableElevation pending={isPending} onClick={createUser}>
@@ -43,6 +49,7 @@ export function UsersList() {
           </Box>
         </Typography>
       </LoadingButton>
+      <GenerateUserPasswords />
       <TableContainer component={Paper}>
         <Table aria-label="table of users">
           <TableHead>
@@ -56,7 +63,7 @@ export function UsersList() {
           <TableBody>
             {loading ? (
               [...Array(25)].map((e, i) => <LoadingUserRow key={i} />)
-            ) : (
+            ) : (generatedPasswords ? <UsersListComponent users={data!} /> :
               <UsersListQuery />
             )}
           </TableBody>

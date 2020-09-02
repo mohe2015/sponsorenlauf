@@ -10,6 +10,11 @@ import { LocationStateType } from "../utils";
 import { Location } from "history";
 import { ConnectionHandler } from "relay-runtime";
 import { GenerateUserPasswordsMutation } from "../__generated__/GenerateUserPasswordsMutation.graphql";
+import LoadingButton from "@material-ui/lab/LoadingButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
 export function GenerateUserPasswords() {
   const navigate = useNavigate();
@@ -35,6 +40,7 @@ mutation GenerateUserPasswordsMutation {
     (event) => {
       event.preventDefault();
 
+      // TODO FIXME prevent caching of that data
         generatePasswords({
           onCompleted: (response, errors) => {
             if (errors !== null) {
@@ -54,33 +60,7 @@ mutation GenerateUserPasswordsMutation {
             console.log(error);
             alert(error); // TODO FIXME
           },
-          variables: {},
-          updater: (store) => {
-            const connectionRecord = ConnectionHandler.getConnection(
-              store.getRoot(),
-              "UsersList_user_users"
-            );
-            if (!connectionRecord) {
-              console.log("connection not found");
-              return;
-            }
-            const payload = store.getRootField("generatePasswords");
-
-            if (payload.getValue("__typename") === "UserMutationOutput") {
-              const serverEdge = payload.getLinkedRecord("edge");
-
-              const newEdge = ConnectionHandler.buildConnectionEdge(
-                store,
-                connectionRecord,
-                serverEdge
-              );
-
-              ConnectionHandler.insertEdgeAfter(
-                connectionRecord,
-                newEdge!
-              );
-            }
-          },
+          variables: {}
         });
     },
     [
@@ -91,6 +71,13 @@ mutation GenerateUserPasswordsMutation {
   );
 
   return (
-    <></>
+        <LoadingButton disableElevation pending={isPending} onClick={onSubmit}>
+            <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPlus} />
+            <Typography variant="button" noWrap>
+                <Box component="span" ml={1}>
+                Passwörter generieren
+                </Box>
+            </Typography>
+        </LoadingButton>
   );
 }
