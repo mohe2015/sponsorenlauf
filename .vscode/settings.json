@@ -1,8 +1,0 @@
-{
-    "files.watcherExclude": {
-        "**/.git/objects/**": true,
-        "**/.git/subtree-cache/**": true,
-        "**/.hg/store/**": true
-    },
-    "typescript.tsdk": "./server/node_modules/typescript/lib"
-}
