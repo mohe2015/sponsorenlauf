@@ -151,7 +151,10 @@ schema.queryType({
           pageInfo,
           edges: result.map(e => { return {
             cursor: e.id,
-            node: e,
+            node: {
+              ...e,
+              password: "-"
+            },
           }})
         }
       },

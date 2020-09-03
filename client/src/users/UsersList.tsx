@@ -39,7 +39,7 @@ export function UsersList() {
   const [generatedPasswordsData, setGeneratedPasswordsData] = useState<UsersListPasswordsComponent_user$key | null>(null);
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
       <LoadingButton disableElevation pending={isPending} onClick={createUser}>
         <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPlus} />
         <Typography variant="button" noWrap>

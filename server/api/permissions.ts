@@ -4,7 +4,7 @@ import { AuthenticationError, ForbiddenError } from "apollo-server-errors";
 
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
-    rule({ cache: "contextual" })(async (parent, args, context, info) => {
+    rule({ cache: "contextual" })(async (parent, args, context: NexusContext, info) => {
       const user = context.user;
       return roles.some((r) => user && r === user.role);
     }),
