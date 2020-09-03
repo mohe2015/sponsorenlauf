@@ -1,4 +1,5 @@
-with import <nixpkgs> {};
+{ pkgs ? import <nixpkgs> {} }:
+with pkgs;
 let
   prisma-engines = (callPackage ./prisma-engines.nix {});
 in
