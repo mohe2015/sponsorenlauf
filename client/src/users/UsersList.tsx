@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UsersListQuery } from "./UsersListQuery";
 import { LoadingUserRow } from "./UserRow";
 import Table from "@material-ui/core/Table";
@@ -35,10 +35,8 @@ export function UsersList() {
     },
     [navigate, startTransition]
   );
-
   
-  const generatedPasswords = false;
-  const data: UsersListComponent_user$key | null = null;
+  const [generatedPasswordsData, setGeneratedPasswordsData] = useState<UsersListComponent_user$key | null>(null);
 
   return (
     <Container maxWidth="sm">
@@ -50,7 +48,7 @@ export function UsersList() {
           </Box>
         </Typography>
       </LoadingButton>
-      <GenerateUserPasswords />
+      <GenerateUserPasswords setGeneratedPasswordsData={setGeneratedPasswordsData} />
       <TableContainer component={Paper}>
         <Table aria-label="table of users">
           <TableHead>
@@ -64,7 +62,7 @@ export function UsersList() {
           <TableBody>
             {loading ? (
               [...Array(25)].map((e, i) => <LoadingUserRow key={i} />)
-            ) : (generatedPasswords ? <UsersListComponent users={data!} /> :
+            ) : (generatedPasswordsData ? <UsersListComponent users={generatedPasswordsData} /> :
               <UsersListQuery />
             )}
           </TableBody>

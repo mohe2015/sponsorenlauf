@@ -15,7 +15,7 @@ export function UsersListComponent({
 }: {
   users: UsersListComponent_user$key;
 }) {
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });  
 
   const { data, hasNext, loadNext, isLoadingNext } = usePaginationFragment(
     graphql`

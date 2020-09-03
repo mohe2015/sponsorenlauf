@@ -112,8 +112,7 @@ schema.mutationType({
     })
 
     t.field("generatePasswords", {
-      type: "User",
-      list: true,
+      type: "QueryUsers_Connection",
       resolve: async (parent, args, context, info) => {
         let usersWithoutPassword = await context.db.user.findMany({
           where: {
@@ -135,7 +134,18 @@ schema.mutationType({
           })
         }
 
-        return usersWithoutPassword
+        return {
+          pageInfo: {
+            hasNextPage: false,
+            hasPreviousPage: false,
+            endCursor: null,
+            startCursor: null
+          },
+          edges: usersWithoutPassword.map(e => { return {
+            cursor: e.id,
+            node: e,
+          }})
+        }
       }
     })
 

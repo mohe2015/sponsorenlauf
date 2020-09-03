@@ -15,8 +15,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import { UsersListComponent_user$key } from "../__generated__/UsersListComponent_user.graphql";
 
-export function GenerateUserPasswords() {
+export function GenerateUserPasswords({ setGeneratedPasswordsData }: { setGeneratedPasswordsData: React.Dispatch<React.SetStateAction<UsersListComponent_user$key | null>> }) {
   const navigate = useNavigate();
   const location = useLocation() as Location<LocationStateType | null>;
   let { id } = useParams();
@@ -26,10 +27,7 @@ export function GenerateUserPasswords() {
   >(graphql`
 mutation GenerateUserPasswordsMutation {
 	generatePasswords {
-		id
-        name
-        password
-        role
+		
 	}
 }
   `);
@@ -47,13 +45,7 @@ mutation GenerateUserPasswordsMutation {
               console.log(errors);
               alert("Fehler: " + errors.map((e) => e.message).join(", "));
             } else {
-                startTransition(() => {
-                    if (location.state?.oldPathname) {
-                        navigate(location.state?.oldPathname);
-                    } else {
-                        navigate("/users");
-                    }
-                });
+              setGeneratedPasswordsData(response)
             }
           },
           onError: (error) => {

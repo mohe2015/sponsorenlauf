@@ -4,5 +4,6 @@ mkShell {
     buildInputs = [
         yarn
         nodejs
+        watchman
     ];
 }
