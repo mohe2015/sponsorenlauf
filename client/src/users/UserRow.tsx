@@ -74,6 +74,7 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
       fragment UserRow_user on User {
         id
         name
+        password
         role
       }
     `,
@@ -162,7 +163,7 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
       </TableCell>
       <TableCell>{data.role}</TableCell>
       <TableCell>
-        -
+        {data.password}
       </TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Bearbeiten">
