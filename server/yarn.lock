@@ -142,12 +142,12 @@
   resolved "https://registry.yarnpkg.com/@prisma/ci-info/-/ci-info-2.1.2.tgz#3da64f54584bde0aaf4b42f298a6c63f025aeb3f"
   integrity sha512-RhAHY+wp6Nqu89Tp3zfUVkpGfqk4TfngeOWaMGgmhP7mB2ASDtOl8dkwxHmI8eN4edo+luyjPmbJBC4kST321A==
 
-"@prisma/cli@^2.6.0-dev.38":
+"@prisma/cli@2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.6.0.tgz#13c0eb640af5c03d6295dcb75befcfcc5a297ff3"
   integrity sha512-zZubTQNI4z2zoJxsjh4ob2FxqZEi7pEpCDHcgNyyX1kmLtDtwwneuW6hJjdJDjPc8oVSOryJIOuWxlLeMyMgUw==
 
-"@prisma/client@^2.6.0-dev.38":
+"@prisma/client@2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.6.0.tgz#8b9ab0dc39dfbd2e0253d0177e0f65053a542ad1"
   integrity sha512-BxYBn8PQ7ACh6p6q9JJNlODV8i50aZA9f+HwPGtff9jhIuoyFdM0eh1Qldib1ngTzt1UnxvacqlpXDHlnL93Pg==
@@ -220,7 +220,7 @@
   dependencies:
     "@prisma/debug" "2.6.0"
 
-"@prisma/sdk@^2.6.0-dev.38":
+"@prisma/sdk@2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@prisma/sdk/-/sdk-2.6.0.tgz#f67d589e71476f5667ece3891cddbf36de389730"
   integrity sha512-zrunCZfPOBQXM+QqTsZpoXQGlrcA1M8vqvjzkCnddcNKQ8w7hU9u/YW4Eegk/sF9Q5bUDw1yOqLlXrHgNwcDLw==
@@ -2276,12 +2276,12 @@ lodash.union@^4.6.0:
   resolved "https://registry.yarnpkg.com/lodash.union/-/lodash.union-4.6.0.tgz#48bb5088409f16f1821666641c44dd1aaae3cd88"
   integrity sha1-SLtQiECfFvGCFmZkHETdGqrjzYg=
 
-lodash@4.17.19, lodash@^4.17.15, lodash@^4.17.19:
+lodash@4.17.19:
   version "4.17.19"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
-lodash@^4.17.20:
+lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20:
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
@@ -2474,14 +2474,14 @@ new-github-issue-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/new-github-issue-url/-/new-github-issue-url-0.2.1.tgz#e17be1f665a92de465926603e44b9f8685630c1d"
   integrity sha512-md4cGoxuT4T4d/HDOXbrUHkTKrp/vp+m3aOA7XXVYwNsUNMK49g3SQicTSeV5GIz/5QVGAeYRAOlyp9OvlgsYA==
 
-nexus-plugin-prisma@0.18.0-next.1:
-  version "0.18.0-next.1"
-  resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.18.0-next.1.tgz#fa5c948f563c4cecef968f2969f8aafad8a1ae0a"
-  integrity sha512-UwEK3KGwOpTJadQc1/qeJnrnilHpPUVlulJL0PfZ04AdCrDIruOKWkYe6RZuU/FqjCfvezIjxsJ4M32rQvgd1Q==
+nexus-plugin-prisma@0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/nexus-plugin-prisma/-/nexus-plugin-prisma-0.18.0.tgz#f9b8dff0816d2435e028f8ad34c5f228291ca4ee"
+  integrity sha512-rvwVyzfZ7ooyTjp7nVUopVbIT0CSMS21MI+vr94E5SYMKtDdraxwyI4cMzOw3MyfyK8Z7vaEh6uALOxJASW7fA==
   dependencies:
-    "@prisma/cli" "^2.6.0-dev.38"
-    "@prisma/client" "^2.6.0-dev.38"
-    "@prisma/sdk" "^2.6.0-dev.38"
+    "@prisma/cli" "2.6.0"
+    "@prisma/client" "2.6.0"
+    "@prisma/sdk" "2.6.0"
     camelcase "^6.0.0"
     chalk "^4.0.0"
     common-tags "^1.8.0"
