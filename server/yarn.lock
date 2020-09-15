@@ -1947,9 +1947,9 @@ hasha@^5.2.0:
     type-fest "^0.8.0"
 
 hijackresponse@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/hijackresponse/-/hijackresponse-4.0.0.tgz#3490244f38b2b844187c3e0b16e27a74ee170617"
-  integrity sha512-ilL2k2/k9NXk4QCx7dz7pV+ZRL8aOX9ZiaVD+5nql1fF5WdKNhXbPh4shyfICpgHoHiD4FKZ1jLgNKYDYhy0Yw==
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/hijackresponse/-/hijackresponse-4.0.1.tgz#951f49d3fff7e244157bc3037403bc8f73602e62"
+  integrity sha512-NO2PArOaX30m+FpvR9gi7ESUL+TfsFL2MlmWfDE5p2gXdV7XGAb+UkdB6Pw7twKwI8B6DssHleyI3edggGW6sA==
 
 hosted-git-info@^2.1.4:
   version "2.8.8"
