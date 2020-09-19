@@ -5,9 +5,9 @@ import { log } from "nexus";
 import { prisma } from "nexus-plugin-prisma";
 import { PrismaClient, User } from "nexus-plugin-prisma/client";
 import { PubSub } from "graphql-subscriptions";
-import { subscriptions } from "nexus-plugin-subscriptions";
 import { permissions } from "./permissions";
 import { ConnectionContext } from "subscriptions-transport-ws";
+import WebSocket from 'ws';
 import * as http from "http";
 import { parse as parseCookie } from "cookie";
 import cookieParser from 'cookie-parser';
@@ -32,6 +32,17 @@ settings.change({
         "request.credentials": "include",
       }
     },
+    subscriptions: {
+      enabled: true,
+      keepAlive: 10 * 1000,
+      onConnect: (connectionParams: Record<string, any>, webSocket: WebSocket, context: ConnectionContext) => {
+        log.info("client connected");
+        return createContext(context.request.headers.cookie || null, null);
+      },
+      onDisconnect: () => {
+        log.info("client disconnected");
+      },
+    }
   },
 });
 
@@ -62,20 +73,6 @@ use(
 );
 
 use(permissions);
-
-use(
-  subscriptions({
-    ws: { server: server.raw.http, path: "/graphql" }, // use server.raw.http here
-    keepAlive: 10 * 1000,
-    onConnect: (connectionParams: Record<string, any>, webSocket: WebSocket, context: ConnectionContext) => {
-      log.info("client connected");
-      return createContext(context.request.headers.cookie || null, null);
-    },
-    onDisconnect: () => {
-      log.info("client disconnected");
-    },
-  })
-);
 
 server.express.use(cookieParser())
 
