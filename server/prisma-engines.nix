@@ -1,7 +1,7 @@
 { stdenv, pkgs, pkg-config, openssl, zlib, lib }:
 pkgs.rustPlatform.buildRustPackage rec {
   pname = "prisma-engines";
-  version = "2.6.0";
+  version = "2.8.0";
   
   nativeBuildInputs = [ pkg-config ];
 
@@ -10,13 +10,13 @@ pkgs.rustPlatform.buildRustPackage rec {
   doCheck = false; # would need some env variables from a file
 
   src = pkgs.fetchFromGitHub {
-    owner = "mohe2015";
+    owner = "prisma";
     repo = pname;
-    rev = "fix-cargo-vendor";
-    sha256 = "12r3zrbdnbnddm4xv0ixg4jscsdqyx8g1fgpg4lb53x4aw7dsqaf";
+    rev = "2.8.0-dev.16";
+    sha256 = "pvmQuPt/I/gN9y5kI4m+bi/lPBI8ozd/9ux6ZiyJop8=";
   };
 
-  cargoSha256 = "1lhlnn9n15rz7p3b0bni04cbb2ski6ny2g2slapz52j004jmp98j";
+  cargoSha256 = "J2qCXJtcv7eCKWKMv/UTGbCBtGDaj4I5WeNZngS0mRs=";
 
   meta = with stdenv.lib; {
     description = "Engine components of Prisma 2.";
