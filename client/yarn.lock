@@ -1667,10 +1667,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@material-ui/core@^5.0.0-alpha.8":
-  version "5.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-5.0.0-alpha.8.tgz#40bd56ebc9623cb4e50202a0129ad6773766ec68"
-  integrity sha512-oWlT/WVZ7ySx5T9dqFVmC0C3PX9/XUr0p/gfuRfaRrEZCw6uJQWB5r7GHprpbPJR+0DkFqb+X/3aT1xNapZb2Q==
+"@material-ui/core@^5.0.0-alpha.10":
+  version "5.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-5.0.0-alpha.10.tgz#d027811aeed06e104fb0c8f33b47d31942c4a537"
+  integrity sha512-VVwdwkRYJcccdBYuVp32Zv9imJ6yP63ywyeqETQxKMiQObFOQK9AfLGEmjbdSkukge3PD7mRl1qcccHNS9RDqA==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/styles" "^5.0.0-alpha.8"
@@ -1685,10 +1685,10 @@
     react-is "^16.8.0"
     react-transition-group "^4.4.0"
 
-"@material-ui/lab@^5.0.0-alpha.8":
-  version "5.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-5.0.0-alpha.8.tgz#100c3b051ff9822ed3c1937f0e25be73bc04427e"
-  integrity sha512-OIR+cKBXZ7va/ngSy9gS9c+uS70HqmnLaAhYg35QKDQ00vM7KeLxtIGd1498N2n+H36LWV3eHnm2qOJhEpyDOA==
+"@material-ui/lab@^5.0.0-alpha.10":
+  version "5.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-5.0.0-alpha.10.tgz#8164d1176502e0c55784448ebe31100d30180da5"
+  integrity sha512-ONJQUhzEQSlLXwVU6WJVMPBHmH9syMHV3boK4qvkDBXn9kn9e0F+WMHfBXSjOsV6tiBNC+CwVyjkrGpuOcj5YA==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/utils" "^5.0.0-alpha.8"
@@ -11867,10 +11867,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.3.tgz#153bbd468ef07725c1df9c77e8b453f8d36abba5"
-  integrity sha512-tEu6DGxGgRJPb/mVPIZ48e69xCn2yRmCgYmDugAVwmJ6o+0u1RI18eO7E7WBTLYLaEVVOhwQmcdhQHweux/WPg==
+typescript@^4.1.0-dev.20200919:
+  version "4.1.0-dev.20200919"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.0-dev.20200919.tgz#e9c07ffe89be61f8339561a3e2b937dbfe76328a"
+  integrity sha512-idW2yjfTvTCWZv5PKqoCjO2o+/ZsujUPUyGf0qPXNkPdFUqAGAs1JR7iDhzerAP+w7KzELIhgcRBDgBWX3nKaQ==
 
 ua-parser-js@^0.7.18:
   version "0.7.21"
