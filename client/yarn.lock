@@ -1725,22 +1725,13 @@
     jss-plugin-vendor-prefixer "^10.0.3"
     prop-types "^15.7.2"
 
-"@material-ui/system@^5.0.0-alpha.11":
+"@material-ui/system@^5.0.0-alpha.11", "@material-ui/system@^5.0.0-alpha.6":
   version "5.0.0-alpha.11"
   resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-5.0.0-alpha.11.tgz#3ee5aaa5c8a4f621275e124ba3ea4344481d2a29"
   integrity sha512-ChMZKY4ZW+4nAL5/vMb8jnCdCvjD7JXUCUbesKQoKMuA02qFM0aQZjfuQ7j2Q7oQUkIaSoqCsNjwQ8YvZz78Mg==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/utils" "^5.0.0-alpha.8"
-    prop-types "^15.7.2"
-
-"@material-ui/system@^5.0.0-alpha.6":
-  version "5.0.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-5.0.0-alpha.6.tgz#475467435d03e9bc2fcdab63b60eba5212d559bf"
-  integrity sha512-vpkQ4OWWVlwm2mIlxmTD6cIE9iQmeb8XXDPPXgEaaegWQ0/LF/4hZ5usWFrx6YeL/2CZBjRhOh0GRW6NBVZGyA==
-  dependencies:
-    "@babel/runtime" "^7.4.4"
-    "@material-ui/utils" "^5.0.0-alpha.1"
     prop-types "^15.7.2"
 
 "@material-ui/types@^4.1.1":
@@ -1754,15 +1745,6 @@
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@material-ui/types/-/types-5.1.0.tgz#efa1c7a0b0eaa4c7c87ac0390445f0f88b0d88f2"
   integrity sha512-7cqRjrY50b8QzRSYyhSpx4WRw2YuO0KKIGQEVk5J8uoz2BanawykgZGoWEqKm7pVIbzFDN0SpPcVV4IhOFkl8A==
-
-"@material-ui/utils@^5.0.0-alpha.1":
-  version "5.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@material-ui/utils/-/utils-5.0.0-alpha.1.tgz#6835345d3e4a5dcbf2f96d3512502dceba8d4771"
-  integrity sha512-FxkoLR/KA2133Oy1v/JLoTp/euui/xQXiBoybaBm2qWbKNzaJLM1d7KikA/9f1/y+cbSXiQUWYnQ3MtVddoHeQ==
-  dependencies:
-    "@babel/runtime" "^7.4.4"
-    prop-types "^15.7.2"
-    react-is "^16.8.0"
 
 "@material-ui/utils@^5.0.0-alpha.8":
   version "5.0.0-alpha.8"
