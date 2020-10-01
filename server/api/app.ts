@@ -45,14 +45,6 @@ settings.change({
   },
 });
 
-declare global {
-  interface NexusContext {
-    user: User | null;
-    pubsub: PubSub;
-    db: PrismaClient,
-    response: http.ServerResponse;
-  }
-}
 
 const db = new PrismaClient({
   log: ['query', 'info', 'warn'],
@@ -72,11 +64,6 @@ use(
 );
 
 use(permissions);
-
-
-schema.addToContext(async ({req, res}) => {
-  return await createContext(req.headers.cookie || null, res);
-});
 
 async function createContext(cookie: string | null, response: import("/home/moritz/Documents/sponsorenlauf/server/node_modules/nexus/dist/runtime/schema/schema").Response | null) {
   // Added for debugging
@@ -127,7 +114,10 @@ async function createContext(cookie: string | null, response: import("/home/mori
 }
 
 const apollo = new ApolloServer({
-  schema
+  schema,
+  context: async () => {
+    return await createContext(req.headers.cookie || null, res);
+  }
 })
 
 const express = createExpress()
