@@ -9,7 +9,7 @@
     "dev": "LOG=trace APP_SECRET=test ts-node-dev --transpileOnly ./your/main/module",
     "dev:typecheck": "tsc --noEmit --watch",
     "build": "yarn nexus:reflection && tsc",
-    "nexus:reflection": "ts-node src/schema",
+    "nexus:reflection": "ts-node api/schema.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

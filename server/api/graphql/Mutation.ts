@@ -2,10 +2,9 @@ import { hash, compare } from "bcrypt";
 let crypto = require('crypto');
 import cuid from 'cuid';
 import { flatten, unflatten } from 'flat';
-import { mutationType, arg } from '@nexus/schema'
+import { mutationType, arg, stringArg } from '@nexus/schema'
 
 import { RoundGetPayload } from '@prisma/client'
-import { Round } from "nexus-plugin-prisma/client";
 
 type RoundWithRunner = RoundGetPayload<{
   include: { student: true }
@@ -20,7 +19,6 @@ export const Mutation = mutationType({
       args: { data: arg({type: "UserCreateInput", nullable: false}) },
       resolve: async (parent, args, context, info) => {
         let user = await context.db.user.create({
-          // @ts-expect-error
           data: {
             ...args.data,
             password: "",
@@ -58,9 +56,7 @@ export const Mutation = mutationType({
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.user.update({
-          // @ts-expect-error
           where: args.where,
-          // @ts-expect-error
           data: {
             ...args.data,
             password: undefined,
@@ -154,7 +150,6 @@ export const Mutation = mutationType({
       nullable: false,
       args: { data: arg({type: "RunnerCreateInput", nullable: false}) },
       resolve: async (_parent, args, context, info) => {
-        // @ts-expect-error
         let runner = await context.db.runner.create(args);
 
         if (!runner) {
@@ -186,9 +181,7 @@ export const Mutation = mutationType({
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.runner.update({
-          // @ts-expect-error
           where: args.where,
-          // @ts-expect-error
           data: {
             ...args.data,
           }
@@ -286,7 +279,6 @@ export const Mutation = mutationType({
         where: arg({type: "RoundWhereUniqueInput", nullable: false})
       },
       resolve: async (parent, args, context) => {
-        // @ts-expect-error
         let round = await context.db.round.delete(args)
         await context.db.$executeRaw`UPDATE "Runner" SET "roundCount" = "roundCount" - 1 WHERE id = ${round.studentId};`
         
@@ -361,13 +353,11 @@ export const Mutation = mutationType({
           }
         })
 
-        // @ts-expect-error
         context.response.cookie('id', id, {
             httpOnly: true,
             sameSite: "strict",
             // secure: true, // TODO FIXME
         })
-        // @ts-expect-error
         context.response.cookie('logged-in', "true", {
           sameSite: "strict",
           // secure: true, // TODO FIXME
@@ -384,18 +374,15 @@ export const Mutation = mutationType({
       resolve: async (_parent, args, context) => {
         let userSession = await context.db.userSession.delete({
           where: {
-            // @ts-expect-error
             id: context.req.cookies.id
           }
         })
 
-        // @ts-expect-error
         context.response.clearCookie('id', {
           httpOnly: true,
           sameSite: "strict",
           // secure: true, // TODO FIXME
         })
-        // @ts-expect-error
         context.response.clearCookie('logged-in', {
           sameSite: "strict",
           // secure: true, // TODO FIXME
