@@ -1,3 +1,5 @@
+https://graphql-nexus-schema-website.netlify.app/
+
 # nixos
 # https://github.com/prisma/docs/issues/445
 ./setup-nix.sh
