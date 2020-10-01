@@ -1,4 +1,5 @@
 import { objectType, extendInputType, queryType, arg, idArg } from '@nexus/schema'
+import { Runner } from '@prisma/client';
 import { decode } from "../relay-tools-custom";
 
 export const RunnerOrderByInput = extendInputType({
@@ -31,7 +32,7 @@ export const Query = queryType({
       },
     });
 
-
+/*
     // https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
     // TODO FIXME https://nexus.js.org/docs/plugin-connection
     // currentIndex needs to be provided for pagination information
@@ -72,7 +73,7 @@ export const Query = queryType({
         })
       }
     });
-
+*
     t.crud.runners({
       alias: "_hidden_runners",
       filtering: true,
@@ -171,7 +172,7 @@ export const Query = queryType({
     t.crud.runner({
       type: "Runner"
     })
-
+*/
     t.field("runnersByClass", {
       type: "ClassRunners",
       list: true,
