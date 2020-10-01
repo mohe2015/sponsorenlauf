@@ -11,7 +11,7 @@ type RoundWithRunner = RoundGetPayload<{
   include: { student: true }
 }>
 
-mutationType({
+export const Mutation = mutationType({
   definition(t) {
 
     t.field("createOneUser", {

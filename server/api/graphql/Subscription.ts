@@ -2,7 +2,7 @@ import { subscriptionType } from '@nexus/schema'
 import { withFilter } from "graphql-subscriptions";
 import { Round, RoundWhereUniqueInput, User, UserWhereUniqueInput } from "nexus-plugin-prisma/client";
 
-subscriptionType({
+export const Subscription = subscriptionType({
   definition(t) {
     t.field("subscribeRounds", {
       type: "CreateRoundMutationOutput",

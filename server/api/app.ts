@@ -3,7 +3,7 @@ import { Round } from './graphql/Round';
 import { server } from "nexus";
 import { log } from "nexus";
 import { prisma } from "nexus-plugin-prisma";
-import { PrismaClient, User } from "nexus-plugin-prisma/client";
+import { PrismaClient } from "nexus-plugin-prisma/client";
 import { PubSub } from "graphql-subscriptions";
 import { permissions } from "./permissions";
 import { ConnectionContext } from "subscriptions-transport-ws";
@@ -12,6 +12,16 @@ import * as http from "http";
 import { parse as parseCookie } from "cookie";
 import cookieParser from 'cookie-parser';
 import { makeSchema } from "@nexus/schema";
+import { CreateRoundMutationError, CreateRoundMutationOutput, CreateRoundMutationResponse } from "./graphql/CreateRoundMutationResponse";
+import { LoginMutationError, LoginMutationResponse } from "./graphql/LoginMutationResponse";
+import { Mutation } from "./graphql/Mutation";
+import { Node } from "./graphql/Node";
+import { ClassRunners, Query, RunnerOrderByInput } from "./graphql/Query";
+import { Runner } from "./graphql/Runner";
+import { RunnerMutationError, RunnerMutationOutput, RunnerMutationResponse } from "./graphql/RunnerMutationResponse";
+import { Subscription } from "./graphql/Subscription";
+import { User, UserRole } from "./graphql/User";
+import { UserMutationError, UserMutationOutput, UserMutationResponse } from "./graphql/UserMutationResponse";
 
 settings.change({
   schema: {
@@ -78,7 +88,19 @@ use(permissions);
 server.express.use(cookieParser())
 
 const schema = makeSchema({
-  types: [Round]
+  types: [
+    CreateRoundMutationError, CreateRoundMutationOutput, CreateRoundMutationResponse,
+    LoginMutationError, LoginMutationResponse,
+    Mutation,
+    Node,
+    RunnerOrderByInput, ClassRunners, Query,
+    Round,
+    Runner,
+    RunnerMutationError, RunnerMutationOutput, RunnerMutationResponse,
+    Subscription,
+    UserRole, User,
+    UserMutationError, UserMutationOutput, UserMutationResponse
+  ]
 })
 
 
