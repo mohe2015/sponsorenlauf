@@ -1,18 +1,15 @@
-import { use, settings } from "nexus";
 import { ApolloServer } from 'apollo-server-express'
-import { prisma } from "nexus-plugin-prisma";
-import { PrismaClient } from "nexus-plugin-prisma/client";
 import { PubSub } from "graphql-subscriptions";
 import { permissions } from "./permissions";
 import { ConnectionContext } from "subscriptions-transport-ws";
 import WebSocket from 'ws';
-import * as http from "http";
 import { parse as parseCookie } from "cookie";
 import cookieParser from 'cookie-parser';
 import createExpress from 'express'
 import { schema } from './schema'
 import * as Http from 'http'
 
+/*
 settings.change({
   schema: {
     nullable: {
@@ -44,7 +41,7 @@ settings.change({
     }
   },
 });
-
+*/
 
 const db = new PrismaClient({
   log: ['query', 'info', 'warn'],

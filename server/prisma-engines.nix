@@ -12,11 +12,11 @@ pkgs.rustPlatform.buildRustPackage rec {
   src = pkgs.fetchFromGitHub {
     owner = "prisma";
     repo = pname;
-    rev = "2.8.0-dev.16";
-    sha256 = "pvmQuPt/I/gN9y5kI4m+bi/lPBI8ozd/9ux6ZiyJop8=";
+    rev = "2.8.0";
+    sha256 = "RlCs/HdVxt72ln9jZFjFsyucaO/S+mqQ1sTUQEZpL1I=";
   };
 
-  cargoSha256 = "J2qCXJtcv7eCKWKMv/UTGbCBtGDaj4I5WeNZngS0mRs=";
+  cargoSha256 = "SHKrJt4WrgDECFNGHzW/f42jJVKJzwqPWyHca3thrZA=";
 
   meta = with stdenv.lib; {
     description = "Engine components of Prisma 2.";
