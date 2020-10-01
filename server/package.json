@@ -8,6 +8,7 @@
     "studio": "prisma studio --experimental",
     "dev": "LOG=trace APP_SECRET=test ts-node-dev --transpileOnly ./your/main/module",
     "dev:typecheck": "tsc --noEmit --watch",
+    "nexus:reflect": "ts-node src/schema"
     "build": "nexus build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

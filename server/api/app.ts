@@ -1,5 +1,4 @@
 import { use, settings } from "nexus";
-import { Round } from './graphql/Round';
 import { server } from "nexus";
 import { log } from "nexus";
 import { prisma } from "nexus-plugin-prisma";
@@ -11,17 +10,19 @@ import WebSocket from 'ws';
 import * as http from "http";
 import { parse as parseCookie } from "cookie";
 import cookieParser from 'cookie-parser';
-import { makeSchema } from "@nexus/schema";
-import { CreateRoundMutationError, CreateRoundMutationOutput, CreateRoundMutationResponse } from "./graphql/CreateRoundMutationResponse";
-import { LoginMutationError, LoginMutationResponse } from "./graphql/LoginMutationResponse";
-import { Mutation } from "./graphql/Mutation";
-import { Node } from "./graphql/Node";
-import { ClassRunners, Query, RunnerOrderByInput } from "./graphql/Query";
-import { Runner } from "./graphql/Runner";
-import { RunnerMutationError, RunnerMutationOutput, RunnerMutationResponse } from "./graphql/RunnerMutationResponse";
-import { Subscription } from "./graphql/Subscription";
-import { User, UserRole } from "./graphql/User";
-import { UserMutationError, UserMutationOutput, UserMutationResponse } from "./graphql/UserMutationResponse";
+import {
+  CreateRoundMutationError, CreateRoundMutationOutput, CreateRoundMutationResponse,
+  LoginMutationError, LoginMutationResponse,
+  Mutation,
+  Node,
+  RunnerOrderByInput, ClassRunners, Query,
+  Round,
+  Runner,
+  RunnerMutationError, RunnerMutationOutput, RunnerMutationResponse,
+  Subscription,
+  UserRole, User,
+  UserMutationError, UserMutationOutput, UserMutationResponse
+} from './graphql'
 
 settings.change({
   schema: {
