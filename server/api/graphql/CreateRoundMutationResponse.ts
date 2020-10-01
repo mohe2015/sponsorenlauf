@@ -1,27 +1,26 @@
-import { schema } from "nexus";
+import { objectType, unionType } from '@nexus/schema'
 
-schema.objectType({
+export const CreateRoundMutationError = objectType({
   name: "CreateRoundMutationError",
   definition(t) {
     t.string("startNumberError");
   },
 });
 
-schema.objectType({
+export const CreateRoundMutationOutput = objectType({
   name: "CreateRoundMutationOutput",
   definition(t) {
     t.field("edge", {type: "RoundEdge"})
   }
 })
 
-schema.unionType({
+export const CreateRoundMutationResponse = unionType({
   name: "CreateRoundMutationResponse",
   definition(t) {
     t.members(
       "CreateRoundMutationOutput",
       "CreateRoundMutationError"
     )
-    // @ts-expect-error
     t.resolveType((item) => item.__typename);
   }
 })

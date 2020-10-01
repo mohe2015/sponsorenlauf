@@ -1,5 +1,5 @@
 import { use, settings } from "nexus";
-import { schema } from "nexus";
+import { Round } from './graphql/Round';
 import { server } from "nexus";
 import { log } from "nexus";
 import { prisma } from "nexus-plugin-prisma";
@@ -11,6 +11,7 @@ import WebSocket from 'ws';
 import * as http from "http";
 import { parse as parseCookie } from "cookie";
 import cookieParser from 'cookie-parser';
+import { makeSchema } from "@nexus/schema";
 
 settings.change({
   schema: {
@@ -75,6 +76,12 @@ use(
 use(permissions);
 
 server.express.use(cookieParser())
+
+const schema = makeSchema({
+  types: [Round]
+})
+
+
 
 schema.addToContext(async ({req, res}) => {
   return await createContext(req.headers.cookie || null, res);

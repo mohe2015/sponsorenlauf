@@ -1,8 +1,8 @@
-import { schema } from "nexus";
+import { objectType, extendInputType, queryType, arg, idArg } from '@nexus/schema'
 import { decode } from "../relay-tools-custom";
 import { Runner } from "nexus-plugin-prisma/client";
 
-schema.extendInputType({
+export const RunnerOrderByInput = extendInputType({
   type: "RunnerOrderByInput",
   definition(t) {
     t.field("roundCount", {
@@ -12,7 +12,7 @@ schema.extendInputType({
   }
 })
 
-schema.objectType({
+export const ClassRunners = objectType({
   name: "ClassRunners",
   definition(t) {
     t.string("class")
@@ -22,7 +22,7 @@ schema.objectType({
   }
 })
 
-schema.queryType({
+export const Query = queryType({
   definition(t) {
     t.field("me", {
       type: "User",
@@ -41,7 +41,7 @@ schema.queryType({
       type: "Runner",
       disableBackwardPagination: true,
       additionalArgs: {
-        orderBy: schema.arg({ type: "RunnerOrderByInput" }),
+        orderBy: arg({ type: "RunnerOrderByInput" }),
       },
       resolve: async (root, args, ctx) => {
         let result = await ctx.db.runner.findMany({
@@ -93,8 +93,8 @@ schema.queryType({
       type: "Round",
       disableBackwardPagination: true,
       additionalArgs: {
-        filter: schema.arg({ type: "RoundWhereInput", required: false }),
-        orderBy: schema.arg({ type: "RoundOrderByInput" }),
+        filter: arg({ type: "RoundWhereInput", required: false }),
+        orderBy: arg({ type: "RoundOrderByInput" }),
       },
       resolve: async (root, args, ctx) => {
         let result = await ctx.db.round.findMany({
@@ -202,7 +202,7 @@ schema.queryType({
 
     t.field("node", {
       type: "Node",
-      args: { id: schema.idArg({ required: true }) },
+      args: { id: idArg({ required: true }) },
       resolve: (root, args, context) => {
         const { id, __typename } = decode(args.id);
         const objeto = __typename.charAt(0).toLowerCase() + __typename.slice(1); // from TitleCase to camelCase

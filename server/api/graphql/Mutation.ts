@@ -1,8 +1,8 @@
-import { schema } from "nexus";
 import { hash, compare } from "bcrypt";
 let crypto = require('crypto');
 import cuid from 'cuid';
 import { flatten, unflatten } from 'flat';
+import { mutationType, arg } from '@nexus/schema'
 
 import { RoundGetPayload } from '@prisma/client'
 import { Round } from "nexus-plugin-prisma/client";
@@ -11,13 +11,13 @@ type RoundWithRunner = RoundGetPayload<{
   include: { student: true }
 }>
 
-schema.mutationType({
+mutationType({
   definition(t) {
 
     t.field("createOneUser", {
       type: "UserMutationResponse",
       nullable: false,
-      args: { data: schema.arg({type: "UserCreateInput", nullable: false}) },
+      args: { data: arg({type: "UserCreateInput", nullable: false}) },
       resolve: async (parent, args, context, info) => {
         let user = await context.db.user.create({
           // @ts-expect-error
@@ -53,8 +53,8 @@ schema.mutationType({
       type: "UserMutationResponse",
       nullable: false,
       args: { 
-        data: schema.arg({type: "UserUpdateInput", nullable: false}),
-        where: schema.arg({type: "UserWhereUniqueInput", nullable: false}),
+        data: arg({type: "UserUpdateInput", nullable: false}),
+        where: arg({type: "UserWhereUniqueInput", nullable: false}),
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.user.update({
@@ -152,7 +152,7 @@ schema.mutationType({
     t.field("createOneRunner", {
       type: "RunnerMutationResponse",
       nullable: false,
-      args: { data: schema.arg({type: "RunnerCreateInput", nullable: false}) },
+      args: { data: arg({type: "RunnerCreateInput", nullable: false}) },
       resolve: async (_parent, args, context, info) => {
         // @ts-expect-error
         let runner = await context.db.runner.create(args);
@@ -181,8 +181,8 @@ schema.mutationType({
       type: "RunnerMutationResponse",
       nullable: false,
       args: { 
-        data: schema.arg({type: "RunnerUpdateInput", nullable: false}),
-        where: schema.arg({type: "RunnerWhereUniqueInput", nullable: false}),
+        data: arg({type: "RunnerUpdateInput", nullable: false}),
+        where: arg({type: "RunnerWhereUniqueInput", nullable: false}),
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.runner.update({
@@ -231,7 +231,7 @@ schema.mutationType({
     t.field("createOneRound", {
       type: "CreateRoundMutationResponse",
       nullable: false,
-      args: { data: schema.arg({type: "RoundCreateInput", nullable: false}) },
+      args: { data: arg({type: "RoundCreateInput", nullable: false}) },
       resolve: async (parent, args, context) => {
         try {
           let startNumber = args.data.student.connect?.startNumber;
@@ -283,7 +283,7 @@ schema.mutationType({
       type: "Round",
       nullable: true,
       args: {
-        where: schema.arg({type: "RoundWhereUniqueInput", nullable: false})
+        where: arg({type: "RoundWhereUniqueInput", nullable: false})
       },
       resolve: async (parent, args, context) => {
         // @ts-expect-error
@@ -318,8 +318,8 @@ schema.mutationType({
     t.field("login", {
       type: "LoginMutationResponse",
       args: {
-        name: schema.stringArg({ nullable: false }),
-        password: schema.stringArg({ nullable: false }),
+        name: stringArg({ nullable: false }),
+        password: stringArg({ nullable: false }),
       },
       resolve: async (_parent, { name, password }, context) => {
         const user = await context.db.user.findOne({

@@ -1,6 +1,6 @@
-import { schema } from "nexus";
+import { objectType, unionType } from '@nexus/schema'
 
-schema.objectType({
+export const RunnerMutationError = objectType({
   name: "RunnerMutationError",
   definition(t) {
     t.string("nameError");
@@ -8,21 +8,20 @@ schema.objectType({
   },
 });
 
-schema.objectType({
+export const RunnerMutationOutput = objectType({
   name: "RunnerMutationOutput",
   definition(t) {
     t.field("edge", {type: "RunnerEdge"})
   }
 })
 
-schema.unionType({
+export const RunnerMutationResponse = unionType({
   name: "RunnerMutationResponse",
   definition(t) {
     t.members(
       "RunnerMutationOutput",
       "RunnerMutationError"
     )
-    // @ts-expect-error
     t.resolveType((item) => item.__typename);
   }
 })
