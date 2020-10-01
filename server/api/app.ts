@@ -1,6 +1,5 @@
 import { use, settings } from "nexus";
-import { server } from "nexus";
-import { log } from "nexus";
+import { ApolloServer } from 'apollo-server-express'
 import { prisma } from "nexus-plugin-prisma";
 import { PrismaClient } from "nexus-plugin-prisma/client";
 import { PubSub } from "graphql-subscriptions";
@@ -10,19 +9,9 @@ import WebSocket from 'ws';
 import * as http from "http";
 import { parse as parseCookie } from "cookie";
 import cookieParser from 'cookie-parser';
-import {
-  CreateRoundMutationError, CreateRoundMutationOutput, CreateRoundMutationResponse,
-  LoginMutationError, LoginMutationResponse,
-  Mutation,
-  Node,
-  RunnerOrderByInput, ClassRunners, Query,
-  Round,
-  Runner,
-  RunnerMutationError, RunnerMutationOutput, RunnerMutationResponse,
-  Subscription,
-  UserRole, User,
-  UserMutationError, UserMutationOutput, UserMutationResponse
-} from './graphql'
+import createExpress from 'express'
+import { schema } from './schema'
+import * as Http from 'http'
 
 settings.change({
   schema: {
@@ -48,11 +37,9 @@ settings.change({
       enabled: true,
       keepAlive: 10 * 1000,
       onConnect: (connectionParams: Record<string, any>, webSocket: WebSocket, context: ConnectionContext) => {
-        log.info("client connected");
         return createContext(context.request.headers.cookie || null, null);
       },
       onDisconnect: () => {
-        log.info("client disconnected");
       },
     }
   },
@@ -85,25 +72,6 @@ use(
 );
 
 use(permissions);
-
-server.express.use(cookieParser())
-
-const schema = makeSchema({
-  types: [
-    CreateRoundMutationError, CreateRoundMutationOutput, CreateRoundMutationResponse,
-    LoginMutationError, LoginMutationResponse,
-    Mutation,
-    Node,
-    RunnerOrderByInput, ClassRunners, Query,
-    Round,
-    Runner,
-    RunnerMutationError, RunnerMutationOutput, RunnerMutationResponse,
-    Subscription,
-    UserRole, User,
-    UserMutationError, UserMutationOutput, UserMutationResponse
-  ]
-})
-
 
 
 schema.addToContext(async ({req, res}) => {
@@ -157,3 +125,24 @@ async function createContext(cookie: string | null, response: import("/home/mori
     response,
   }
 }
+
+const apollo = new ApolloServer({
+  schema
+})
+
+const express = createExpress()
+
+express.use(cookieParser())
+
+const httpServer = Http.createServer(/* app */)
+
+apollo.installSubscriptionHandlers(httpServer)
+
+apollo.applyMiddleware({ app: express })
+
+//apollo.applyMiddleware({ app: express, cors: { ... } })
+
+httpServer.listen({ port: 4000 }, () => {
+  console.log(`server at http://localhost:4000${apollo.graphqlPath}`)
+  console.log(`Subscriptions server at ws://localhost:4000${apollo.subscriptionsPath}`)
+})
