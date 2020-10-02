@@ -3,11 +3,11 @@ import * as types from './graphql'
 import { DateTimeResolver, JSONObjectResolver } from 'graphql-scalars'
 import { GraphQLScalarType } from 'graphql'
 import { nexusPrisma } from 'nexus-plugin-prisma'
+import * as path from 'path'
 
 export const schema = makeSchema({
     types,
     plugins: [nexusPrisma({
-        shouldGenerateArtifacts: true,
         experimentalCRUD: true,
         scalars: {
             DateTime: DateTimeResolver,
@@ -21,14 +21,22 @@ export const schema = makeSchema({
     typegenAutoConfig: {
         sources: [
             {
-                source: require.resolve('.prisma/client/index.d.ts'),
+                source: '.prisma/client',
                 alias: "prisma",
             },
             {
-                source: require.resolve('./context'),
+                source: './context',
                 alias: 'ContextModule'
             },
         ],
         contextType: 'ContextModule.Context',
+        
     },
+    outputs: {
+        typegen: path.join(
+          __dirname,
+          'node_modules/@types/nexus-typegen/index.d.ts',
+        ),
+        schema: path.join(__dirname, './api.graphql'),
+      },
 })
