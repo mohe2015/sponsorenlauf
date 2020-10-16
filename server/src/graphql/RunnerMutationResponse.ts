@@ -22,6 +22,7 @@ export const RunnerMutationResponse = unionType({
       "RunnerMutationOutput",
       "RunnerMutationError"
     )
+    // @ts-expect-error
     t.resolveType((item) => item.__typename);
   }
 })

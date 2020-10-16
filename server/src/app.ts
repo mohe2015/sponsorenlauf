@@ -9,6 +9,8 @@ import createExpress, { Response } from 'express'
 import { schema } from './schema'
 import * as Http from 'http'
 import { PrismaClient } from '@prisma/client';
+import { Context } from './context';
+import e from 'express';
 
 const db = new PrismaClient({
   log: ['query', 'info', 'warn'],
@@ -16,7 +18,7 @@ const db = new PrismaClient({
 const pubsub = new PubSub();
 let nextCleanupCheck = new Date();
 
-async function createContext(cookie: string | null, response: Response | null) {
+async function createContext(cookie: string | null, response: e.Response<any>): Promise<Context> {
   // Added for debugging
   //await new Promise((r) => setTimeout(r, 3000));
   
@@ -48,6 +50,7 @@ async function createContext(cookie: string | null, response: Response | null) {
 
       if (userSession && userSession.validUntil.getTime() > Date.now()) {
         return {
+          sessionId: cookies.id,
           user: userSession?.user,
           pubsub,
           db,
@@ -57,6 +60,7 @@ async function createContext(cookie: string | null, response: Response | null) {
     }
   }
   return {
+    sessionId: null,
     user: null,
     pubsub,
     db,
@@ -67,11 +71,7 @@ async function createContext(cookie: string | null, response: Response | null) {
 const apollo = new ApolloServer({
   schema,
   context: async (config) => {
-    if (config.connection) {
-      return await createContext(config.connection.context.request.headers.cookie || null, null);
-    } else {
-      return await createContext(config.req.headers.cookie || null, config.res);
-    }
+    return await createContext(config.req.headers.cookie || null, config.res);
   }
 })
 
