@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
+    "outDir": "dist",
+    "rootDir": "src",
     "lib": ["esnext"],
-    "strict": true,
-    "rootDir": ".",
-    "noEmit": true,   
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "strict": true
   },
+  "include": ["src/**/*"]
 }

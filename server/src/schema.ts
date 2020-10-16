@@ -21,24 +21,20 @@ export const schema = makeSchema({
     }),
     connectionPlugin()],
     typegenAutoConfig: {
+      contextType: 'Context.Context',
         sources: [
             {
-                source: '.prisma/client',
+                source: '@prisma/client',
                 alias: "prisma",
             },
             {
-                source: './api/context',
-                alias: 'ContextModule'
+                source: require.resolve("./context"),
+                alias: 'Context'
             },
         ],
-        contextType: 'ContextModule.Context',
-        
     },
     outputs: {
-        typegen: path.join(
-          __dirname,
-          '../node_modules/@types/nexus-typegen/index.d.ts',
-        ),
-        schema: path.join(__dirname, '../api.graphql'),
+        typegen: __dirname + '/generated/nexus.ts',
+        schema: __dirname + '/../schema.graphql',
       },
 })
