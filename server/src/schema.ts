@@ -15,6 +15,10 @@ export const schema = makeSchema({
           shouldGenerateArtifacts: true
     }),
     connectionPlugin()],
+    nonNullDefaults: {
+        input: true,
+        output: true,
+    },
     typegenAutoConfig: {
       contextType: 'Context.Context',
         sources: [

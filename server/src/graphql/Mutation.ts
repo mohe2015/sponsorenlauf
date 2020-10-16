@@ -19,6 +19,7 @@ export const Mutation = mutationType({
       args: { data: arg({type: "UserCreateInput", nullable: false}) },
       resolve: async (parent, args, context, info) => {
         let user = await context.db.user.create({
+          // @ts-expect-error
           data: {
             ...args.data,
             password: "",
@@ -56,7 +57,9 @@ export const Mutation = mutationType({
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.user.update({
+          // @ts-expect-error
           where: args.where,
+          // @ts-expect-error
           data: {
             ...args.data,
             password: undefined,
@@ -150,6 +153,7 @@ export const Mutation = mutationType({
       nullable: false,
       args: { data: arg({type: "RunnerCreateInput", nullable: false}) },
       resolve: async (_parent, args, context, info) => {
+        // @ts-expect-error
         let runner = await context.db.runner.create(args);
 
         if (!runner) {
@@ -181,7 +185,9 @@ export const Mutation = mutationType({
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.runner.update({
+          // @ts-expect-error
           where: args.where,
+          // @ts-expect-error
           data: {
             ...args.data,
           }
@@ -279,6 +285,7 @@ export const Mutation = mutationType({
         where: arg({type: "RoundWhereUniqueInput", nullable: false})
       },
       resolve: async (parent, args, context) => {
+        // @ts-expect-error
         let round = await context.db.round.delete(args)
         await context.db.$executeRaw`UPDATE "Runner" SET "roundCount" = "roundCount" - 1 WHERE id = ${round.studentId};`
         

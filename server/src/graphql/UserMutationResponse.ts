@@ -22,6 +22,7 @@ export const UserMutationResponse = unionType({
       "UserMutationOutput",
       "UserMutationError"
     )
+    // @ts-expect-error
     t.resolveType((item) => item.__typename);
   }
 })

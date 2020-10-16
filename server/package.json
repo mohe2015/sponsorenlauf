@@ -31,8 +31,8 @@
     "flat": "^5.0.2",
     "graphql": "^15.3.0",
     "graphql-scalars": "^1.4.0",
-    "nexus-plugin-prisma": "^0.22.0",
-    "nexus-plugin-shield": "^0.2.0"
+    "graphql-shield": "^7.3.7",
+    "nexus-plugin-prisma": "^0.22.0"
   },
   "resolutions": {
     "typescript": "4.1.0-dev.20200902"
