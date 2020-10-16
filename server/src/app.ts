@@ -10,40 +10,6 @@ import { schema } from './schema'
 import * as Http from 'http'
 import { PrismaClient } from '@prisma/client';
 
-/*
-settings.change({
-  schema: {
-    nullable: {
-      inputs: false,
-      outputs: false,
-    },
-  },
-  server: {
-    cors: {
-      enabled: true,
-      credentials: true,
-      methods: "POST",
-      origin: ["http://localhost:3000", "http://localhost:5000"]
-    },
-    playground: {
-      enabled: true,
-      settings: {
-        "request.credentials": "include",
-      }
-    },
-    subscriptions: {
-      enabled: true,
-      keepAlive: 10 * 1000,
-      onConnect: (connectionParams: Record<string, any>, webSocket: WebSocket, context: ConnectionContext) => {
-        return createContext(context.request.headers.cookie || null, null);
-      },
-      onDisconnect: () => {
-      },
-    }
-  },
-});
-*/
-
 const db = new PrismaClient({
   log: ['query', 'info', 'warn'],
 });
@@ -100,8 +66,12 @@ async function createContext(cookie: string | null, response: Response | null) {
 
 const apollo = new ApolloServer({
   schema,
-  context: async () => {
-    return await createContext(req.headers.cookie || null, res);
+  context: async (config) => {
+    if (config.connection) {
+      return await createContext(config.connection.context.request.headers.cookie || null, null);
+    } else {
+      return await createContext(config.req.headers.cookie || null, config.res);
+    }
   }
 })
 
@@ -115,7 +85,11 @@ apollo.installSubscriptionHandlers(httpServer)
 
 apollo.applyMiddleware({ app: express })
 
-//apollo.applyMiddleware({ app: express, cors: { ... } })
+apollo.applyMiddleware({ app: express, cors: {
+  credentials: true,
+  methods: "POST",
+  origin: ["http://localhost:3000", "http://localhost:5000"]
+ }})
 
 httpServer.listen({ port: 4000 }, () => {
   console.log(`server at http://localhost:4000${apollo.graphqlPath}`)
