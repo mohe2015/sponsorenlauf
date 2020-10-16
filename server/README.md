@@ -1,3 +1,27 @@
+services.postgresql = {
+    enable = true;
+    ensureUsers = [
+      {
+        name = "moritz";
+        ensurePermissions = {
+          "DATABASE sponsorenlauf" = "ALL PRIVILEGES";
+        };
+      }
+    ];
+    ensureDatabases = [ "sponsorenlauf" ];
+  };
+
+
+
+```
+sudo -u postgres psql --u postgres
+CREATE DATABASE sponsorenlauf;
+```
+
+
+yarn prisma migrate save --name 'init' --experimental
+yarn prisma migrate up --experimental
+
 https://graphql-nexus-schema-website.netlify.app/
 
 # nixos
@@ -30,9 +54,8 @@ UPDATE "Runner" SET "roundCount" = (SELECT COUNT(*) FROM "Round" WHERE "studentI
 #### Dropping database
 
 ```
-psql --db sponsorenlauf
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
+sudo -u postgres psql --u postgres
+DROP DATABASE sponsorenlauf;
 ```
 
 ### Mariadb / Mysql
