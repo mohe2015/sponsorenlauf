@@ -18,19 +18,14 @@ sudo -u postgres psql --u postgres
 CREATE DATABASE sponsorenlauf;
 ```
 
-
+yarn
 yarn prisma migrate save --name 'init' --experimental
 yarn prisma migrate up --experimental
+yarn prisma generate
+yarn ts-node prisma/seed.ts
 
 https://graphql-nexus-schema-website.netlify.app/
 
-# nixos
-# https://github.com/prisma/docs/issues/445
-./setup-nix.sh
-
-npx prisma migrate save --experimental
-npx prisma migrate up --experimental
-ts-node prisma/seed.ts
 
 TODO https://github.com/graphql-nexus/nexus/issues/962
 TODO https://github.com/graphql-nexus/nexus/issues/761#issuecomment-627989689
