@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import createExpress from 'express'
 import { schema } from './schema'
 import * as Http from 'http'
+import { PrismaClient } from '@prisma/client';
 
 /*
 settings.change({
@@ -49,19 +50,6 @@ const db = new PrismaClient({
 const pubsub = new PubSub();
 let nextCleanupCheck = new Date();
 
-use(
-  prisma({
-    client: {
-      instance: db,
-    },
-    features: {
-      crud: true,
-    },
-  })
-);
-
-use(permissions);
-
 async function createContext(cookie: string | null, response: import("/home/moritz/Documents/sponsorenlauf/server/node_modules/nexus/dist/runtime/schema/schema").Response | null) {
   // Added for debugging
   //await new Promise((r) => setTimeout(r, 3000));
@@ -69,7 +57,7 @@ async function createContext(cookie: string | null, response: import("/home/mori
   if (nextCleanupCheck.getTime() < Date.now()) {
     nextCleanupCheck = new Date();
     nextCleanupCheck.setHours(nextCleanupCheck.getMinutes() + 1);
-    log.info("session cleanup start")
+    console.info("session cleanup start")
     let result = await db.userSession.deleteMany({
       where: {
         validUntil: {
@@ -77,7 +65,7 @@ async function createContext(cookie: string | null, response: import("/home/mori
         }
       }
     })
-    log.info(`cleaned up ${result.count} sessions`)
+    console.info(`cleaned up ${result.count} sessions`)
   }
   if (cookie) {
     let cookies = parseCookie(cookie);

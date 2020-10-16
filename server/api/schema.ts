@@ -2,12 +2,12 @@ import { makeSchema, connectionPlugin } from '@nexus/schema'
 import * as types from './graphql'
 import { DateTimeResolver, JSONObjectResolver } from 'graphql-scalars'
 import { GraphQLScalarType } from 'graphql'
-import { nexusPrisma } from 'nexus-plugin-prisma'
+import { nexusSchemaPrisma } from 'nexus-plugin-prisma/schema'
 import * as path from 'path'
 
 export const schema = makeSchema({
     types,
-    plugins: [nexusPrisma({
+    plugins: [nexusSchemaPrisma({
         experimentalCRUD: true,
         scalars: {
             DateTime: DateTimeResolver,

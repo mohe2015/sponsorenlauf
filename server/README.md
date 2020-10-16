@@ -1,3 +1,13 @@
+
+TODO FIXME add permissions again
+
+
+
+
+
+
+
+
 services.postgresql = {
     enable = true;
     ensureUsers = [
