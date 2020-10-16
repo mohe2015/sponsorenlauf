@@ -37,8 +37,8 @@ export const schema = makeSchema({
     outputs: {
         typegen: path.join(
           __dirname,
-          'node_modules/@types/nexus-typegen/index.d.ts',
+          '../node_modules/@types/nexus-typegen/index.d.ts',
         ),
-        schema: path.join(__dirname, './api.graphql'),
+        schema: path.join(__dirname, '../api.graphql'),
       },
 })
