@@ -5,7 +5,8 @@
     "lib": ["esnext"],
     "strict": true,
     "rootDir": ".",
-    "noEmit": true,    "esModuleInterop": true,
+    "noEmit": true,   
+    "esModuleInterop": true,
     "skipLibCheck": true
   },
 }
