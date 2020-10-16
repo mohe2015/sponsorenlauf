@@ -23,6 +23,8 @@ yarn prisma migrate save --name 'init' --experimental
 yarn prisma migrate up --experimental
 yarn prisma generate
 yarn ts-node prisma/seed.ts
+yarn ts-node --transpile-only api/schema.ts
+yarn ts-node-dev --no-notify --respawn --transpile-only api/app.ts
 
 https://graphql-nexus-schema-website.netlify.app/
 

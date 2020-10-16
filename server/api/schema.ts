@@ -1,4 +1,4 @@
-import { makeSchema } from '@nexus/schema'
+import { makeSchema, connectionPlugin } from '@nexus/schema'
 import * as types from './graphql'
 import { DateTimeResolver, JSONObjectResolver } from 'graphql-scalars'
 import { GraphQLScalarType } from 'graphql'
@@ -17,7 +17,8 @@ export const schema = makeSchema({
               description: 'The `JSON` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).',
             })
           }
-    })],
+    }),
+    connectionPlugin()],
     typegenAutoConfig: {
         sources: [
             {
@@ -25,7 +26,7 @@ export const schema = makeSchema({
                 alias: "prisma",
             },
             {
-                source: './context',
+                source: './api/context',
                 alias: 'ContextModule'
             },
         ],

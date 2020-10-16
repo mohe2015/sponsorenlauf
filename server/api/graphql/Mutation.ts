@@ -85,7 +85,7 @@ export const Mutation = mutationType({
         return output;
       }
     });
-/*
+
     t.crud.deleteOneUser();
 
     t.crud.createOneUser({
@@ -105,7 +105,7 @@ export const Mutation = mutationType({
           return ""
         }
       }
-    })*/
+    })
 
     t.field("generatePasswords", {
       type: "QueryUsers_Connection",
@@ -209,7 +209,7 @@ export const Mutation = mutationType({
         return output;
       }
     });
-/*
+
     t.crud.deleteOneRunner();
 
     t.crud.createOneRunner({
@@ -219,7 +219,7 @@ export const Mutation = mutationType({
     t.crud.updateOneRunner({
       type: "Runner",
       alias: "_hidden_we_need_the_types_updateOneRunner"
-    })*/
+    })
 
     t.field("createOneRound", {
       type: "CreateRoundMutationResponse",
@@ -288,7 +288,7 @@ export const Mutation = mutationType({
       }
     })
 
-   /* t.crud.deleteOneRound({
+    t.crud.deleteOneRound({
       type: "Round",
       alias: "_hidden_deelteOneRound"
     });
@@ -305,7 +305,7 @@ export const Mutation = mutationType({
     t.crud.updateOneRound({
       type: "Round",
       alias: "_hidden_we_need_the_types_updateOneRound"
-    })*/
+    })
 
     t.field("login", {
       type: "LoginMutationResponse",

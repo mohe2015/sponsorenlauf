@@ -32,12 +32,12 @@ export const Query = queryType({
       },
     });
 
-/*
+
     // https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
     // TODO FIXME https://nexus.js.org/docs/plugin-connection
     // currentIndex needs to be provided for pagination information
     // pagination maybe depending on cursor and not offset (see base64 decode of cursor)
-    t.connection("runners", {
+    t.connectionField("runners", {
       type: "Runner",
       disableBackwardPagination: true,
       additionalArgs: {
@@ -73,7 +73,7 @@ export const Query = queryType({
         })
       }
     });
-*
+
     t.crud.runners({
       alias: "_hidden_runners",
       filtering: true,
@@ -89,7 +89,7 @@ export const Query = queryType({
     // using last/before, all other arguments being equal. It should
     // not be reversed when using last/before.
 
-    t.connection("rounds", {
+    t.connectionField("rounds", {
       type: "Round",
       disableBackwardPagination: true,
       additionalArgs: {
@@ -129,7 +129,7 @@ export const Query = queryType({
       filtering: true,
     })
 
-    t.connection("users", {
+    t.connectionField("users", {
       type: "User",
       disableBackwardPagination: true,
       resolve: async (root, args, ctx) => {
@@ -172,7 +172,7 @@ export const Query = queryType({
     t.crud.runner({
       type: "Runner"
     })
-*/
+
     t.field("runnersByClass", {
       type: "ClassRunners",
       list: true,
