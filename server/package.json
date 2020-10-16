@@ -19,8 +19,8 @@
   "dependencies": {
     "@nexus/schema": "^0.17.0-next.1",
     "@prisma/client": "^2.10.0-integration-query-engine-native-types.1",
-    "apollo-server-errors": "^3.0.0-alpha.3",
-    "apollo-server-express": "^3.0.0-alpha.3",
+    "apollo-server-errors": "^2.4.2",
+    "apollo-server-express": "^2.18.2",
     "bcrypt": "^5.0.0",
     "cookie": "^0.4.1",
     "cookie-parser": "^1.4.5",
