@@ -16,6 +16,7 @@ export const LoginMutationResponse = unionType({
       "User",
       "LoginMutationError"
     )
+    // @ts-expect-error
     t.resolveType((item) => item.__typename);
   }
 })

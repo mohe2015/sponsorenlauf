@@ -353,11 +353,13 @@ export const Mutation = mutationType({
           }
         })
 
+        // @ts-expect-error
         context.response.cookie('id', id, {
             httpOnly: true,
             sameSite: "strict",
             // secure: true, // TODO FIXME
         })
+        // @ts-expect-error
         context.response.cookie('logged-in', "true", {
           sameSite: "strict",
           // secure: true, // TODO FIXME
@@ -378,11 +380,13 @@ export const Mutation = mutationType({
           }
         })
 
+        // @ts-expect-error
         context.response.clearCookie('id', {
           httpOnly: true,
           sameSite: "strict",
           // secure: true, // TODO FIXME
         })
+        // @ts-expect-error
         context.response.clearCookie('logged-in', {
           sameSite: "strict",
           // secure: true, // TODO FIXME

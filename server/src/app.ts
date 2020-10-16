@@ -5,7 +5,7 @@ import { ConnectionContext } from "subscriptions-transport-ws";
 import WebSocket from 'ws';
 import { parse as parseCookie } from "cookie";
 import cookieParser from 'cookie-parser';
-import createExpress from 'express'
+import createExpress, { Response } from 'express'
 import { schema } from './schema'
 import * as Http from 'http'
 import { PrismaClient } from '@prisma/client';
@@ -50,7 +50,7 @@ const db = new PrismaClient({
 const pubsub = new PubSub();
 let nextCleanupCheck = new Date();
 
-async function createContext(cookie: string | null, response: import("/home/moritz/Documents/sponsorenlauf/server/node_modules/nexus/dist/runtime/schema/schema").Response | null) {
+async function createContext(cookie: string | null, response: Response | null) {
   // Added for debugging
   //await new Promise((r) => setTimeout(r, 3000));
   

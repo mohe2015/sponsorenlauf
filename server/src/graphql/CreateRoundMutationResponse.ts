@@ -21,6 +21,7 @@ export const CreateRoundMutationResponse = unionType({
       "CreateRoundMutationOutput",
       "CreateRoundMutationError"
     )
+    // @ts-expect-error
     t.resolveType((item) => item.__typename);
   }
 })

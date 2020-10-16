@@ -1,10 +1,11 @@
 import { shield, rule, deny, not, and, or, allow } from "nexus-plugin-shield";
-import { UserRole } from "nexus-plugin-prisma/client";
 import { AuthenticationError, ForbiddenError } from "apollo-server-errors";
+import { UserRole } from "@prisma/client";
+import { Context } from "./context";
 
 const rules = {
   isUserWithRole: (roles: UserRole[]) =>
-    rule({ cache: "contextual" })(async (parent, args, context: NexusContext, info) => {
+    rule({ cache: "contextual" })(async (parent, args, context: Context, info) => {
       const user = context.user;
       return roles.some((r) => user && r === user.role);
     }),
