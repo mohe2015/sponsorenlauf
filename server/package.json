@@ -10,7 +10,7 @@
     "generate:prisma": "prisma generate",
     "generate:nexus": "ts-node --transpile-only src/schema",
     "dev:typecheck": "tsc --noEmit --watch",
-    "dev": "LOG=trace APP_SECRET=test ts-node-dev --no-notify --respawn --transpile-only src/server",
+    "dev": "LOG=trace APP_SECRET=test ts-node-dev --no-notify --respawn --transpile-only src/app",
     "seed": "ts-node prisma/seed"
   },
   "keywords": [],
