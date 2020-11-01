@@ -26,6 +26,7 @@ services.postgresql = {
 ```
 sudo -u postgres psql --u postgres
 CREATE DATABASE sponsorenlauf;
+GRANT ALL PRIVILEGES ON DATABASE sponsorenlauf TO moritz;
 ```
 
 yarn
