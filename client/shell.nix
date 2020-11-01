@@ -2,8 +2,8 @@
 with pkgs;
 mkShell {
     buildInputs = [
-        yarn
         nodejs
         watchman
+        nodePackages.npm-check-updates
     ];
 }
