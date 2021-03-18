@@ -1,12 +1,12 @@
-import { schema } from "nexus";
+import { objectType, enumType } from '@nexus/schema'
 
-schema.enumType({
+export const UserRole = enumType({
   name: "UserRole",
   members: ["ADMIN", "TEACHER", "VIEWER"],
   description: "The users role",
 });
 
-schema.objectType({
+export const User = objectType({
   name: "User",
   definition(t) {
     t.model.id();

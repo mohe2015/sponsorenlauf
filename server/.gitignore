@@ -1,3 +1,2 @@
-api.graphql
-.yalc
-.yalc.lock
+schema.graphql
+dist

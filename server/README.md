@@ -1,10 +1,44 @@
-# nixos
-# https://github.com/prisma/docs/issues/445
-./setup-nix.sh
 
-npx prisma migrate save --experimental
-npx prisma migrate up --experimental
-ts-node prisma/seed.ts
+TODO FIXME add permissions again
+
+
+
+
+
+
+
+
+services.postgresql = {
+    enable = true;
+    ensureUsers = [
+      {
+        name = "moritz";
+        ensurePermissions = {
+          "DATABASE sponsorenlauf" = "ALL PRIVILEGES";
+        };
+      }
+    ];
+    ensureDatabases = [ "sponsorenlauf" ];
+  };
+
+
+
+```
+sudo -u postgres psql --u postgres
+CREATE DATABASE sponsorenlauf;
+GRANT ALL PRIVILEGES ON DATABASE sponsorenlauf TO moritz;
+```
+
+yarn
+yarn prisma migrate save --name 'init' --experimental
+yarn prisma migrate up --experimental
+yarn prisma generate
+yarn ts-node prisma/seed.ts
+yarn ts-node --transpile-only api/schema.ts
+yarn ts-node-dev --no-notify --respawn --transpile-only api/app.ts
+
+https://graphql-nexus-schema-website.netlify.app/
+
 
 TODO https://github.com/graphql-nexus/nexus/issues/962
 TODO https://github.com/graphql-nexus/nexus/issues/761#issuecomment-627989689
@@ -28,9 +62,8 @@ UPDATE "Runner" SET "roundCount" = (SELECT COUNT(*) FROM "Round" WHERE "studentI
 #### Dropping database
 
 ```
-psql --db sponsorenlauf
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
+sudo -u postgres psql --u postgres
+DROP DATABASE sponsorenlauf;
 ```
 
 ### Mariadb / Mysql

@@ -1,7 +1,7 @@
-import { schema } from "nexus";
+import { objectType } from '@nexus/schema'
 import { Node } from "./Node";
 
-schema.objectType({
+export const Runner = objectType({
   name: "Runner",
   definition(t) {
     t.implements(Node);
