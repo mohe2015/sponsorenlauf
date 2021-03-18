@@ -1,4 +1,5 @@
 import { objectType, enumType } from 'nexus'
+import { Context } from '../context';
 
 export const UserRole = enumType({
   name: "UserRole",
@@ -9,10 +10,19 @@ export const UserRole = enumType({
 export const User = objectType({
   name: "User",
   definition(t) {
-    t.model.id();
-    t.model.name();
-    t.model.password();
-    t.model.role();
-    t.model.createdRounds({ type: "Round" });
+    t.nonNull.id("id");
+    t.nonNull.string("name");
+    t.nonNull.string("password");
+    t.nonNull.field('role', {
+      type: 'UserRole'
+    })
+    t.nonNull.list.nonNull.field('createdRounds', {
+      type: 'Round',
+      resolve: (parent, _, context: Context) => {
+        return context.db.user.findUnique({
+          where: { id: parent.id }
+        }).createdRounds()
+      }
+    })
   },
 });

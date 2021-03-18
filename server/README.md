@@ -21,6 +21,8 @@ services.mysql = {
 
 
 
+https://nexusjs.org/docs/plugins/prisma/removing-the-nexus-plugin-prisma
+
 
 npm install
 npx prisma migrate dev --name init

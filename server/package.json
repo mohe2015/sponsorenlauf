@@ -17,7 +17,6 @@
   "author": "Moritz Hedtke <Moritz.Hedtke@t-online.de>",
   "license": "AGPL-3.0",
   "dependencies": {
-    "nexus": "^1.0.0",
     "@prisma/client": "^2.19.0",
     "apollo-server-errors": "^2.4.2",
     "apollo-server-express": "^2.21.1",
@@ -30,10 +29,11 @@
     "express": "^5.0.0-alpha.8",
     "flat": "^5.0.2",
     "graphql": "^15.5.0",
+    "graphql-iso-date": "^3.6.1",
     "graphql-middleware": "^6.0.4",
     "graphql-scalars": "^1.9.0",
     "graphql-shield": "^7.5.0",
-    "nexus-plugin-prisma": "^0.32.0"
+    "nexus": "^1.0.0"
   },
   "resolutions": {
     "typescript": "4.1.0-dev.20200902"
@@ -45,6 +45,7 @@
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.11",
     "@types/flat": "^5.0.1",
+    "@types/graphql-iso-date": "^3.4.0",
     "@types/node": "^14.14.35",
     "prisma": "^2.19.0",
     "ts-node": "^9.1.1",
