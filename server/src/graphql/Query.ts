@@ -1,4 +1,4 @@
-import { objectType, extendInputType, queryType, arg, idArg } from 'nexus'
+import { objectType, extendInputType, queryType, arg, idArg, nonNull } from 'nexus'
 import { Runner } from '@prisma/client';
 import { decode } from "../relay-tools-custom";
 
@@ -84,7 +84,7 @@ export const Query = queryType({
       type: "Round",
       disableBackwardPagination: true,
       additionalArgs: {
-        filter: arg({ type: "RoundWhereInput", required: false }),
+        filter: arg({ type: "RoundWhereInput"}),
         orderBy: arg({ type: "RoundOrderByInput" }),
       },
       resolve: async (root, args, ctx) => {
