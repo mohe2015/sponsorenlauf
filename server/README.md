@@ -8,13 +8,13 @@ TODO FIXME add permissions again
 
 
 
-services.postgresql = {
+services.mysql = {
     enable = true;
     ensureUsers = [
       {
         name = "moritz";
         ensurePermissions = {
-          "DATABASE sponsorenlauf" = "ALL PRIVILEGES";
+          "sponsorenlauf.*" = "ALL PRIVILEGES";
         };
       }
     ];
@@ -29,7 +29,11 @@ CREATE DATABASE sponsorenlauf;
 GRANT ALL PRIVILEGES ON DATABASE sponsorenlauf TO moritz;
 ```
 
-yarn
+npm install
+npx prisma migrate dev --name init
+
+
+
 yarn prisma migrate save --name 'init' --experimental
 yarn prisma migrate up --experimental
 yarn prisma generate
