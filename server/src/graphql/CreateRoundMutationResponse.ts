@@ -1,5 +1,5 @@
 import { objectType, unionType } from 'nexus'
-
+/*
 export const CreateRoundMutationError = objectType({
   name: "CreateRoundMutationError",
   definition(t) {
@@ -24,3 +24,4 @@ export const CreateRoundMutationResponse = unionType({
     )
   }
 })
+*/

@@ -30,7 +30,7 @@ export const Query = queryType({
       },
     });
 
-
+/*
     // https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
     // TODO FIXME https://nexus.js.org/docs/plugin-connection
     // currentIndex needs to be provided for pagination information
@@ -148,7 +148,7 @@ export const Query = queryType({
         })
       }
     })
-
+*/
     t.field("runnersByClass", {
       type: "ClassRunners",
       resolve: async (root, args, context) => {

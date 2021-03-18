@@ -3,14 +3,16 @@ let crypto = require('crypto');
 import cuid from 'cuid';
 import { flatten, unflatten } from 'flat';
 import { mutationType, arg, stringArg } from 'nexus'
+import { Context } from "../context";
+import Prisma from '@prisma/client';
 
 export const Mutation = mutationType({
   definition(t) {
-
+/*
     t.field("createOneUser", {
       type: "UserMutationResponse",
-      args: { data: arg({type: "UserCreateInput"}) },
-      resolve: async (parent, args, context, info) => {
+      args: { data: arg({type: "UserCreateInput" }) },
+      resolve: async (parent, args, context: Context, info) => {
         let user = await context.db.user.create({
           data: {
             ...args.data,
@@ -327,5 +329,6 @@ export const Mutation = mutationType({
         return !!userSession
       },
     });
+    */
   },
 });
