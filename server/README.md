@@ -4,9 +4,7 @@ TODO FIXME add permissions again
 
 
 
-
-
-
+You need database creation privileges for the shadow database
 
 services.mysql = {
     enable = true;
@@ -14,7 +12,7 @@ services.mysql = {
       {
         name = "moritz";
         ensurePermissions = {
-          "sponsorenlauf.*" = "ALL PRIVILEGES";
+          "*.*" = "ALL PRIVILEGES";
         };
       }
     ];
@@ -23,20 +21,11 @@ services.mysql = {
 
 
 
-```
-sudo -u postgres psql --u postgres
-CREATE DATABASE sponsorenlauf;
-GRANT ALL PRIVILEGES ON DATABASE sponsorenlauf TO moritz;
-```
 
 npm install
 npx prisma migrate dev --name init
 
 
-
-yarn prisma migrate save --name 'init' --experimental
-yarn prisma migrate up --experimental
-yarn prisma generate
 yarn ts-node prisma/seed.ts
 yarn ts-node --transpile-only api/schema.ts
 yarn ts-node-dev --no-notify --respawn --transpile-only api/app.ts
