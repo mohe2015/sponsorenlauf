@@ -1,4 +1,4 @@
-import { objectType, unionType } from '@nexus/schema'
+import { objectType, unionType } from 'nexus'
 
 export const UserMutationError = objectType({
   name: "UserMutationError",

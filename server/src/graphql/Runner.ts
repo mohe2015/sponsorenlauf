@@ -1,4 +1,4 @@
-import { objectType } from '@nexus/schema'
+import { objectType } from 'nexus'
 import { Node } from "./Node";
 
 export const Runner = objectType({

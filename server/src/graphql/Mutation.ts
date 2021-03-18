@@ -2,7 +2,7 @@ import { hash, compare } from "bcrypt";
 let crypto = require('crypto');
 import cuid from 'cuid';
 import { flatten, unflatten } from 'flat';
-import { mutationType, arg, stringArg } from '@nexus/schema'
+import { mutationType, arg, stringArg } from 'nexus'
 
 import { RoundGetPayload } from '@prisma/client'
 

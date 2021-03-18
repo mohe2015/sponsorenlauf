@@ -1,4 +1,4 @@
-import { subscriptionType } from '@nexus/schema'
+import { subscriptionType } from 'nexus'
 import { RoundWhereUniqueInput, UserWhereUniqueInput } from '@prisma/client';
 import { withFilter } from "graphql-subscriptions";
 

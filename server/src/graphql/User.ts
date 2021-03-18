@@ -1,4 +1,4 @@
-import { objectType, enumType } from '@nexus/schema'
+import { objectType, enumType } from 'nexus'
 
 export const UserRole = enumType({
   name: "UserRole",

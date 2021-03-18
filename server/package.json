@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "the server for the sponsorenlauf management website",
   "scripts": {
-    "setup": "prisma migrate save --experimental && prisma migrate up --experimental && prisma generate && cd prisma && ts-node seed.ts",
+    "setup": "prisma migrate dev --name init && cd prisma && ts-node seed.ts",
     "studio": "prisma studio --experimental",
     "build": "npm -s run generate && tsc",
     "generate": "npm -s run generate:prisma && npm -s run generate:nexus",

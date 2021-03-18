@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, PrismaPromise } from "@prisma/client";
 import { hash } from "bcrypt";
 import parse from "csv-parse/lib/sync";
 import fs from "fs";
@@ -20,7 +20,7 @@ async function main() {
   //db.$executeRaw`CREATE INDEX IF NOT EXISTS "Runner_roundCount_id" ON "Runner" ( "roundCount" DESC, "id" ASC );`;
 
   if (
-    !(await db.user.findOne({
+    !(await db.user.findUnique({
       where: {
         name: "admin",
       },
@@ -54,17 +54,16 @@ async function main() {
 
     console.log(data)
 
-    await db.runner.create({
+
+    await db.$transaction([db.runner.create({
       data: {
         name: data["Name"],
         clazz: data["Klasse"],
         grade: Number(data["Jahrgang"]),
         roundCount,
       },
-    })
-
-    for (let i = 0; i < roundCount; i++) {
-      await db.round.create({
+    }) as PrismaPromise<any>].concat(Array.from(Array(roundCount).keys()).map(i =>
+      db.round.create({
         data: {
           student: {
             connect: {
@@ -78,7 +77,7 @@ async function main() {
           },
         }
       })
-    }
+    )))
   })
 
   await db.$disconnect();

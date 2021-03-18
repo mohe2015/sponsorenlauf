@@ -1,4 +1,4 @@
-import { objectType, extendInputType, queryType, arg, idArg } from '@nexus/schema'
+import { objectType, extendInputType, queryType, arg, idArg } from 'nexus'
 import { Runner } from '@prisma/client';
 import { decode } from "../relay-tools-custom";
 
