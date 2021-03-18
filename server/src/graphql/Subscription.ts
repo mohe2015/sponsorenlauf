@@ -1,5 +1,4 @@
 import { subscriptionType } from 'nexus'
-import { RoundWhereUniqueInput, UserWhereUniqueInput } from '@prisma/client';
 import { withFilter } from "graphql-subscriptions";
 
 export const Subscription = subscriptionType({
@@ -10,7 +9,7 @@ export const Subscription = subscriptionType({
         function (root, args, context, info) {
           return context.pubsub.asyncIterator("ROUNDS");
         },
-        (payload /*: Round*/, args: RoundWhereUniqueInput) => {
+        (payload /*: Round*/, args) => {
           return true;
         }
       ),
@@ -25,7 +24,7 @@ export const Subscription = subscriptionType({
         function (root, args, context, info) {
           return context.pubsub.asyncIterator("USERS");
         },
-        (payload /*: UserMutationOutput*/, args: UserWhereUniqueInput) => {
+        (payload /*: UserMutationOutput*/, args) => {
           return true;
         }
       ),

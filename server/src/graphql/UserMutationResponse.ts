@@ -4,7 +4,7 @@ export const UserMutationError = objectType({
   name: "UserMutationError",
   definition(t) {
     t.string("usernameError");
-    t.string("roleError", { nullable: true });
+    t.string("roleError");
   },
 });
 
@@ -17,12 +17,11 @@ export const UserMutationOutput = objectType({
 
 export const UserMutationResponse = unionType({
   name: "UserMutationResponse",
+  resolveType: item => item.__typename,
   definition(t) {
     t.members(
       "UserMutationOutput",
       "UserMutationError"
     )
-    // @ts-expect-error
-    t.resolveType((item) => item.__typename);
   }
 })

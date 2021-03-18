@@ -3,20 +3,19 @@ import { objectType, unionType } from 'nexus'
 export const LoginMutationError = objectType({
   name: "LoginMutationError",
   definition(t) {
-    t.string("usernameError", { nullable: true });
-    t.string("passwordError", { nullable: true });
+    t.nullable.string("usernameError");
+    t.nullable.string("passwordError");
   },
 });
 
 
 export const LoginMutationResponse = unionType({
   name: "LoginMutationResponse",
+  resolveType: item => item.__typename,
   definition(t) {
     t.members(
       "User",
       "LoginMutationError"
     )
-    // @ts-expect-error
-    t.resolveType((item) => item.__typename);
   }
 })

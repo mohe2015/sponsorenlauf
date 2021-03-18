@@ -4,22 +4,14 @@ import cuid from 'cuid';
 import { flatten, unflatten } from 'flat';
 import { mutationType, arg, stringArg } from 'nexus'
 
-import { RoundGetPayload } from '@prisma/client'
-
-type RoundWithRunner = RoundGetPayload<{
-  include: { student: true }
-}>
-
 export const Mutation = mutationType({
   definition(t) {
 
     t.field("createOneUser", {
       type: "UserMutationResponse",
-      nullable: false,
-      args: { data: arg({type: "UserCreateInput", nullable: false}) },
+      args: { data: arg({type: "UserCreateInput"}) },
       resolve: async (parent, args, context, info) => {
         let user = await context.db.user.create({
-          // @ts-expect-error
           data: {
             ...args.data,
             password: "",
@@ -50,16 +42,13 @@ export const Mutation = mutationType({
 
     t.field("updateOneUser", {
       type: "UserMutationResponse",
-      nullable: false,
       args: { 
-        data: arg({type: "UserUpdateInput", nullable: false}),
-        where: arg({type: "UserWhereUniqueInput", nullable: false}),
+        data: arg({type: "UserUpdateInput"}),
+        where: arg({type: "UserWhereUniqueInput"}),
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.user.update({
-          // @ts-expect-error
           where: args.where,
-          // @ts-expect-error
           data: {
             ...args.data,
             password: undefined,
@@ -89,27 +78,6 @@ export const Mutation = mutationType({
       }
     });
 
-    t.crud.deleteOneUser();
-
-    t.crud.createOneUser({
-      type: "User",
-      alias: "_hidden_we_need_the_types_createOneUser",
-      computedInputs: {
-        password: (args) => {
-          return ""
-        }
-      }
-    })
-    t.crud.updateOneUser({
-      type: "User",
-      alias: "_hidden_we_need_the_types_updateOneUser",
-      computedInputs: {
-        password: (args) => {
-          return ""
-        }
-      }
-    })
-
     t.field("generatePasswords", {
       type: "QueryUsers_Connection",
       resolve: async (parent, args, context, info) => {
@@ -127,7 +95,6 @@ export const Mutation = mutationType({
               id: user.id
             },
             data: {
-              // @ts-expect-error
               password: await hash(user.password, 10),
             }
           })
@@ -150,10 +117,8 @@ export const Mutation = mutationType({
 
     t.field("createOneRunner", {
       type: "RunnerMutationResponse",
-      nullable: false,
-      args: { data: arg({type: "RunnerCreateInput", nullable: false}) },
+      args: { data: arg({type: "RunnerCreateInput"}) },
       resolve: async (_parent, args, context, info) => {
-        // @ts-expect-error
         let runner = await context.db.runner.create(args);
 
         if (!runner) {
@@ -178,16 +143,13 @@ export const Mutation = mutationType({
 
     t.field("updateOneRunner", {
       type: "RunnerMutationResponse",
-      nullable: false,
       args: { 
-        data: arg({type: "RunnerUpdateInput", nullable: false}),
-        where: arg({type: "RunnerWhereUniqueInput", nullable: false}),
+        data: arg({type: "RunnerUpdateInput"}),
+        where: arg({type: "RunnerWhereUniqueInput"}),
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.runner.update({
-          // @ts-expect-error
           where: args.where,
-          // @ts-expect-error
           data: {
             ...args.data,
           }
@@ -216,21 +178,9 @@ export const Mutation = mutationType({
       }
     });
 
-    t.crud.deleteOneRunner();
-
-    t.crud.createOneRunner({
-      type: "Runner",
-      alias: "_hidden_we_need_the_types_createOneRunner"
-    })
-    t.crud.updateOneRunner({
-      type: "Runner",
-      alias: "_hidden_we_need_the_types_updateOneRunner"
-    })
-
     t.field("createOneRound", {
       type: "CreateRoundMutationResponse",
-      nullable: false,
-      args: { data: arg({type: "RoundCreateInput", nullable: false}) },
+      args: { data: arg({type: "RoundCreateInput"}) },
       resolve: async (parent, args, context) => {
         try {
           let startNumber = args.data.student.connect?.startNumber;
@@ -250,7 +200,7 @@ export const Mutation = mutationType({
       
           let roundWithRunner = unflatten(result[0], {
             object: false,
-          }) as RoundWithRunner
+          }) as any
 
           console.log(roundWithRunner)
 
@@ -280,12 +230,10 @@ export const Mutation = mutationType({
 
     t.field("deleteOneRound", {
       type: "Round",
-      nullable: true,
       args: {
-        where: arg({type: "RoundWhereUniqueInput", nullable: false})
+        where: arg({type: "RoundWhereUniqueInput"})
       },
       resolve: async (parent, args, context) => {
-        // @ts-expect-error
         let round = await context.db.round.delete(args)
         await context.db.$executeRaw`UPDATE "Runner" SET "roundCount" = "roundCount" - 1 WHERE id = ${round.studentId};`
         
@@ -295,30 +243,11 @@ export const Mutation = mutationType({
       }
     })
 
-    t.crud.deleteOneRound({
-      type: "Round",
-      alias: "_hidden_deelteOneRound"
-    });
-
-    t.crud.createOneRound({
-      type: "Round",
-      alias: "_hidden_we_need_the_types_createOneRound",
-      computedInputs: {
-        createdBy: (args) => {
-          return args.ctx.user
-        }
-      }
-    })
-    t.crud.updateOneRound({
-      type: "Round",
-      alias: "_hidden_we_need_the_types_updateOneRound"
-    })
-
     t.field("login", {
       type: "LoginMutationResponse",
       args: {
-        name: stringArg({ nullable: false }),
-        password: stringArg({ nullable: false }),
+        name: stringArg(),
+        password: stringArg(),
       },
       resolve: async (_parent, { name, password }, context) => {
         const user = await context.db.user.findOne({
@@ -381,7 +310,6 @@ export const Mutation = mutationType({
       resolve: async (_parent, args, context) => {
         let userSession = await context.db.userSession.delete({
           where: {
-            // @ts-expect-error
             id: context.sessionId
           }
         })

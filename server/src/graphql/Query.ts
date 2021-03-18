@@ -7,7 +7,6 @@ export const RunnerOrderByInput = extendInputType({
   definition(t) {
     t.field("roundCount", {
       type: "SortOrder",
-      nullable: true,
     })
   }
 })
@@ -26,7 +25,6 @@ export const Query = queryType({
   definition(t) {
     t.field("me", {
       type: "User",
-      nullable: false,
       resolve: (parent, args, ctx) => {
         return ctx.user!;
       },
@@ -45,7 +43,6 @@ export const Query = queryType({
       },
       resolve: async (root, args, ctx) => {
         let result = await ctx.db.runner.findMany({
-          // @ts-expect-error
           orderBy: args.orderBy,
           take: args.first + 1,
           cursor: args.after ? { id: args.after } : undefined,
@@ -74,12 +71,6 @@ export const Query = queryType({
       }
     });
 
-    t.crud.runners({
-      alias: "_hidden_runners",
-      filtering: true,
-      ordering: true,
-    })
-
     // https://relay.dev/graphql/connections.htm
     // You may order the edges however your business logic dictates,
     // and may determine the ordering based upon additional arguments
@@ -98,9 +89,7 @@ export const Query = queryType({
       },
       resolve: async (root, args, ctx) => {
         let result = await ctx.db.round.findMany({
-          // @ts-expect-error
           orderBy: args.orderBy,
-          // @ts-expect-error
           where: args.filter === null ? undefined : args.filter,
           take: args.first + 1,
           cursor: args.after ? { id: args.after } : undefined,
@@ -123,11 +112,6 @@ export const Query = queryType({
         }
       }
     });
-
-    t.crud.rounds({
-      alias: "_hidden_rounds",
-      filtering: true,
-    })
 
     t.connectionField("users", {
       type: "User",
@@ -165,17 +149,8 @@ export const Query = queryType({
       }
     })
 
-    t.crud.user({
-      type: "User"
-    })
-
-    t.crud.runner({
-      type: "Runner"
-    })
-
     t.field("runnersByClass", {
       type: "ClassRunners",
-      list: true,
       resolve: async (root, args, context) => {
         let runners = await context.db.runner.findMany({
           orderBy: [{
@@ -202,7 +177,7 @@ export const Query = queryType({
 
     t.field("node", {
       type: "Node",
-      args: { id: idArg({ required: true }) },
+      args: { id: idArg() },
       resolve: (root, args, context) => {
         const { id, __typename } = decode(args.id);
         const objeto = __typename.charAt(0).toLowerCase() + __typename.slice(1); // from TitleCase to camelCase

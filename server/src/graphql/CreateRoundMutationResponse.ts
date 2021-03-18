@@ -16,12 +16,11 @@ export const CreateRoundMutationOutput = objectType({
 
 export const CreateRoundMutationResponse = unionType({
   name: "CreateRoundMutationResponse",
+  resolveType: item => item.__typename,
   definition(t) {
     t.members(
       "CreateRoundMutationOutput",
       "CreateRoundMutationError"
     )
-    // @ts-expect-error
-    t.resolveType((item) => item.__typename);
   }
 })

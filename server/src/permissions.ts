@@ -66,8 +66,7 @@ export const permissions = shield({
     fallbackRule: deny,
     allowExternalErrors: true,
     debug: true,
-    // @ts-expect-error
-    fallbackError: (err, parent, args, ctx: NexusContext, info) => {
+    fallbackError: (err, parent, args, ctx: Context, info) => {
       if (ctx.user) {
         return new ForbiddenError("Unzureichende Berechtigungen!");
       } else {

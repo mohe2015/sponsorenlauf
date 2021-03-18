@@ -4,7 +4,7 @@ export const RunnerMutationError = objectType({
   name: "RunnerMutationError",
   definition(t) {
     t.string("nameError");
-    t.string("gradeError", { nullable: true });
+    t.string("gradeError");
   },
 });
 
@@ -17,12 +17,11 @@ export const RunnerMutationOutput = objectType({
 
 export const RunnerMutationResponse = unionType({
   name: "RunnerMutationResponse",
+  resolveType: item => item.__typename,
   definition(t) {
     t.members(
       "RunnerMutationOutput",
       "RunnerMutationError"
     )
-    // @ts-expect-error
-    t.resolveType((item) => item.__typename);
   }
 })
