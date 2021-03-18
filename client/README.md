@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Updating
 
-yarn add react-relay@experimental react@experimental react-dom@experimental @material-ui/core@next @material-ui/lab@next react-router-dom@experimental
+npm install --save react-relay@experimental react@experimental react-dom@experimental @material-ui/core@next @material-ui/lab@next react-router-dom@experimental
 
 ## Available Scripts
 

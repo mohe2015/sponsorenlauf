@@ -1,6 +1,6 @@
-import { schema } from "nexus";
+import { objectType, unionType } from '@nexus/schema'
 
-schema.objectType({
+export const UserMutationError = objectType({
   name: "UserMutationError",
   definition(t) {
     t.string("usernameError");
@@ -8,14 +8,14 @@ schema.objectType({
   },
 });
 
-schema.objectType({
+export const UserMutationOutput = objectType({
   name: "UserMutationOutput",
   definition(t) {
     t.field("edge", {type: "UserEdge"})
   }
 })
 
-schema.unionType({
+export const UserMutationResponse = unionType({
   name: "UserMutationResponse",
   definition(t) {
     t.members(
