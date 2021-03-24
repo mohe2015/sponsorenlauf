@@ -1,12 +1,11 @@
 import React from "react";
-import { useMutation } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useMutation, graphql } from "react-relay/hooks";
 import {
   useCallback,
 } from "react";
 import { GenerateUserPasswordsMutation } from "../__generated__/GenerateUserPasswordsMutation.graphql";
-import LoadingButton from "../countdown/node_modules/@material-ui/lab/LoadingButton";
-import { FontAwesomeIcon } from "../countdown/node_modules/@fortawesome/react-fontawesome";
+import LoadingButton from "@material-ui/lab/LoadingButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";

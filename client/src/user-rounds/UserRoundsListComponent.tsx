@@ -1,9 +1,8 @@
 import React from "react";
-import { usePaginationFragment } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { usePaginationFragment, graphql } from "react-relay/hooks";
 import { UserRoundRow } from "./UserRoundRow";
 import { unstable_useTransition as useTransition } from "react";
-import LoadingButton from "../countdown/node_modules/@material-ui/lab/LoadingButton";
+import LoadingButton from "@material-ui/lab/LoadingButton";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import { UserRoundsListComponent_round$key } from "../__generated__/UserRoundsListComponent_round.graphql";

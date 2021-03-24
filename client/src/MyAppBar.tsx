@@ -23,9 +23,8 @@ import { useNavigate } from "react-router-dom";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import { AuthorizationErrorBoundary } from "./AuthorizationErrorBoundary";
 import { LoadingContext } from "./LoadingContext";
-import { useMutation, useLazyLoadQuery } from "react-relay/hooks";
+import { useMutation, useLazyLoadQuery, graphql } from "react-relay/hooks";
 import { AuthContext } from "./RelayEnvironmentProviderWrapper";
-import graphql from "babel-plugin-relay/macro";
 import { MyAppBarQuery } from "./__generated__/MyAppBarQuery.graphql";
 
 const useStyles = makeStyles((theme) =>

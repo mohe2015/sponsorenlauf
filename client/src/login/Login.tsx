@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { useMutation } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useMutation, graphql } from "react-relay/hooks";
 import {
   useState,
   useCallback,
@@ -15,9 +14,9 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { FontAwesomeIcon } from "../countdown/node_modules/@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
-import LoadingButton from "../countdown/node_modules/@material-ui/lab/LoadingButton";
+import LoadingButton from "@material-ui/lab/LoadingButton";
 import Alert from "@material-ui/lab/Alert";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../RelayEnvironmentProviderWrapper";

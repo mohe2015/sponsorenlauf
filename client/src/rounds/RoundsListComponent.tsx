@@ -1,9 +1,8 @@
 import React, { useMemo } from "react";
-import { usePaginationFragment, useSubscription } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { usePaginationFragment, useSubscription, graphql } from "react-relay/hooks";
 import { RoundRow } from "./RoundRow";
 import { unstable_useTransition as useTransition } from "react";
-import LoadingButton from "../countdown/node_modules/@material-ui/lab/LoadingButton";
+import LoadingButton from "@material-ui/lab/LoadingButton";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import { ConnectionHandler, GraphQLSubscriptionConfig } from "relay-runtime";

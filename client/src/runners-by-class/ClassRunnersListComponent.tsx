@@ -1,6 +1,5 @@
 import React from "react";
-import { useLazyLoadQuery } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useLazyLoadQuery, graphql } from "react-relay/hooks";
 import { ClassRunnerRow } from "./ClassRunnerRow";
 import { ClassRunnersListComponentRunnersByClassQuery } from "../__generated__/ClassRunnersListComponentRunnersByClassQuery.graphql";
 import Table from "@material-ui/core/Table";
@@ -11,7 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import { makeStyles } from "../countdown/node_modules/@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   center_header: {
