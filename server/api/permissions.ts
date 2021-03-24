@@ -11,7 +11,7 @@ const rules = {
     }),
 };
 
-export const permissions = shield({
+export const permissions = shield<any, Context, any>({
   Query: {
     me: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
     runners: rules.isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
@@ -67,6 +67,7 @@ export const permissions = shield({
     allowExternalErrors: true,
     debug: true,
     fallbackError: (err, parent, args, ctx, info) => {
+      // @ts-expect-error
       if (ctx.user) {
         return new ForbiddenError("Unzureichende Berechtigungen!");
       } else {
