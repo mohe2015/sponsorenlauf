@@ -1,5 +1,5 @@
 import { objectType, unionType } from 'nexus'
-
+/*
 export const LoginMutationError = objectType({
   name: "LoginMutationError",
   definition(t) {
@@ -18,4 +18,4 @@ export const LoginMutationResponse = unionType({
       "LoginMutationError"
     )
   }
-})
+})*/

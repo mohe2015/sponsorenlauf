@@ -1,5 +1,5 @@
 import { objectType, unionType } from 'nexus'
-
+/*
 export const UserMutationError = objectType({
   name: "UserMutationError",
   definition(t) {
@@ -25,3 +25,4 @@ export const UserMutationResponse = unionType({
     )
   }
 })
+*/

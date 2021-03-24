@@ -1,6 +1,6 @@
 import { subscriptionType } from 'nexus'
 import { withFilter } from "graphql-subscriptions";
-
+/*
 export const Subscription = subscriptionType({
   definition(t) {
     t.field("subscribeRounds", {
@@ -9,11 +9,11 @@ export const Subscription = subscriptionType({
         function (root, args, context, info) {
           return context.pubsub.asyncIterator("ROUNDS");
         },
-        (payload /*: Round*/, args) => {
+        (payload, args) => { // payload: Round
           return true;
         }
       ),
-      resolve(payload/*: Round*/, args, context, info) {
+      resolve(payload, args, context, info) { // payload: Round
         return payload;
       },
     });
@@ -24,13 +24,15 @@ export const Subscription = subscriptionType({
         function (root, args, context, info) {
           return context.pubsub.asyncIterator("USERS");
         },
-        (payload /*: UserMutationOutput*/, args) => {
+        (payload, args) => { // payload: UserMutationOutput
           return true;
         }
       ),
-      resolve(payload /*: UserMutationOutput*/, args, context, info) {
+      resolve(payload, args, context, info) { // payload: UserMutationOutput
         return payload;
       },
     });
   },
 });
+
+*/

@@ -1,5 +1,5 @@
 import { objectType, unionType } from 'nexus'
-
+/*
 export const RunnerMutationError = objectType({
   name: "RunnerMutationError",
   definition(t) {
@@ -25,3 +25,4 @@ export const RunnerMutationResponse = unionType({
     )
   }
 })
+*/
