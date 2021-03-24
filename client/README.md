@@ -1,3 +1,7 @@
+```bash
+npm install --save react-relay@experimental react@experimental react-dom@experimental @material-ui/core@next @material-ui/lab@next react-router-dom@experimental
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
