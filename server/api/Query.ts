@@ -1,6 +1,6 @@
 import { objectType, extendInputType, queryType, arg, idArg, nonNull } from 'nexus'
 import { Runner } from '@prisma/client';
-import { decode } from "../relay-tools-custom";
+import { decode } from "./relay-tools-custom";
 /*
 export const RunnerOrderByInput = extendInputType({
   type: "RunnerOrderByInput",
@@ -31,11 +31,10 @@ export const Query = queryType({
         return ctx.user!;
       },
     });
+*/
 
-    // https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
-    // TODO FIXME https://nexus.js.org/docs/plugin-connection
-    // currentIndex needs to be provided for pagination information
-    // pagination maybe depending on cursor and not offset (see base64 decode of cursor)
+/*
+    // useful https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
     t.connectionField("runners", {
       type: "Runner",
       disableBackwardPagination: true,
@@ -71,7 +70,9 @@ export const Query = queryType({
         })
       }
     });
+*/
 
+/*
     // https://relay.dev/graphql/connections.htm
     // You may order the edges however your business logic dictates,
     // and may determine the ordering based upon additional arguments

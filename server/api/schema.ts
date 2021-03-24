@@ -1,10 +1,15 @@
 import { makeSchema, connectionPlugin } from 'nexus'
-import * as types from './graphql'
+import * as types from './index'
 import * as path from 'path'
 
 export const schema = makeSchema({
     types,
-    plugins: [connectionPlugin()],
+    plugins: [connectionPlugin({
+        nonNullDefaults: {
+            input: true,
+            output: true,
+        }
+    })],
     nonNullDefaults: {
         input: true,
         output: true,

@@ -4,14 +4,7 @@
   "description": "the server for the sponsorenlauf management website",
   "scripts": {
     "setup": "prisma migrate dev --name init && cd prisma && ts-node seed.ts",
-    "studio": "prisma studio --experimental",
-    "build": "npm -s run generate && tsc",
-    "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
-    "generate:prisma": "prisma generate",
-    "generate:nexus": "ts-node --transpile-only src/schema",
-    "dev:typecheck": "tsc --noEmit --watch",
-    "dev": "LOG=trace APP_SECRET=test ts-node-dev --no-notify --respawn --transpile-only src/app",
-    "seed": "ts-node prisma/seed"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "Moritz Hedtke <Moritz.Hedtke@t-online.de>",

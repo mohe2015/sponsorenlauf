@@ -39,7 +39,7 @@ async function createContext(cookie: string | null, response: e.Response<any>): 
     let cookies = parseCookie(cookie);
     if (cookies.id) {
 
-      let userSession = await db.userSession.findOne({
+      let userSession = await db.userSession.findUnique({
         where: {
           id: cookies.id,
         },

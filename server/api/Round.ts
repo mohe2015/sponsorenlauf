@@ -1,5 +1,5 @@
 import { objectType } from 'nexus'
-import { Context } from '../context';
+import { Context } from '../src/context';
 
 export const Round = objectType({
   name: "Round",
