@@ -22,4 +22,8 @@ export const schema = makeSchema({
         module: path.join(__dirname, 'context.ts'),
         export: 'Context',
     },
+    outputs: {
+        schema: true,
+        typegen: true
+    }
 })

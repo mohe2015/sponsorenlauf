@@ -21,6 +21,7 @@ export const ClassRunners = objectType({
   }
 })
 */
+/*
 export const Query = queryType({
   definition(t) {
 
@@ -190,6 +191,9 @@ export const Query = queryType({
         };
       },
     });
-*/
+
   },
 });
+
+
+*/

@@ -6,6 +6,7 @@ import { mutationType, arg, stringArg } from 'nexus'
 import { Context } from "../context";
 import Prisma from '@prisma/client';
 
+/*
 export const Mutation = mutationType({
   definition(t) {
 /*
@@ -329,6 +330,7 @@ export const Mutation = mutationType({
         return !!userSession
       },
     });
-    */
+    
   },
 });
+*/

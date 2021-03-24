@@ -19,3 +19,7 @@ yarn run start # keep it running
 # Security
 
 See [SECURITY.md](SECURITY.md)
+
+
+// TODO
+https://github.com/TypeStrong/ts-node/issues/1007
