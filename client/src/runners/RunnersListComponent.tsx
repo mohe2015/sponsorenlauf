@@ -3,7 +3,7 @@ import { usePaginationFragment } from "react-relay/hooks";
 import graphql from "babel-plugin-relay/macro";
 import { RunnerRow } from "./RunnerRow";
 import { unstable_useTransition as useTransition } from "react";
-import LoadingButton from "@material-ui/lab/LoadingButton";
+import LoadingButton from "../countdown/node_modules/@material-ui/lab/LoadingButton";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import { RunnersListComponent_runner$key } from "../__generated__/RunnersListComponent_runner.graphql";

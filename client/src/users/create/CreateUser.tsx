@@ -12,20 +12,25 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "../../countdown/node_modules/@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import LoadingButton from "@material-ui/lab/LoadingButton";
+import LoadingButton from "../../countdown/node_modules/@material-ui/lab/LoadingButton";
 import Alert from "@material-ui/lab/Alert";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import { useLazyLoadQuery } from "react-relay/hooks";
 import { LoadingContext } from "../../LoadingContext";
-import { CreateRunnerFindRunnerQuery } from "../../__generated__/CreateRunnerFindRunnerQuery.graphql";
-import { CreateRunnerUpdateMutation } from "../../__generated__/CreateRunnerUpdateMutation.graphql";
+import { CreateUserFindUserQuery } from "../../__generated__/CreateUserFindUserQuery.graphql";
+import { CreateUserUpdateMutation } from "../../__generated__/CreateUserUpdateMutation.graphql";
 import { LocationStateType } from "../../utils";
 import { Location } from "history";
-import { CreateRunnerMutation } from "../../__generated__/CreateRunnerMutation.graphql";
+import { UserRole } from "../../__generated__/UserRow_user.graphql";
+import { CreateUserCreateMutation } from "../../__generated__/CreateUserCreateMutation.graphql";
 import { ConnectionHandler } from "relay-runtime";
-import { UseMutationConfig } from "react-relay/lib/relay-experimental/useMutation";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,31 +52,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function CreateRunnerContainer() {
+export function CreateUserContainer() {
   const loading = useContext(LoadingContext);
 
   if (loading) {
     return <div>Wird geladen...</div>;
   } else {
-    return <CreateRunner />;
+    return <CreateUser />;
   }
 }
 
-export function CreateRunner() {
+export function CreateUser() {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation() as Location<LocationStateType | null>;
   let { id } = useParams();
 
-  const data = useLazyLoadQuery<CreateRunnerFindRunnerQuery>(
+  const data = useLazyLoadQuery<CreateUserFindUserQuery>(
     graphql`
-      query CreateRunnerFindRunnerQuery($id: String) {
-        runner(where: { id: $id }) {
+      query CreateUserFindUserQuery($id: String) {
+        user(where: { id: $id }) {
           id
-          startNumber
           name
-          clazz
-          grade
+          role
         }
       }
     `,
@@ -86,81 +89,66 @@ export function CreateRunner() {
     }
   );
 
-  const [runner_create, IsCreateRunnerPending] = useMutation<
-    CreateRunnerMutation
+  const [user_create, isCreateOneUserPending] = useMutation<
+    CreateUserCreateMutation
   >(graphql`
-    mutation CreateRunnerMutation(
-      $name: String!
-      $clazz: String!
-      $grade: Int!
-    ) {
-      createOneRunner(data: { name: $name, clazz: $clazz, grade: $grade }) {
+    mutation CreateUserCreateMutation($username: String!, $role: UserRole!) {
+      createOneUser(data: { name: $username, role: $role }) {
         __typename
-        ... on RunnerMutationOutput {
+        ... on UserMutationOutput {
           edge {
             cursor
             node {
               id
-              startNumber
               name
-              clazz
-              grade
+              role
             }
           }
         }
-        ... on RunnerMutationError {
-          nameError
-          gradeError
+        ... on UserMutationError {
+          usernameError
+          roleError
         }
       }
     }
   `);
 
-  const [updateRunner, isUpdateRunnerPending] = useMutation<
-    CreateRunnerUpdateMutation
+  const [updateUser, isUpdateUserPending] = useMutation<
+    CreateUserUpdateMutation
   >(graphql`
-    mutation CreateRunnerUpdateMutation(
+    mutation CreateUserUpdateMutation(
       $id: String
-      $name: String!
-      $clazz: String!
-      $grade: Int!
+      $username: String!
+      $role: UserRole!
     ) {
-      updateOneRunner(
+      updateOneUser(
         where: { id: $id }
-        data: {
-          name: { set: $name }
-          clazz: { set: $clazz }
-          grade: { set: $grade }
-        }
+        data: { name: { set: $username }, role: $role }
       ) {
         __typename
-        ... on RunnerMutationOutput {
+        ... on UserMutationOutput {
           edge {
             cursor
             node {
               id
-              startNumber
               name
-              clazz
-              grade
+              role
             }
           }
         }
-        ... on RunnerMutationError {
-          nameError
-          gradeError
+        ... on UserMutationError {
+          usernameError
+          roleError
         }
       }
     }
   `);
 
-  const [name, setName] = useState(id ? data.runner?.name : "");
-  const [clazz, setClazz] = useState(id ? data.runner?.clazz : "");
-  const [grade, setGrade] = useState(id ? data.runner?.grade : 0);
+  const [username, setUsername] = useState(id ? data.user?.name : "");
+  const [role, setRole] = useState(id ? data.user?.role : "");
 
-  const [nameError, setNameError] = useState<string | null>(null);
-  const [clazzError] = useState<string | null>(null);
-  const [gradeError, setGradeError] = useState<string | null>(null);
+  const [usernameError, setUsernameError] = useState<string | null>(null);
+  const [roleError, setRoleError] = useState<string | null>(null);
 
   const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
@@ -169,26 +157,24 @@ export function CreateRunner() {
       event.preventDefault();
 
       if (id) {
-        updateRunner({
+        updateUser({
           onCompleted: (response, errors) => {
             if (errors !== null) {
               console.log(errors);
               alert("Fehler: " + errors.map((e) => e.message).join(", "));
             } else {
-              if (
-                response.updateOneRunner.__typename === "RunnerMutationError"
-              ) {
-                setNameError(response.updateOneRunner.nameError);
-                setGradeError(response.updateOneRunner.gradeError);
+              if (response.updateOneUser.__typename === "UserMutationError") {
+                setUsernameError(response.updateOneUser.usernameError);
+                setRoleError(response.updateOneUser.roleError);
               } else {
-                setNameError(null);
-                setGradeError(null);
+                setUsernameError(null);
+                setRoleError(null);
 
                 startTransition(() => {
                   if (location.state?.oldPathname) {
                     navigate(location.state?.oldPathname);
                   } else {
-                    navigate("/runners");
+                    navigate("/users");
                   }
                 });
               }
@@ -200,32 +186,29 @@ export function CreateRunner() {
           },
           variables: {
             id,
-            name: name!,
-            clazz: clazz!,
-            grade: grade!,
+            username: username!,
+            role: role as UserRole,
           },
         });
       } else {
-        let config: UseMutationConfig<CreateRunnerMutation> = {
+        user_create({
           onCompleted: (response, errors) => {
             if (errors !== null) {
               console.log(errors);
               alert("Fehler: " + errors.map((e) => e.message).join(", "));
             } else {
-              if (
-                response.createOneRunner.__typename === "RunnerMutationError"
-              ) {
-                setNameError(response.createOneRunner.nameError);
-                setGradeError(response.createOneRunner.gradeError);
+              if (response.createOneUser.__typename === "UserMutationError") {
+                setUsernameError(response.createOneUser.usernameError);
+                setRoleError(response.createOneUser.roleError);
               } else {
-                setNameError(null);
-                setGradeError(null);
+                setUsernameError(null);
+                setRoleError(null);
 
                 startTransition(() => {
                   if (location.state?.oldPathname) {
                     navigate(location.state?.oldPathname);
                   } else {
-                    navigate("/runners");
+                    navigate("/users");
                   }
                 });
               }
@@ -236,22 +219,22 @@ export function CreateRunner() {
             alert(error); // TODO FIXME
           },
           variables: {
-            name: name!,
-            clazz: clazz!,
-            grade: grade!,
+            username: username!,
+            role: role as UserRole,
           },
           updater: (store) => {
             const connectionRecord = ConnectionHandler.getConnection(
               store.getRoot(),
-              "RunnersList_runner_runners"
+              "UsersList_user_users"
             );
             if (!connectionRecord) {
+              console.log("connection not found");
               return;
             }
-            const payload = store.getRootField("createOneRunner");
+            const payload = store.getRootField("createOneUser");
 
-            if (payload.getValue("__typename") === "RunnerMutationOutput") {
-              const previousEdge = payload.getLinkedRecord("previous_edge");
+            if (payload.getValue("__typename") === "UserMutationOutput") {
+              //const previousEdge = payload.getLinkedRecord('previous_edge');
               const serverEdge = payload.getLinkedRecord("edge");
 
               const newEdge = ConnectionHandler.buildConnectionEdge(
@@ -262,23 +245,20 @@ export function CreateRunner() {
 
               ConnectionHandler.insertEdgeAfter(
                 connectionRecord,
-                // @ts-expect-error
-                newEdge,
-                previousEdge
+                newEdge!
+                //previousEdge!
               );
             }
           },
-        };
-        runner_create(config);
+        });
       }
     },
     [
+      updateUser,
       id,
-      updateRunner,
-      name,
-      clazz,
-      grade,
-      runner_create,
+      username,
+      role,
+      user_create,
       navigate,
       startTransition,
       location,
@@ -293,7 +273,7 @@ export function CreateRunner() {
           <FontAwesomeIcon icon={faPlus} />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Läufer hinzufügen
+          Nutzer {id ? "bearbeiten" : "hinzufügen"}
         </Typography>
 
         <form className={classes.form} noValidate onSubmit={onSubmit}>
@@ -308,58 +288,42 @@ export function CreateRunner() {
             margin="normal"
             required
             fullWidth
-            id="name"
-            label="Name"
-            name="name"
+            id="username"
+            label="Nutzername"
+            name="username"
             autoComplete="off"
             autoFocus
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            helperText={nameError}
-            error={nameError !== null}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            helperText={usernameError}
+            error={usernameError !== null}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="clazz"
-            label="Klasse"
-            name="clazz"
-            autoComplete="off"
-            autoFocus
-            value={clazz}
-            onChange={(e) => setClazz(e.target.value)}
-            helperText={clazzError}
-            error={clazzError !== null}
-          />
-          <TextField
-            type="number"
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="grade"
-            label="Jahrgang"
-            name="grade"
-            autoComplete="off"
-            autoFocus
-            value={grade}
-            onChange={(e) => setGrade(parseInt(e.target.value))}
-            helperText={gradeError}
-            error={gradeError !== null}
-          />
+          <FormControl variant="outlined" fullWidth error={roleError !== null}>
+            <InputLabel id="demo-simple-select-label">Rolle</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={role}
+              onChange={
+                // @ts-expect-error
+                (e) => setRole(e.target.value)
+              }
+            >
+              <MenuItem value={"ADMIN"}>Admin</MenuItem>
+              <MenuItem value={"TEACHER"}>Rundenzähler</MenuItem>
+              <MenuItem value={"VIEWER"}>Anzeiger</MenuItem>
+            </Select>
+            <FormHelperText>{roleError}</FormHelperText>
+          </FormControl>
           <LoadingButton
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            pending={
-              IsCreateRunnerPending || isUpdateRunnerPending || isPending
-            }
+            pending={isCreateOneUserPending || isUpdateUserPending || isPending}
           >
-            Läufer {id ? "bearbeiten" : "hinzufügen"}
+            Nutzer {id ? "bearbeiten" : "hinzufügen"}
           </LoadingButton>
         </form>
       </div>

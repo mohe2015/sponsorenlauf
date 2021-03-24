@@ -11,7 +11,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "../countdown/node_modules/@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   center_header: {

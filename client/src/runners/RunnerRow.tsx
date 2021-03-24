@@ -12,10 +12,10 @@ import { useConfirm } from "material-ui-confirm";
 import { useCallback } from "react";
 import { ConnectionHandler } from "relay-runtime";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "../countdown/node_modules/@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons/faPen";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import LoadingButton from "@material-ui/lab/LoadingButton";
+import LoadingButton from "../countdown/node_modules/@material-ui/lab/LoadingButton";
 import { RunnerRow_runner$key } from "../__generated__/RunnerRow_runner.graphql";
 import { RunnerRowDeleteRunnerMutation } from "../__generated__/RunnerRowDeleteRunnerMutation.graphql";
 

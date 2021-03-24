@@ -1,50 +1,49 @@
 import React, { useMemo } from "react";
 import { usePaginationFragment, useSubscription } from "react-relay/hooks";
 import graphql from "babel-plugin-relay/macro";
-import { UserRow } from "./UserRow";
+import { RoundRow } from "./RoundRow";
 import { unstable_useTransition as useTransition } from "react";
-import LoadingButton from "@material-ui/lab/LoadingButton";
+import LoadingButton from "../countdown/node_modules/@material-ui/lab/LoadingButton";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import { UsersListComponent_user$key } from "../__generated__/UsersListComponent_user.graphql";
 import { ConnectionHandler, GraphQLSubscriptionConfig } from "relay-runtime";
-import { UsersListComponentSubscription } from "../__generated__/UsersListComponentSubscription.graphql";
+import { RoundsListComponent_round$key } from "../__generated__/RoundsListComponent_round.graphql";
+import { RoundsListComponentSubscription } from "../__generated__/RoundsListComponentSubscription.graphql";
 
-export function UsersListComponent({
-  users,
+export function RoundsListComponent({
+  rounds,
 }: {
-  users: UsersListComponent_user$key;
+  rounds: RoundsListComponent_round$key;
 }) {
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });  
+  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
 
   const { data, hasNext, loadNext, isLoadingNext } = usePaginationFragment(
     graphql`
-      fragment UsersListComponent_user on Query
-      @refetchable(queryName: "UsersListPaginationQuery") {
-        users(first: $count, after: $cursor)
-        @connection(key: "UsersList_user_users") {
+      fragment RoundsListComponent_round on Query
+      @refetchable(queryName: "RoundsListPaginationQuery") {
+        rounds(first: $count, after: $cursor, orderBy: { id: desc })
+        @connection(key: "RoundsList_round_rounds") {
           edges {
-            cursor
             node {
               id
-              ...UserRow_user
+              ...RoundRow_round
             }
           }
         }
       }
     `,
-    users
+    rounds
   );
-  const subscriptionConfig: GraphQLSubscriptionConfig<UsersListComponentSubscription> = useMemo(
+  const subscriptionConfig: GraphQLSubscriptionConfig<RoundsListComponentSubscription> = useMemo(
     () => ({
       subscription: graphql`
-        subscription UsersListComponentSubscription {
-          subscribeUsers {
+        subscription RoundsListComponentSubscription {
+          subscribeRounds {
             edge {
               cursor
               node {
                 id
-                ...UserRow_user
+                ...RoundRow_round
               }
             }
           }
@@ -63,38 +62,48 @@ export function UsersListComponent({
       updater: (store) => {
         const connectionRecord = ConnectionHandler.getConnection(
           store.getRoot(),
-          "UsersList_user_users"
+          "RoundsList_round_rounds",
+          {
+            orderBy: { id: "desc" },
+          }
         );
         if (!connectionRecord) {
           return;
         }
-        const payload = store.getRootField("subscribeUsers");
+        const payload = store.getRootField("subscribeRounds");
 
         //const previousEdge = payload.getLinkedRecord('previous_edge');
         const serverEdge = payload.getLinkedRecord("edge");
+
+        //const existingEdges = connectionRecord.getLinkedRecords("edges").map(e => e.getLinkedRecord("node").getValue("id"));
+        //if (existingEdges.includes(serverEdge.getLinkedRecord("node").getValue("id"))) {
+        //  console.log("node already in connection")
+        //  return;
+        //}
 
         const newEdge = ConnectionHandler.buildConnectionEdge(
           store,
           connectionRecord,
           serverEdge
-        );
+        )!;
 
-        ConnectionHandler.insertEdgeAfter(
+        ConnectionHandler.insertEdgeBefore(
           connectionRecord,
-          newEdge!
-          // previousEdge
+          newEdge
+          //previousEdge
         );
       },
     }),
     []
   );
-  useSubscription(subscriptionConfig);
+  useSubscription<RoundsListComponentSubscription>(subscriptionConfig);
 
   return (
     <>
-      {(data.users?.edges ?? []).map((edge) => {
-        const node = edge!.node;
-        return <UserRow key={node.id} user={node} />;
+      {(data.rounds.edges ?? []).map((edge) => {
+        // @ts-expect-error
+        const node = edge.node;
+        return <RoundRow key={node.id} round={node} />;
       })}
       {hasNext ? (
         <TableRow>
