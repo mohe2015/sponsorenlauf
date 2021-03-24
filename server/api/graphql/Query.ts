@@ -1,6 +1,6 @@
 import { objectType, extendInputType, queryType, arg, idArg, nonNull } from 'nexus'
 import { Runner } from '@prisma/client';
-import { decode } from "./relay-tools-custom";
+import { decode } from "../relay-tools-custom";
 /*
 export const RunnerOrderByInput = extendInputType({
   type: "RunnerOrderByInput",

@@ -1,5 +1,4 @@
 import { objectType } from 'nexus'
-import { Context } from '../src/context';
 
 export const Round = objectType({
   name: "Round",
@@ -7,7 +6,7 @@ export const Round = objectType({
     t.nonNull.id("id");
     t.nonNull.field('student', {
       type: 'Runner',
-      resolve: (parent, _, context: Context) => {
+      resolve: (parent, _, context) => {
         return context.db.round.findUnique({
           where: { id: parent.id }
         }).student();
@@ -16,7 +15,7 @@ export const Round = objectType({
     t.nonNull.field("time", { type: "DateTime" });
     t.nonNull.field('createdBy', {
       type: 'User',
-      resolve: (parent, _, context: Context) => {
+      resolve: (parent, _, context) => {
         return context.db.round.findUnique({
           where: { id: parent.id }
         }).createdBy();

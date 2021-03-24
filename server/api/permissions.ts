@@ -66,7 +66,7 @@ export const permissions = shield({
     fallbackRule: deny,
     allowExternalErrors: true,
     debug: true,
-    fallbackError: (err, parent, args, ctx: Context, info) => {
+    fallbackError: (err, parent, args, ctx, info) => {
       if (ctx.user) {
         return new ForbiddenError("Unzureichende Berechtigungen!");
       } else {

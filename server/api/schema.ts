@@ -1,5 +1,5 @@
 import { makeSchema, connectionPlugin } from 'nexus'
-import * as types from './index'
+import * as types from './graphql/index'
 import * as path from 'path'
 
 export const schema = makeSchema({
@@ -22,11 +22,4 @@ export const schema = makeSchema({
         module: path.join(__dirname, 'context.ts'),
         export: 'Context',
     },
-    outputs: {
-        typegen: path.join(
-          __dirname,
-          'node_modules/@types/nexus-typegen/index.d.ts',
-        ),
-        schema: path.join(__dirname, '../api.graphql'),
-      },
 })

@@ -4,6 +4,7 @@
   "description": "the server for the sponsorenlauf management website",
   "scripts": {
     "setup": "prisma migrate dev --name init && cd prisma && ts-node seed.ts",
+    "dev": "ts-node-dev --transpile-only --no-notify api/server.ts",
     "build": "tsc"
   },
   "keywords": [],
