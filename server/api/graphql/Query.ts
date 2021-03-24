@@ -21,26 +21,24 @@ export const ClassRunners = objectType({
   }
 })
 */
-/*
+
 export const Query = queryType({
   definition(t) {
 
-/*
+
     t.field("me", {
       type: "User",
       resolve: (parent, args, ctx) => {
         return ctx.user!;
       },
     });
-*/
 
-/*
     // useful https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
     t.connectionField("runners", {
       type: "Runner",
       disableBackwardPagination: true,
       additionalArgs: {
-        orderBy: arg({ type: "RunnerOrderByInput" }),
+       // orderBy: arg({ type: "RunnerOrderByInput" }),
       },
       resolve: async (root, args, ctx) => {
         let result = await ctx.db.runner.findMany({
@@ -71,7 +69,7 @@ export const Query = queryType({
         })
       }
     });
-*/
+
 
 /*
     // https://relay.dev/graphql/connections.htm
@@ -191,9 +189,6 @@ export const Query = queryType({
         };
       },
     });
-
+*/
   },
 });
-
-
-*/

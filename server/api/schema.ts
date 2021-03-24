@@ -16,7 +16,6 @@ export const schema = makeSchema({
     },
     sourceTypes: {
         modules: [{ module: '.prisma/client', alias: 'PrismaClient' }],
-        debug: true,
     },
     contextType: {
         module: path.join(__dirname, 'context.ts'),
@@ -24,6 +23,7 @@ export const schema = makeSchema({
     },
     outputs: {
         schema: true,
-        typegen: true
-    }
+        typegen: path.join(__dirname, "../node_modules/@types/nexus-typegen/index.d.ts")
+    },
+    shouldGenerateArtifacts: true
 })
