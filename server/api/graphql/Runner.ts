@@ -1,4 +1,4 @@
-import { objectType } from 'nexus'
+import { objectType, inputObjectType } from 'nexus'
 import { Context } from '../context';
 import { Node } from "./Node";
 
@@ -22,3 +22,15 @@ export const Runner = objectType({
     t.nonNull.int("roundCount");
   },
 });
+
+export const RunnerOrderByInput = inputObjectType({
+  name: "RunnerOrderByInput",
+  definition(t) {
+    t.nullable.field("id", { type: "SortOrder" })
+    t.nullable.field("startNumber", { type: "SortOrder" })
+    t.nullable.field("name", { type: "SortOrder" })
+    t.nullable.field("clazz", { type: "SortOrder" })
+    t.nullable.field("grade", { type: "SortOrder" })
+    t.nullable.field("roundCount", { type: "SortOrder" })
+  }
+})

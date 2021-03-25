@@ -6,19 +6,19 @@ export const Round = objectType({
     t.nonNull.id("id");
     t.nonNull.field('student', {
       type: 'Runner',
-      resolve: (parent, _, context) => {
-        return context.db.round.findUnique({
+      resolve: async (parent, _, context) => {
+        return (await context.db.round.findUnique({
           where: { id: parent.id }
-        }).student();
+        }).student())!;
       }
     });
     t.nonNull.field("time", { type: "DateTime" });
     t.nonNull.field('createdBy', {
       type: 'User',
-      resolve: (parent, _, context) => {
-        return context.db.round.findUnique({
+      resolve: async (parent, _, context) => {
+        return (await context.db.round.findUnique({
           where: { id: parent.id }
-        }).createdBy();
+        }).createdBy())!;
       }
     })
   },

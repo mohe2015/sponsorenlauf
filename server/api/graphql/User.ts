@@ -1,4 +1,4 @@
-import { objectType, enumType } from 'nexus'
+import { objectType, enumType, unionType, inputObjectType } from 'nexus'
 import { Context } from '../context';
 
 export const UserRole = enumType({
@@ -26,3 +26,40 @@ export const User = objectType({
     })
   },
 });
+
+export const UserCreateInput = inputObjectType({
+  name: "UserCreateInput",
+  definition(t) {
+    t.nonNull.id("id");
+    t.nonNull.string("name");
+    t.nonNull.string("password");
+    t.nonNull.field('role', {
+      type: 'UserRole'
+    })
+  }
+})
+
+export const UserMutationError = objectType({
+  name: "UserMutationError",
+  definition(t) {
+    t.string("usernameError");
+    t.string("roleError");
+  },
+});
+
+export const UserMutationOutput = objectType({
+  name: "UserMutationOutput",
+  definition(t) {
+    t.field("edge", {type: "UserEdge"})
+  }
+})
+
+export const UserMutationResponse = unionType({
+  name: "UserMutationResponse",
+  definition(t) {
+    t.members(
+      "UserMutationOutput",
+      "UserMutationError"
+    )
+  }
+})

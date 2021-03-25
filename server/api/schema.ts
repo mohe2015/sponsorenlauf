@@ -31,5 +31,12 @@ export const schema = makeSchema({
         schema: true,
         typegen: path.join(__dirname, "../node_modules/@types/nexus-typegen/index.d.ts")
     },
-    shouldGenerateArtifacts: true
+    shouldGenerateArtifacts: true,
+    features: {
+        abstractTypeStrategies: {
+            resolveType: false,
+            isTypeOf: false,
+            __typename: true
+        }
+    }
 })

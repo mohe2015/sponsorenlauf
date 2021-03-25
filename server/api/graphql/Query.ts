@@ -38,11 +38,11 @@ export const Query = queryType({
       type: "Runner",
       disableBackwardPagination: true,
       additionalArgs: {
-       // orderBy: arg({ type: "RunnerOrderByInput" }),
+        orderBy: arg({ type: "RunnerOrderByInput" }),
       },
       resolve: async (root, args, ctx) => {
         let result = await ctx.db.runner.findMany({
-          //orderBy: args.orderBy,
+          orderBy: args.orderBy,
           take: args.first + 1,
           cursor: args.after ? { id: args.after } : undefined,
         })
@@ -113,7 +113,7 @@ export const Query = queryType({
         }
       }
     });
-
+*/
     t.connectionField("users", {
       type: "User",
       disableBackwardPagination: true,
@@ -149,7 +149,7 @@ export const Query = queryType({
         })
       }
     })
-
+/*
     t.field("runnersByClass", {
       type: "ClassRunners",
       resolve: async (root, args, context) => {

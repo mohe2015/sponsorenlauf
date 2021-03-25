@@ -6,10 +6,10 @@ import { mutationType, arg, stringArg } from 'nexus'
 import { Context } from "../context";
 import Prisma from '@prisma/client';
 
-/*
+
 export const Mutation = mutationType({
   definition(t) {
-/*
+
     t.field("createOneUser", {
       type: "UserMutationResponse",
       args: { data: arg({type: "UserCreateInput" }) },
@@ -42,7 +42,7 @@ export const Mutation = mutationType({
         return output;
       }
     });
-
+/*
     t.field("updateOneUser", {
       type: "UserMutationResponse",
       args: { 
@@ -330,7 +330,6 @@ export const Mutation = mutationType({
         return !!userSession
       },
     });
-    
+    */
   },
 });
-*/
