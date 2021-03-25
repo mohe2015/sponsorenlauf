@@ -30,7 +30,7 @@
     "flat": "^5.0.2",
     "graphql": "^15.5.0",
     "graphql-iso-date": "^3.6.1",
-    "graphql-middleware": "^6.0.4",
+    "graphql-middleware": "^6.0.5",
     "graphql-scalars": "^1.9.0",
     "graphql-shield": "^7.5.0",
     "nexus": "^1.0.0"
