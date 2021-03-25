@@ -63,3 +63,23 @@ export const UserMutationResponse = unionType({
     )
   }
 })
+
+export const UserWhereUniqueInput = inputObjectType({
+  name: "UserWhereUniqueInput",
+  definition(t) {
+    t.nullable.id("id");
+    t.nullable.string("name");
+  }
+})
+
+export const UserUpdateInput = inputObjectType({
+  name: "UserUpdateInput",
+  definition(t) {
+    t.nonNull.id("id");
+    t.nonNull.string("name");
+    t.nonNull.string("password");
+    t.nonNull.field('role', {
+      type: 'UserRole'
+    })
+  }
+})

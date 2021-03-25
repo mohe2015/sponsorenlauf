@@ -43,7 +43,7 @@ export const Mutation = mutationType({
         return output;
       }
     });
-/*
+
     t.field("updateOneUser", {
       type: "UserMutationResponse",
       args: { 
@@ -51,8 +51,13 @@ export const Mutation = mutationType({
         where: arg({type: "UserWhereUniqueInput"}),
       },
       resolve: async (_parent, args, context, info) => {
+        // TODO FIXME https://github.com/graphql-nexus/nexus/issues/819
+        // TODO FIXME https://github.com/graphql-nexus/nexus/issues/439
         let user = await context.db.user.update({
-          where: args.where,
+          where: {
+            id: args.where.id || undefined,
+            name: args.where.name || undefined,
+          },
           data: {
             ...args.data,
             password: undefined,
@@ -81,7 +86,7 @@ export const Mutation = mutationType({
         return output;
       }
     });
-
+/*
     t.field("generatePasswords", {
       type: "QueryUsers_Connection",
       resolve: async (parent, args, context, info) => {
