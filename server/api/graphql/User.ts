@@ -43,7 +43,7 @@ export const UserMutationError = objectType({
   name: "UserMutationError",
   definition(t) {
     t.string("usernameError");
-    t.string("roleError");
+    t.nullable.string("roleError");
   },
 });
 

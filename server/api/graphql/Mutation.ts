@@ -5,7 +5,7 @@ import { flatten, unflatten } from 'flat';
 import { mutationType, arg, stringArg } from 'nexus'
 import { Context } from "../context";
 import Prisma from '@prisma/client';
-
+import type { NexusGenUnions } from 'nexus-typegen'
 
 export const Mutation = mutationType({
   definition(t) {
@@ -22,14 +22,15 @@ export const Mutation = mutationType({
         });
 
         if (!user) {
-          return {
+          let output: NexusGenUnions["UserMutationResponse"] = {
             __typename: "UserMutationError",
             usernameError: "Nutzername nicht gefunden!",
             roleError: null,
           }
+          return output
         }
 
-        let output = {
+        let output: NexusGenUnions["UserMutationResponse"] = {
           __typename: "UserMutationOutput",
           edge: {
             cursor: user.id,
