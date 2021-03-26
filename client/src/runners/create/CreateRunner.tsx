@@ -161,7 +161,7 @@ export function CreateRunner() {
   const [clazzError] = useState<string | null>(null);
   const [gradeError, setGradeError] = useState<string | null>(null);
 
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const onSubmit = useCallback(
     (event) => {

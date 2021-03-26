@@ -25,7 +25,7 @@ import { UsersListPasswordsComponent } from "./UsersListPasswordsComponent";
 export function UsersList() {
   const loading = useContext(LoadingContext);
   const navigate = useNavigate();
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const createUser = useCallback(
     (event) => {

@@ -12,7 +12,7 @@ export function RunnersListComponent({
 }: {
   runners: RunnersListComponent_runner$key;
 }) {
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const { data, hasNext, loadNext, isLoadingNext } = usePaginationFragment(
     graphql`

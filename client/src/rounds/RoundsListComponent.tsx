@@ -14,7 +14,7 @@ export function RoundsListComponent({
 }: {
   rounds: RoundsListComponent_round$key;
 }) {
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const { data, hasNext, loadNext, isLoadingNext } = usePaginationFragment(
     graphql`
@@ -100,7 +100,6 @@ export function RoundsListComponent({
   return (
     <>
       {(data.rounds.edges ?? []).map((edge) => {
-        // @ts-expect-error
         const node = edge.node;
         return <RoundRow key={node.id} round={node} />;
       })}

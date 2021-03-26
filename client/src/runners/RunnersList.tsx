@@ -14,7 +14,6 @@ import Box from "@material-ui/core/Box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
-import { visuallyHidden } from "@material-ui/system";
 import { makeStyles } from "@material-ui/core/styles";
 import { LoadingContext } from "../LoadingContext";
 import { useNavigate } from "react-router-dom";
@@ -25,14 +24,14 @@ import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
 const useStyles = makeStyles({
   // TODO fix #20379.
-  span: visuallyHidden as CSSProperties,
+  //span: visuallyHidden as CSSProperties,
 });
 
 export function RunnersList() {
   const classes = useStyles();
   const loading = useContext(LoadingContext);
   const navigate = useNavigate();
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const createRunner = useCallback(
     (event) => {

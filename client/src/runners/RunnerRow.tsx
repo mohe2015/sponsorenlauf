@@ -72,7 +72,7 @@ export function LoadingRunnerRow() {
 }
 
 export function RunnerRow({ runner }: { runner: RunnerRow_runner$key }) {
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const data = useFragment<RunnerRow_runner$key>(
     graphql`

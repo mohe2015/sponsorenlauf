@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) =>
 function AccountButton() {
   const { resetEnvironment } = useContext(AuthContext);
 
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const navigate = useNavigate();
 
@@ -153,20 +153,20 @@ function LoadingAccountButton() {
 
 export function MyAppBar() {
   const [startUsersTransition, isUsersPending] = useTransition({
-    timeoutMs: 30000,
+    busyDelayMs: 1000, busyMinDurationMs: 1500 
   });
   const [startRunnersTransition, isRunnersPending] = useTransition({
-    timeoutMs: 30000,
+    busyDelayMs: 1000, busyMinDurationMs: 1500 
   });
   const [
     startRunnersByClassTransition,
     isRunnersByClassPending,
-  ] = useTransition({ timeoutMs: 30000 });
+  ] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
   const [startRoundsTransition, isRoundsPending] = useTransition({
-    timeoutMs: 30000,
+    busyDelayMs: 1000, busyMinDurationMs: 1500 
   });
   const [startUserRoundsTransition, isUserRoundsPending] = useTransition({
-    timeoutMs: 30000,
+    busyDelayMs: 1000, busyMinDurationMs: 1500 
   });
   const classes = useStyles();
   const navigate = useNavigate();
