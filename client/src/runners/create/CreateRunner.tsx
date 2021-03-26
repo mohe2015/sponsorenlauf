@@ -64,7 +64,7 @@ export function CreateRunner() {
 
   const data = useLazyLoadQuery<CreateRunnerFindRunnerQuery>(
     graphql`
-      query CreateRunnerFindRunnerQuery($id: String) {
+      query CreateRunnerFindRunnerQuery($id: ID!) {
         runner(where: { id: $id }) {
           id
           startNumber
@@ -119,7 +119,7 @@ export function CreateRunner() {
     CreateRunnerUpdateMutation
   >(graphql`
     mutation CreateRunnerUpdateMutation(
-      $id: String
+      $id: ID!
       $name: String!
       $clazz: String!
       $grade: Int!
@@ -127,9 +127,9 @@ export function CreateRunner() {
       updateOneRunner(
         where: { id: $id }
         data: {
-          name: { set: $name }
-          clazz: { set: $clazz }
-          grade: { set: $grade }
+          name: $name
+          clazz: $clazz
+          grade: $grade
         }
       ) {
         __typename
