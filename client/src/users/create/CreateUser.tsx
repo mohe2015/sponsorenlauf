@@ -69,7 +69,7 @@ export function CreateUser() {
 
   const data = useLazyLoadQuery<CreateUserFindUserQuery>(
     graphql`
-      query CreateUserFindUserQuery($id: String) {
+      query CreateUserFindUserQuery($id: ID!) {
         user(where: { id: $id }) {
           id
           name
@@ -116,13 +116,13 @@ export function CreateUser() {
     CreateUserUpdateMutation
   >(graphql`
     mutation CreateUserUpdateMutation(
-      $id: String
+      $id: ID!
       $username: String!
       $role: UserRole!
     ) {
       updateOneUser(
         where: { id: $id }
-        data: { name: { set: $username }, role: $role }
+        data: { name: $username, role: $role }
       ) {
         __typename
         ... on UserMutationOutput {

@@ -30,9 +30,8 @@ export const User = objectType({
 export const UserCreateInput = inputObjectType({
   name: "UserCreateInput",
   definition(t) {
-    t.nonNull.id("id");
     t.nonNull.string("name");
-    t.nonNull.string("password");
+    t.nullable.string("password");
     t.nonNull.field('role', {
       type: 'UserRole'
     })
@@ -75,10 +74,12 @@ export const UserWhereUniqueInput = inputObjectType({
 export const UserUpdateInput = inputObjectType({
   name: "UserUpdateInput",
   definition(t) {
-    t.nonNull.id("id");
-    t.nonNull.string("name");
-    t.nonNull.string("password");
-    t.nonNull.field('role', {
+    // primary keys
+    t.nullable.id("id");
+    t.nullable.string("name");
+
+    t.nullable.string("password");
+    t.nullable.field('role', {
       type: 'UserRole'
     })
   }

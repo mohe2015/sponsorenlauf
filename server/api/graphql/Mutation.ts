@@ -60,7 +60,7 @@ export const Mutation = mutationType({
           },
           data: {
             ...args.data,
-            password: undefined,
+            password: undefined
           }
         });
 
