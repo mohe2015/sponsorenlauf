@@ -43,6 +43,21 @@ export const RoundCreateInput = inputObjectType({
   }
 })
 
+export const RoundWhereUniqueInput = inputObjectType({
+  name: "RoundWhereUniqueInput",
+  definition(t) {
+    t.nonNull.id("id");
+  }
+})
+
+export const RoundWhereInput = inputObjectType({
+  name: "RoundWhereInput",
+  definition(t) {
+    t.nonNull.id("id");
+    t.nonNull.field("time", { type: "DateTime" });
+  }
+})
+
 export const CreateRoundMutationError = objectType({
   name: "CreateRoundMutationError",
   definition(t) {
