@@ -91,6 +91,21 @@ export const Mutation = mutationType({
       }
     });
 
+    t.field("deleteOneUser", {
+      type: "User",
+      args: {
+        where: arg({type: "UserWhereUniqueInput"})
+      },
+      resolve: async (parent, args, context, info) => {
+        return await context.db.user.delete({
+          where: {
+            id: args.where.id || undefined,
+            name: args.where.name || undefined,
+          }
+        })
+      }
+    })
+
     t.field("generatePasswords", {
       type: "QueryUsers_Connection",
       resolve: async (parent, args, context, info) => {
@@ -255,7 +270,23 @@ export const Mutation = mutationType({
         return round
       }
     })
-/*
+
+    t.field("deleteOneRunner", {
+      type: "Runner",
+      args: {
+        where: arg({type: "RunnerWhereUniqueInput"})
+      },
+      resolve: async (parent, args, context) => {
+        return await context.db.runner.delete({
+          where: {
+            id: args.where.id || undefined,
+            name: args.where.name || undefined,
+            startNumber: args.where.startNumber || undefined,
+          }
+        })
+      }
+    })
+
     t.field("login", {
       type: "LoginMutationResponse",
       args: {
@@ -340,6 +371,6 @@ export const Mutation = mutationType({
         return !!userSession
       },
     });
-    */
+    
   },
 });

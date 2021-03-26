@@ -3,7 +3,7 @@ import { withFilter } from "graphql-subscriptions";
 
 export const Subscription = subscriptionType({
   definition(t) {
-    /*
+    
     t.field("subscribeRounds", {
       type: "CreateRoundMutationOutput",
       subscribe: withFilter(
@@ -18,7 +18,7 @@ export const Subscription = subscriptionType({
         return payload;
       },
     });
-*/
+
     t.field("subscribeUsers", {
       type: "UserMutationOutput",
       subscribe: withFilter(

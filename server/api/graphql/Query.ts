@@ -1,15 +1,6 @@
 import { objectType, extendInputType, queryType, arg, idArg, nonNull } from 'nexus'
 import { Runner } from '@prisma/client';
 import { decode } from "../relay-tools-custom";
-/*
-export const RunnerOrderByInput = extendInputType({
-  type: "RunnerOrderByInput",
-  definition(t) {
-    t.field("roundCount", {
-      type: "SortOrder",
-    })
-  }
-})
 
 export const ClassRunners = objectType({
   name: "ClassRunners",
@@ -20,7 +11,6 @@ export const ClassRunners = objectType({
     })
   }
 })
-*/
 
 export const Query = queryType({
   definition(t) {
@@ -165,7 +155,23 @@ export const Query = queryType({
       }
     })
 
-/*
+    t.nullable.field("runner", {
+      type: "Runner",
+      args: {
+        where: arg({type: "RunnerWhereUniqueInput"}),
+      },
+      resolve: async (root, args, context) => {
+        return await context.db.runner.findUnique({
+          where: {
+            id: args.where.id || undefined,
+            name: args.where.name || undefined,
+            startNumber: args.where.startNumber || undefined,
+          },
+        })
+      }
+    })
+
+
     t.field("runnersByClass", {
       type: "ClassRunners",
       resolve: async (root, args, context) => {
@@ -179,7 +185,7 @@ export const Query = queryType({
         let initialValue: { [clazz: string]: Runner[]} = {};
         
         let groupedRunners: { [clazz: string]: Runner[]} = runners.reduce((accumulator: { [clazz: string]: Runner[]}, currentValue: Runner) => {
-          (accumulator[currentValue.clazz] ??= []).push(currentValue)
+          (accumulator[currentValue.clazz] = accumulator[currentValue.clazz] ?? []).push(currentValue)
           return accumulator
         }, initialValue);
 
@@ -205,6 +211,6 @@ export const Query = queryType({
         };
       },
     });
-*/
+
   },
 });

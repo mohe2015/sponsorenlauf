@@ -71,7 +71,7 @@ export function UserRoundRow({ round }: { round: UserRoundRow_round$key }) {
   const [deleteRound, isDeleteRoundPending] = useMutation<
     UserRoundRowDeleteRoundMutation
   >(graphql`
-    mutation UserRoundRowDeleteRoundMutation($id: String!) {
+    mutation UserRoundRowDeleteRoundMutation($id: ID!) {
       deleteOneRound(where: { id: $id }) {
         id
       }

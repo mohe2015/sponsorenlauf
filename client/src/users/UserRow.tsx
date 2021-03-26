@@ -83,7 +83,7 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
   const [deleteUser, isDeleteUserPending] = useMutation<
     UserRowDeleteUserMutation
   >(graphql`
-    mutation UserRowDeleteUserMutation($id: String!) {
+    mutation UserRowDeleteUserMutation($id: ID!) {
       deleteOneUser(where: { id: $id }) {
         id
       }
