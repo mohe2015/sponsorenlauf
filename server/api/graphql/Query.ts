@@ -149,6 +149,22 @@ export const Query = queryType({
         })
       }
     })
+
+    t.nullable.field("user", {
+      type: "User",
+      args: {
+        where: arg({type: "UserWhereUniqueInput"}),
+      },
+      resolve: async (root, args, context) => {
+        return await context.db.user.findUnique({
+          where: {
+            id: args.where.id || undefined,
+            name: args.where.name || undefined,
+          },
+        })
+      }
+    })
+
 /*
     t.field("runnersByClass", {
       type: "ClassRunners",

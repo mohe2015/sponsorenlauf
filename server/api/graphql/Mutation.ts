@@ -53,13 +53,17 @@ export const Mutation = mutationType({
       resolve: async (_parent, args, context, info) => {
         // TODO FIXME https://github.com/graphql-nexus/nexus/issues/819
         // TODO FIXME https://github.com/graphql-nexus/nexus/issues/439
+
+        
         let user = await context.db.user.update({
           where: {
             id: args.where.id || undefined,
             name: args.where.name || undefined,
           },
           data: {
-            ...args.data,
+            id: args.data.id || undefined,
+            name: args.data.name || undefined,
+            role: args.data.role || undefined,
             password: undefined
           }
         });
