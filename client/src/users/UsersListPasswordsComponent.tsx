@@ -1,6 +1,5 @@
 import React from "react";
-import { useFragment } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useFragment, graphql } from "react-relay/hooks";
 import { UserRow } from "./UserRow";
 import { UsersListPasswordsComponent_user$key } from "../__generated__/UsersListPasswordsComponent_user.graphql";
 

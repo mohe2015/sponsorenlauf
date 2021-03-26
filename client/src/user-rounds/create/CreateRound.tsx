@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
-import { useMutation } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useMutation, graphql } from "react-relay/hooks";
 import { useState, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import LoadingButton from "@material-ui/lab/LoadingButton";
@@ -62,7 +61,7 @@ export function CreateRound() {
   >(graphql`
     mutation CreateRoundMutation($startNumber: Int!) {
       createOneRound(
-        data: { student: { connect: { startNumber: $startNumber } } }
+        data: { studentStartNumber: $startNumber }
       ) {
         __typename
         ... on CreateRoundMutationOutput {

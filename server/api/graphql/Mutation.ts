@@ -5,10 +5,11 @@ import { flatten, unflatten } from 'flat';
 import { mutationType, arg, stringArg } from 'nexus'
 import { Context } from "../context";
 import Prisma from '@prisma/client';
+import type { NexusGenUnions } from 'nexus-typegen'
 
 export const Mutation = mutationType({
   definition(t) {
-/*
+
     t.field("createOneUser", {
       type: "UserMutationResponse",
       args: { data: arg({type: "UserCreateInput" }) },
@@ -21,14 +22,15 @@ export const Mutation = mutationType({
         });
 
         if (!user) {
-          return {
+          let output: NexusGenUnions["UserMutationResponse"] = {
             __typename: "UserMutationError",
             usernameError: "Nutzername nicht gefunden!",
             roleError: null,
           }
+          return output
         }
 
-        let output = {
+        let output: NexusGenUnions["UserMutationResponse"] = {
           __typename: "UserMutationOutput",
           edge: {
             cursor: user.id,
@@ -49,11 +51,20 @@ export const Mutation = mutationType({
         where: arg({type: "UserWhereUniqueInput"}),
       },
       resolve: async (_parent, args, context, info) => {
+        // TODO FIXME https://github.com/graphql-nexus/nexus/issues/819
+        // TODO FIXME https://github.com/graphql-nexus/nexus/issues/439
+
+        
         let user = await context.db.user.update({
-          where: args.where,
+          where: {
+            id: args.where.id || undefined,
+            name: args.where.name || undefined,
+          },
           data: {
-            ...args.data,
-            password: undefined,
+            id: args.data.id || undefined,
+            name: args.data.name || undefined,
+            role: args.data.role || undefined,
+            password: undefined
           }
         });
 
@@ -79,6 +90,21 @@ export const Mutation = mutationType({
         return output;
       }
     });
+
+    t.field("deleteOneUser", {
+      type: "User",
+      args: {
+        where: arg({type: "UserWhereUniqueInput"})
+      },
+      resolve: async (parent, args, context, info) => {
+        return await context.db.user.delete({
+          where: {
+            id: args.where.id || undefined,
+            name: args.where.name || undefined,
+          }
+        })
+      }
+    })
 
     t.field("generatePasswords", {
       type: "QueryUsers_Connection",
@@ -185,7 +211,7 @@ export const Mutation = mutationType({
       args: { data: arg({type: "RoundCreateInput"}) },
       resolve: async (parent, args, context) => {
         try {
-          let startNumber = args.data.student.connect?.startNumber;
+          let startNumber = args.data.studentStartNumber;
           let thecuid = cuid();
           let createdById = context.user?.id;
 
@@ -242,6 +268,22 @@ export const Mutation = mutationType({
         // TODO FIXME subscriptions
 
         return round
+      }
+    })
+
+    t.field("deleteOneRunner", {
+      type: "Runner",
+      args: {
+        where: arg({type: "RunnerWhereUniqueInput"})
+      },
+      resolve: async (parent, args, context) => {
+        return await context.db.runner.delete({
+          where: {
+            id: args.where.id || undefined,
+            name: args.where.name || undefined,
+            startNumber: args.where.startNumber || undefined,
+          }
+        })
       }
     })
 
@@ -329,6 +371,6 @@ export const Mutation = mutationType({
         return !!userSession
       },
     });
-    */
+    
   },
 });

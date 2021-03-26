@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { useMutation } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useMutation, graphql } from "react-relay/hooks";
 import {
   useState,
   useCallback,
@@ -70,7 +69,7 @@ export function CreateUser() {
 
   const data = useLazyLoadQuery<CreateUserFindUserQuery>(
     graphql`
-      query CreateUserFindUserQuery($id: String) {
+      query CreateUserFindUserQuery($id: ID!) {
         user(where: { id: $id }) {
           id
           name
@@ -117,13 +116,13 @@ export function CreateUser() {
     CreateUserUpdateMutation
   >(graphql`
     mutation CreateUserUpdateMutation(
-      $id: String
+      $id: ID!
       $username: String!
       $role: UserRole!
     ) {
       updateOneUser(
         where: { id: $id }
-        data: { name: { set: $username }, role: $role }
+        data: { name: $username, role: $role }
       ) {
         __typename
         ... on UserMutationOutput {
@@ -150,7 +149,7 @@ export function CreateUser() {
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [roleError, setRoleError] = useState<string | null>(null);
 
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500 });
 
   const onSubmit = useCallback(
     (event) => {
