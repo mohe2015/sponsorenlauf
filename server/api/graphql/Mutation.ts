@@ -90,7 +90,7 @@ export const Mutation = mutationType({
         return output;
       }
     });
-/*
+
     t.field("generatePasswords", {
       type: "QueryUsers_Connection",
       resolve: async (parent, args, context, info) => {
@@ -255,7 +255,7 @@ export const Mutation = mutationType({
         return round
       }
     })
-
+/*
     t.field("login", {
       type: "LoginMutationResponse",
       args: {

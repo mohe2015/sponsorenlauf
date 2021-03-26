@@ -71,7 +71,7 @@ export const Query = queryType({
     });
 
 
-/*
+
     // https://relay.dev/graphql/connections.htm
     // You may order the edges however your business logic dictates,
     // and may determine the ordering based upon additional arguments
@@ -113,7 +113,7 @@ export const Query = queryType({
         }
       }
     });
-*/
+
     t.connectionField("users", {
       type: "User",
       disableBackwardPagination: true,
