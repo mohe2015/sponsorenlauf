@@ -37,9 +37,10 @@ export const RoundOrderByInput = inputObjectType({
 export const RoundCreateInput = inputObjectType({
   name: "RoundCreateInput",
   definition(t) {
-    t.nonNull.id('studentId');
-    t.nonNull.field("time", { type: "DateTime" });
-    t.nonNull.id('createdById');
+    t.nullable.id('studentId');
+    t.nullable.int("studentStartNumber")
+    t.nullable.field("time", { type: "DateTime" });
+    t.nullable.id('createdById');
   }
 })
 

@@ -211,7 +211,7 @@ export const Mutation = mutationType({
       args: { data: arg({type: "RoundCreateInput"}) },
       resolve: async (parent, args, context) => {
         try {
-          let startNumber = args.data.student.connect?.startNumber;
+          let startNumber = args.data.studentStartNumber;
           let thecuid = cuid();
           let createdById = context.user?.id;
 

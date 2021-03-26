@@ -92,7 +92,7 @@ export function RunnerRow({ runner }: { runner: RunnerRow_runner$key }) {
   const [deleteRunner, isDeleteRunnerPending] = useMutation<
     RunnerRowDeleteRunnerMutation
   >(graphql`
-    mutation RunnerRowDeleteRunnerMutation($id: String!) {
+    mutation RunnerRowDeleteRunnerMutation($id: ID!) {
       deleteOneRunner(where: { id: $id }) {
         id
       }

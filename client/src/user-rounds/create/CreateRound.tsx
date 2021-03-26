@@ -61,7 +61,7 @@ export function CreateRound() {
   >(graphql`
     mutation CreateRoundMutation($startNumber: Int!) {
       createOneRound(
-        data: { student: { connect: { startNumber: $startNumber } } }
+        data: { studentStartNumber: $startNumber }
       ) {
         __typename
         ... on CreateRoundMutationOutput {
