@@ -1,6 +1,5 @@
 import React from "react";
-import { useMutation } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useMutation, graphql } from "react-relay/hooks";
 import {
   useCallback,
 } from "react";

@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
-import { usePaginationFragment, useSubscription } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { usePaginationFragment, useSubscription, graphql } from "react-relay/hooks";
 import { UserRow } from "./UserRow";
 import { unstable_useTransition as useTransition } from "react";
 import LoadingButton from "@material-ui/lab/LoadingButton";
@@ -15,7 +14,7 @@ export function UsersListComponent({
 }: {
   users: UsersListComponent_user$key;
 }) {
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });  
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });  
 
   const { data, hasNext, loadNext, isLoadingNext } = usePaginationFragment(
     graphql`

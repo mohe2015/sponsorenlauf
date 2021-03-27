@@ -1,6 +1,5 @@
 import React from "react";
-import { useFragment, useMutation } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useFragment, useMutation, graphql } from "react-relay/hooks";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import ControlledTooltip from "../ControlledTooltip";
@@ -72,7 +71,7 @@ export function UserRoundRow({ round }: { round: UserRoundRow_round$key }) {
   const [deleteRound, isDeleteRoundPending] = useMutation<
     UserRoundRowDeleteRoundMutation
   >(graphql`
-    mutation UserRoundRowDeleteRoundMutation($id: String!) {
+    mutation UserRoundRowDeleteRoundMutation($id: ID!) {
       deleteOneRound(where: { id: $id }) {
         id
       }

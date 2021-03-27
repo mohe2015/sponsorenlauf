@@ -1,15 +1,6 @@
-import { objectType, extendInputType, queryType, arg, idArg, nonNull } from 'nexus'
+import { objectType, extendInputType, queryType, arg, idArg, nonNull, nullable } from 'nexus'
 import { Runner } from '@prisma/client';
 import { decode } from "../relay-tools-custom";
-
-export const RunnerOrderByInput = extendInputType({
-  type: "RunnerOrderByInput",
-  definition(t) {
-    t.field("roundCount", {
-      type: "SortOrder",
-    })
-  }
-})
 
 export const ClassRunners = objectType({
   name: "ClassRunners",
@@ -23,6 +14,8 @@ export const ClassRunners = objectType({
 
 export const Query = queryType({
   definition(t) {
+
+
     t.field("me", {
       type: "User",
       resolve: (parent, args, ctx) => {
@@ -30,11 +23,7 @@ export const Query = queryType({
       },
     });
 
-/*
-    // https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
-    // TODO FIXME https://nexus.js.org/docs/plugin-connection
-    // currentIndex needs to be provided for pagination information
-    // pagination maybe depending on cursor and not offset (see base64 decode of cursor)
+    // useful https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
     t.connectionField("runners", {
       type: "Runner",
       disableBackwardPagination: true,
@@ -71,6 +60,8 @@ export const Query = queryType({
       }
     });
 
+
+
     // https://relay.dev/graphql/connections.htm
     // You may order the edges however your business logic dictates,
     // and may determine the ordering based upon additional arguments
@@ -84,7 +75,7 @@ export const Query = queryType({
       type: "Round",
       disableBackwardPagination: true,
       additionalArgs: {
-        filter: arg({ type: "RoundWhereInput"}),
+        filter: nullable(arg({ type: "RoundWhereInput" })),
         orderBy: arg({ type: "RoundOrderByInput" }),
       },
       resolve: async (root, args, ctx) => {
@@ -148,7 +139,39 @@ export const Query = queryType({
         })
       }
     })
-*/
+
+    t.nullable.field("user", {
+      type: "User",
+      args: {
+        where: arg({type: "UserWhereUniqueInput"}),
+      },
+      resolve: async (root, args, context) => {
+        return await context.db.user.findUnique({
+          where: {
+            id: args.where.id || undefined,
+            name: args.where.name || undefined,
+          },
+        })
+      }
+    })
+
+    t.nullable.field("runner", {
+      type: "Runner",
+      args: {
+        where: arg({type: "RunnerWhereUniqueInput"}),
+      },
+      resolve: async (root, args, context) => {
+        return await context.db.runner.findUnique({
+          where: {
+            id: args.where.id || undefined,
+            name: args.where.name || undefined,
+            startNumber: args.where.startNumber || undefined,
+          },
+        })
+      }
+    })
+
+
     t.field("runnersByClass", {
       type: "ClassRunners",
       resolve: async (root, args, context) => {
@@ -162,7 +185,7 @@ export const Query = queryType({
         let initialValue: { [clazz: string]: Runner[]} = {};
         
         let groupedRunners: { [clazz: string]: Runner[]} = runners.reduce((accumulator: { [clazz: string]: Runner[]}, currentValue: Runner) => {
-          (accumulator[currentValue.clazz] ??= []).push(currentValue)
+          (accumulator[currentValue.clazz] = accumulator[currentValue.clazz] ?? []).push(currentValue)
           return accumulator
         }, initialValue);
 
@@ -188,5 +211,6 @@ export const Query = queryType({
         };
       },
     });
+
   },
 });

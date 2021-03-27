@@ -36,7 +36,7 @@ function App() {
       () =>
         createMuiTheme({
           palette: {
-            type: 'dark',
+            
           },
         }),
       [],

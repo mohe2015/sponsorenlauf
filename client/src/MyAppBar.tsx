@@ -23,9 +23,8 @@ import { useNavigate } from "react-router-dom";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import { AuthorizationErrorBoundary } from "./AuthorizationErrorBoundary";
 import { LoadingContext } from "./LoadingContext";
-import { useMutation, useLazyLoadQuery } from "react-relay/hooks";
+import { useMutation, useLazyLoadQuery, graphql } from "react-relay/hooks";
 import { AuthContext } from "./RelayEnvironmentProviderWrapper";
-import graphql from "babel-plugin-relay/macro";
 import { MyAppBarQuery } from "./__generated__/MyAppBarQuery.graphql";
 
 const useStyles = makeStyles((theme) =>
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme) =>
 function AccountButton() {
   const { resetEnvironment } = useContext(AuthContext);
 
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const navigate = useNavigate();
 
@@ -154,20 +153,20 @@ function LoadingAccountButton() {
 
 export function MyAppBar() {
   const [startUsersTransition, isUsersPending] = useTransition({
-    timeoutMs: 30000,
+    busyDelayMs: 1000, busyMinDurationMs: 1500 
   });
   const [startRunnersTransition, isRunnersPending] = useTransition({
-    timeoutMs: 30000,
+    busyDelayMs: 1000, busyMinDurationMs: 1500 
   });
   const [
     startRunnersByClassTransition,
     isRunnersByClassPending,
-  ] = useTransition({ timeoutMs: 30000 });
+  ] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
   const [startRoundsTransition, isRoundsPending] = useTransition({
-    timeoutMs: 30000,
+    busyDelayMs: 1000, busyMinDurationMs: 1500 
   });
   const [startUserRoundsTransition, isUserRoundsPending] = useTransition({
-    timeoutMs: 30000,
+    busyDelayMs: 1000, busyMinDurationMs: 1500 
   });
   const classes = useStyles();
   const navigate = useNavigate();

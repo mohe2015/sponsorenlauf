@@ -1,6 +1,5 @@
 import React from "react";
-import { useLazyLoadQuery } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useLazyLoadQuery, graphql } from "react-relay/hooks";
 import { ClassRunnerRow } from "./ClassRunnerRow";
 import { ClassRunnersListComponentRunnersByClassQuery } from "../__generated__/ClassRunnersListComponentRunnersByClassQuery.graphql";
 import Table from "@material-ui/core/Table";

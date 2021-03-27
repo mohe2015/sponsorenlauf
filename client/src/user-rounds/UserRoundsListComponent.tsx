@@ -1,6 +1,5 @@
 import React from "react";
-import { usePaginationFragment } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { usePaginationFragment, graphql } from "react-relay/hooks";
 import { UserRoundRow } from "./UserRoundRow";
 import { unstable_useTransition as useTransition } from "react";
 import LoadingButton from "@material-ui/lab/LoadingButton";
@@ -13,7 +12,7 @@ export function UserRoundsListComponent({
 }: {
   rounds: UserRoundsListComponent_round$key;
 }) {
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const { data, hasNext, loadNext, isLoadingNext } = usePaginationFragment(
     graphql`

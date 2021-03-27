@@ -1,6 +1,5 @@
 import React from "react";
-import { useFragment } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useFragment, graphql } from "react-relay/hooks";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Skeleton from "@material-ui/lab/Skeleton";

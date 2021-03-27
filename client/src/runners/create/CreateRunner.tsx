@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { useMutation } from "react-relay/hooks";
-import graphql from "babel-plugin-relay/macro";
+import { useMutation, graphql } from "react-relay/hooks";
 import {
   useState,
   useCallback,
@@ -25,7 +24,7 @@ import { LocationStateType } from "../../utils";
 import { Location } from "history";
 import { CreateRunnerMutation } from "../../__generated__/CreateRunnerMutation.graphql";
 import { ConnectionHandler } from "relay-runtime";
-import { UseMutationConfig } from "react-relay/lib/relay-experimental/useMutation";
+import { UseMutationConfig } from "react-relay";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -65,7 +64,7 @@ export function CreateRunner() {
 
   const data = useLazyLoadQuery<CreateRunnerFindRunnerQuery>(
     graphql`
-      query CreateRunnerFindRunnerQuery($id: String) {
+      query CreateRunnerFindRunnerQuery($id: ID!) {
         runner(where: { id: $id }) {
           id
           startNumber
@@ -120,7 +119,7 @@ export function CreateRunner() {
     CreateRunnerUpdateMutation
   >(graphql`
     mutation CreateRunnerUpdateMutation(
-      $id: String
+      $id: ID!
       $name: String!
       $clazz: String!
       $grade: Int!
@@ -128,9 +127,9 @@ export function CreateRunner() {
       updateOneRunner(
         where: { id: $id }
         data: {
-          name: { set: $name }
-          clazz: { set: $clazz }
-          grade: { set: $grade }
+          name: $name
+          clazz: $clazz
+          grade: $grade
         }
       ) {
         __typename
@@ -162,7 +161,7 @@ export function CreateRunner() {
   const [clazzError] = useState<string | null>(null);
   const [gradeError, setGradeError] = useState<string | null>(null);
 
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const onSubmit = useCallback(
     (event) => {

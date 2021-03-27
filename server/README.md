@@ -32,7 +32,7 @@ npm install
 npx prisma migrate dev --name init
 
 
-npx ts-node --transpile-only api/schema.ts
+npx ts-node --transpile-only src/schema.ts
 npx ts-node-dev --no-notify --respawn --transpile-only api/app.ts
 
 

@@ -11,7 +11,6 @@ export const LoginMutationError = objectType({
 
 export const LoginMutationResponse = unionType({
   name: "LoginMutationResponse",
-  resolveType: item => item.__typename,
   definition(t) {
     t.members(
       "User",

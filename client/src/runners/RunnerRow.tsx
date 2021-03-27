@@ -1,7 +1,6 @@
 import React from "react";
-import { useFragment, useMutation } from "react-relay/hooks";
+import { useFragment, useMutation, graphql } from "react-relay/hooks";
 import { unstable_useTransition as useTransition } from "react";
-import graphql from "babel-plugin-relay/macro";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import ControlledTooltip from "../ControlledTooltip";
@@ -73,7 +72,7 @@ export function LoadingRunnerRow() {
 }
 
 export function RunnerRow({ runner }: { runner: RunnerRow_runner$key }) {
-  const [startTransition, isPending] = useTransition({ timeoutMs: 3000 });
+  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
 
   const data = useFragment<RunnerRow_runner$key>(
     graphql`
@@ -93,7 +92,7 @@ export function RunnerRow({ runner }: { runner: RunnerRow_runner$key }) {
   const [deleteRunner, isDeleteRunnerPending] = useMutation<
     RunnerRowDeleteRunnerMutation
   >(graphql`
-    mutation RunnerRowDeleteRunnerMutation($id: String!) {
+    mutation RunnerRowDeleteRunnerMutation($id: ID!) {
       deleteOneRunner(where: { id: $id }) {
         id
       }
