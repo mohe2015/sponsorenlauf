@@ -36,7 +36,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "relay": "relay-compiler"
+    "relay": "relay-compiler",
+    "relay-watch": "relay-compiler --watch"
   },
   "eslintConfig": {
     "extends": [

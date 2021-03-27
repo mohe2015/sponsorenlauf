@@ -14,21 +14,19 @@ import Box from "@material-ui/core/Box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
-import { makeStyles } from "@material-ui/core/styles";
 import { LoadingContext } from "../LoadingContext";
 import { useNavigate } from "react-router-dom";
 import { unstable_useTransition as useTransition } from "react";
 import { useCallback } from "react";
 import LoadingButton from "@material-ui/lab/LoadingButton";
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
-const useStyles = makeStyles({
+//const useStyles = makeStyles({
   // TODO fix #20379.
   //span: visuallyHidden as CSSProperties,
-});
+//});
 
 export function RunnersList() {
-  const classes = useStyles();
+  //const classes = useStyles();
   const loading = useContext(LoadingContext);
   const navigate = useNavigate();
   const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
@@ -93,7 +91,7 @@ export function RunnersList() {
                 >
                   Rundenzahl
                   {orderBy === "roundCount" ? (
-                    <span className={classes.span}>
+                    <span>
                       {order === "desc"
                         ? "sorted descending"
                         : "sorted ascending"}

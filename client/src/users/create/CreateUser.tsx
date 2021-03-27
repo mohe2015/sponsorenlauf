@@ -304,7 +304,6 @@ export function CreateUser() {
               id="demo-simple-select"
               value={role}
               onChange={
-                // @ts-expect-error
                 (e) => setRole(e.target.value)
               }
             >

@@ -1,5 +1,5 @@
 import React from "react";
-import { useFragment, useMutation, graqhql } from "react-relay/hooks";
+import { useFragment, useMutation, graphql } from "react-relay/hooks";
 import { unstable_useTransition as useTransition } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";

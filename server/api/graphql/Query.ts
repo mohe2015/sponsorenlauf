@@ -2,8 +2,8 @@ import { objectType, extendInputType, queryType, arg, idArg, nonNull, nullable }
 import { Runner } from '@prisma/client';
 import { decode } from "../relay-tools-custom";
 
-export const ClassRunners = objectType({
-  name: "ClassRunners",
+export const ClassRunner = objectType({
+  name: "ClassRunner",
   definition(t) {
     t.string("class")
     t.list.field("runners", {
@@ -172,8 +172,8 @@ export const Query = queryType({
     })
 
 
-    t.field("runnersByClass", {
-      type: "ClassRunners",
+    t.list.field("runnersByClass", {
+      type: "ClassRunner",
       resolve: async (root, args, context) => {
         let runners = await context.db.runner.findMany({
           orderBy: [{
