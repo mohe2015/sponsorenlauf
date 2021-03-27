@@ -1,7 +1,8 @@
 import React from "react";
-import { useLazyLoadQuery, graphql } from "react-relay/hooks";
+import { useLazyLoadQuery } from "react-relay/hooks";
 import { RunnersListComponent } from "./RunnersListComponent";
 import { RunnersListQueryListQuery } from "../__generated__/RunnersListQueryListQuery.graphql";
+import graphql from 'babel-plugin-relay/macro';
 
 export function RunnersListQuery({
   orderByInput,

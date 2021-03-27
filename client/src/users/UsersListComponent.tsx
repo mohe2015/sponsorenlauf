@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { usePaginationFragment, useSubscription, graphql } from "react-relay/hooks";
+import { usePaginationFragment, useSubscription } from "react-relay/hooks";
 import { UserRow } from "./UserRow";
 import { unstable_useTransition as useTransition } from "react";
 import LoadingButton from "@material-ui/lab/LoadingButton";
@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { UsersListComponent_user$key } from "../__generated__/UsersListComponent_user.graphql";
 import { ConnectionHandler, GraphQLSubscriptionConfig } from "relay-runtime";
 import { UsersListComponentSubscription } from "../__generated__/UsersListComponentSubscription.graphql";
+import graphql from 'babel-plugin-relay/macro';
 
 export function UsersListComponent({
   users,

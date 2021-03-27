@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { useMutation, graphql } from "react-relay/hooks";
+import { useMutation } from "react-relay/hooks";
 import { useState, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import LoadingButton from "@material-ui/lab/LoadingButton";
@@ -16,6 +16,7 @@ import { RecordSourceSelectorProxy, ConnectionHandler } from "relay-runtime";
 import { CreateRoundMutation } from "../../__generated__/CreateRoundMutation.graphql";
 import { LocationStateType } from "../../utils";
 import { Location } from "history";
+import graphql from 'babel-plugin-relay/macro';
 
 const useStyles = makeStyles((theme) => ({
   form: {

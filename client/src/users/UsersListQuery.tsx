@@ -1,7 +1,8 @@
 import React from "react";
-import { useLazyLoadQuery, graphql } from "react-relay/hooks";
+import { useLazyLoadQuery } from "react-relay/hooks";
 import { UsersListComponent } from "./UsersListComponent";
 import { UsersListQueryListQuery } from "../__generated__/UsersListQueryListQuery.graphql";
+import graphql from 'babel-plugin-relay/macro';
 
 export function UsersListQuery() {
   const data = useLazyLoadQuery<UsersListQueryListQuery>(

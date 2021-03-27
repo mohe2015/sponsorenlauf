@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useMutation, graphql } from "react-relay/hooks";
+import { useMutation } from "react-relay/hooks";
 import {
   useState,
   useCallback,
@@ -25,6 +25,7 @@ import { Location } from "history";
 import { CreateRunnerMutation } from "../../__generated__/CreateRunnerMutation.graphql";
 import { ConnectionHandler } from "relay-runtime";
 import { UseMutationConfig } from "react-relay";
+import graphql from 'babel-plugin-relay/macro';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

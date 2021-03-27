@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, graphql } from "react-relay/hooks";
+import { useMutation } from "react-relay/hooks";
 import {
   useCallback,
 } from "react";
@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { UsersListPasswordsComponent_user$key } from "../__generated__/UsersListPasswordsComponent_user.graphql";
+import graphql from 'babel-plugin-relay/macro';
 
 export function GenerateUserPasswords({ setGeneratedPasswordsData }: { setGeneratedPasswordsData: React.Dispatch<React.SetStateAction<UsersListPasswordsComponent_user$key | null>> }) {
   const [generatePasswords, isGeneratePasswordsPending] = useMutation<

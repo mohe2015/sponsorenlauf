@@ -1,5 +1,5 @@
 import React from "react";
-import { useFragment, useMutation, graphql } from "react-relay/hooks";
+import { useFragment, useMutation } from "react-relay/hooks";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import ControlledTooltip from "../ControlledTooltip";
@@ -14,6 +14,7 @@ import LoadingButton from "@material-ui/lab/LoadingButton";
 import { UserRoundRow_round$key } from "../__generated__/UserRoundRow_round.graphql";
 import { ConnectionHandler } from "relay-runtime";
 import { UserRoundRowDeleteRoundMutation } from "../__generated__/UserRoundRowDeleteRoundMutation.graphql";
+import graphql from 'babel-plugin-relay/macro';
 
 export function LoadingRoundRow() {
   return (

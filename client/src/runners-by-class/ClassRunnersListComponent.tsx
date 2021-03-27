@@ -1,5 +1,5 @@
 import React from "react";
-import { useLazyLoadQuery, graphql } from "react-relay/hooks";
+import { useLazyLoadQuery } from "react-relay/hooks";
 import { ClassRunnerRow } from "./ClassRunnerRow";
 import { ClassRunnersListComponentRunnersByClassQuery } from "../__generated__/ClassRunnersListComponentRunnersByClassQuery.graphql";
 import Table from "@material-ui/core/Table";
@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core";
+import graphql from 'babel-plugin-relay/macro';
 
 const useStyles = makeStyles((theme) => ({
   center_header: {

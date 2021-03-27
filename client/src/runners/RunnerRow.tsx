@@ -1,5 +1,5 @@
 import React from "react";
-import { useFragment, useMutation, graphql } from "react-relay/hooks";
+import { useFragment, useMutation } from "react-relay/hooks";
 import { unstable_useTransition as useTransition } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
@@ -17,6 +17,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import { RunnerRow_runner$key } from "../__generated__/RunnerRow_runner.graphql";
 import { RunnerRowDeleteRunnerMutation } from "../__generated__/RunnerRowDeleteRunnerMutation.graphql";
+import graphql from 'babel-plugin-relay/macro';
 
 export function LoadingRunnerRow() {
   return (

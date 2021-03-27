@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useMutation, graphql } from "react-relay/hooks";
+import { useMutation } from "react-relay/hooks";
 import {
   useState,
   useCallback,
@@ -24,6 +24,7 @@ import { LoginMutation } from "../__generated__/LoginMutation.graphql";
 import { AuthorizationErrorBoundaryState } from "../AuthorizationErrorBoundary";
 import { Location } from "history";
 import { LocationStateType } from "../utils";
+import graphql from 'babel-plugin-relay/macro';
 
 function Copyright() {
   return (

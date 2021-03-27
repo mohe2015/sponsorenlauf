@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { usePaginationFragment, useSubscription, graphql } from "react-relay/hooks";
+import { usePaginationFragment, useSubscription } from "react-relay/hooks";
 import { RoundRow } from "./RoundRow";
 import { unstable_useTransition as useTransition } from "react";
 import LoadingButton from "@material-ui/lab/LoadingButton";
@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { ConnectionHandler, GraphQLSubscriptionConfig } from "relay-runtime";
 import { RoundsListComponent_round$key } from "../__generated__/RoundsListComponent_round.graphql";
 import { RoundsListComponentSubscription } from "../__generated__/RoundsListComponentSubscription.graphql";
+import graphql from 'babel-plugin-relay/macro';
 
 export function RoundsListComponent({
   rounds,

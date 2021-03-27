@@ -1,9 +1,10 @@
 import React from "react";
-import { useFragment, graphql } from "react-relay/hooks";
+import { useFragment } from "react-relay/hooks";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { RoundRow_round$key } from "../__generated__/RoundRow_round.graphql";
+import graphql from 'babel-plugin-relay/macro';
 
 export function LoadingRoundRow() {
   return (

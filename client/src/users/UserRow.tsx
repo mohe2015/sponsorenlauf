@@ -1,5 +1,5 @@
 import React from "react";
-import { useFragment, useMutation, graphql } from "react-relay/hooks";
+import { useFragment, useMutation } from "react-relay/hooks";
 import { unstable_useTransition as useTransition } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
@@ -17,6 +17,7 @@ import LoadingButton from "@material-ui/lab/LoadingButton";
 import { UserRow_user$key } from "../__generated__/UserRow_user.graphql";
 import { ConnectionHandler } from "relay-runtime";
 import { UserRowDeleteUserMutation } from "../__generated__/UserRowDeleteUserMutation.graphql";
+import graphql from 'babel-plugin-relay/macro';
 
 export function LoadingUserRow() {
   return (
