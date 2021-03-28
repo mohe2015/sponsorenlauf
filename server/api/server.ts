@@ -29,7 +29,7 @@ let myplugin: ApolloServerPlugin = {
   },
 }
 
-async function createContext(cookie: string | null, response: e.Response<any>): Promise<Context> {
+async function createContext(cookies: any, response: e.Response<any>): Promise<Context> {
   console.log("context")
   // Added for debugging
   //await new Promise((r) => setTimeout(r, 3000));
@@ -47,27 +47,24 @@ async function createContext(cookie: string | null, response: e.Response<any>): 
     })
     console.info(`cleaned up ${result.count} sessions`)
   }
-  if (cookie) {
-    let cookies = parseCookie(cookie);
-    if (cookies.id) {
+  // TODO FIXME store signed session cookie on client?
+  if (cookies.id) {
+    let userSession = await db.userSession.findUnique({
+      where: {
+        id: cookies.id,
+      },
+      include: {
+        user: true
+      }
+    })
 
-      let userSession = await db.userSession.findUnique({
-        where: {
-          id: cookies.id,
-        },
-        include: {
-          user: true
-        }
-      })
-
-      if (userSession && userSession.validUntil.getTime() > Date.now()) {
-        return {
-          sessionId: cookies.id,
-          user: userSession?.user,
-          pubsub,
-          db,
-          response,
-        }
+    if (userSession && userSession.validUntil.getTime() > Date.now()) {
+      return {
+        sessionId: cookies.id,
+        user: userSession?.user,
+        pubsub,
+        db,
+        response,
       }
     }
   }
@@ -85,10 +82,8 @@ async function startApolloServer() {
   const server = new ApolloServer({
     schema,
     context: async (config) => {
-      console.log(config.req.cookies)
-
       console.log("jojo")
-      return await createContext(config.req.headers.cookie || null, config.res);
+      return await createContext(config.req.cookies, config.res);
     },
     debug: true, // TODO FIXME
     plugins: [
