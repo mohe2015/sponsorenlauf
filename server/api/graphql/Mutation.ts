@@ -69,16 +69,16 @@ export const Mutation = mutationType({
         });
 
         if (!user) {
-          return {
+          let result: NexusGenUnions["UserMutationResponse"] = {
             __typename: "UserMutationError",
             usernameError: "Nutzername nicht gefunden!",
             roleError: null,
           }
+          return result
         }
 
-        let output = {
+        let output: NexusGenUnions["UserMutationResponse"] = {
           __typename: "UserMutationOutput",
-          previous_edge: null,
           edge: {
             cursor: user.id,
             node: {
