@@ -2,7 +2,7 @@
 with pkgs;
 mkShell {
     buildInputs = [
-        nodejs
+        nodejs-15_x
         watchman
         nodePackages.npm-check-updates
     ];
