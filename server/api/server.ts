@@ -18,12 +18,13 @@ const pubsub = new PubSub();
 
 let myplugin: ApolloServerPlugin = {
   requestDidStart: ({ request }) => {
-    console.log(request)
+    console.log(request.query)
+    console.log(request.variables)
 
     return {
       willSendResponse: async (requestContext) => {
-        console.log(requestContext.response);
-        console.log(requestContext.errors)
+        //console.log(requestContext.response);
+        //console.log(requestContext.errors)
       },
     }
   },
@@ -59,6 +60,7 @@ async function createContext(cookies: any, response: e.Response<any>): Promise<C
     })
 
     if (userSession && userSession.validUntil.getTime() > Date.now()) {
+      console.log("a")
       return {
         sessionId: cookies.id,
         user: userSession?.user,
@@ -68,6 +70,7 @@ async function createContext(cookies: any, response: e.Response<any>): Promise<C
       }
     }
   }
+  console.log("b")
   return {
     sessionId: null,
     user: null,
@@ -84,7 +87,7 @@ async function startApolloServer() {
   const server = new ApolloServer({
     schema,
     context: async (config) => {
-      console.log(config.req.cookies)
+      //console.log(config.req.cookies)
       return await createContext(config.req.cookies, config.res);
     },
     debug: true, // TODO FIXME
