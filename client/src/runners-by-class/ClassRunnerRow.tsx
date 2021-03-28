@@ -3,11 +3,12 @@ import { useFragment } from "react-relay/hooks";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import graphql from 'babel-plugin-relay/macro';
+import { ClassRunnerRow_runner$key } from "../__generated__/ClassRunnerRow_runner.graphql";
 
 export function ClassRunnerRow({
-  runner,
+  runner
 }: {
-  runner: any
+  runner: ClassRunnerRow_runner$key;
 }) {
   const data = useFragment(
     graphql`
