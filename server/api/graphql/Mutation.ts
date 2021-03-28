@@ -151,14 +151,15 @@ export const Mutation = mutationType({
         let runner = await context.db.runner.create(args);
 
         if (!runner) {
-          return {
+          let output: NexusGenUnions["RunnerMutationResponse"] = {
             __typename: "RunnerMutationError",
             nameError: "Fehler bei Erstellung!",
             gradeError: null,
           }
+          return output
         }
 
-        return {
+        let output: NexusGenUnions["RunnerMutationResponse"] = {
           __typename: "RunnerMutationOutput",
           edge: {
             cursor: runner.id,
@@ -167,6 +168,7 @@ export const Mutation = mutationType({
             }
           }
         };
+        return output
       }
     });
 
@@ -178,23 +180,29 @@ export const Mutation = mutationType({
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.runner.update({
-          where: args.where,
+          where: {
+            id: args.where.id || undefined,
+            startNumber: args.where.startNumber || undefined,
+            name: args.where.name || undefined,
+          },
           data: {
-            ...args.data,
+            name: args.data.name || undefined,
+            clazz: args.data.clazz || undefined,
+            grade: args.data.grade || undefined,
           }
         });
 
         if (!user) {
-          return {
+          let output: NexusGenUnions["RunnerMutationResponse"] = {
             __typename: "RunnerMutationError",
             nameError: "Fehler bei Aktualisierung!",
             gradeError: null,
           }
+          return output
         }
 
-        let output = {
+        let output: NexusGenUnions["RunnerMutationResponse"] = {
           __typename: "RunnerMutationOutput",
-          previous_edge: null,
           edge: {
             cursor: user.id,
             node: {
@@ -235,9 +243,8 @@ export const Mutation = mutationType({
 
           // TODO FIXME subscriptions
 
-          let output = {
+          let output: NexusGenUnions["CreateRoundMutationResponse"] = {
             __typename: "CreateRoundMutationOutput",
-            previous_edge: null,
             edge: {
               cursor: roundWithRunner.id,
               node: {
@@ -249,10 +256,11 @@ export const Mutation = mutationType({
           return output;
         } catch (error) {
           console.log(error);
-          return {
+          let output: NexusGenUnions["CreateRoundMutationResponse"] = {
             __typename: "CreateRoundMutationError",
             startNumberError: "Läufer mit dieser Startnummer nicht gefunden!"
           }
+          return output
         }
       },
     });
@@ -356,7 +364,7 @@ export const Mutation = mutationType({
       resolve: async (_parent, args, context) => {
         let userSession = await context.db.userSession.delete({
           where: {
-            id: context.sessionId
+            id: context.sessionId!
           }
         })
 
