@@ -100,7 +100,7 @@ async function startApolloServer() {
       return err;
     },
   })
-  await server.start()
+  //await server.start()
 
   server.applyMiddleware({app, cors: {
     credentials: true,

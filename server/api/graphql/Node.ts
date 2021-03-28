@@ -3,7 +3,6 @@ import { decode, encode } from "../relay-tools-custom";
 
 export const Node = interfaceType({
   name: "Node",
-  resolveType: ({ id }) => decode(id).__typename,
   definition(t) {
     t.id("id", {
       description: "CUID for a resource",
