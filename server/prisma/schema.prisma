@@ -1,6 +1,9 @@
 datasource db {
-  provider = "mysql"
-  url      = "mysql://moritz@localhost:3306/sponsorenlauf?socket=/var/run/mysqld/mysqld.sock"
+  provider = "postgresql"
+  url = "postgresql://moritz@localhost/sponsorenlauf?host=/var/run/postgresql/"
+  shadowDatabaseUrl = "postgresql://moritz@localhost/sponsorenlauf_shadow?host=/var/run/postgresql/"
+  //provider = "mysql"
+  // url      = "mysql://moritz@localhost:3306/sponsorenlauf?socket=/var/run/mysqld/mysqld.sock"
 }
 
 generator prisma_client {
@@ -38,12 +41,12 @@ model Round {
   studentId   String
   createdBy   User     @relation(fields: [createdById], references: [id])
   createdById String
-  time        DateTime @default(now())
+  time        @db.Timestamptz @default(now())
 }
 
 model UserSession {
   id         String   @id
   user       User     @relation(fields: [userId], references: [id])
   userId     String
-  validUntil DateTime
+  validUntil @db.Timestamptz
 }
