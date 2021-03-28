@@ -1,11 +1,10 @@
-import { hash, compare } from "bcrypt";
 let crypto = require('crypto');
 import cuid from 'cuid';
-import { flatten, unflatten } from 'flat';
+import { unflatten } from 'flat';
 import { mutationType, arg, stringArg } from 'nexus'
 import { Context } from "../context";
-import Prisma from '@prisma/client';
 import type { NexusGenUnions } from 'nexus-typegen'
+import { hash, verify } from 'argon2'
 
 export const Mutation = mutationType({
   definition(t) {
@@ -123,7 +122,9 @@ export const Mutation = mutationType({
               id: user.id
             },
             data: {
-              password: await hash(user.password, 10),
+              password: await hash(user.password, {
+                // TODO FIXME
+              }),
             }
           })
         }
@@ -308,7 +309,7 @@ export const Mutation = mutationType({
           }
         }
         // @ts-ignore
-        const passwordValid: boolean = await compare(password, user.password);
+        const passwordValid: boolean = await verify(user.password, password);
         if (!passwordValid) {
           return {
             __typename: "LoginMutationError",

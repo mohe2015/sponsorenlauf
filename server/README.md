@@ -74,3 +74,6 @@ SELECT * FROM "Runner" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' ORDER BY
 sudo -u postgres psql
 DROP DATABASE sponsorenlauf;
 DROP DATABASE sponsorenlauf_shadow;
+
+npx prisma migrate deploy
+ts-node prisma/seed.ts

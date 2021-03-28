@@ -1,5 +1,5 @@
 import { PrismaClient, PrismaPromise } from "@prisma/client";
-import { hash } from "bcrypt";
+import { hash } from 'argon2'
 import parse from "csv-parse/lib/sync";
 import fs from "fs";
 import dotenv from "dotenv";
@@ -16,7 +16,7 @@ async function main() {
   dotenv.config();
 
   const db = new PrismaClient({
-    log: ['query', 'info', 'warn'],
+    log: ['info', 'warn'],
   });
 
   //db.$executeRaw`CREATE INDEX IF NOT EXISTS "Runner_roundCount_id" ON "Runner" ( "roundCount" DESC, "id" ASC );`;
