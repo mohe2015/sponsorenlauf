@@ -19,7 +19,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useLazyLoadQuery } from "react-relay/hooks";
 import { LoadingContext } from "../../LoadingContext";
 import { CreateRunnerFindRunnerQuery } from "../../__generated__/CreateRunnerFindRunnerQuery.graphql";
-import { CreateRunnerUpdateMutation } from "../../__generated__/CreateRunnerUpdateMutation.graphql";
+import { CreateRunnerUpdateMutation } from "src/__generated__/CreateRunnerUpdateMutation.aaagraphql";
 import { LocationStateType } from "../../utils";
 import { Location } from "history";
 import { CreateRunnerMutation } from "../../__generated__/CreateRunnerMutation.graphql";

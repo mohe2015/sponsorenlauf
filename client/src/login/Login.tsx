@@ -20,7 +20,7 @@ import LoadingButton from "@material-ui/lab/LoadingButton";
 import Alert from "@material-ui/lab/Alert";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../RelayEnvironmentProviderWrapper";
-import { LoginMutation } from "../__generated__/LoginMutation.graphql";
+import { LoginMutation } from "src/__generated__/LoginMutation.graphql";
 import { AuthorizationErrorBoundaryState } from "../AuthorizationErrorBoundary";
 import { Location } from "history";
 import { LocationStateType } from "../utils";
