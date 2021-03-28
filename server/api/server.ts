@@ -1,11 +1,41 @@
 import { ApolloServer } from 'apollo-server'
-
+import { ApolloServerPlugin } from 'apollo-server-plugin-base'
 import { schema } from './schema'
 
-const server = new ApolloServer({ schema })
+let myplugin: ApolloServerPlugin = {
+  requestDidStart: ({ request }) => {
+    console.debug(request)
+
+    return {
+      willSendResponse: async (requestContext) => {
+        console.debug(requestContext.response);
+        console.debug(requestContext.errors)
+      },
+      
+      
+    }
+  },
+}
+
+const server = new ApolloServer({
+  schema,
+  cors: {
+    credentials: true,
+    methods: "POST",
+    origin: ["http://localhost:3000", "http://192.168.2.129:3000", "https://studio.apollographql.com"],
+    maxAge: 86400, // 24 hours, max for Firefox
+  },
+  debug: true, // TODO FIXME
+  plugins: [
+    myplugin 
+  ],
+  formatError: (err) => {
+    console.error("Errorrrr ", err);
+    return err;
+  },
+})
 
 server.listen().then(({ url }) => {
-
   console.log(`🚀 Server ready at ${url}`)
 
 })
@@ -99,14 +129,4 @@ const httpServer = Http.createServer()
 apollo.installSubscriptionHandlers(httpServer)
 
 apollo.applyMiddleware({ app: express })
-
-apollo.applyMiddleware({ app: express, cors: {
-  credentials: true,
-  methods: "POST",
-  origin: ["http://localhost:3000", "http://localhost:5000"]
- }})
-
-httpServer.listen({ port: 4000 }, () => {
-  console.log(`server at http://localhost:4000${apollo.graphqlPath}`)
-  console.log(`Subscriptions server at ws://localhost:4000${apollo.subscriptionsPath}`)
-})*/
+*/

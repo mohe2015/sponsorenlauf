@@ -294,7 +294,8 @@ export const Mutation = mutationType({
         password: stringArg(),
       },
       resolve: async (_parent, { name, password }, context) => {
-        const user = await context.db.user.findOne({
+        console.log(context)
+        const user = await context.db.user.findUnique({
           where: {
             name,
           },
