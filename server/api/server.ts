@@ -1,6 +1,20 @@
-import { ApolloServer } from 'apollo-server'
+import { ApolloServer } from 'apollo-server-express'
 import { ApolloServerPlugin } from 'apollo-server-plugin-base'
 import { schema } from './schema'
+import { PrismaClient } from '@prisma/client';
+import { PubSub } from "graphql-subscriptions";
+import { Context } from './context';
+import e from 'express';
+import cookieParser from 'cookie-parser';
+import express from 'express';
+import cors from 'cors'
+
+let nextCleanupCheck = new Date();
+
+const db = new PrismaClient({
+  log: ['query', 'info', 'warn'],
+});
+const pubsub = new PubSub();
 
 let myplugin: ApolloServerPlugin = {
   requestDidStart: ({ request }) => {
@@ -11,55 +25,9 @@ let myplugin: ApolloServerPlugin = {
         console.debug(requestContext.response);
         console.debug(requestContext.errors)
       },
-      
-      
     }
   },
 }
-
-const server = new ApolloServer({
-  schema,
-  cors: {
-    credentials: true,
-    methods: "POST",
-    origin: ["http://localhost:3000", "http://192.168.2.129:3000", "https://studio.apollographql.com"],
-    maxAge: 86400, // 24 hours, max for Firefox
-  },
-  debug: true, // TODO FIXME
-  plugins: [
-    myplugin 
-  ],
-  formatError: (err) => {
-    console.error("Errorrrr ", err);
-    return err;
-  },
-})
-
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`)
-
-})
-
-/*
-import { ApolloServer } from 'apollo-server-express'
-import { PubSub } from "graphql-subscriptions";
-import { permissions } from "./permissions";
-import { ConnectionContext } from "subscriptions-transport-ws";
-import WebSocket from 'ws';
-import { parse as parseCookie } from "cookie";
-import cookieParser from 'cookie-parser';
-import createExpress, { Response } from 'express'
-import { schema } from './schema'
-import * as Http from 'http'
-import { PrismaClient } from '@prisma/client';
-import { Context } from './context';
-import e from 'express';
-
-const db = new PrismaClient({
-  log: ['query', 'info', 'warn'],
-});
-const pubsub = new PubSub();
-let nextCleanupCheck = new Date();
 
 async function createContext(cookie: string | null, response: e.Response<any>): Promise<Context> {
   console.log("context")
@@ -112,21 +80,46 @@ async function createContext(cookie: string | null, response: e.Response<any>): 
   }
 }
 
-const apollo = new ApolloServer({
-  schema,
-  context: async (config) => {
-    console.log("jojo")
-    return await createContext(config.req.headers.cookie || null, config.res);
-  }
-})
+async function startApolloServer() {
+  const app = express();
+  const server = new ApolloServer({
+    schema,
+    context: async (config) => {
+      console.log(config.req.cookies)
 
-const express = createExpress()
+      console.log("jojo")
+      return await createContext(config.req.headers.cookie || null, config.res);
+    },
+    debug: true, // TODO FIXME
+    plugins: [
+      myplugin 
+    ],
+    formatError: (err) => {
+      console.error("Errorrrr ", err);
+      return err;
+    },
+  })
+  await server.start()
 
-express.use(cookieParser())
+  app.use(cors({
+    credentials: true,
+      methods: "POST",
+      origin: ["http://localhost:3000", "http://192.168.2.129:3000", "https://studio.apollographql.com"],
+      maxAge: 86400, // 24 hours, max for Firefox
+  }))
+  app.use(cookieParser());
 
-const httpServer = Http.createServer()
+  server.applyMiddleware({ app });
 
-apollo.installSubscriptionHandlers(httpServer)
 
-apollo.applyMiddleware({ app: express })
+  app.listen({ port: 4000 })
+
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+}
+
+startApolloServer();
+
+/*
+import { permissions } from "./permissions";
+import { parse as parseCookie } from "cookie";
 */
