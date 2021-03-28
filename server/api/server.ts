@@ -18,12 +18,12 @@ const pubsub = new PubSub();
 
 let myplugin: ApolloServerPlugin = {
   requestDidStart: ({ request }) => {
-    console.dir(request)
+    console.log(request)
 
     return {
       willSendResponse: async (requestContext) => {
-        console.dir(requestContext.response);
-        console.dir(requestContext.errors)
+        console.log(requestContext.response);
+        console.log(requestContext.errors)
       },
     }
   },
@@ -92,7 +92,7 @@ async function startApolloServer() {
       myplugin 
     ],
     formatError: (err) => {
-      console.dir(err.extensions!.exception);
+      console.log(err);
       return err;
     },
   })
@@ -101,7 +101,7 @@ async function startApolloServer() {
   server.applyMiddleware({app, cors: {
     credentials: true,
     methods: "POST",
-    origin: ["http://localhost:3000", "http://192.168.2.129:3000", "https://studio.apollographql.com"],
+    origin: ["http://localhost:3000"],
     maxAge: 86400, // 24 hours, max for Firefox
   }})
 
@@ -114,7 +114,16 @@ async function startApolloServer() {
 
 startApolloServer();
 
+// TODO FIXME security headers like
+// X-Frame-Options: DENY
+// TODO FIXME Cookie Same-Site
+// TODO FIXME HttpOnly for session cookie
+// TODO FIXME secure for session cookie
+// TODO FIXME Content-Security-Policy
+// TODO FIXME rel="noopener" https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy
+
+// React check XSS: <div>{ untrustedInput }</div>
+
 /*
 import { permissions } from "./permissions";
-import { parse as parseCookie } from "cookie";
 */
