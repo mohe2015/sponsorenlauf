@@ -8,6 +8,7 @@ datasource db {
 
 generator prisma_client {
   provider = "prisma-client-js"
+  previewFeatures = ["orderByRelation"]
 }
 
 enum UserRole {
@@ -41,12 +42,12 @@ model Round {
   studentId   String
   createdBy   User     @relation(fields: [createdById], references: [id])
   createdById String
-  time        @db.Timestamptz @default(now())
+  time        DateTime @db.Timestamptz @default(now())
 }
 
 model UserSession {
   id         String   @id
   user       User     @relation(fields: [userId], references: [id])
   userId     String
-  validUntil @db.Timestamptz
+  validUntil DateTime @db.Timestamptz
 }

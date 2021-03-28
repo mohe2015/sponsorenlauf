@@ -69,3 +69,8 @@ SELECT * FROM "Runner" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' ORDER BY
  Execution Time: 0.215 ms
 (5 rows)
 ```
+
+
+sudo -u postgres psql
+DROP DATABASE sponsorenlauf;
+DROP DATABASE sponsorenlauf_shadow;

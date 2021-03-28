@@ -28,7 +28,7 @@ CREATE TABLE "Round" (
     "id" TEXT NOT NULL,
     "studentId" TEXT NOT NULL,
     "createdById" TEXT NOT NULL,
-    "time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "time" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY ("id")
 );
@@ -37,7 +37,7 @@ CREATE TABLE "Round" (
 CREATE TABLE "UserSession" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "validUntil" TIMESTAMP(3) NOT NULL,
+    "validUntil" TIMESTAMPTZ NOT NULL,
 
     PRIMARY KEY ("id")
 );
