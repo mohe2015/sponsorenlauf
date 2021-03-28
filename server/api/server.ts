@@ -18,12 +18,12 @@ const pubsub = new PubSub();
 
 let myplugin: ApolloServerPlugin = {
   requestDidStart: ({ request }) => {
-    console.debug(request)
+    console.dir(request)
 
     return {
       willSendResponse: async (requestContext) => {
-        console.debug(requestContext.response);
-        console.debug(requestContext.errors)
+        console.dir(requestContext.response);
+        console.dir(requestContext.errors)
       },
     }
   },
@@ -48,7 +48,7 @@ async function createContext(cookies: any, response: e.Response<any>): Promise<C
     console.info(`cleaned up ${result.count} sessions`)
   }
   // TODO FIXME store signed session cookie on client?
-  if (cookies.id) {
+  if ('id' in cookies) {
     let userSession = await db.userSession.findUnique({
       where: {
         id: cookies.id,
@@ -79,10 +79,12 @@ async function createContext(cookies: any, response: e.Response<any>): Promise<C
 
 async function startApolloServer() {
   const app = express();
+  app.use(cookieParser());
+
   const server = new ApolloServer({
     schema,
     context: async (config) => {
-      console.log("jojo")
+      console.log(config.req.cookies)
       return await createContext(config.req.cookies, config.res);
     },
     debug: true, // TODO FIXME
@@ -90,22 +92,20 @@ async function startApolloServer() {
       myplugin 
     ],
     formatError: (err) => {
-      console.error("Errorrrr ", err);
+      console.dir(err.extensions!.exception);
       return err;
     },
   })
   await server.start()
 
-  app.use(cors({
+  server.applyMiddleware({app, cors: {
     credentials: true,
-      methods: "POST",
-      origin: ["http://localhost:3000", "http://192.168.2.129:3000", "https://studio.apollographql.com"],
-      maxAge: 86400, // 24 hours, max for Firefox
-  }))
-  app.use(cookieParser());
+    methods: "POST",
+    origin: ["http://localhost:3000", "http://192.168.2.129:3000", "https://studio.apollographql.com"],
+    maxAge: 86400, // 24 hours, max for Firefox
+  }})
 
   server.applyMiddleware({ app });
-
 
   app.listen({ port: 4000 })
 
