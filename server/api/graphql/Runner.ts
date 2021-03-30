@@ -38,17 +38,15 @@ export const RunnerOrderByInput = inputObjectType({
 export const RunnerCreateInput = inputObjectType({
   name: "RunnerCreateInput",
   definition(t) {
-    t.nullable.int("startNumber");
-    t.nullable.string("name");
-    t.nullable.string("clazz");
-    t.nullable.int("grade");
+    t.nonNull.string("name");
+    t.nonNull.string("clazz");
+    t.nonNull.int("grade");
   }
 })
 
 export const RunnerUpdateInput = inputObjectType({
   name: "RunnerUpdateInput",
   definition(t) {
-    t.nullable.int("startNumber");
     t.nullable.string("name");
     t.nullable.string("clazz");
     t.nullable.int("grade");
@@ -68,7 +66,7 @@ export const RunnerMutationError = objectType({
   name: "RunnerMutationError",
   definition(t) {
     t.string("nameError");
-    t.string("gradeError");
+    t.nullable.string("gradeError");
   },
 });
 

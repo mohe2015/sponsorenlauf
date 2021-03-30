@@ -1,11 +1,10 @@
-import { hash, compare } from "bcrypt";
 let crypto = require('crypto');
 import cuid from 'cuid';
-import { flatten, unflatten } from 'flat';
+import { unflatten } from 'flat';
 import { mutationType, arg, stringArg } from 'nexus'
 import { Context } from "../context";
-import Prisma from '@prisma/client';
 import type { NexusGenUnions } from 'nexus-typegen'
+import { hash, verify } from 'argon2'
 
 export const Mutation = mutationType({
   definition(t) {
@@ -69,16 +68,16 @@ export const Mutation = mutationType({
         });
 
         if (!user) {
-          return {
+          let result: NexusGenUnions["UserMutationResponse"] = {
             __typename: "UserMutationError",
             usernameError: "Nutzername nicht gefunden!",
             roleError: null,
           }
+          return result
         }
 
-        let output = {
+        let output: NexusGenUnions["UserMutationResponse"] = {
           __typename: "UserMutationOutput",
-          previous_edge: null,
           edge: {
             cursor: user.id,
             node: {
@@ -123,7 +122,9 @@ export const Mutation = mutationType({
               id: user.id
             },
             data: {
-              password: await hash(user.password, 10),
+              password: await hash(user.password, {
+                // TODO FIXME
+              }),
             }
           })
         }
@@ -150,14 +151,15 @@ export const Mutation = mutationType({
         let runner = await context.db.runner.create(args);
 
         if (!runner) {
-          return {
+          let output: NexusGenUnions["RunnerMutationResponse"] = {
             __typename: "RunnerMutationError",
             nameError: "Fehler bei Erstellung!",
             gradeError: null,
           }
+          return output
         }
 
-        return {
+        let output: NexusGenUnions["RunnerMutationResponse"] = {
           __typename: "RunnerMutationOutput",
           edge: {
             cursor: runner.id,
@@ -166,6 +168,7 @@ export const Mutation = mutationType({
             }
           }
         };
+        return output
       }
     });
 
@@ -177,23 +180,29 @@ export const Mutation = mutationType({
       },
       resolve: async (_parent, args, context, info) => {
         let user = await context.db.runner.update({
-          where: args.where,
+          where: {
+            id: args.where.id || undefined,
+            startNumber: args.where.startNumber || undefined,
+            name: args.where.name || undefined,
+          },
           data: {
-            ...args.data,
+            name: args.data.name || undefined,
+            clazz: args.data.clazz || undefined,
+            grade: args.data.grade || undefined,
           }
         });
 
         if (!user) {
-          return {
+          let output: NexusGenUnions["RunnerMutationResponse"] = {
             __typename: "RunnerMutationError",
             nameError: "Fehler bei Aktualisierung!",
             gradeError: null,
           }
+          return output
         }
 
-        let output = {
+        let output: NexusGenUnions["RunnerMutationResponse"] = {
           __typename: "RunnerMutationOutput",
-          previous_edge: null,
           edge: {
             cursor: user.id,
             node: {
@@ -234,9 +243,8 @@ export const Mutation = mutationType({
 
           // TODO FIXME subscriptions
 
-          let output = {
+          let output: NexusGenUnions["CreateRoundMutationResponse"] = {
             __typename: "CreateRoundMutationOutput",
-            previous_edge: null,
             edge: {
               cursor: roundWithRunner.id,
               node: {
@@ -248,10 +256,11 @@ export const Mutation = mutationType({
           return output;
         } catch (error) {
           console.log(error);
-          return {
+          let output: NexusGenUnions["CreateRoundMutationResponse"] = {
             __typename: "CreateRoundMutationError",
             startNumberError: "Läufer mit dieser Startnummer nicht gefunden!"
           }
+          return output
         }
       },
     });
@@ -308,7 +317,7 @@ export const Mutation = mutationType({
           }
         }
         // @ts-ignore
-        const passwordValid: boolean = await compare(password, user.password);
+        const passwordValid: boolean = await verify(user.password, password);
         if (!passwordValid) {
           return {
             __typename: "LoginMutationError",
@@ -355,7 +364,7 @@ export const Mutation = mutationType({
       resolve: async (_parent, args, context) => {
         let userSession = await context.db.userSession.delete({
           where: {
-            id: context.sessionId
+            id: context.sessionId!
           }
         })
 

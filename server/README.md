@@ -1,25 +1,33 @@
 
 TODO FIXME add permissions again
 
-
-
-
-You need database creation privileges for the shadow database
-
 services.mysql = {
-    enable = true;
-    ensureUsers = [
-      {
-        name = "moritz";
-        ensurePermissions = {
-          "*.*" = "ALL PRIVILEGES";
-        };
-      }
-    ];
-    ensureDatabases = [ "sponsorenlauf" ];
-  };
+  enable = true;
+  package = pkgs.mariadb;
+  ensureUsers = [
+    {
+      name = "moritz";
+      ensurePermissions = {
+        "* . *" = "ALL PRIVILEGES";
+      };
+    }
+  ];
+  ensureDatabases = [ "sponsorenlauf" ];
+};
 
-
+services.postgresql = {
+  enable = true;
+  ensureUsers = [
+    {
+      name = "moritz";
+      ensurePermissions = {
+        "DATABASE sponsorenlauf" = "ALL PRIVILEGES";
+        "DATABASE sponsorenlauf_shadow" = "ALL PRIVILEGES";
+      };
+    }
+  ];
+  ensureDatabases = [ "sponsorenlauf" "sponsorenlauf_shadow" ];
+};
 
 https://nexusjs.org/docs/plugins/prisma/removing-the-nexus-plugin-prisma
 
@@ -61,3 +69,11 @@ SELECT * FROM "Runner" WHERE "Runner".id > 'ckdlmkrac31231f1gq65owfd1g' ORDER BY
  Execution Time: 0.215 ms
 (5 rows)
 ```
+
+
+sudo -u postgres psql
+DROP DATABASE sponsorenlauf;
+DROP DATABASE sponsorenlauf_shadow;
+
+npx prisma migrate deploy
+ts-node prisma/seed.ts

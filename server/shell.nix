@@ -5,7 +5,7 @@ let
 in
 mkShell {
     buildInputs = [
-        nodejs
+        nodejs-15_x
         prisma-engines
         nodePackages.npm-check-updates
     ];

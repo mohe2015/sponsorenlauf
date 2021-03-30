@@ -1,5 +1,5 @@
 import { PrismaClient, PrismaPromise } from "@prisma/client";
-import { hash } from "bcrypt";
+import { hash } from 'argon2'
 import parse from "csv-parse/lib/sync";
 import fs from "fs";
 import dotenv from "dotenv";
@@ -15,7 +15,9 @@ async function asyncForEach(array: any, callback: any) {
 async function main() {
   dotenv.config();
 
-  const db = new PrismaClient();
+  const db = new PrismaClient({
+    log: ['info', 'warn'],
+  });
 
   //db.$executeRaw`CREATE INDEX IF NOT EXISTS "Runner_roundCount_id" ON "Runner" ( "roundCount" DESC, "id" ASC );`;
 
@@ -39,7 +41,7 @@ async function main() {
     console.log("added admin account:\n", admin);
   }
 
-  var content = fs.readFileSync("test.csv", "utf8");
+  var content = fs.readFileSync("prisma/test.csv", "utf8");
 
   let records = parse(content, {
     columns: true,

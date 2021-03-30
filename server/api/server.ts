@@ -39,6 +39,7 @@ async function createContext(cookies: any, response: e.Response<any>): Promise<C
     nextCleanupCheck = new Date();
     nextCleanupCheck.setHours(nextCleanupCheck.getMinutes() + 1);
     console.info("session cleanup start")
+    // https://github.com/prisma/prisma/issues/4947
     let result = await db.userSession.deleteMany({
       where: {
         validUntil: {
@@ -99,7 +100,7 @@ async function startApolloServer() {
       return err;
     },
   })
-  await server.start()
+  //await server.start()
 
   server.applyMiddleware({app, cors: {
     credentials: true,
