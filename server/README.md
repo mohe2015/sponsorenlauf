@@ -1,3 +1,5 @@
+TODO FIXME https://github.com/graphql-nexus/nexus/pull/372
+https://github.com/graphql-nexus/nexus/issues/358
 
 TODO FIXME add permissions again
 

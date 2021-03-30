@@ -1,13 +1,17 @@
 import { objectType, extendInputType, queryType, arg, idArg, nonNull, nullable } from 'nexus'
 import { Runner } from '@prisma/client';
 import { decode } from "../relay-tools-custom";
+import { isUserWithRole } from '../permissions';
 
 export const ClassRunner = objectType({
   name: "ClassRunner",
   definition(t) {
-    t.string("class")
+    t.string("class", {
+      authorize: isUserWithRole(["ADMIN"]),
+    })
     t.list.field("runners", {
       type: "Runner",
+      authorize: isUserWithRole(["ADMIN"]),
     })
   }
 })
@@ -15,9 +19,9 @@ export const ClassRunner = objectType({
 export const Query = queryType({
   definition(t) {
 
-
     t.field("me", {
       type: "User",
+      authorize: isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       resolve: (parent, args, ctx) => {
         return ctx.user!;
       },
@@ -26,6 +30,7 @@ export const Query = queryType({
     // useful https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
     t.connectionField("runners", {
       type: "Runner",
+      authorize: isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       disableBackwardPagination: true,
       additionalArgs: {
         orderBy: arg({ type: "RunnerOrderByInput" }),
@@ -73,6 +78,7 @@ export const Query = queryType({
 
     t.connectionField("rounds", {
       type: "Round",
+      authorize: isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       disableBackwardPagination: true,
       additionalArgs: {
         filter: nullable(arg({ type: "RoundWhereInput" })),
@@ -106,6 +112,7 @@ export const Query = queryType({
 
     t.connectionField("users", {
       type: "User",
+      authorize: isUserWithRole(["ADMIN"]),
       disableBackwardPagination: true,
       resolve: async (root, args, ctx) => {
         let result = await ctx.db.user.findMany({
@@ -142,6 +149,7 @@ export const Query = queryType({
 
     t.nullable.field("user", {
       type: "User",
+      authorize: isUserWithRole(["ADMIN"]),
       args: {
         where: arg({type: "UserWhereUniqueInput"}),
       },
@@ -157,6 +165,7 @@ export const Query = queryType({
 
     t.nullable.field("runner", {
       type: "Runner",
+      authorize: isUserWithRole(["ADMIN"]),
       args: {
         where: arg({type: "RunnerWhereUniqueInput"}),
       },
@@ -174,6 +183,7 @@ export const Query = queryType({
 
     t.list.field("runnersByClass", {
       type: "ClassRunner",
+      authorize: isUserWithRole(["ADMIN"]),
       resolve: async (root, args, context) => {
         let runners = await context.db.runner.findMany({
           orderBy: [{
@@ -200,6 +210,7 @@ export const Query = queryType({
 
     t.field("node", {
       type: "Node",
+      authorize: () => false,
       args: { id: idArg() },
       resolve: (root, args, context) => {
         const { id, __typename } = decode(args.id);

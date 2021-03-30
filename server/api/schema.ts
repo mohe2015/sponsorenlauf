@@ -12,7 +12,11 @@ export const schema = makeSchema({
             }
         }),
         fieldAuthorizePlugin({
-
+            // @ts-expect-error
+            optional: false,
+            formatError: ({ args, ctx, error, info, root }) => {
+                throw error;
+            }
         }),
         queryComplexityPlugin(),
     ],

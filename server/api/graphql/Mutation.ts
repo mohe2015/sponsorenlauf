@@ -5,12 +5,14 @@ import { mutationType, arg, stringArg } from 'nexus'
 import { Context } from "../context";
 import type { NexusGenUnions } from 'nexus-typegen'
 import { hash, verify } from 'argon2'
+import { isUserWithRole } from '../permissions';
 
 export const Mutation = mutationType({
   definition(t) {
 
     t.field("createOneUser", {
       type: "UserMutationResponse",
+      authorize: isUserWithRole(["ADMIN"]),
       args: { data: arg({type: "UserCreateInput" }) },
       resolve: async (parent, args, context: Context, info) => {
         let user = await context.db.user.create({
@@ -45,6 +47,7 @@ export const Mutation = mutationType({
 
     t.field("updateOneUser", {
       type: "UserMutationResponse",
+      authorize: isUserWithRole(["ADMIN"]),
       args: { 
         data: arg({type: "UserUpdateInput"}),
         where: arg({type: "UserWhereUniqueInput"}),
@@ -92,6 +95,7 @@ export const Mutation = mutationType({
 
     t.field("deleteOneUser", {
       type: "User",
+      authorize: isUserWithRole(["ADMIN"]),
       args: {
         where: arg({type: "UserWhereUniqueInput"})
       },
@@ -107,6 +111,7 @@ export const Mutation = mutationType({
 
     t.field("generatePasswords", {
       type: "QueryUsers_Connection",
+      authorize: isUserWithRole(["ADMIN"]),
       resolve: async (parent, args, context, info) => {
         let usersWithoutPassword = await context.db.user.findMany({
           where: {
@@ -146,6 +151,7 @@ export const Mutation = mutationType({
 
     t.field("createOneRunner", {
       type: "RunnerMutationResponse",
+      authorize: isUserWithRole(["ADMIN"]),
       args: { data: arg({type: "RunnerCreateInput"}) },
       resolve: async (_parent, args, context, info) => {
         let runner = await context.db.runner.create(args);
@@ -174,6 +180,7 @@ export const Mutation = mutationType({
 
     t.field("updateOneRunner", {
       type: "RunnerMutationResponse",
+      authorize: isUserWithRole(["ADMIN"]),
       args: { 
         data: arg({type: "RunnerUpdateInput"}),
         where: arg({type: "RunnerWhereUniqueInput"}),
@@ -217,6 +224,7 @@ export const Mutation = mutationType({
 
     t.field("createOneRound", {
       type: "CreateRoundMutationResponse",
+      authorize: isUserWithRole(["ADMIN", "TEACHER"]),
       args: { data: arg({type: "RoundCreateInput"}) },
       resolve: async (parent, args, context) => {
         try {
@@ -267,6 +275,7 @@ export const Mutation = mutationType({
 
     t.field("deleteOneRound", {
       type: "Round",
+      authorize: isUserWithRole(["ADMIN"]),
       args: {
         where: arg({type: "RoundWhereUniqueInput"})
       },
@@ -282,6 +291,7 @@ export const Mutation = mutationType({
 
     t.field("deleteOneRunner", {
       type: "Runner",
+      authorize: isUserWithRole(["ADMIN"]),
       args: {
         where: arg({type: "RunnerWhereUniqueInput"})
       },
@@ -298,6 +308,7 @@ export const Mutation = mutationType({
 
     t.field("login", {
       type: "LoginMutationResponse",
+      authorize: () => true,
       args: {
         name: stringArg(),
         password: stringArg(),
@@ -361,6 +372,7 @@ export const Mutation = mutationType({
 
     t.field("logout", {
       type: "Boolean",
+      authorize: () => true,
       resolve: async (_parent, args, context) => {
         let userSession = await context.db.userSession.delete({
           where: {

@@ -1,11 +1,13 @@
 import { subscriptionType } from 'nexus'
 import { withFilter } from "graphql-subscriptions";
+import { isUserWithRole } from '../permissions';
 
 export const Subscription = subscriptionType({
   definition(t) {
     
     t.field("subscribeRounds", {
       type: "CreateRoundMutationOutput",
+      authorize: isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       subscribe: withFilter(
         function (root, args, context, info) {
           return context.pubsub.asyncIterator("ROUNDS");
@@ -21,6 +23,7 @@ export const Subscription = subscriptionType({
 
     t.field("subscribeUsers", {
       type: "UserMutationOutput",
+      authorize: isUserWithRole(["ADMIN"]),
       subscribe: withFilter(
         function (root, args, context, info) {
           return context.pubsub.asyncIterator("USERS");
