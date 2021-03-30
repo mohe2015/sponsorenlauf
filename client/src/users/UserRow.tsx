@@ -6,7 +6,7 @@ import TableRow from "@material-ui/core/TableRow";
 import ControlledTooltip from "../ControlledTooltip";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Skeleton from "@material-ui/lab/Skeleton";
+import Skeleton from "@material-ui/core/Skeleton";
 import { useConfirm } from "material-ui-confirm";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";

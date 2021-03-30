@@ -27,6 +27,7 @@ export const Query = queryType({
       },
     });
 
+    // TODO FIXME proper pagination that is also effizient
     // useful https://github.com/graphql/graphql-relay-js/issues/94#issuecomment-232410564
     t.connectionField("runners", {
       type: "Runner",
