@@ -6,6 +6,7 @@ import { PubSub } from "graphql-subscriptions";
 import { Context } from './context';
 import e from 'express';
 import cookieParser from 'cookie-parser';
+import cookie from 'cookie'
 import express from 'express';
 import http from 'http'
 
@@ -50,10 +51,11 @@ async function createContext(cookies: any, response: e.Response<any>): Promise<C
     console.info(`cleaned up ${result.count} sessions`)
   }
   // TODO FIXME store signed session cookie on client?
-  if ('id' in cookies) {
+  let parsedCookies = cookie.parse(cookies)
+  if ('id' in parsedCookies) {
     let userSession = await db.userSession.findUnique({
       where: {
-        id: cookies.id,
+        id: parsedCookies.id,
       },
       include: {
         user: true
@@ -63,7 +65,7 @@ async function createContext(cookies: any, response: e.Response<any>): Promise<C
     if (userSession && userSession.validUntil.getTime() > Date.now()) {
       console.log("a")
       return {
-        sessionId: cookies.id,
+        sessionId: parsedCookies.id,
         user: userSession?.user,
         pubsub,
         db,
@@ -89,9 +91,15 @@ async function startApolloServer() {
 
   const server = new ApolloServer({
     schema,
-    context: async (config) => {
-      //console.log(config.req.cookies)
-      return await createContext(config.req.cookies, config.res);
+    // https://github.com/apollographql/apollo-server/issues/2315
+    context: async ({ req, res, connection }) => {
+      if (connection) {
+        return connection.context
+      }
+      // connection and req are exclusive (depending on using http or websocket)
+      console.log("connection: ", connection)
+      console.log("req: ", req)
+      return await createContext(req.headers["cookie"], res);
     },
     debug: true, // TODO FIXME
     plugins: [
@@ -102,9 +110,10 @@ async function startApolloServer() {
       return err;
     },
     subscriptions: {
-    //  onConnect: async (params, websocket, context) => {
-     //   return await createContext(context.request.socket, undefined)
-     // }
+      onConnect: async (params, websocket, context) => {
+        console.log("context: ", context)
+        return await createContext(context.request.headers["cookie"], undefined)
+      }
     }
   })
   await server.start()
