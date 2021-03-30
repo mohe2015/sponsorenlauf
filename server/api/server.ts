@@ -7,7 +7,7 @@ import { Context } from './context';
 import e from 'express';
 import cookieParser from 'cookie-parser';
 import express from 'express';
-import cors from 'cors'
+import http from 'http'
 
 let nextCleanupCheck = new Date();
 
@@ -82,6 +82,8 @@ async function createContext(cookies: any, response: e.Response<any>): Promise<C
 }
 
 async function startApolloServer() {
+  const PORT = 4000;
+
   const app = express();
   app.use(cookieParser());
 
@@ -99,8 +101,13 @@ async function startApolloServer() {
       console.log(err);
       return err;
     },
+    subscriptions: {
+    //  onConnect: async (params, websocket, context) => {
+     //   return await createContext(context.request.socket, undefined)
+     // }
+    }
   })
-  //await server.start()
+  await server.start()
 
   server.applyMiddleware({app, cors: {
     credentials: true,
@@ -111,9 +118,13 @@ async function startApolloServer() {
 
   server.applyMiddleware({ app });
 
-  app.listen({ port: 4000 })
+  const httpServer = http.createServer(app);
+  server.installSubscriptionHandlers(httpServer);
 
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  await new Promise<void>(resolve => httpServer.listen(PORT, resolve));
+
+  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+  console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`);
 }
 
 startApolloServer();

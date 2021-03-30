@@ -12,4 +12,5 @@ export const isUserWithRole = (roles: UserRole[]) =>
           throw new AuthenticationError("Not authenticated!")
         }
       }
+      return true
     });
