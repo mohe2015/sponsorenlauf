@@ -34,7 +34,7 @@
     "typescript": "4.1.0-dev.20200902"
   },
   "devDependencies": {
-    "@prisma/cli": "^2.19.0",
+    "@prisma/cli": "^2.20.0",
     "@types/bcrypt": "^10.0.28-alpha",
     "@types/cookie": "^0.4.0",
     "@types/cookie-parser": "^1.4.2",
