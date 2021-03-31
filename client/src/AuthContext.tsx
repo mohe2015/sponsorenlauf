@@ -3,6 +3,8 @@ import { createEnvironment } from "./RelayEnvironment";
 import RelayModernEnvironment from "relay-runtime/lib/store/RelayModernEnvironment";
 import RelayQueryResponseCache from "relay-runtime/lib/network/RelayQueryResponseCache";
 
+// this is mostly needed because the RelayEnvironmentProvider doesn't allow to imperatively change the environment
+
 type AuthContextProps = {
   relay: {
     cache: RelayQueryResponseCache;

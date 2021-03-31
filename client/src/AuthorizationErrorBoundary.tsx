@@ -2,11 +2,14 @@ import React, { ReactNode } from "react";
 import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import { Login } from "./login/Login";
+import { useLocation } from "react-router";
 
 export type AuthorizationErrorBoundaryState = {
   error: Error | null;
   id: number;
 };
+
+// maybe it's possible to use a redirect for login errors?
 
 export class AuthorizationErrorBoundary extends React.Component<
   { children: ReactNode },
@@ -24,6 +27,7 @@ export class AuthorizationErrorBoundary extends React.Component<
     this.setState((prevState) => {
       return { error, id: prevState.id + 1 };
     });
+    
   }
 
   errorToElement = (
@@ -68,19 +72,8 @@ export class AuthorizationErrorBoundary extends React.Component<
     );
   };
 
-  _relogin = () => {
-    console.log("_relogin");
-
-    document.cookie =
-      "logged-in=; sameSite=strict; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    this.setState((prevState) => {
-      return { error: null, id: prevState.id + 1 };
-    });
-  };
-
   _retry = () => {
     console.log("_retry");
-
     this.setState((prevState) => {
       return { error: null, id: prevState.id + 1 };
     });
