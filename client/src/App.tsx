@@ -24,6 +24,7 @@ import { Countdown } from "./countdown/Countdown";
 import { ConfirmProvider } from "material-ui-confirm";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
 import { BrowserRouter as Router } from "react-router-dom";
+import { AuthorizationErrorBoundary } from "./AuthorizationErrorBoundary";
 
 // authorizationerrorboundary
 // which passes state update function down to login children
@@ -59,7 +60,7 @@ function App() {
             />
 
             <Routes>
-              <ProtectedRoute path="*" element={<MyAppBar />}>
+              <ProtectedRoute path="*" element={<AuthorizationErrorBoundary><MyAppBar /></AuthorizationErrorBoundary>}>
                 <Route path="/" element={<Home />} />
                 <Route path="/users">
                   <Route path="/create" element={<CreateUserContainer />} />

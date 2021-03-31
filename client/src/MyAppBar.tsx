@@ -21,7 +21,6 @@ import Skeleton from "@material-ui/core/Skeleton";
 import { unstable_useTransition as useTransition } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingButton from "@material-ui/lab/LoadingButton";
-import { AuthorizationErrorBoundary } from "./AuthorizationErrorBoundary";
 import { LoadingContext } from "./LoadingContext";
 import { useMutation, useLazyLoadQuery } from "react-relay/hooks";
 import { AuthContext } from "./AuthContext";
@@ -174,7 +173,6 @@ export function MyAppBar() {
 
   return (
     <>
-      <AuthorizationErrorBoundary>
         <Box displayPrint="none">
           <AppBar position="static">
             <Toolbar>
@@ -329,7 +327,6 @@ export function MyAppBar() {
             <Outlet />
           </LoadingContext.Provider>
         </Suspense>
-      </AuthorizationErrorBoundary>
     </>
   );
 }
