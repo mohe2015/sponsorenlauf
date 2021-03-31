@@ -77,7 +77,7 @@ const subscribe = (
   variables: Variables
 ): RelayObservable<GraphQLResponse> | Disposable => {
   const subscribeObservable = subscriptionClient.request({
-    query: request.text === null ? undefined : request.text,
+    query: request.text || undefined,
     operationName: request.name,
     variables,
   });
@@ -86,13 +86,19 @@ const subscribe = (
   return Observable.from(subscribeObservable);
 };
 
+// see 4.2 https://relay.dev/docs/next/getting-started/step-by-step-guide/
+// they just use a fixed environment so they don't have many of the issues I have
 export const createEnvironment = () => {
-  let cache = new QueryResponseCache({ size: 2500, ttl: 60 * 1000 });
+  let cache = new QueryResponseCache({ size: 2500, ttl: 60 * 1000 }); // just call cache.clear()?
   return {
     cache,
     environment: new Environment({
       network: Network.create(fetchQuery(cache), subscribe),
-      store: new Store(new RecordSource(), { gcReleaseBufferSize: 100 }),
+      // amount of data that is cached
+      store: new Store(new RecordSource(), {
+        gcReleaseBufferSize: 100,
+        queryCacheExpirationTime: 60 * 1000,
+      }),
     }),
   };
 };

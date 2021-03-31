@@ -1,3 +1,27 @@
+https://relay.dev/docs/next/guided-tour/rendering/loading-states/
+https://reactjs.org/docs/concurrent-mode-suspense.html
+
+https://relay.dev/docs/next/guided-tour/rendering/error-states/
+https://reactjs.org/docs/error-boundaries.html
+
+https://relay.dev/docs/next/guided-tour/reusing-cached-data/
+
+useSubscribeToInvalidationState
+
+https://relay.dev/docs/next/guided-tour/reusing-cached-data/filling-in-missing-data/
+
+https://relay.dev/docs/next/guides/network-layer/
+
+TODO https://relay.dev/docs/next/migration-and-compatibility/relay-hooks-and-legacy-container-apis/
+render as you fetch
+
+https://relay.dev/docs/next/guided-tour/updating-data/graphql-subscriptions/#requesting-a-subscription-with-hooks
+
+Maybe https://github.com/relay-tools/react-relay-network-modern
+
+https://relay.dev/docs/next/api-reference/use-subscription/#internaldocs-banner
+
+
 ```bash
 npm install --save react-relay@experimental react@experimental react-dom@experimental @material-ui/core@next @material-ui/system@next @material-ui/lab@next react-router-dom@experimental
 ```
