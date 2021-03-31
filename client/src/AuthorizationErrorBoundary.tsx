@@ -2,7 +2,6 @@ import React, { ReactNode } from "react";
 import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import { Login } from "./login/Login";
-import { useLocation } from "react-router";
 
 export type AuthorizationErrorBoundaryState = {
   error: Error | null;
