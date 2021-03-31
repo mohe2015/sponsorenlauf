@@ -23,6 +23,7 @@ import { ClassRunnersList } from "./runners-by-class/ClassRunnersList";
 import { Countdown } from "./countdown/Countdown";
 import { ConfirmProvider } from "material-ui-confirm";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // authorizationerrorboundary
 // which passes state update function down to login children
@@ -43,6 +44,8 @@ function App() {
     );
 
   return (
+<React.StrictMode>
+  <Router>
     <AuthContext.Provider value={auth}>
       <RelayEnvironmentProvider environment={auth.relay.environment}>
         <ThemeProvider theme={theme}>
@@ -84,6 +87,8 @@ function App() {
         </ThemeProvider>
       </RelayEnvironmentProvider>
     </AuthContext.Provider>
+    </Router>
+  </React.StrictMode>
   );
 }
 

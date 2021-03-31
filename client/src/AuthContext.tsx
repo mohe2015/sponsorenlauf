@@ -1,6 +1,5 @@
-import React, { useContext, ReactNode } from "react";
+import React from "react";
 import { createEnvironment } from "./RelayEnvironment";
-import { RelayEnvironmentProvider } from "react-relay/hooks";
 import RelayModernEnvironment from "relay-runtime/lib/store/RelayModernEnvironment";
 import RelayQueryResponseCache from "relay-runtime/lib/network/RelayQueryResponseCache";
 
