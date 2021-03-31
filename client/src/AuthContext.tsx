@@ -29,12 +29,3 @@ export const useAuthContext = () => {
     resetEnvironment,
   };
 };
-
-export function RelayEnvironmentWrapper({ children }: { children: ReactNode }) {
-  const { relay } = useContext(AuthContext);
-  return (
-    <RelayEnvironmentProvider environment={relay.environment}>
-      {children}
-    </RelayEnvironmentProvider>
-  );
-}

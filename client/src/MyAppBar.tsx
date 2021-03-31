@@ -24,7 +24,7 @@ import LoadingButton from "@material-ui/lab/LoadingButton";
 import { AuthorizationErrorBoundary } from "./AuthorizationErrorBoundary";
 import { LoadingContext } from "./LoadingContext";
 import { useMutation, useLazyLoadQuery } from "react-relay/hooks";
-import { AuthContext } from "./RelayEnvironmentProviderWrapper";
+import { AuthContext } from "./AuthContext";
 import { MyAppBarQuery } from "./__generated__/MyAppBarQuery.graphql";
 import graphql from 'babel-plugin-relay/macro';
 

@@ -17,12 +17,12 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import {
   AuthContext,
   useAuthContext,
-  RelayEnvironmentWrapper,
-} from "./RelayEnvironmentProviderWrapper";
+} from "./AuthContext";
 import Snackbar from "@material-ui/core/Snackbar";
 import { ClassRunnersList } from "./runners-by-class/ClassRunnersList";
 import { Countdown } from "./countdown/Countdown";
 import { ConfirmProvider } from "material-ui-confirm";
+import { RelayEnvironmentProvider } from "react-relay/hooks";
 
 // authorizationerrorboundary
 // which passes state update function down to login children
@@ -44,7 +44,7 @@ function App() {
 
   return (
     <AuthContext.Provider value={auth}>
-      <RelayEnvironmentWrapper>
+      <RelayEnvironmentProvider environment={auth.relay.environment}>
         <ThemeProvider theme={theme}>
           <ConfirmProvider>
             <CssBaseline />
@@ -82,7 +82,7 @@ function App() {
             </Routes>
             </ConfirmProvider>
         </ThemeProvider>
-      </RelayEnvironmentWrapper>
+      </RelayEnvironmentProvider>
     </AuthContext.Provider>
   );
 }

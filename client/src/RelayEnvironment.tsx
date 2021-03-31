@@ -15,6 +15,8 @@ import {
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import { RelayObservable } from "relay-runtime/lib/network/RelayObservable";
 
+// TODO FIXME this whole file needs to be reviewed
+
 function fetchQuery(cache: QueryResponseCache) {
   return (
     operation: RequestParameters,
