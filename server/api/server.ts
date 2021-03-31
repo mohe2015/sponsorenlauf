@@ -31,7 +31,7 @@ let myplugin: ApolloServerPlugin = {
   },
 }
 
-async function createContext(cookies: any, response: e.Response<any>): Promise<Context> {
+async function createContext(cookies: string | undefined, response: e.Response<any>): Promise<Context> {
   console.log("context")
   // Added for debugging
   //await new Promise((r) => setTimeout(r, 3000));
@@ -51,25 +51,27 @@ async function createContext(cookies: any, response: e.Response<any>): Promise<C
     console.info(`cleaned up ${result.count} sessions`)
   }
   // TODO FIXME store signed session cookie on client?
-  let parsedCookies = cookie.parse(cookies)
-  if ('id' in parsedCookies) {
-    let userSession = await db.userSession.findUnique({
-      where: {
-        id: parsedCookies.id,
-      },
-      include: {
-        user: true
-      }
-    })
+  if (cookies) {
+    let parsedCookies = cookie.parse(cookies)
+    if ('id' in parsedCookies) {
+      let userSession = await db.userSession.findUnique({
+        where: {
+          id: parsedCookies.id,
+        },
+        include: {
+          user: true
+        }
+      })
 
-    if (userSession && userSession.validUntil.getTime() > Date.now()) {
-      console.log("a")
-      return {
-        sessionId: parsedCookies.id,
-        user: userSession?.user,
-        pubsub,
-        db,
-        response,
+      if (userSession && userSession.validUntil.getTime() > Date.now()) {
+        console.log("a")
+        return {
+          sessionId: parsedCookies.id,
+          user: userSession?.user,
+          pubsub,
+          db,
+          response,
+        }
       }
     }
   }
@@ -107,6 +109,7 @@ async function startApolloServer() {
     ],
     formatError: (err) => {
       console.log(err);
+      console.log((err as any).extensions.exception)
       return err;
     },
     subscriptions: {
