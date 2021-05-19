@@ -21,7 +21,7 @@
     "@types/react-dom": "^17.0.3",
     "babel-plugin-relay": "^11.0.1",
     "history": "^5.0.0",
-    "material-ui-confirm": "^2.1.1",
+    "material-ui-confirm": "^2.1.2",
     "material-ui-popup-state": "^1.8.0",
     "react": "^0.0.0-experimental-a77dd13ed",
     "react-dom": "^0.0.0-experimental-a77dd13ed",
