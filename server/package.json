@@ -20,7 +20,7 @@
     "cookie-parser": "^1.4.5",
     "csv-parse": "^4.15.3",
     "cuid": "^2.1.8",
-    "dotenv": "^8.2.0",
+    "dotenv": "^9.0.2",
     "express": "^5.0.0-alpha.8",
     "flat": "^5.0.2",
     "graphql": "^15.5.0",
