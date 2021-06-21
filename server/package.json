@@ -23,7 +23,7 @@
     "dotenv": "^10.0.0",
     "express": "^5.0.0-alpha.8",
     "flat": "^5.0.2",
-    "graphql": "^15.5.0",
+    "graphql": "^15.5.1",
     "graphql-iso-date": "^3.6.1",
     "graphql-middleware": "^6.0.10",
     "graphql-scalars": "^1.10.0",
