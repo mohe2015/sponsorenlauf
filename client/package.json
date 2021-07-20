@@ -9,7 +9,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "@material-ui/core": "^5.0.0-alpha.37",
+    "@material-ui/core": "^5.0.0-beta.1",
     "@material-ui/lab": "^5.0.0-alpha.40",
     "@material-ui/system": "^5.0.0-beta.1",
     "@testing-library/jest-dom": "^5.14.1",
