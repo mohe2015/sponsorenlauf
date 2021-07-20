@@ -13,7 +13,7 @@
   "dependencies": {
     "@prisma/client": "^2.25.0",
     "apollo-server": "^3.0.2",
-    "apollo-server-errors": "^2.4.2",
+    "apollo-server-errors": "^3.0.1",
     "apollo-server-express": "^2.25.1",
     "argon2": "^0.28.2",
     "cookie": "^0.4.1",
