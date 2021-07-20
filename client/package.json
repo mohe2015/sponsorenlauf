@@ -30,7 +30,7 @@
     "react-scripts": "4.0.3",
     "subscriptions-transport-ws": "^0.9.19",
     "typescript": "^4.3.5",
-    "web-vitals": "^2.0.1"
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
