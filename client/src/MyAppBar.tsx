@@ -316,17 +316,7 @@ export function MyAppBar() {
           </AppBar>
         </Box>
 
-        <Suspense
-          fallback={
-            <LoadingContext.Provider value={true}>
-              <Outlet />
-            </LoadingContext.Provider>
-          }
-        >
-          <LoadingContext.Provider value={false}>
-            <Outlet />
-          </LoadingContext.Provider>
-        </Suspense>
+        <Outlet />
     </>
   );
 }

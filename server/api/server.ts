@@ -34,7 +34,7 @@ let myplugin: ApolloServerPlugin = {
 async function createContext(cookies: string | undefined, response: e.Response<any>): Promise<Context> {
   console.log("context")
   // Added for debugging
-  //await new Promise((r) => setTimeout(r, 3000));
+  await new Promise((r) => setTimeout(r, 10000));
   
   if (nextCleanupCheck.getTime() < Date.now()) {
     nextCleanupCheck = new Date();

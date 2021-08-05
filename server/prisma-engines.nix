@@ -1,9 +1,9 @@
-{ stdenv, pkgs, pkg-config, openssl, zlib, lib, perl }:
+{ stdenv, pkgs, pkg-config, openssl, zlib, lib, perl, protobuf }:
 pkgs.rustPlatform.buildRustPackage rec {
   pname = "prisma-engines";
-  version = "2.19.0";
+  version = "2.28.0";
   
-  nativeBuildInputs = [ pkg-config perl ];
+  nativeBuildInputs = [ pkg-config perl protobuf ]; # https://github.com/open-telemetry/opentelemetry-rust/blob/main/opentelemetry-otlp/build.rs
 
   buildInputs = [ openssl ];
 
@@ -13,10 +13,10 @@ pkgs.rustPlatform.buildRustPackage rec {
     owner = "prisma";
     repo = pname;
     rev = version;
-    sha256 = "TPY5HrW3WoVEvH6VansYfk7FNOOLcxfYReuNvT7rBxs=";
+    sha256 = "sha256-3EHL/ZkY2h8P3OwMH2azFL+fehx7Y/nRrp+g04mxr7E=";
   };
 
-  cargoSha256 = "TBdsmcomxRzw90CYzfqRu43N+HYPo1b/GJzXWOfHlJY=";
+  cargoSha256 = "sha256-OnA6n9OfVMMalyDBcXdauhRsZnwePsaxmFEkzCXPELE=";
 
   meta = with lib; {
     description = "Engine components of Prisma 2.";

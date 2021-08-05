@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 import { RunnerRow } from "./RunnerRow";
 import { unstable_useTransition as useTransition } from "react";
@@ -35,29 +35,29 @@ export function RunnersListComponent({
 
   return (
     <>
-      {(data.runners?.edges ?? []).map((edge) => {
-        const node = edge!.node;
-        return <RunnerRow key={node.id} runner={node} />;
-      })}
-      {hasNext ? (
-        <TableRow>
-          <TableCell component="th" scope="row" colSpan={6}>
-            <LoadingButton
-              fullWidth={true}
-              pending={isLoadingNext || isPending}
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                startTransition(() => {
-                  loadNext(25);
-                });
-              }}
-            >
-              Mehr anzeigen
-            </LoadingButton>
-          </TableCell>
-        </TableRow>
-      ) : null}
+        {(data.runners?.edges ?? []).map((edge) => {
+          const node = edge!.node;
+          return <RunnerRow key={node.id} runner={node} />;
+        })}
+        {hasNext ? (
+          <TableRow>
+            <TableCell component="th" scope="row" colSpan={6}>
+              <LoadingButton
+                fullWidth={true}
+                pending={isLoadingNext || isPending}
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  startTransition(() => {
+                    loadNext(25);
+                  });
+                }}
+              >
+                Mehr anzeigen
+              </LoadingButton>
+            </TableCell>
+          </TableRow>
+        ) : null}
     </>
   );
 }
