@@ -4,6 +4,7 @@ pkgs.rustPlatform.buildRustPackage rec {
   version = "2.28.0";
   
   nativeBuildInputs = [ pkg-config perl protobuf ]; # https://github.com/open-telemetry/opentelemetry-rust/blob/main/opentelemetry-otlp/build.rs
+  # https://docs.rs/prost-build/0.8.0/prost_build/index.html
 
   buildInputs = [ openssl ];
 
@@ -15,6 +16,9 @@ pkgs.rustPlatform.buildRustPackage rec {
     rev = version;
     sha256 = "sha256-3EHL/ZkY2h8P3OwMH2azFL+fehx7Y/nRrp+g04mxr7E=";
   };
+
+  PROTOC = "${protobuf}/bin/protoc";
+  PROTOC_INCLUDE = "${protobuf}/include";
 
   cargoSha256 = "sha256-OnA6n9OfVMMalyDBcXdauhRsZnwePsaxmFEkzCXPELE=";
 
