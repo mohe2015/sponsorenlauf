@@ -22,9 +22,8 @@ const db = new PrismaClient({
 const pubsub = new PubSub();
 
 async function createContext(cookies: string | undefined, response: e.Response<any>): Promise<Context> {
-  console.log("context")
   // Added for debugging
-  await new Promise((r) => setTimeout(r, 10000));
+  //await new Promise((r) => setTimeout(r, 10000));
   
   if (nextCleanupCheck.getTime() < Date.now()) {
     nextCleanupCheck = new Date();
@@ -54,7 +53,6 @@ async function createContext(cookies: string | undefined, response: e.Response<a
       })
 
       if (userSession && userSession.validUntil.getTime() > Date.now()) {
-        console.log("a")
         return {
           sessionId: parsedCookies.id,
           user: userSession?.user,
@@ -91,11 +89,11 @@ async function startApolloServer() {
         return connection.context
       }
       // connection and req are exclusive (depending on using http or websocket)
-      console.log("connection: ", connection)
-      console.log("req: ", req)
+      //console.log("connection: ", connection)
+      //console.log("req: ", req)
       return await createContext(req.headers["cookie"], res);
     },
-    debug: true, // TODO FIXME
+    //debug: true, // TODO FIXME
     plugins: [{
       async serverWillStart() {
         return {
@@ -105,11 +103,11 @@ async function startApolloServer() {
         };
       }
     }],
-    formatError: (err) => {
+    /*formatError: (err) => {
       console.log(err);
       console.log((err as any).extensions.exception)
       return err;
-    },
+    },*/
     /*subscriptions: {
       onConnect: async (params, websocket, context) => {
         console.log("context: ", context)
