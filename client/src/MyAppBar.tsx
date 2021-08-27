@@ -14,7 +14,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
 import { faUsers } from "@fortawesome/free-solid-svg-icons/faUsers";
 import { faCircle } from "@fortawesome/free-regular-svg-icons/faCircle";
 import { faEdit } from "@fortawesome/free-regular-svg-icons/faEdit";
-import { Menu, MenuItem } from "@material-ui/core";
+import { Menu, MenuItem, Theme } from "@material-ui/core";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { Suspense } from "react";
 import Skeleton from "@material-ui/core/Skeleton";
@@ -27,7 +27,7 @@ import { AuthContext } from "./AuthContext";
 import { MyAppBarQuery } from "./__generated__/MyAppBarQuery.graphql";
 import graphql from 'babel-plugin-relay/macro';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grow: {
       flexGrow: 1,
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) =>
 function AccountButton() {
   const { resetEnvironment } = useContext(AuthContext);
 
-  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
+  const [isPending, startTransition] = useTransition();
 
   const navigate = useNavigate();
 
@@ -68,7 +68,6 @@ function AccountButton() {
           <IconButton
             color="inherit"
             aria-controls="simple-menu"
-            aria-haspopup="true"
             {...bindTrigger(popupState)}
           >
             <FontAwesomeIcon icon={faUser} />
@@ -84,7 +83,7 @@ function AccountButton() {
           </IconButton>
           <Menu
             {...bindMenu(popupState)}
-            getContentAnchorEl={null}
+            anchorEl={null}
             anchorOrigin={{
               vertical: "bottom",
               horizontal: "center",
@@ -121,7 +120,7 @@ function AccountButton() {
             >
               <LoadingButton
                 disableElevation
-                pending={isLogoutPending || isPending}
+                loading={isLogoutPending || isPending}
                 onClick={() => 1}
               >
                 <Typography variant="button" noWrap>
@@ -185,7 +184,7 @@ export function MyAppBar() {
                     variant="contained"
                     color="primary"
                     disableElevation
-                    pending={isUsersPending}
+                    loading={isUsersPending}
                     onClick={() => {
                       startUsersTransition(() => {
                         navigate("/users");
@@ -210,7 +209,7 @@ export function MyAppBar() {
                     variant="contained"
                     color="primary"
                     disableElevation
-                    pending={isRunnersPending}
+                    loading={isRunnersPending}
                     onClick={() => {
                       startRunnersTransition(() => {
                         navigate("/runners");
@@ -238,7 +237,7 @@ export function MyAppBar() {
                     variant="contained"
                     color="primary"
                     disableElevation
-                    pending={isRunnersByClassPending}
+                    loading={isRunnersByClassPending}
                     onClick={() => {
                       startRunnersByClassTransition(() => {
                         navigate("/by-class-runners");
@@ -263,7 +262,7 @@ export function MyAppBar() {
                     variant="contained"
                     color="primary"
                     disableElevation
-                    pending={isRoundsPending}
+                    loading={isRoundsPending}
                     onClick={() => {
                       startRoundsTransition(() => {
                         navigate("/rounds");
@@ -288,7 +287,7 @@ export function MyAppBar() {
                     variant="contained"
                     color="primary"
                     disableElevation
-                    pending={isUserRoundsPending}
+                    loading={isUserRoundsPending}
                     onClick={() => {
                       startUserRoundsTransition(() => {
                         navigate("/user-rounds");

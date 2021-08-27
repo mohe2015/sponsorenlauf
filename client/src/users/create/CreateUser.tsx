@@ -320,7 +320,7 @@ export function CreateUser() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            pending={isCreateOneUserPending || isUpdateUserPending || isPending}
+            loading={isCreateOneUserPending || isUpdateUserPending || isPending}
           >
             Nutzer {id ? "bearbeiten" : "hinzufügen"}
           </LoadingButton>

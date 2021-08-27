@@ -355,7 +355,7 @@ export function CreateRunner() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            pending={
+            loading={
               IsCreateRunnerPending || isUpdateRunnerPending || isPending
             }
           >

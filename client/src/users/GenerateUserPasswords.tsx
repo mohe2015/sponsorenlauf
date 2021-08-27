@@ -50,7 +50,7 @@ mutation GenerateUserPasswordsMutation {
   );
 
   return (
-        <LoadingButton disableElevation pending={isGeneratePasswordsPending} onClick={onSubmit}>
+        <LoadingButton disableElevation loading={isGeneratePasswordsPending} onClick={onSubmit}>
             <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPlus} />
             <Typography variant="button" noWrap>
                 <Box component="span" ml={1}>

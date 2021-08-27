@@ -62,7 +62,7 @@ export function RunnersList() {
     <Container maxWidth="md">
       <LoadingButton
         disableElevation
-        pending={isPending}
+        loading={isPending}
         onClick={createRunner}
       >
         <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPlus} />

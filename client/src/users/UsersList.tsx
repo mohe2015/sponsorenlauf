@@ -40,7 +40,7 @@ export function UsersList() {
 
   return (
     <Container maxWidth="md">
-      <LoadingButton disableElevation pending={isPending} onClick={createUser}>
+      <LoadingButton disableElevation loading={isPending} onClick={createUser}>
         <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPlus} />
         <Typography variant="button" noWrap>
           <Box component="span" ml={1}>

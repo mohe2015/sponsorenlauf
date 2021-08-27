@@ -98,7 +98,7 @@ export function Login(props: LoginProps) {
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
-  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500 });
+  const [isPending, startTransition] = useTransition();
 
   const onSubmit = useCallback(
     (event) => {
@@ -215,7 +215,7 @@ export function Login(props: LoginProps) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            pending={isLoginPending || isPending}
+            loading={isLoginPending || isPending}
           >
             Anmelden
           </LoadingButton>

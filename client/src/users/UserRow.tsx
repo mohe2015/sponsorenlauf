@@ -169,7 +169,7 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
         <ControlledTooltip title="Bearbeiten">
           <LoadingButton
             disableElevation
-            pending={isPending}
+            loading={isPending}
             onClick={updateUserCallback}
           >
             <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPen} />
@@ -188,7 +188,7 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
         <ControlledTooltip title="Löschen">
           <LoadingButton
             disableElevation
-            pending={isDeleteUserPending}
+            loading={isDeleteUserPending}
             onClick={deleteUserCallback}
           >
             <FontAwesomeIcon style={{ fontSize: 24 }} icon={faTrash} />

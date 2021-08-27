@@ -223,7 +223,7 @@ export function CreateRound() {
             color="primary"
             size="large"
             className={classes.submit}
-            pending={isCreateOneRoundPending}
+            loading={isCreateOneRoundPending}
           >
             +
           </LoadingButton>

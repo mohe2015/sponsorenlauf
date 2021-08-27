@@ -44,7 +44,7 @@ export function UserRoundsListComponent({
           <TableCell component="th" scope="row" colSpan={4}>
             <LoadingButton
               fullWidth={true}
-              pending={isLoadingNext || isPending}
+              loading={isLoadingNext || isPending}
               variant="contained"
               color="primary"
               onClick={() => {

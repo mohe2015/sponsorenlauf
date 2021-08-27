@@ -44,7 +44,7 @@ export function RunnersListComponent({
             <TableCell component="th" scope="row" colSpan={6}>
               <LoadingButton
                 fullWidth={true}
-                pending={isLoadingNext || isPending}
+                loading={isLoadingNext || isPending}
                 variant="contained"
                 color="primary"
                 onClick={() => {

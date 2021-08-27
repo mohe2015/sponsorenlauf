@@ -21,9 +21,9 @@ Maybe https://github.com/relay-tools/react-relay-network-modern
 
 https://relay.dev/docs/next/api-reference/use-subscription/#internaldocs-banner
 
-
+https://github.com/reactwg/react-18/discussions/9
 ```bash
-npm install --save react-relay@experimental react@experimental react-dom@experimental @material-ui/core@next @material-ui/system@next @material-ui/lab@next react-router-dom@next
+npm install --save --force react-relay@experimental react@alpha react-dom@alpha @material-ui/core@next @material-ui/system@next @material-ui/lab@next @material-ui/styles@next react-router-dom@next
 ```
 
 # Getting Started with Create React App

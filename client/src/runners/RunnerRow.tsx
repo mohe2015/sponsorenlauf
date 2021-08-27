@@ -182,7 +182,7 @@ export function RunnerRow({ runner }: { runner: RunnerRow_runner$key }) {
         <ControlledTooltip title="Bearbeiten">
           <LoadingButton
             disableElevation
-            pending={isPending}
+            loading={isPending}
             onClick={updateRunnerCallback}
           >
             <FontAwesomeIcon style={{ fontSize: 24 }} icon={faPen} />
@@ -201,7 +201,7 @@ export function RunnerRow({ runner }: { runner: RunnerRow_runner$key }) {
         <ControlledTooltip title="Löschen">
           <LoadingButton
             disableElevation
-            pending={isDeleteRunnerPending}
+            loading={isDeleteRunnerPending}
             onClick={deleteRunnerCallback}
           >
             <FontAwesomeIcon style={{ fontSize: 24 }} icon={faTrash} />

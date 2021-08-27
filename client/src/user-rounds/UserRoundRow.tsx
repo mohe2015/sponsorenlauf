@@ -148,7 +148,7 @@ export function UserRoundRow({ round }: { round: UserRoundRow_round$key }) {
         <ControlledTooltip title="Löschen">
           <LoadingButton
             disableElevation
-            pending={isDeleteRoundPending}
+            loading={isDeleteRoundPending}
             onClick={deleteRoundCallback}
           >
             <FontAwesomeIcon style={{ fontSize: 24 }} icon={faTrash} />
