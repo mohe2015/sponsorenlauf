@@ -9,6 +9,10 @@ import cookieParser from 'cookie-parser';
 import cookie from 'cookie'
 import express from 'express';
 import http from 'http'
+import { createServer } from 'http';
+import { execute, subscribe } from 'graphql';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 
 let nextCleanupCheck = new Date();
 
@@ -16,20 +20,6 @@ const db = new PrismaClient({
   log: ['query', 'info', 'warn'],
 });
 const pubsub = new PubSub();
-
-let myplugin: ApolloServerPlugin = {
-  requestDidStart: ({ request }) => {
-    console.log(request.query)
-    console.log(request.variables)
-
-    return {
-      willSendResponse: async (requestContext) => {
-        //console.log(requestContext.response);
-        //console.log(requestContext.errors)
-      },
-    }
-  },
-}
 
 async function createContext(cookies: string | undefined, response: e.Response<any>): Promise<Context> {
   console.log("context")
@@ -89,6 +79,8 @@ async function startApolloServer() {
   const PORT = 4000;
 
   const app = express();
+  const httpServer = createServer(app);
+
   app.use(cookieParser());
 
   const server = new ApolloServer({
@@ -104,39 +96,56 @@ async function startApolloServer() {
       return await createContext(req.headers["cookie"], res);
     },
     debug: true, // TODO FIXME
-    plugins: [
-      myplugin 
-    ],
+    plugins: [{
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            subscriptionServer.close();
+          }
+        };
+      }
+    }],
     formatError: (err) => {
       console.log(err);
       console.log((err as any).extensions.exception)
       return err;
     },
-    subscriptions: {
+    /*subscriptions: {
       onConnect: async (params, websocket, context) => {
         console.log("context: ", context)
         return await createContext(context.request.headers["cookie"], undefined)
       }
-    }
+    }*/
   })
+
+  const subscriptionServer = SubscriptionServer.create({
+    // This is the `schema` we just created.
+    schema,
+    // These are imported from `graphql`.
+    execute,
+    subscribe,
+ }, {
+    // This is the `httpServer` we created in a previous step.
+    server: httpServer,
+    // This `server` is the instance returned from `new ApolloServer`.
+    path: server.graphqlPath,
+ });
+
   await server.start()
 
   server.applyMiddleware({app, cors: {
     credentials: true,
     methods: "POST",
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://studio.apollographql.com"],
     maxAge: 86400, // 24 hours, max for Firefox
   }})
 
   server.applyMiddleware({ app });
-
-  const httpServer = http.createServer(app);
-  server.installSubscriptionHandlers(httpServer);
-
+  
   await new Promise<void>(resolve => httpServer.listen(PORT, resolve));
 
   console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
-  console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`);
+  console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.graphqlPath}`);
 }
 
 startApolloServer();
