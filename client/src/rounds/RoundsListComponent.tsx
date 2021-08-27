@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { usePaginationFragment, useSubscription } from "react-relay/hooks";
 import { RoundRow } from "./RoundRow";
-import { unstable_useTransition as useTransition } from "react";
+import { useTransition } from "react";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";

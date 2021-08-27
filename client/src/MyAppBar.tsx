@@ -18,7 +18,7 @@ import { Menu, MenuItem } from "@material-ui/core";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { Suspense } from "react";
 import Skeleton from "@material-ui/core/Skeleton";
-import { unstable_useTransition as useTransition } from "react";
+import { useTransition } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import { LoadingContext } from "./LoadingContext";

@@ -3,7 +3,7 @@ import { useMutation } from "react-relay/hooks";
 import {
   useState,
   useCallback,
-  unstable_useTransition as useTransition,
+  useTransition,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";

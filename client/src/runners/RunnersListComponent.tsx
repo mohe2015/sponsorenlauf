@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 import { RunnerRow } from "./RunnerRow";
-import { unstable_useTransition as useTransition } from "react";
+import { useTransition } from "react";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";

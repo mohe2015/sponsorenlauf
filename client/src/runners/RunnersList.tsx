@@ -16,7 +16,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import { LoadingContext } from "../LoadingContext";
 import { useNavigate } from "react-router-dom";
-import { unstable_useTransition as useTransition } from "react";
+import { useTransition } from "react";
 import { useCallback } from "react";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 
