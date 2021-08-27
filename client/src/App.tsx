@@ -8,7 +8,7 @@ import { RunnersList } from "./runners/RunnersList";
 import { RoundsList } from "./rounds/RoundsList";
 import { UserRoundsList } from "./user-rounds/UserRoundsList";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Routes, Route/*, useLocationPending*/ } from "react-router-dom";
 import { CreateUserContainer } from "./users/create/CreateUser";
 import { CreateRunnerContainer } from "./runners/create/CreateRunner";
@@ -36,7 +36,7 @@ function App() {
 
   const theme = React.useMemo(
       () =>
-        createMuiTheme({
+        createTheme({
           palette: {
             
           },

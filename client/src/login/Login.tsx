@@ -12,7 +12,7 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import Container from "@material-ui/core/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
@@ -25,6 +25,7 @@ import { AuthorizationErrorBoundaryState } from "../AuthorizationErrorBoundary";
 import { Location } from "history";
 import { LocationStateType } from "../utils";
 import graphql from 'babel-plugin-relay/macro';
+import { Theme } from "@material-ui/core";
 
 function Copyright() {
   return (
@@ -39,7 +40,7 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
