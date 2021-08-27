@@ -8,6 +8,8 @@ export type AuthorizationErrorBoundaryState = {
   id: number;
 };
 
+// maybe it's possible to use a redirect for login errors?
+
 export class AuthorizationErrorBoundary extends React.Component<
   { children: ReactNode },
   AuthorizationErrorBoundaryState
@@ -24,6 +26,7 @@ export class AuthorizationErrorBoundary extends React.Component<
     this.setState((prevState) => {
       return { error, id: prevState.id + 1 };
     });
+    
   }
 
   errorToElement = (
@@ -68,19 +71,8 @@ export class AuthorizationErrorBoundary extends React.Component<
     );
   };
 
-  _relogin = () => {
-    console.log("_relogin");
-
-    document.cookie =
-      "logged-in=; sameSite=strict; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    this.setState((prevState) => {
-      return { error: null, id: prevState.id + 1 };
-    });
-  };
-
   _retry = () => {
     console.log("_retry");
-
     this.setState((prevState) => {
       return { error: null, id: prevState.id + 1 };
     });

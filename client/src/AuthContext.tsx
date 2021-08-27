@@ -1,8 +1,9 @@
-import React, { useContext, ReactNode } from "react";
+import React from "react";
 import { createEnvironment } from "./RelayEnvironment";
-import { RelayEnvironmentProvider } from "react-relay/hooks";
 import RelayModernEnvironment from "relay-runtime/lib/store/RelayModernEnvironment";
 import RelayQueryResponseCache from "relay-runtime/lib/network/RelayQueryResponseCache";
+
+// this is mostly needed because the RelayEnvironmentProvider doesn't allow to imperatively change the environment
 
 type AuthContextProps = {
   relay: {
@@ -29,12 +30,3 @@ export const useAuthContext = () => {
     resetEnvironment,
   };
 };
-
-export function RelayEnvironmentWrapper({ children }: { children: ReactNode }) {
-  const { relay } = useContext(AuthContext);
-  return (
-    <RelayEnvironmentProvider environment={relay.environment}>
-      {children}
-    </RelayEnvironmentProvider>
-  );
-}

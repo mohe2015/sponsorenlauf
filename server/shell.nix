@@ -1,13 +1,11 @@
 { pkgs ? import <nixpkgs> {} }:
 with pkgs;
-let
-  prisma-engines = (callPackage ./prisma-engines.nix {});
-in
 mkShell {
     buildInputs = [
-        nodejs-15_x
+        nodejs-16_x
         prisma-engines
         nodePackages.npm-check-updates
+        nodePackages.prisma
     ];
     shellHook = ''
         export PRISMA_MIGRATION_ENGINE_BINARY=${prisma-engines}/bin/migration-engine

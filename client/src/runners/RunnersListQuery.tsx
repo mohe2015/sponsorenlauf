@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useLazyLoadQuery } from "react-relay/hooks";
 import { RunnersListComponent } from "./RunnersListComponent";
 import { RunnersListQueryListQuery } from "../__generated__/RunnersListQueryListQuery.graphql";
@@ -31,5 +31,8 @@ export function RunnersListQuery({
     }
   );
 
-  return <RunnersListComponent runners={data} />;
+  return  <Suspense fallback={"test"}>
+            <RunnersListComponent runners={data} />
+          </Suspense>
+  ;
 }

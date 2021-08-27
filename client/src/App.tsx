@@ -17,12 +17,14 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import {
   AuthContext,
   useAuthContext,
-  RelayEnvironmentWrapper,
-} from "./RelayEnvironmentProviderWrapper";
+} from "./AuthContext";
 import Snackbar from "@material-ui/core/Snackbar";
 import { ClassRunnersList } from "./runners-by-class/ClassRunnersList";
 import { Countdown } from "./countdown/Countdown";
 import { ConfirmProvider } from "material-ui-confirm";
+import { RelayEnvironmentProvider } from "react-relay/hooks";
+import { BrowserRouter as Router } from "react-router-dom";
+import { AuthorizationErrorBoundary } from "./AuthorizationErrorBoundary";
 
 // authorizationerrorboundary
 // which passes state update function down to login children
@@ -43,8 +45,10 @@ function App() {
     );
 
   return (
+<React.StrictMode>
+  <Router>
     <AuthContext.Provider value={auth}>
-      <RelayEnvironmentWrapper>
+      <RelayEnvironmentProvider environment={auth.relay.environment}>
         <ThemeProvider theme={theme}>
           <ConfirmProvider>
             <CssBaseline />
@@ -56,7 +60,7 @@ function App() {
             />
 
             <Routes>
-              <ProtectedRoute path="*" element={<MyAppBar />}>
+              <ProtectedRoute path="*" element={<AuthorizationErrorBoundary><MyAppBar /></AuthorizationErrorBoundary>}>
                 <Route path="/" element={<Home />} />
                 <Route path="/users">
                   <Route path="/create" element={<CreateUserContainer />} />
@@ -82,8 +86,10 @@ function App() {
             </Routes>
             </ConfirmProvider>
         </ThemeProvider>
-      </RelayEnvironmentWrapper>
+      </RelayEnvironmentProvider>
     </AuthContext.Provider>
+    </Router>
+  </React.StrictMode>
   );
 }
 

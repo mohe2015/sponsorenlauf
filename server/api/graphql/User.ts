@@ -1,5 +1,6 @@
 import { objectType, enumType, unionType, inputObjectType } from 'nexus'
 import { Context } from '../context';
+import { isUserWithRole } from '../permissions';
 
 export const UserRole = enumType({
   name: "UserRole",
@@ -10,14 +11,22 @@ export const UserRole = enumType({
 export const User = objectType({
   name: "User",
   definition(t) {
-    t.nonNull.id("id");
-    t.nonNull.string("name");
-    t.nonNull.string("password");
+    t.nonNull.id("id", {
+      authorize: () => true
+    });
+    t.nonNull.string("name", {
+      authorize: isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
+    });
+    t.nonNull.string("password", {
+      authorize: isUserWithRole(["ADMIN"]),
+    });
     t.nonNull.field('role', {
-      type: 'UserRole'
+      type: 'UserRole',
+      authorize: isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
     })
     t.nonNull.list.nonNull.field('createdRounds', {
       type: 'Round',
+      authorize: isUserWithRole(["ADMIN", "TEACHER", "VIEWER"]),
       resolve: (parent, _, context: Context) => {
         return context.db.user.findUnique({
           where: { id: parent.id }

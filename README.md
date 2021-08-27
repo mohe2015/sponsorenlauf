@@ -7,13 +7,13 @@ Currently the mysql option `default_time_zone = '+00:00'` is needed.
 
 ```bash
 cd server
-yarn install
-yarn run dev # keep it running
+npm install
+npm run dev # keep it running
 
 cd client
-yarn install
-yarn run relay # keep it running
-yarn run start # keep it running
+npm install
+npm run relay # keep it running
+npm run start # keep it running
 ```
 
 # Security

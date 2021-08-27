@@ -1,3 +1,5 @@
+TODO FIXME https://github.com/graphql-nexus/nexus/pull/372
+https://github.com/graphql-nexus/nexus/issues/358
 
 TODO FIXME add permissions again
 
@@ -40,8 +42,8 @@ npm install
 npx prisma migrate dev --name init
 
 
-npx ts-node --transpile-only src/schema.ts
-npx ts-node-dev --no-notify --respawn --transpile-only api/app.ts
+npx ts-node --transpile-only api/schema.ts
+npx ts-node-dev --no-notify --respawn --transpile-only api/server.ts
 
 
 ```sql

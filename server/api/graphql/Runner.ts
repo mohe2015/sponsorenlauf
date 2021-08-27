@@ -1,18 +1,30 @@
 import { objectType, inputObjectType, unionType } from 'nexus'
 import { Context } from '../context';
+import { isUserWithRole } from '../permissions';
 import { Node } from "./Node";
 
 export const Runner = objectType({
   name: "Runner",
   definition(t) {
     t.implements(Node);
-    t.nonNull.id("id");
-    t.nonNull.int("startNumber");
-    t.nonNull.string("name");
-    t.nonNull.string("clazz");
-    t.nonNull.int("grade");
+    t.nonNull.id("id", {
+      authorize: isUserWithRole(["ADMIN"]),
+    });
+    t.nonNull.int("startNumber", {
+      authorize: isUserWithRole(["ADMIN"]),
+    });
+    t.nonNull.string("name", {
+      authorize: isUserWithRole(["ADMIN"]),
+    });
+    t.nonNull.string("clazz", {
+      authorize: isUserWithRole(["ADMIN"]),
+    });
+    t.nonNull.int("grade", {
+      authorize: isUserWithRole(["ADMIN"]),
+    });
     t.nonNull.list.nonNull.field('rounds', {
       type: 'Round',
+      authorize: isUserWithRole(["ADMIN"]),
       resolve: (parent, _, context: Context) => {
         return context.db.runner.findUnique({
           where: { id: parent.id }

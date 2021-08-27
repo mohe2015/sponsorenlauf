@@ -19,7 +19,7 @@ import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import Alert from "@material-ui/lab/Alert";
 import { useNavigate, useLocation } from "react-router-dom";
-import { AuthContext } from "../RelayEnvironmentProviderWrapper";
+import { AuthContext } from "../AuthContext";
 import { LoginMutation } from "../__generated__/LoginMutation.graphql";
 import { AuthorizationErrorBoundaryState } from "../AuthorizationErrorBoundary";
 import { Location } from "history";
