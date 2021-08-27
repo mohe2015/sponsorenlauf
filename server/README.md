@@ -43,7 +43,7 @@ npx prisma migrate dev --name init
 
 
 npx ts-node --transpile-only api/schema.ts
-npx ts-node-dev --no-notify --respawn --transpile-only api/app.ts
+npx ts-node-dev --no-notify --respawn --transpile-only api/server.ts
 
 
 ```sql
