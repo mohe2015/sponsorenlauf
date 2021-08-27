@@ -5,6 +5,7 @@ mkShell {
         nodejs-16_x
         prisma-engines
         nodePackages.npm-check-updates
+        nodePackages.prisma
     ];
     shellHook = ''
         export PRISMA_MIGRATION_ENGINE_BINARY=${prisma-engines}/bin/migration-engine
