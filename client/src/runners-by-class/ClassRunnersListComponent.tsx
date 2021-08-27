@@ -10,10 +10,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import { makeStyles } from "@material-ui/core";
+import { Theme } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import graphql from 'babel-plugin-relay/macro';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   center_header: {
     textAlign: "center",
     margin: 0,

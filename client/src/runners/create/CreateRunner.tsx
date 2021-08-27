@@ -9,7 +9,6 @@ import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
@@ -26,8 +25,10 @@ import { CreateRunnerMutation } from "../../__generated__/CreateRunnerMutation.g
 import { ConnectionHandler } from "relay-runtime";
 import { UseMutationConfig } from "react-relay";
 import graphql from 'babel-plugin-relay/macro';
+import { makeStyles } from "@material-ui/styles";
+import { Theme } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
@@ -162,7 +163,7 @@ export function CreateRunner() {
   const [clazzError] = useState<string | null>(null);
   const [gradeError, setGradeError] = useState<string | null>(null);
 
-  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
+  const [isPending, startTransition] = useTransition();
 
   const onSubmit = useCallback(
     (event) => {

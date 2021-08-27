@@ -67,7 +67,7 @@ export function LoadingUserRow() {
 }
 
 export function UserRow({ user }: { user: UserRow_user$key }) {
-  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
+  const [isPending, startTransition, ] = useTransition();
 
   const data = useFragment(
     graphql`

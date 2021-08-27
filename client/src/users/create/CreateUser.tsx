@@ -9,7 +9,7 @@ import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import Container from "@material-ui/core/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
@@ -31,8 +31,9 @@ import { UserRole } from "../../__generated__/UserRow_user.graphql";
 import { CreateUserCreateMutation } from "../../__generated__/CreateUserCreateMutation.graphql";
 import { ConnectionHandler } from "relay-runtime";
 import graphql from 'babel-plugin-relay/macro';
+import { Theme } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
@@ -150,7 +151,7 @@ export function CreateUser() {
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [roleError, setRoleError] = useState<string | null>(null);
 
-  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500 });
+  const [isPending, startTransition, ] = useTransition();
 
   const onSubmit = useCallback(
     (event) => {

@@ -29,7 +29,7 @@ export function RunnersList() {
   //const classes = useStyles();
   const loading = useContext(LoadingContext);
   const navigate = useNavigate();
-  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
+  const [isPending, startTransition] = useTransition();
 
   const createRunner = useCallback(
     (event) => {

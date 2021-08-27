@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { createStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -27,13 +28,11 @@ import { AuthContext } from "./AuthContext";
 import { MyAppBarQuery } from "./__generated__/MyAppBarQuery.graphql";
 import graphql from 'babel-plugin-relay/macro';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles({
     grow: {
       flexGrow: 1,
     },
-  })
-);
+  });
 
 function AccountButton() {
   const { resetEnvironment } = useContext(AuthContext);
@@ -151,22 +150,14 @@ function LoadingAccountButton() {
 }
 
 export function MyAppBar() {
-  const [startUsersTransition, isUsersPending] = useTransition({
-    busyDelayMs: 1000, busyMinDurationMs: 1500 
-  });
-  const [startRunnersTransition, isRunnersPending] = useTransition({
-    busyDelayMs: 1000, busyMinDurationMs: 1500 
-  });
+  const [isUsersPending, startUsersTransition, ] = useTransition();
+  const [isRunnersPending, startRunnersTransition, ] = useTransition();
   const [
-    startRunnersByClassTransition,
     isRunnersByClassPending,
-  ] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
-  const [startRoundsTransition, isRoundsPending] = useTransition({
-    busyDelayMs: 1000, busyMinDurationMs: 1500 
-  });
-  const [startUserRoundsTransition, isUserRoundsPending] = useTransition({
-    busyDelayMs: 1000, busyMinDurationMs: 1500 
-  });
+    startRunnersByClassTransition,
+  ] = useTransition();
+  const [isRoundsPending, startRoundsTransition, ] = useTransition();
+  const [isUserRoundsPending, startUserRoundsTransition, ] = useTransition();
   const classes = useStyles();
   const navigate = useNavigate();
 

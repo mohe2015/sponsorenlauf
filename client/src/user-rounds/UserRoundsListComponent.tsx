@@ -13,7 +13,7 @@ export function UserRoundsListComponent({
 }: {
   rounds: UserRoundsListComponent_round$key;
 }) {
-  const [startTransition, isPending] = useTransition({ busyDelayMs: 1000, busyMinDurationMs: 1500  });
+  const [isPending, startTransition, ] = useTransition();
 
   const { data, hasNext, loadNext, isLoadingNext } = usePaginationFragment(
     graphql`

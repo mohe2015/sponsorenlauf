@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { useMutation } from "react-relay/hooks";
 import { useState, useCallback } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import LoadingButton from "@material-ui/lab/LoadingButton";
 import Alert from "@material-ui/lab/Alert";
 import { useLocation } from "react-router-dom";
@@ -17,8 +17,9 @@ import { CreateRoundMutation } from "../../__generated__/CreateRoundMutation.gra
 import { LocationStateType } from "../../utils";
 import { Location } from "history";
 import graphql from 'babel-plugin-relay/macro';
+import { Theme } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
