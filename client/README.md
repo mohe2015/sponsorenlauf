@@ -23,7 +23,7 @@ https://relay.dev/docs/next/api-reference/use-subscription/#internaldocs-banner
 
 
 ```bash
-npm install --save react-relay@experimental react@experimental react-dom@experimental @material-ui/core@next @material-ui/system@next @material-ui/lab@next react-router-dom@experimental
+npm install --save react-relay@experimental react@experimental react-dom@experimental @material-ui/core@next @material-ui/system@next @material-ui/lab@next react-router-dom@next
 ```
 
 # Getting Started with Create React App

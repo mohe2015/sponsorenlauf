@@ -9,7 +9,7 @@ import { RoundsList } from "./rounds/RoundsList";
 import { UserRoundsList } from "./user-rounds/UserRoundsList";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { Routes, Route, useLocationPending } from "react-router-dom";
+import { Routes, Route/*, useLocationPending*/ } from "react-router-dom";
 import { CreateUserContainer } from "./users/create/CreateUser";
 import { CreateRunnerContainer } from "./runners/create/CreateRunner";
 import { NotFound } from "./NotFound";
@@ -32,7 +32,7 @@ import { AuthorizationErrorBoundary } from "./AuthorizationErrorBoundary";
 
 function App() {
   let auth = useAuthContext();
-  let pendingLocation = useLocationPending();
+  //let pendingLocation = useLocationPending();
 
   const theme = React.useMemo(
       () =>
@@ -44,6 +44,14 @@ function App() {
       [],
     );
 
+    /*
+    <Snackbar
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              open={pendingLocation}
+              message="Wird geladen..."
+            />
+    */
+
   return (
 <React.StrictMode>
   <Router>
@@ -52,13 +60,6 @@ function App() {
         <ThemeProvider theme={theme}>
           <ConfirmProvider>
             <CssBaseline />
-
-            <Snackbar
-              anchorOrigin={{ vertical: "top", horizontal: "center" }}
-              open={pendingLocation}
-              message="Wird geladen..."
-            />
-
             <Routes>
               <ProtectedRoute path="*" element={<AuthorizationErrorBoundary><MyAppBar /></AuthorizationErrorBoundary>}>
                 <Route path="/" element={<Home />} />
