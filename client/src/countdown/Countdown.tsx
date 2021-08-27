@@ -4,22 +4,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Box,
   createStyles,
-  makeStyles,
   Theme,
   Typography,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import { faStopwatch } from "@fortawesome/free-solid-svg-icons/faStopwatch";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles({
     wrapper: {
       textAlign: "center",
     },
     contentdiv: {
       display: "inline-block",
     },
-  })
-);
+})
 
 export function Countdown() {
   const classes = useStyles();
