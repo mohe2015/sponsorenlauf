@@ -12,7 +12,7 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "@graphql-tools/schema": "^8.1.2",
-    "@prisma/client": "^2.30.0",
+    "@prisma/client": "^2.30.2",
     "apollo-server": "^3.3.0",
     "apollo-server-errors": "^3.1.0",
     "apollo-server-express": "^3.3.0",
