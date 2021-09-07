@@ -8,14 +8,14 @@ import {
 import { makeStyles } from "@mui/styles";
 import { faStopwatch } from "@fortawesome/free-solid-svg-icons/faStopwatch";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     wrapper: {
       textAlign: "center",
     },
     contentdiv: {
       display: "inline-block",
     },
-})
+}))
 
 export function Countdown() {
   const classes = useStyles();

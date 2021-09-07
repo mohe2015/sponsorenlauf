@@ -26,11 +26,11 @@ import { AuthContext } from "./AuthContext";
 import { MyAppBarQuery } from "./__generated__/MyAppBarQuery.graphql";
 import graphql from 'babel-plugin-relay/macro';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     grow: {
       flexGrow: 1,
     },
-  });
+  }));
   
 
 function AccountButton() {
