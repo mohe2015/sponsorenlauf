@@ -24,14 +24,13 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { useMutation, useLazyLoadQuery } from "react-relay/hooks";
 import { AuthContext } from "./AuthContext";
 import { MyAppBarQuery } from "./__generated__/MyAppBarQuery.graphql";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 
 const useStyles = makeStyles((theme) => ({
-    grow: {
-      flexGrow: 1,
-    },
-  }));
-  
+  grow: {
+    flexGrow: 1,
+  },
+}));
 
 function AccountButton() {
   const { resetEnvironment } = useContext(AuthContext);
@@ -149,165 +148,160 @@ function LoadingAccountButton() {
 }
 
 export function MyAppBar() {
-  const [isUsersPending, startUsersTransition, ] = useTransition();
-  const [isRunnersPending, startRunnersTransition, ] = useTransition();
-  const [
-    isRunnersByClassPending,
-    startRunnersByClassTransition,
-  ] = useTransition();
-  const [isRoundsPending, startRoundsTransition, ] = useTransition();
-  const [isUserRoundsPending, startUserRoundsTransition, ] = useTransition();
+  const [isUsersPending, startUsersTransition] = useTransition();
+  const [isRunnersPending, startRunnersTransition] = useTransition();
+  const [isRunnersByClassPending, startRunnersByClassTransition] =
+    useTransition();
+  const [isRoundsPending, startRoundsTransition] = useTransition();
+  const [isUserRoundsPending, startUserRoundsTransition] = useTransition();
   const classes = useStyles();
   const navigate = useNavigate();
 
   return (
     <>
-        <Box displayPrint="none">
-          <AppBar position="static">
-            <Toolbar>
-              <Typography variant="h6" noWrap className={classes.grow}>
-                Sponsorenlauf
-              </Typography>
-              <div>
-                <ControlledTooltip title="Nutzer">
-                  <LoadingButton
-                    variant="contained"
-                    color="primary"
-                    disableElevation
-                    loading={isUsersPending}
-                    onClick={() => {
-                      startUsersTransition(() => {
-                        navigate("/users");
-                      });
-                    }}
-                  >
-                    <FontAwesomeIcon style={{ fontSize: 24 }} icon={faUsers} />
-                    <Typography variant="button" noWrap>
-                      <Box
-                        ml={1}
-                        component="span"
-                        display={{ md: "none", lg: "block" }}
-                      >
-                        Nutzer
-                      </Box>
-                    </Typography>
-                  </LoadingButton>
-                </ControlledTooltip>
+      <Box displayPrint="none">
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" noWrap className={classes.grow}>
+              Sponsorenlauf
+            </Typography>
+            <div>
+              <ControlledTooltip title="Nutzer">
+                <LoadingButton
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  loading={isUsersPending}
+                  onClick={() => {
+                    startUsersTransition(() => {
+                      navigate("/users");
+                    });
+                  }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: 24 }} icon={faUsers} />
+                  <Typography variant="button" noWrap>
+                    <Box
+                      ml={1}
+                      component="span"
+                      display={{ md: "none", lg: "block" }}
+                    >
+                      Nutzer
+                    </Box>
+                  </Typography>
+                </LoadingButton>
+              </ControlledTooltip>
 
-                <ControlledTooltip title="Läufer">
-                  <LoadingButton
-                    variant="contained"
-                    color="primary"
-                    disableElevation
-                    loading={isRunnersPending}
-                    onClick={() => {
-                      startRunnersTransition(() => {
-                        navigate("/runners");
-                      });
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      style={{ fontSize: 24 }}
-                      icon={faRunning}
-                    />
-                    <Typography variant="button" noWrap>
-                      <Box
-                        ml={1}
-                        component="span"
-                        display={{ md: "none", lg: "block" }}
-                      >
-                        Läufer
-                      </Box>
-                    </Typography>
-                  </LoadingButton>
-                </ControlledTooltip>
+              <ControlledTooltip title="Läufer">
+                <LoadingButton
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  loading={isRunnersPending}
+                  onClick={() => {
+                    startRunnersTransition(() => {
+                      navigate("/runners");
+                    });
+                  }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: 24 }} icon={faRunning} />
+                  <Typography variant="button" noWrap>
+                    <Box
+                      ml={1}
+                      component="span"
+                      display={{ md: "none", lg: "block" }}
+                    >
+                      Läufer
+                    </Box>
+                  </Typography>
+                </LoadingButton>
+              </ControlledTooltip>
 
-                <ControlledTooltip title="Läuferliste">
-                  <LoadingButton
-                    variant="contained"
-                    color="primary"
-                    disableElevation
-                    loading={isRunnersByClassPending}
-                    onClick={() => {
-                      startRunnersByClassTransition(() => {
-                        navigate("/by-class-runners");
-                      });
-                    }}
-                  >
-                    <FontAwesomeIcon style={{ fontSize: 24 }} icon={faList} />
-                    <Typography variant="button" noWrap>
-                      <Box
-                        ml={1}
-                        component="span"
-                        display={{ md: "none", lg: "block" }}
-                      >
-                        Läuferliste
-                      </Box>
-                    </Typography>
-                  </LoadingButton>
-                </ControlledTooltip>
+              <ControlledTooltip title="Läuferliste">
+                <LoadingButton
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  loading={isRunnersByClassPending}
+                  onClick={() => {
+                    startRunnersByClassTransition(() => {
+                      navigate("/by-class-runners");
+                    });
+                  }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: 24 }} icon={faList} />
+                  <Typography variant="button" noWrap>
+                    <Box
+                      ml={1}
+                      component="span"
+                      display={{ md: "none", lg: "block" }}
+                    >
+                      Läuferliste
+                    </Box>
+                  </Typography>
+                </LoadingButton>
+              </ControlledTooltip>
 
-                <ControlledTooltip title="Runden">
-                  <LoadingButton
-                    variant="contained"
-                    color="primary"
-                    disableElevation
-                    loading={isRoundsPending}
-                    onClick={() => {
-                      startRoundsTransition(() => {
-                        navigate("/rounds");
-                      });
-                    }}
-                  >
-                    <FontAwesomeIcon style={{ fontSize: 24 }} icon={faCircle} />
-                    <Typography variant="button" noWrap>
-                      <Box
-                        ml={1}
-                        component="span"
-                        display={{ md: "none", lg: "block" }}
-                      >
-                        Runden
-                      </Box>
-                    </Typography>
-                  </LoadingButton>
-                </ControlledTooltip>
+              <ControlledTooltip title="Runden">
+                <LoadingButton
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  loading={isRoundsPending}
+                  onClick={() => {
+                    startRoundsTransition(() => {
+                      navigate("/rounds");
+                    });
+                  }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: 24 }} icon={faCircle} />
+                  <Typography variant="button" noWrap>
+                    <Box
+                      ml={1}
+                      component="span"
+                      display={{ md: "none", lg: "block" }}
+                    >
+                      Runden
+                    </Box>
+                  </Typography>
+                </LoadingButton>
+              </ControlledTooltip>
 
-                <ControlledTooltip title="Rundenzählung">
-                  <LoadingButton
-                    variant="contained"
-                    color="primary"
-                    disableElevation
-                    loading={isUserRoundsPending}
-                    onClick={() => {
-                      startUserRoundsTransition(() => {
-                        navigate("/user-rounds");
-                      });
-                    }}
-                  >
-                    <FontAwesomeIcon style={{ fontSize: 24 }} icon={faEdit} />
-                    <Typography variant="button" noWrap>
-                      <Box
-                        ml={1}
-                        component="span"
-                        display={{ md: "none", lg: "block" }}
-                      >
-                        Rundenzählung
-                      </Box>
-                    </Typography>
-                  </LoadingButton>
-                </ControlledTooltip>
+              <ControlledTooltip title="Rundenzählung">
+                <LoadingButton
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  loading={isUserRoundsPending}
+                  onClick={() => {
+                    startUserRoundsTransition(() => {
+                      navigate("/user-rounds");
+                    });
+                  }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: 24 }} icon={faEdit} />
+                  <Typography variant="button" noWrap>
+                    <Box
+                      ml={1}
+                      component="span"
+                      display={{ md: "none", lg: "block" }}
+                    >
+                      Rundenzählung
+                    </Box>
+                  </Typography>
+                </LoadingButton>
+              </ControlledTooltip>
 
-                <Suspense fallback={<LoadingAccountButton />}>
-                  <AccountButton />
-                </Suspense>
-              </div>
-            </Toolbar>
-          </AppBar>
-        </Box>
+              <Suspense fallback={<LoadingAccountButton />}>
+                <AccountButton />
+              </Suspense>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </Box>
 
-        <Suspense fallback={"Loading..."}>
-          <Outlet />
-        </Suspense>
+      <Suspense fallback={"Loading..."}>
+        <Outlet />
+      </Suspense>
     </>
   );
 }

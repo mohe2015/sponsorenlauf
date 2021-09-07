@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
 import { useMutation } from "react-relay/hooks";
-import {
-  useState,
-  useCallback,
-  useTransition,
-} from "react";
+import { useState, useCallback, useTransition } from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -24,27 +20,27 @@ import { Location } from "history";
 import { CreateRunnerMutation } from "../../__generated__/CreateRunnerMutation.graphql";
 import { ConnectionHandler } from "relay-runtime";
 import { UseMutationConfig } from "react-relay";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 import { makeStyles } from "@mui/styles";
 import { Theme } from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
-    marginTop: '8px',
+    marginTop: "8px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   avatar: {
-    margin: '1px',
+    margin: "1px",
     //backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: '1px',
+    marginTop: "1px",
   },
   submit: {
-    margin: '3px 0px 2px',
+    margin: "3px 0px 2px",
   },
 }));
 
@@ -87,73 +83,67 @@ export function CreateRunner() {
     }
   );
 
-  const [runner_create, IsCreateRunnerPending] = useMutation<
-    CreateRunnerMutation
-  >(graphql`
-    mutation CreateRunnerMutation(
-      $name: String!
-      $clazz: String!
-      $grade: Int!
-    ) {
-      createOneRunner(data: { name: $name, clazz: $clazz, grade: $grade }) {
-        __typename
-        ... on RunnerMutationOutput {
-          edge {
-            cursor
-            node {
-              id
-              startNumber
-              name
-              clazz
-              grade
-            }
-          }
-        }
-        ... on RunnerMutationError {
-          nameError
-          gradeError
-        }
-      }
-    }
-  `);
-
-  const [updateRunner, isUpdateRunnerPending] = useMutation<
-    CreateRunnerUpdateMutation
-  >(graphql`
-    mutation CreateRunnerUpdateMutation(
-      $id: ID!
-      $name: String!
-      $clazz: String!
-      $grade: Int!
-    ) {
-      updateOneRunner(
-        where: { id: $id }
-        data: {
-          name: $name
-          clazz: $clazz
-          grade: $grade
-        }
+  const [runner_create, IsCreateRunnerPending] =
+    useMutation<CreateRunnerMutation>(graphql`
+      mutation CreateRunnerMutation(
+        $name: String!
+        $clazz: String!
+        $grade: Int!
       ) {
-        __typename
-        ... on RunnerMutationOutput {
-          edge {
-            cursor
-            node {
-              id
-              startNumber
-              name
-              clazz
-              grade
+        createOneRunner(data: { name: $name, clazz: $clazz, grade: $grade }) {
+          __typename
+          ... on RunnerMutationOutput {
+            edge {
+              cursor
+              node {
+                id
+                startNumber
+                name
+                clazz
+                grade
+              }
             }
           }
-        }
-        ... on RunnerMutationError {
-          nameError
-          gradeError
+          ... on RunnerMutationError {
+            nameError
+            gradeError
+          }
         }
       }
-    }
-  `);
+    `);
+
+  const [updateRunner, isUpdateRunnerPending] =
+    useMutation<CreateRunnerUpdateMutation>(graphql`
+      mutation CreateRunnerUpdateMutation(
+        $id: ID!
+        $name: String!
+        $clazz: String!
+        $grade: Int!
+      ) {
+        updateOneRunner(
+          where: { id: $id }
+          data: { name: $name, clazz: $clazz, grade: $grade }
+        ) {
+          __typename
+          ... on RunnerMutationOutput {
+            edge {
+              cursor
+              node {
+                id
+                startNumber
+                name
+                clazz
+                grade
+              }
+            }
+          }
+          ... on RunnerMutationError {
+            nameError
+            gradeError
+          }
+        }
+      }
+    `);
 
   const [name, setName] = useState(id ? data.runner?.name : "");
   const [clazz, setClazz] = useState(id ? data.runner?.clazz : "");

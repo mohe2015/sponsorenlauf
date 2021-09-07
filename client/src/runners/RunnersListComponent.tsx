@@ -5,7 +5,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { RunnersListComponent_runner$key } from "../__generated__/RunnersListComponent_runner.graphql";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 
 export function RunnersListComponent({
   runners,
@@ -19,7 +19,7 @@ export function RunnersListComponent({
       fragment RunnersListComponent_runner on Query
       @refetchable(queryName: "RunnersListPaginationQuery") {
         runners(first: $count, after: $cursor, orderBy: $orderBy)
-        @connection(key: "RunnersList_runner_runners") {
+          @connection(key: "RunnersList_runner_runners") {
           edges {
             node {
               id
@@ -34,29 +34,29 @@ export function RunnersListComponent({
 
   return (
     <>
-        {(data.runners?.edges ?? []).map((edge) => {
-          const node = edge!.node;
-          return <RunnerRow key={node.id} runner={node} />;
-        })}
-        {hasNext ? (
-          <TableRow>
-            <TableCell component="th" scope="row" colSpan={6}>
-              <LoadingButton
-                fullWidth={true}
-                loading={isLoadingNext || isPending}
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  startTransition(() => {
-                    loadNext(25);
-                  });
-                }}
-              >
-                Mehr anzeigen
-              </LoadingButton>
-            </TableCell>
-          </TableRow>
-        ) : null}
+      {(data.runners?.edges ?? []).map((edge) => {
+        const node = edge!.node;
+        return <RunnerRow key={node.id} runner={node} />;
+      })}
+      {hasNext ? (
+        <TableRow>
+          <TableCell component="th" scope="row" colSpan={6}>
+            <LoadingButton
+              fullWidth={true}
+              loading={isLoadingNext || isPending}
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                startTransition(() => {
+                  loadNext(25);
+                });
+              }}
+            >
+              Mehr anzeigen
+            </LoadingButton>
+          </TableCell>
+        </TableRow>
+      ) : null}
     </>
   );
 }

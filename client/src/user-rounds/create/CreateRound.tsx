@@ -16,16 +16,16 @@ import { RecordSourceSelectorProxy, ConnectionHandler } from "relay-runtime";
 import { CreateRoundMutation } from "../../__generated__/CreateRoundMutation.graphql";
 import { LocationStateType } from "../../utils";
 import { Location } from "history";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 import { Theme } from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: '1px',
+    marginTop: "1px",
   },
   submit: {
-    margin: '3px 0px 0px',
+    margin: "3px 0px 0px",
   },
 }));
 
@@ -58,29 +58,26 @@ export function CreateRound() {
   const classes = useStyles();
   const location = useLocation() as Location<LocationStateType | null>;
 
-  const [createOneRound, isCreateOneRoundPending] = useMutation<
-    CreateRoundMutation
-  >(graphql`
-    mutation CreateRoundMutation($startNumber: Int!) {
-      createOneRound(
-        data: { studentStartNumber: $startNumber }
-      ) {
-        __typename
-        ... on CreateRoundMutationOutput {
-          edge {
-            cursor
-            node {
-              id
-              ...UserRoundRow_round
+  const [createOneRound, isCreateOneRoundPending] =
+    useMutation<CreateRoundMutation>(graphql`
+      mutation CreateRoundMutation($startNumber: Int!) {
+        createOneRound(data: { studentStartNumber: $startNumber }) {
+          __typename
+          ... on CreateRoundMutationOutput {
+            edge {
+              cursor
+              node {
+                id
+                ...UserRoundRow_round
+              }
             }
           }
-        }
-        ... on CreateRoundMutationError {
-          startNumberError
+          ... on CreateRoundMutationError {
+            startNumberError
+          }
         }
       }
-    }
-  `);
+    `);
 
   const [startNumber, setStartNumber] = useState<number | null>(null);
   const [startNumberError, setStartNumberError] = useState<string | null>(null);

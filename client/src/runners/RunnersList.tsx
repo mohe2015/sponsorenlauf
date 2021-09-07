@@ -21,8 +21,8 @@ import { useCallback } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 //const useStyles = makeStyles({
-  // TODO fix #20379.
-  //span: visuallyHidden as CSSProperties,
+// TODO fix #20379.
+//span: visuallyHidden as CSSProperties,
 //});
 
 export function RunnersList() {
@@ -52,11 +52,11 @@ export function RunnersList() {
     setOrderBy(property);
   };
 
-  const createSortHandler = (property: string) => (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    handleRequestSort(event, property);
-  };
+  const createSortHandler =
+    (property: string) =>
+    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      handleRequestSort(event, property);
+    };
 
   return (
     <Container maxWidth="md">

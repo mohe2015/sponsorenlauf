@@ -1,6 +1,6 @@
-import { createRoot } from 'react-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { createRoot } from "react-dom";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 createRoot(document.getElementById("root")!).render(<App />);
 

@@ -14,7 +14,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { UserRoundRow_round$key } from "../__generated__/UserRoundRow_round.graphql";
 import { ConnectionHandler } from "relay-runtime";
 import { UserRoundRowDeleteRoundMutation } from "../__generated__/UserRoundRowDeleteRoundMutation.graphql";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 
 export function LoadingRoundRow() {
   return (
@@ -69,15 +69,14 @@ export function UserRoundRow({ round }: { round: UserRoundRow_round$key }) {
   );
 
   const confirm = useConfirm();
-  const [deleteRound, isDeleteRoundPending] = useMutation<
-    UserRoundRowDeleteRoundMutation
-  >(graphql`
-    mutation UserRoundRowDeleteRoundMutation($id: ID!) {
-      deleteOneRound(where: { id: $id }) {
-        id
+  const [deleteRound, isDeleteRoundPending] =
+    useMutation<UserRoundRowDeleteRoundMutation>(graphql`
+      mutation UserRoundRowDeleteRoundMutation($id: ID!) {
+        deleteOneRound(where: { id: $id }) {
+          id
+        }
       }
-    }
-  `);
+    `);
 
   const deleteRoundCallback = useCallback(
     (event) => {

@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { useLazyLoadQuery } from "react-relay/hooks";
 import { RunnersListComponent } from "./RunnersListComponent";
 import { RunnersListQueryListQuery } from "../__generated__/RunnersListQueryListQuery.graphql";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 
 export function RunnersListQuery({
   orderByInput,
@@ -31,8 +31,9 @@ export function RunnersListQuery({
     }
   );
 
-  return  <Suspense fallback={"test"}>
-            <RunnersListComponent runners={data} />
-          </Suspense>
-  ;
+  return (
+    <Suspense fallback={"test"}>
+      <RunnersListComponent runners={data} />
+    </Suspense>
+  );
 }

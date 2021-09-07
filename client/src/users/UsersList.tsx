@@ -35,8 +35,9 @@ export function UsersList() {
     },
     [navigate, startTransition]
   );
-  
-  const [generatedPasswordsData, setGeneratedPasswordsData] = useState<UsersListPasswordsComponent_user$key | null>(null);
+
+  const [generatedPasswordsData, setGeneratedPasswordsData] =
+    useState<UsersListPasswordsComponent_user$key | null>(null);
 
   return (
     <Container maxWidth="md">
@@ -48,7 +49,9 @@ export function UsersList() {
           </Box>
         </Typography>
       </LoadingButton>
-      <GenerateUserPasswords setGeneratedPasswordsData={setGeneratedPasswordsData} />
+      <GenerateUserPasswords
+        setGeneratedPasswordsData={setGeneratedPasswordsData}
+      />
       <TableContainer component={Paper}>
         <Table aria-label="table of users">
           <TableHead>
@@ -62,7 +65,9 @@ export function UsersList() {
           <TableBody>
             {loading ? (
               [...Array(25)].map((e, i) => <LoadingUserRow key={i} />)
-            ) : (generatedPasswordsData ? <UsersListPasswordsComponent users={generatedPasswordsData} /> :
+            ) : generatedPasswordsData ? (
+              <UsersListPasswordsComponent users={generatedPasswordsData} />
+            ) : (
               <UsersListQuery />
             )}
           </TableBody>

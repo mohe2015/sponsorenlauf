@@ -26,7 +26,6 @@ export class AuthorizationErrorBoundary extends React.Component<
     this.setState((prevState) => {
       return { error, id: prevState.id + 1 };
     });
-    
   }
 
   errorToElement = (

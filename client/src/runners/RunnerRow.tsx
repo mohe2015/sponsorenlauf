@@ -17,7 +17,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { RunnerRow_runner$key } from "../__generated__/RunnerRow_runner.graphql";
 import { RunnerRowDeleteRunnerMutation } from "../__generated__/RunnerRowDeleteRunnerMutation.graphql";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 
 export function LoadingRunnerRow() {
   return (
@@ -73,7 +73,7 @@ export function LoadingRunnerRow() {
 }
 
 export function RunnerRow({ runner }: { runner: RunnerRow_runner$key }) {
-  const [isPending, startTransition, ] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const data = useFragment<RunnerRow_runner$key>(
     graphql`
@@ -90,15 +90,14 @@ export function RunnerRow({ runner }: { runner: RunnerRow_runner$key }) {
   );
 
   const confirm = useConfirm();
-  const [deleteRunner, isDeleteRunnerPending] = useMutation<
-    RunnerRowDeleteRunnerMutation
-  >(graphql`
-    mutation RunnerRowDeleteRunnerMutation($id: ID!) {
-      deleteOneRunner(where: { id: $id }) {
-        id
+  const [deleteRunner, isDeleteRunnerPending] =
+    useMutation<RunnerRowDeleteRunnerMutation>(graphql`
+      mutation RunnerRowDeleteRunnerMutation($id: ID!) {
+        deleteOneRunner(where: { id: $id }) {
+          id
+        }
       }
-    }
-  `);
+    `);
 
   const deleteRunnerCallback = useCallback(
     (event) => {

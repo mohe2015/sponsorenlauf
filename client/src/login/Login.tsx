@@ -1,10 +1,6 @@
 import { useContext } from "react";
 import { useMutation } from "react-relay/hooks";
-import {
-  useState,
-  useCallback,
-  useTransition,
-} from "react";
+import { useState, useCallback, useTransition } from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -24,7 +20,7 @@ import { LoginMutation } from "../__generated__/LoginMutation.graphql";
 import { AuthorizationErrorBoundaryState } from "../AuthorizationErrorBoundary";
 import { Location } from "history";
 import { LocationStateType } from "../utils";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 import { Theme } from "@mui/material";
 
 function Copyright() {
@@ -42,21 +38,21 @@ function Copyright() {
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
-    marginTop: '8px',
+    marginTop: "8px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   avatar: {
-    margin: '1px',
+    margin: "1px",
     //backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: '1px',
+    marginTop: "1px",
   },
   submit: {
-    margin: '3px 0px 1px',
+    margin: "3px 0px 1px",
   },
 }));
 

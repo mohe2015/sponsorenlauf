@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
 import { useMutation } from "react-relay/hooks";
-import {
-  useState,
-  useCallback,
-  useTransition,
-} from "react";
+import { useState, useCallback, useTransition } from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -30,26 +26,26 @@ import { Location } from "history";
 import { UserRole } from "../../__generated__/UserRow_user.graphql";
 import { CreateUserCreateMutation } from "../../__generated__/CreateUserCreateMutation.graphql";
 import { ConnectionHandler } from "relay-runtime";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 import { Theme } from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
-    marginTop: '8px',
+    marginTop: "8px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   avatar: {
-    margin: '1px',
+    margin: "1px",
     //backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: '1px',
+    marginTop: "1px",
   },
   submit: {
-    margin: '3px 0px 2px',
+    margin: "3px 0px 2px",
   },
 }));
 
@@ -90,60 +86,58 @@ export function CreateUser() {
     }
   );
 
-  const [user_create, isCreateOneUserPending] = useMutation<
-    CreateUserCreateMutation
-  >(graphql`
-    mutation CreateUserCreateMutation($username: String!, $role: UserRole!) {
-      createOneUser(data: { name: $username, role: $role }) {
-        __typename
-        ... on UserMutationOutput {
-          edge {
-            cursor
-            node {
-              id
-              name
-              role
+  const [user_create, isCreateOneUserPending] =
+    useMutation<CreateUserCreateMutation>(graphql`
+      mutation CreateUserCreateMutation($username: String!, $role: UserRole!) {
+        createOneUser(data: { name: $username, role: $role }) {
+          __typename
+          ... on UserMutationOutput {
+            edge {
+              cursor
+              node {
+                id
+                name
+                role
+              }
             }
           }
-        }
-        ... on UserMutationError {
-          usernameError
-          roleError
+          ... on UserMutationError {
+            usernameError
+            roleError
+          }
         }
       }
-    }
-  `);
+    `);
 
-  const [updateUser, isUpdateUserPending] = useMutation<
-    CreateUserUpdateMutation
-  >(graphql`
-    mutation CreateUserUpdateMutation(
-      $id: ID!
-      $username: String!
-      $role: UserRole!
-    ) {
-      updateOneUser(
-        where: { id: $id }
-        data: { name: $username, role: $role }
+  const [updateUser, isUpdateUserPending] =
+    useMutation<CreateUserUpdateMutation>(graphql`
+      mutation CreateUserUpdateMutation(
+        $id: ID!
+        $username: String!
+        $role: UserRole!
       ) {
-        __typename
-        ... on UserMutationOutput {
-          edge {
-            cursor
-            node {
-              id
-              name
-              role
+        updateOneUser(
+          where: { id: $id }
+          data: { name: $username, role: $role }
+        ) {
+          __typename
+          ... on UserMutationOutput {
+            edge {
+              cursor
+              node {
+                id
+                name
+                role
+              }
             }
           }
-        }
-        ... on UserMutationError {
-          usernameError
-          roleError
+          ... on UserMutationError {
+            usernameError
+            roleError
+          }
         }
       }
-    }
-  `);
+    `);
 
   const [username, setUsername] = useState(id ? data.user?.name : "");
   const [role, setRole] = useState(id ? data.user?.role : "");
@@ -151,7 +145,7 @@ export function CreateUser() {
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [roleError, setRoleError] = useState<string | null>(null);
 
-  const [isPending, startTransition, ] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const onSubmit = useCallback(
     (event) => {
@@ -305,9 +299,7 @@ export function CreateUser() {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={role}
-              onChange={
-                (e) => setRole(e.target.value)
-              }
+              onChange={(e) => setRole(e.target.value)}
             >
               <MenuItem value={"ADMIN"}>Admin</MenuItem>
               <MenuItem value={"TEACHER"}>Rundenzähler</MenuItem>
