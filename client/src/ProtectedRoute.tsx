@@ -9,7 +9,7 @@ export const ProtectedRoute = ({
 }: { children: React.ReactNode } & RouteProps) => {
   if (document.cookie.split("; ").some((row) => row.startsWith("logged-in="))) {
     console.log("cookie there");
-    return <Suspense fallback={"Loading..."}><Route {...rest}>{children}</Route></Suspense>;
+    return <Route {...rest}>{children}</Route>;
   } else {
     console.log("cookie absent");
     return <Navigate to={{ pathname: "/login" }} />;
