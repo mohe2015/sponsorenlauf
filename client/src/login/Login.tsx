@@ -17,7 +17,7 @@ import Container from "@mui/material/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import LoadingButton from "@mui/lab/LoadingButton";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 import { LoginMutation } from "../__generated__/LoginMutation.graphql";

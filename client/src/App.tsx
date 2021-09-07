@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import "./App.css";
 import { Login } from "./login/Login";
 import { Home } from "./Home";
@@ -58,26 +58,26 @@ function App() {
             <CssBaseline />
             <Routes>
               <ProtectedRoute path="*" element={<AuthorizationErrorBoundary><MyAppBar /></AuthorizationErrorBoundary>}>
-                <Route path="/" element={<Home />} />
-                <Route path="/users">
-                  <Route path="/create" element={<CreateUserContainer />} />
-                  <Route path="/edit/:id" element={<CreateUserContainer />} />
-                  <Route path="*" element={<UsersList />} />
-                </Route>
-                <Route path="/runners">
-                  <Route path="/create" element={<CreateRunnerContainer />} />
-                  <Route path="/edit/:id" element={<CreateRunnerContainer />} />
-                  <Route path="*" element={<RunnersList />} />
-                </Route>
-                <Route path="/countdown" element={<Countdown />} />
-                <Route path="/by-class-runners" element={<ClassRunnersList />} />
-                <Route path="/rounds">
-                  <Route path="*" element={<RoundsList />} />
-                </Route>
-                <Route path="/user-rounds">
-                  <Route path="*" element={<UserRoundsList />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/users">
+                    <Route path="/create" element={<CreateUserContainer />} />
+                    <Route path="/edit/:id" element={<CreateUserContainer />} />
+                    <Route path="*" element={<UsersList />} />
+                  </Route>
+                  <Route path="/runners">
+                    <Route path="/create" element={<CreateRunnerContainer />} />
+                    <Route path="/edit/:id" element={<CreateRunnerContainer />} />
+                    <Route path="*" element={<RunnersList />} />
+                  </Route>
+                  <Route path="/countdown" element={<Countdown />} />
+                  <Route path="/by-class-runners" element={<ClassRunnersList />} />
+                  <Route path="/rounds">
+                    <Route path="*" element={<RoundsList />} />
+                  </Route>
+                  <Route path="/user-rounds">
+                    <Route path="*" element={<UserRoundsList />} />
+                  </Route>
+                  <Route path="*" element={<NotFound />} />
               </ProtectedRoute>
               <Route path="/login" element={<Login />} />
             </Routes>

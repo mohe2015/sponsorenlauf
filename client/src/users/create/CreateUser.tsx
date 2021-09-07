@@ -14,7 +14,7 @@ import Container from "@mui/material/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import LoadingButton from "@mui/lab/LoadingButton";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";

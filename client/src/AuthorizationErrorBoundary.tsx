@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import { Login } from "./login/Login";
 

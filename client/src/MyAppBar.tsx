@@ -305,7 +305,9 @@ export function MyAppBar() {
           </AppBar>
         </Box>
 
-        <Outlet />
+        <Suspense fallback={"Loading..."}>
+          <Outlet />
+        </Suspense>
     </>
   );
 }

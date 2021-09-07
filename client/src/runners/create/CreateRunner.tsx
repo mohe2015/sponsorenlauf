@@ -13,7 +13,7 @@ import Container from "@mui/material/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import LoadingButton from "@mui/lab/LoadingButton";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useLazyLoadQuery } from "react-relay/hooks";
 import { LoadingContext } from "../../LoadingContext";
