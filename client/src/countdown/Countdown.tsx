@@ -1,13 +1,13 @@
 import React from "react";
-import LoadingButton from "@material-ui/lab/LoadingButton";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Box,
   createStyles,
   Theme,
   Typography,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { faStopwatch } from "@fortawesome/free-solid-svg-icons/faStopwatch";
 
 const useStyles = makeStyles({

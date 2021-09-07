@@ -4,10 +4,10 @@ import {
   useCallback,
 } from "react";
 import { GenerateUserPasswordsMutation } from "../__generated__/GenerateUserPasswordsMutation.graphql";
-import LoadingButton from "@material-ui/lab/LoadingButton";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { UsersListPasswordsComponent_user$key } from "../__generated__/UsersListPasswordsComponent_user.graphql";
 import graphql from 'babel-plugin-relay/macro';

@@ -7,8 +7,8 @@ import { UsersList } from "./users/UsersList";
 import { RunnersList } from "./runners/RunnersList";
 import { RoundsList } from "./rounds/RoundsList";
 import { UserRoundsList } from "./user-rounds/UserRoundsList";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Routes, Route/*, useLocationPending*/ } from "react-router-dom";
 import { CreateUserContainer } from "./users/create/CreateUser";
 import { CreateRunnerContainer } from "./runners/create/CreateRunner";
@@ -18,7 +18,7 @@ import {
   AuthContext,
   useAuthContext,
 } from "./AuthContext";
-import Snackbar from "@material-ui/core/Snackbar";
+import Snackbar from "@mui/material/Snackbar";
 import { ClassRunnersList } from "./runners-by-class/ClassRunnersList";
 import { Countdown } from "./countdown/Countdown";
 import { ConfirmProvider } from "material-ui-confirm";

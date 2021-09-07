@@ -2,9 +2,9 @@ import React, { Suspense } from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 import { RunnerRow } from "./RunnerRow";
 import { useTransition } from "react";
-import LoadingButton from "@material-ui/lab/LoadingButton";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
+import LoadingButton from "@mui/lab/LoadingButton";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
 import { RunnersListComponent_runner$key } from "../__generated__/RunnersListComponent_runner.graphql";
 import graphql from 'babel-plugin-relay/macro';
 

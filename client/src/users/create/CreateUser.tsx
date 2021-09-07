@@ -5,22 +5,22 @@ import {
   useCallback,
   useTransition,
 } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
-import Container from "@material-ui/core/Container";
+import Avatar from "@mui/material/Avatar";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
+import Container from "@mui/material/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import LoadingButton from "@material-ui/lab/LoadingButton";
-import Alert from "@material-ui/lab/Alert";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Alert from "@mui/lab/Alert";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import FormHelperText from "@mui/material/FormHelperText";
 import { useLazyLoadQuery } from "react-relay/hooks";
 import { LoadingContext } from "../../LoadingContext";
 import { CreateUserFindUserQuery } from "../../__generated__/CreateUserFindUserQuery.graphql";
@@ -31,7 +31,7 @@ import { UserRole } from "../../__generated__/UserRow_user.graphql";
 import { CreateUserCreateMutation } from "../../__generated__/CreateUserCreateMutation.graphql";
 import { ConnectionHandler } from "relay-runtime";
 import graphql from 'babel-plugin-relay/macro';
-import { Theme } from "@material-ui/core";
+import { Theme } from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {

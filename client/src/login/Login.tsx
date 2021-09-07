@@ -5,19 +5,19 @@ import {
   useCallback,
   useTransition,
 } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
-import Container from "@material-ui/core/Container";
+import Avatar from "@mui/material/Avatar";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
+import Container from "@mui/material/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
-import LoadingButton from "@material-ui/lab/LoadingButton";
-import Alert from "@material-ui/lab/Alert";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Alert from "@mui/lab/Alert";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 import { LoginMutation } from "../__generated__/LoginMutation.graphql";
@@ -25,7 +25,7 @@ import { AuthorizationErrorBoundaryState } from "../AuthorizationErrorBoundary";
 import { Location } from "history";
 import { LocationStateType } from "../utils";
 import graphql from 'babel-plugin-relay/macro';
-import { Theme } from "@material-ui/core";
+import { Theme } from "@mui/material";
 
 function Copyright() {
   return (

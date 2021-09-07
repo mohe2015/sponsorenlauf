@@ -5,15 +5,15 @@ import {
   useCallback,
   useTransition,
 } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
+import Avatar from "@mui/material/Avatar";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import LoadingButton from "@material-ui/lab/LoadingButton";
-import Alert from "@material-ui/lab/Alert";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Alert from "@mui/lab/Alert";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useLazyLoadQuery } from "react-relay/hooks";
 import { LoadingContext } from "../../LoadingContext";
@@ -25,8 +25,8 @@ import { CreateRunnerMutation } from "../../__generated__/CreateRunnerMutation.g
 import { ConnectionHandler } from "relay-runtime";
 import { UseMutationConfig } from "react-relay";
 import graphql from 'babel-plugin-relay/macro';
-import { makeStyles } from "@material-ui/styles";
-import { Theme } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
+import { Theme } from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
