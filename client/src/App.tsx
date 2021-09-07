@@ -31,7 +31,6 @@ import { AuthorizationErrorBoundary } from "./AuthorizationErrorBoundary";
 
 const theme = createTheme();
 
-
 declare module '@mui/styles' {
   interface DefaultTheme extends Theme {}
 }

@@ -22,10 +22,10 @@ import { Theme } from "@mui/material";
 const useStyles = makeStyles((theme: Theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: '1px',
   },
   submit: {
-    margin: theme.spacing(3, 0, 0),
+    margin: '3px 0px 0px',
   },
 }));
 

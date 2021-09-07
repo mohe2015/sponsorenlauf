@@ -5,7 +5,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
 import { faStopwatch } from "@fortawesome/free-solid-svg-icons/faStopwatch";
 
 const useStyles = makeStyles((theme) => ({

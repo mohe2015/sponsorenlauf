@@ -35,21 +35,21 @@ import { Theme } from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: '8px',
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    margin: '1px',
+    //backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: '1px',
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: '3px 0px 2px',
   },
 }));
 
