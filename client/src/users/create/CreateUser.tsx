@@ -75,14 +75,14 @@ export function CreateUser() {
         }
       }
     `,
-    { id },
+    { id: id || '' },
     {
       fetchPolicy: "store-or-network",
       networkCacheConfig: {
         force: false,
       },
       // @ts-expect-error
-      skip: id === null,
+      skip: true
     }
   );
 
