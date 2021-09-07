@@ -8,7 +8,7 @@ import { RunnersList } from "./runners/RunnersList";
 import { RoundsList } from "./rounds/RoundsList";
 import { UserRoundsList } from "./user-rounds/UserRoundsList";
 import CssBaseline from "@mui/material/CssBaseline";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
 import { Routes, Route/*, useLocationPending*/ } from "react-router-dom";
 import { CreateUserContainer } from "./users/create/CreateUser";
 import { CreateRunnerContainer } from "./runners/create/CreateRunner";
@@ -30,6 +30,12 @@ import { AuthorizationErrorBoundary } from "./AuthorizationErrorBoundary";
 // login can then update the error state
 
 const theme = createTheme();
+
+
+declare module '@mui/styles' {
+  interface DefaultTheme extends Theme {}
+}
+
 
 function App() {
   let auth = useAuthContext();

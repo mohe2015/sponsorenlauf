@@ -31,6 +31,7 @@ const useStyles = makeStyles({
       flexGrow: 1,
     },
   });
+  
 
 function AccountButton() {
   const { resetEnvironment } = useContext(AuthContext);
