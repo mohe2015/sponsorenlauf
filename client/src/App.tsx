@@ -18,7 +18,6 @@ import {
   AuthContext,
   useAuthContext,
 } from "./AuthContext";
-import Snackbar from "@mui/material/Snackbar";
 import { ClassRunnersList } from "./runners-by-class/ClassRunnersList";
 import { Countdown } from "./countdown/Countdown";
 import { ConfirmProvider } from "material-ui-confirm";
@@ -30,19 +29,11 @@ import { AuthorizationErrorBoundary } from "./AuthorizationErrorBoundary";
 // which passes state update function down to login children
 // login can then update the error state
 
+const theme = createTheme();
+
 function App() {
   let auth = useAuthContext();
   //let pendingLocation = useLocationPending();
-
-  const theme = React.useMemo(
-      () =>
-        createTheme({
-          palette: {
-            
-          },
-        }),
-      [],
-    );
 
     /*
     <Snackbar
@@ -55,9 +46,9 @@ function App() {
   return (
 <React.StrictMode>
   <Router>
+  <ThemeProvider theme={theme}>
     <AuthContext.Provider value={auth}>
       <RelayEnvironmentProvider environment={auth.relay.environment}>
-        <ThemeProvider theme={theme}>
           <ConfirmProvider>
             <CssBaseline />
             <Routes>
@@ -86,9 +77,9 @@ function App() {
               <Route path="/login" element={<Login />} />
             </Routes>
             </ConfirmProvider>
-        </ThemeProvider>
       </RelayEnvironmentProvider>
     </AuthContext.Provider>
+    </ThemeProvider>
     </Router>
   </React.StrictMode>
   );

@@ -3,8 +3,6 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Box,
-  createStyles,
-  Theme,
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";

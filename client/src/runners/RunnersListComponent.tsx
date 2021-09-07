@@ -1,4 +1,3 @@
-import React, { Suspense } from "react";
 import { usePaginationFragment } from "react-relay/hooks";
 import { RunnerRow } from "./RunnerRow";
 import { useTransition } from "react";
