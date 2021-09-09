@@ -24,7 +24,7 @@ https://relay.dev/docs/next/api-reference/use-subscription/#internaldocs-banner
 https://github.com/reactwg/react-18/discussions/9
 
 ```bash
-npm install --save --force react-relay@experimental react@alpha react-dom@alpha @material-ui/core@next @material-ui/system@next @material-ui/lab@next @material-ui/styles@next react-router-dom@next
+npm install --no-optional
 ```
 
 # Getting Started with Create React App
