@@ -1,12 +1,12 @@
 import React from "react";
 import { useFragment } from "react-relay/hooks";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import graphql from 'babel-plugin-relay/macro';
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import graphql from "babel-plugin-relay/macro";
 import { ClassRunnerRow_runner$key } from "../__generated__/ClassRunnerRow_runner.graphql";
 
 export function ClassRunnerRow({
-  runner
+  runner,
 }: {
   runner: ClassRunnerRow_runner$key;
 }) {

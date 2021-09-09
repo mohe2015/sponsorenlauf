@@ -1,7 +1,7 @@
 import React from "react";
-import Tooltip from "@material-ui/core/Tooltip";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
+import Tooltip from "@mui/material/Tooltip";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export default function ControlledTooltip(props: {
   title: string;

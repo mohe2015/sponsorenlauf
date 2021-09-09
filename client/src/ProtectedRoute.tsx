@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Route, Navigate } from "react-router-dom";
 import { RouteProps } from "react-router";
+import { LoadingRoundRow } from "./rounds/RoundRow";
 
 export const ProtectedRoute = ({
   children,

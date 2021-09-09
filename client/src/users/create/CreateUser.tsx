@@ -1,26 +1,22 @@
 import React, { useContext } from "react";
 import { useMutation } from "react-relay/hooks";
-import {
-  useState,
-  useCallback,
-  useTransition,
-} from "react";
-import Avatar from "@material-ui/core/Avatar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
-import Container from "@material-ui/core/Container";
+import { useState, useCallback, useTransition } from "react";
+import Avatar from "@mui/material/Avatar";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
+import Container from "@mui/material/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import LoadingButton from "@material-ui/lab/LoadingButton";
-import Alert from "@material-ui/lab/Alert";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Alert from "@mui/material/Alert";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import FormHelperText from "@mui/material/FormHelperText";
 import { useLazyLoadQuery } from "react-relay/hooks";
 import { LoadingContext } from "../../LoadingContext";
 import { CreateUserFindUserQuery } from "../../__generated__/CreateUserFindUserQuery.graphql";
@@ -30,26 +26,26 @@ import { Location } from "history";
 import { UserRole } from "../../__generated__/UserRow_user.graphql";
 import { CreateUserCreateMutation } from "../../__generated__/CreateUserCreateMutation.graphql";
 import { ConnectionHandler } from "relay-runtime";
-import graphql from 'babel-plugin-relay/macro';
-import { Theme } from "@material-ui/core";
+import graphql from "babel-plugin-relay/macro";
+import { Theme } from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: "8px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    margin: "1px",
+    //backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: "1px",
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: "3px 0px 2px",
   },
 }));
 
@@ -79,71 +75,69 @@ export function CreateUser() {
         }
       }
     `,
-    { id },
+    { id: id || '' },
     {
       fetchPolicy: "store-or-network",
       networkCacheConfig: {
         force: false,
       },
       // @ts-expect-error
-      skip: id === null,
+      skip: true
     }
   );
 
-  const [user_create, isCreateOneUserPending] = useMutation<
-    CreateUserCreateMutation
-  >(graphql`
-    mutation CreateUserCreateMutation($username: String!, $role: UserRole!) {
-      createOneUser(data: { name: $username, role: $role }) {
-        __typename
-        ... on UserMutationOutput {
-          edge {
-            cursor
-            node {
-              id
-              name
-              role
+  const [user_create, isCreateOneUserPending] =
+    useMutation<CreateUserCreateMutation>(graphql`
+      mutation CreateUserCreateMutation($username: String!, $role: UserRole!) {
+        createOneUser(data: { name: $username, role: $role }) {
+          __typename
+          ... on UserMutationOutput {
+            edge {
+              cursor
+              node {
+                id
+                name
+                role
+              }
             }
           }
-        }
-        ... on UserMutationError {
-          usernameError
-          roleError
+          ... on UserMutationError {
+            usernameError
+            roleError
+          }
         }
       }
-    }
-  `);
+    `);
 
-  const [updateUser, isUpdateUserPending] = useMutation<
-    CreateUserUpdateMutation
-  >(graphql`
-    mutation CreateUserUpdateMutation(
-      $id: ID!
-      $username: String!
-      $role: UserRole!
-    ) {
-      updateOneUser(
-        where: { id: $id }
-        data: { name: $username, role: $role }
+  const [updateUser, isUpdateUserPending] =
+    useMutation<CreateUserUpdateMutation>(graphql`
+      mutation CreateUserUpdateMutation(
+        $id: ID!
+        $username: String!
+        $role: UserRole!
       ) {
-        __typename
-        ... on UserMutationOutput {
-          edge {
-            cursor
-            node {
-              id
-              name
-              role
+        updateOneUser(
+          where: { id: $id }
+          data: { name: $username, role: $role }
+        ) {
+          __typename
+          ... on UserMutationOutput {
+            edge {
+              cursor
+              node {
+                id
+                name
+                role
+              }
             }
           }
-        }
-        ... on UserMutationError {
-          usernameError
-          roleError
+          ... on UserMutationError {
+            usernameError
+            roleError
+          }
         }
       }
-    }
-  `);
+    `);
 
   const [username, setUsername] = useState(id ? data.user?.name : "");
   const [role, setRole] = useState(id ? data.user?.role : "");
@@ -151,7 +145,7 @@ export function CreateUser() {
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [roleError, setRoleError] = useState<string | null>(null);
 
-  const [isPending, startTransition, ] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const onSubmit = useCallback(
     (event) => {
@@ -305,9 +299,7 @@ export function CreateUser() {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={role}
-              onChange={
-                (e) => setRole(e.target.value)
-              }
+              onChange={(e) => setRole(e.target.value)}
             >
               <MenuItem value={"ADMIN"}>Admin</MenuItem>
               <MenuItem value={"TEACHER"}>Rundenzähler</MenuItem>

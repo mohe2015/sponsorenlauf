@@ -1,23 +1,18 @@
 import React from "react";
-import LoadingButton from "@material-ui/lab/LoadingButton";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Box,
-  createStyles,
-  Theme,
-  Typography,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { Box, Typography } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import { faStopwatch } from "@fortawesome/free-solid-svg-icons/faStopwatch";
 
-const useStyles = makeStyles({
-    wrapper: {
-      textAlign: "center",
-    },
-    contentdiv: {
-      display: "inline-block",
-    },
-})
+const useStyles = makeStyles((theme) => ({
+  wrapper: {
+    textAlign: "center",
+  },
+  contentdiv: {
+    display: "inline-block",
+  },
+}));
 
 export function Countdown() {
   const classes = useStyles();

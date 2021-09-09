@@ -1,23 +1,23 @@
 import React from "react";
 import { useFragment, useMutation } from "react-relay/hooks";
 import { useTransition } from "react";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
 import ControlledTooltip from "../ControlledTooltip";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import Skeleton from "@material-ui/core/Skeleton";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Skeleton from "@mui/material/Skeleton";
 import { useConfirm } from "material-ui-confirm";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons/faPen";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import LoadingButton from "@material-ui/lab/LoadingButton";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { UserRow_user$key } from "../__generated__/UserRow_user.graphql";
 import { ConnectionHandler } from "relay-runtime";
 import { UserRowDeleteUserMutation } from "../__generated__/UserRowDeleteUserMutation.graphql";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 
 export function LoadingUserRow() {
   return (
@@ -28,9 +28,7 @@ export function LoadingUserRow() {
       <TableCell>
         <Skeleton variant="text" />
       </TableCell>
-      <TableCell>
-        -
-      </TableCell>
+      <TableCell>-</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Bearbeiten">
           <LoadingButton disableElevation disabled={true}>
@@ -67,7 +65,7 @@ export function LoadingUserRow() {
 }
 
 export function UserRow({ user }: { user: UserRow_user$key }) {
-  const [isPending, startTransition, ] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const data = useFragment(
     graphql`
@@ -81,15 +79,14 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
     user
   );
   const confirm = useConfirm();
-  const [deleteUser, isDeleteUserPending] = useMutation<
-    UserRowDeleteUserMutation
-  >(graphql`
-    mutation UserRowDeleteUserMutation($id: ID!) {
-      deleteOneUser(where: { id: $id }) {
-        id
+  const [deleteUser, isDeleteUserPending] =
+    useMutation<UserRowDeleteUserMutation>(graphql`
+      mutation UserRowDeleteUserMutation($id: ID!) {
+        deleteOneUser(where: { id: $id }) {
+          id
+        }
       }
-    }
-  `);
+    `);
 
   const deleteUserCallback = useCallback(
     (event) => {
@@ -162,9 +159,7 @@ export function UserRow({ user }: { user: UserRow_user$key }) {
         {data.name}
       </TableCell>
       <TableCell>{data.role}</TableCell>
-      <TableCell>
-        {data.password}
-      </TableCell>
+      <TableCell>{data.password}</TableCell>
       <TableCell align="right">
         <ControlledTooltip title="Bearbeiten">
           <LoadingButton

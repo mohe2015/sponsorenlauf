@@ -2,13 +2,13 @@ import React, { useMemo } from "react";
 import { usePaginationFragment, useSubscription } from "react-relay/hooks";
 import { RoundRow } from "./RoundRow";
 import { useTransition } from "react";
-import LoadingButton from "@material-ui/lab/LoadingButton";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
+import LoadingButton from "@mui/lab/LoadingButton";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
 import { ConnectionHandler, GraphQLSubscriptionConfig } from "relay-runtime";
 import { RoundsListComponent_round$key } from "../__generated__/RoundsListComponent_round.graphql";
 import { RoundsListComponentSubscription } from "../__generated__/RoundsListComponentSubscription.graphql";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 
 export function RoundsListComponent({
   rounds,
@@ -22,7 +22,7 @@ export function RoundsListComponent({
       fragment RoundsListComponent_round on Query
       @refetchable(queryName: "RoundsListPaginationQuery") {
         rounds(first: $count, after: $cursor, orderBy: { id: desc })
-        @connection(key: "RoundsList_round_rounds") {
+          @connection(key: "RoundsList_round_rounds") {
           edges {
             node {
               id
@@ -34,68 +34,69 @@ export function RoundsListComponent({
     `,
     rounds
   );
-  const subscriptionConfig: GraphQLSubscriptionConfig<RoundsListComponentSubscription> = useMemo(
-    () => ({
-      subscription: graphql`
-        subscription RoundsListComponentSubscription {
-          subscribeRounds {
-            edge {
-              cursor
-              node {
-                id
-                ...RoundRow_round
+  const subscriptionConfig: GraphQLSubscriptionConfig<RoundsListComponentSubscription> =
+    useMemo(
+      () => ({
+        subscription: graphql`
+          subscription RoundsListComponentSubscription {
+            subscribeRounds {
+              edge {
+                cursor
+                node {
+                  id
+                  ...RoundRow_round
+                }
               }
             }
           }
-        }
-      `,
-      variables: {},
-      onCompleted: () => {
-        console.log("onCompleted");
-      },
-      onError: (error) => {
-        console.log("onError", error);
-      },
-      onNext: (response) => {
-        console.log("onNext", response);
-      },
-      updater: (store) => {
-        const connectionRecord = ConnectionHandler.getConnection(
-          store.getRoot(),
-          "RoundsList_round_rounds",
-          {
-            orderBy: { id: "desc" },
+        `,
+        variables: {},
+        onCompleted: () => {
+          console.log("onCompleted");
+        },
+        onError: (error) => {
+          console.log("onError", error);
+        },
+        onNext: (response) => {
+          console.log("onNext", response);
+        },
+        updater: (store) => {
+          const connectionRecord = ConnectionHandler.getConnection(
+            store.getRoot(),
+            "RoundsList_round_rounds",
+            {
+              orderBy: { id: "desc" },
+            }
+          );
+          if (!connectionRecord) {
+            return;
           }
-        );
-        if (!connectionRecord) {
-          return;
-        }
-        const payload = store.getRootField("subscribeRounds");
+          const payload = store.getRootField("subscribeRounds");
 
-        //const previousEdge = payload.getLinkedRecord('previous_edge');
-        const serverEdge = payload.getLinkedRecord("edge");
+          //const previousEdge = payload.getLinkedRecord('previous_edge');
+          const serverEdge = payload.getLinkedRecord("edge");
 
-        //const existingEdges = connectionRecord.getLinkedRecords("edges").map(e => e.getLinkedRecord("node").getValue("id"));
-        //if (existingEdges.includes(serverEdge.getLinkedRecord("node").getValue("id"))) {
-        //  console.log("node already in connection")
-        //  return;
-        //}
+          //const existingEdges = connectionRecord.getLinkedRecords("edges").map(e => e.getLinkedRecord("node").getValue("id"));
+          //if (existingEdges.includes(serverEdge.getLinkedRecord("node").getValue("id"))) {
+          //  console.log("node already in connection")
+          //  return;
+          //}
 
-        const newEdge = ConnectionHandler.buildConnectionEdge(
-          store,
-          connectionRecord,
-          serverEdge
-        )!;
+          const newEdge = ConnectionHandler.buildConnectionEdge(
+            store,
+            connectionRecord,
+            serverEdge
+          )!;
 
-        ConnectionHandler.insertEdgeBefore(
-          connectionRecord,
-          newEdge
-          //previousEdge
-        );
-      },
-    }),
-    []
-  );
+          ConnectionHandler.insertEdgeBefore(
+            connectionRecord,
+            newEdge
+            //previousEdge
+          );
+        },
+      }),
+      []
+    );
   useSubscription<RoundsListComponentSubscription>(subscriptionConfig);
 
   return (

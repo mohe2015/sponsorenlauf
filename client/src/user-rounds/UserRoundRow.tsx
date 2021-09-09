@@ -1,20 +1,20 @@
 import React from "react";
 import { useFragment, useMutation } from "react-relay/hooks";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
 import ControlledTooltip from "../ControlledTooltip";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import Skeleton from "@material-ui/core/Skeleton";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Skeleton from "@mui/material/Skeleton";
 import { useConfirm } from "material-ui-confirm";
 import { useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import LoadingButton from "@material-ui/lab/LoadingButton";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { UserRoundRow_round$key } from "../__generated__/UserRoundRow_round.graphql";
 import { ConnectionHandler } from "relay-runtime";
 import { UserRoundRowDeleteRoundMutation } from "../__generated__/UserRoundRowDeleteRoundMutation.graphql";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 
 export function LoadingRoundRow() {
   return (
@@ -69,15 +69,14 @@ export function UserRoundRow({ round }: { round: UserRoundRow_round$key }) {
   );
 
   const confirm = useConfirm();
-  const [deleteRound, isDeleteRoundPending] = useMutation<
-    UserRoundRowDeleteRoundMutation
-  >(graphql`
-    mutation UserRoundRowDeleteRoundMutation($id: ID!) {
-      deleteOneRound(where: { id: $id }) {
-        id
+  const [deleteRound, isDeleteRoundPending] =
+    useMutation<UserRoundRowDeleteRoundMutation>(graphql`
+      mutation UserRoundRowDeleteRoundMutation($id: ID!) {
+        deleteOneRound(where: { id: $id }) {
+          id
+        }
       }
-    }
-  `);
+    `);
 
   const deleteRoundCallback = useCallback(
     (event) => {

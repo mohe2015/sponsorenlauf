@@ -1,12 +1,12 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
-});
+}));
 
 export function NotFound() {
   const classes = useStyles();

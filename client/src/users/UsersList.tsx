@@ -1,23 +1,23 @@
 import React, { useContext, useState } from "react";
 import { UsersListQuery } from "./UsersListQuery";
 import { LoadingUserRow } from "./UserRow";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { LoadingContext } from "../LoadingContext";
 import { useNavigate } from "react-router-dom";
 import { useTransition } from "react";
 import { useCallback } from "react";
-import LoadingButton from "@material-ui/lab/LoadingButton";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { GenerateUserPasswords } from "./GenerateUserPasswords";
 import { UsersListPasswordsComponent_user$key } from "../__generated__/UsersListPasswordsComponent_user.graphql";
 import { UsersListPasswordsComponent } from "./UsersListPasswordsComponent";
@@ -35,8 +35,9 @@ export function UsersList() {
     },
     [navigate, startTransition]
   );
-  
-  const [generatedPasswordsData, setGeneratedPasswordsData] = useState<UsersListPasswordsComponent_user$key | null>(null);
+
+  const [generatedPasswordsData, setGeneratedPasswordsData] =
+    useState<UsersListPasswordsComponent_user$key | null>(null);
 
   return (
     <Container maxWidth="md">
@@ -48,7 +49,9 @@ export function UsersList() {
           </Box>
         </Typography>
       </LoadingButton>
-      <GenerateUserPasswords setGeneratedPasswordsData={setGeneratedPasswordsData} />
+      <GenerateUserPasswords
+        setGeneratedPasswordsData={setGeneratedPasswordsData}
+      />
       <TableContainer component={Paper}>
         <Table aria-label="table of users">
           <TableHead>
@@ -62,7 +65,9 @@ export function UsersList() {
           <TableBody>
             {loading ? (
               [...Array(25)].map((e, i) => <LoadingUserRow key={i} />)
-            ) : (generatedPasswordsData ? <UsersListPasswordsComponent users={generatedPasswordsData} /> :
+            ) : generatedPasswordsData ? (
+              <UsersListPasswordsComponent users={generatedPasswordsData} />
+            ) : (
               <UsersListQuery />
             )}
           </TableBody>

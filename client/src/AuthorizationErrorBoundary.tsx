@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import Alert from "@material-ui/lab/Alert";
-import Button from "@material-ui/core/Button";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
 import { Login } from "./login/Login";
 
 export type AuthorizationErrorBoundaryState = {
@@ -26,7 +26,6 @@ export class AuthorizationErrorBoundary extends React.Component<
     this.setState((prevState) => {
       return { error, id: prevState.id + 1 };
     });
-    
   }
 
   errorToElement = (

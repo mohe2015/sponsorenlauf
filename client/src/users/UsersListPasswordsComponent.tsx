@@ -2,7 +2,7 @@ import React from "react";
 import { useFragment } from "react-relay/hooks";
 import { UserRow } from "./UserRow";
 import { UsersListPasswordsComponent_user$key } from "../__generated__/UsersListPasswordsComponent_user.graphql";
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 
 export function UsersListPasswordsComponent({
   users,

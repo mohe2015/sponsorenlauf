@@ -3,5 +3,5 @@
 /// <reference types="react/next" />
 
 declare module "babel-plugin-relay/macro" {
-    export { graphql as default } from "react-relay";
-  }
+  export { graphql as default } from "react-relay";
+}

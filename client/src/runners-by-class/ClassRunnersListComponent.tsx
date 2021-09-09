@@ -2,19 +2,18 @@ import React from "react";
 import { useLazyLoadQuery } from "react-relay/hooks";
 import { ClassRunnerRow } from "./ClassRunnerRow";
 import { ClassRunnersListComponentRunnersByClassQuery } from "../__generated__/ClassRunnersListComponentRunnersByClassQuery.graphql";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import Container from "@material-ui/core/Container";
-import { Theme } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import graphql from 'babel-plugin-relay/macro';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Container from "@mui/material/Container";
+import makeStyles from "@mui/styles/makeStyles";
+import graphql from "babel-plugin-relay/macro";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   center_header: {
     textAlign: "center",
     margin: 0,
